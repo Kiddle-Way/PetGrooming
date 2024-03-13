@@ -1,3 +1,4 @@
+
 import ShopComponents from "../../components/about/ShopComponents";
 
 const ShopPage = (children, children2) => {
@@ -20,6 +21,7 @@ const ShopPage = (children, children2) => {
         </div>
       }
     />
+
   );
 };
 

@@ -9,6 +9,7 @@ const DesignerPage = () => {
         </div>
       }
     />
+
   );
 };
 

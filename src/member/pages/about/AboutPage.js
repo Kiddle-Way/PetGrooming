@@ -1,8 +1,10 @@
 import AboutComponents from "../../components/about/AboutComponents";
 
+
 const AboutPage = () => {
   return (
     <>
+
       <br/>
       <AboutComponents
         children={ 
@@ -14,4 +16,5 @@ const AboutPage = () => {
     </>
   );
 };
+
 export default AboutPage;
