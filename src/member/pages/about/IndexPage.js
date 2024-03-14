@@ -72,10 +72,10 @@ const IndexPage = () => {
                     <Link to={"/about"}>인사말</Link>
                   </li>
                   <li>
-                    <Link to={"/designer"}>디자이너소개</Link>
+                    <Link to={"/about/designer"}>디자이너소개</Link>
                   </li>
                   <li>
-                    <Link to={"/shop"}>오시는길</Link>
+                    <Link to={"/about/shop"}>오시는길</Link>
                   </li>
                 </ul>
               )}
