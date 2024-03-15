@@ -98,34 +98,4 @@ public class ProductServiceImpl implements ProductService {
         return responseDTO;
     }
 
-
-    // 가격 순으로 정렬
-    @Override
-    public PageResponseDTO<ProductDTO> sortPrice(PageRequestDTO pageRequestDTO) {
-        Sort.Direction sortDirection = pageRequestDTO.getSortDirection() != null ? pageRequestDTO.getSortDirection() : Sort.Direction.ASC;
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by(sortDirection, "p_price"));
-        Page<Product> result = productRepository.findAllOrderByP_price(pageable);
-
-        List<ProductDTO> dtoList = result.getContent().stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
-
-        long totalCount = result.getTotalElements();
-
-        PageResponseDTO<ProductDTO> responseDTO = PageResponseDTO.<ProductDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
-        return responseDTO;
-    }
-
-    // 상품 번호 순으로 정렬
-    @Override
-    public PageResponseDTO<ProductDTO> sortP_num(PageRequestDTO pageRequestDTO) {
-        Sort.Direction sortDirection = pageRequestDTO.getSortDirection() != null ? pageRequestDTO.getSortDirection() : Sort.Direction.ASC;
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by(sortDirection, "p_num"));
-        Page<Product> result = productRepository.findAllOrderByP_num(pageable);
-
-        List<ProductDTO> dtoList = result.getContent().stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
-
-        long totalCount = result.getTotalElements();
-
-        PageResponseDTO<ProductDTO> responseDTO = PageResponseDTO.<ProductDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
-        return responseDTO;
-    }
 }
