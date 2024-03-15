@@ -7,12 +7,11 @@ import bcon03 from "../../../image/Bshop2.jpg";
 import bcon04 from "../../../image/Bshop5.jpg";
 import bcon05 from "../../../image/Bshop6.jpg";
 import BasicLayout from "../../../common/layouts/BasicLayout";
-import BasicLayout2 from "../../../common/layouts/BasicLayout copy";
 
 const MainComponents = () => {
   return (
     <>
-      <BasicLayout2>
+      <BasicLayout>
         <div>
           <div className=" bg-white my-14 w-full flex space-y-4 md:space-x-4 md:space-y-10">
             <div className="text-4xl font-semibold">
@@ -227,7 +226,7 @@ const MainComponents = () => {
             {/* 첫번째 */}
           </section>
         </div>
-      </BasicLayout2>
+      </BasicLayout>
     </>
   );
 };
