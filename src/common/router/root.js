@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AboutRouter from "../../member/router/about/AboutRouter";
 import DesignerRouter from "../../admin/router/designer/DesignerRouter";
 import productsRouter from "../../admin/router/product/productRouter";
+import reserveRouter from "../../member/router/reserve/reserveRouters";
+import reviewRouter from "../../member/router/review/reviewRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -13,6 +15,9 @@ const DesignerIndex = lazy(() =>
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const GuideIndex = lazy(() => import("../../member/pages/guide/IndexPage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
+
+const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
+const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
 
 const root = createBrowserRouter([
   {
@@ -57,6 +62,24 @@ const root = createBrowserRouter([
         <GuideIndex />
       </Suspense>
     ),
+  },
+  {
+    path: "reserve",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReserveIndex />
+      </Suspense>
+    ),
+    children: reserveRouter(),
+  },
+  {
+    path: "review",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReviewIndex />
+      </Suspense>
+    ),
+    children: reviewRouter(),
   },
 ]);
 

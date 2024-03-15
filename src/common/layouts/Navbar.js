@@ -90,8 +90,13 @@ const Navbar = () => {
                 미용안내
               </li>
 
+              
               <li className="text-2xl text-gray-50 flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 md:p-0 md:w-auto dark:text-white md:dark:hover:text-amber-600 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                리뷰게시판
+              <Link to={"/reserve/"}>예약하기</Link>
+              </li>
+
+              <li className="text-2xl text-gray-50 flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 md:p-0 md:w-auto dark:text-white md:dark:hover:text-amber-600 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+              <Link to={"/review/"}>리뷰게시판</Link>
               </li>
 
               <li>
