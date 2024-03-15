@@ -24,9 +24,4 @@ public interface ProductService {
     //검색 기능
     PageResponseDTO<ProductDTO> search(String keyword, PageRequestDTO pageRequestDTO);
 
-    // 가격 순으로 정렬
-    PageResponseDTO<ProductDTO> sortPrice(PageRequestDTO pageRequestDTO);
-
-    // 상품 번호 순으로 정렬
-    PageResponseDTO<ProductDTO> sortP_num(PageRequestDTO pageRequestDTO);
 }
