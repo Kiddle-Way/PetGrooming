@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getOne } from "../../../common/api/designerApi";
+import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
- dno:0,
+dno:0,
 dname:"",
 dgender:"",
 demail :"",
@@ -18,6 +19,7 @@ dh_date:"",
 
 const ReadComponent = ({ dno }) => {
   const [designer, setDesigner] = useState(initState); //아직 사용하지   않음
+  const { moveToList, moveToModify } = useCustomMove();
 
   useEffect(() => {
     getOne(dno).then((data) => {
@@ -39,48 +41,36 @@ const ReadComponent = ({ dno }) => {
       {makeDiv("Dintro", designer.dintro)}
       {makeDiv("Dattach", designer.dattach)}
       {makeDiv("Complete", designer.complete ? "Completed" : "Not Yet")}
-    </div>
+
+
+
+{/* buttons.........start */}
+<div className="flex justify-end p-4">
+<button type="button"
+className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500" 
+          onClick={() => moveToList()}
+        >
+List
+</button>
+<button type="button"
+className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500" 
+onClick={() => moveToModify(dno)}
+>
+Modify
+</button>
+
+      </div>
+      </div>
   );
 }
 
 
-    const makeDiv = (
-      dname,
-      dbirth,
-      dgender,
-      demail,
-      dphone,
-      dh_date,
-      dstate,
-      dintro,
-      dattach
-    ) => (
+    const makeDiv = (title, value) => (
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">{dname}</div>
+          <div className="w-1/5 p-6 text-right font-bold">{title}</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dbirth}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dgender}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {demail}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dphone}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dh_date}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dstate}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dintro}
-          </div>
-          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {dattach}
+            {value}
           </div>
         </div>
       </div>
