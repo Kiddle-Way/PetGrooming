@@ -19,12 +19,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 검색 기능
     @Query("SELECT i FROM Product i WHERE i.p_name LIKE %:keyword% OR i.p_type LIKE %:keyword% OR CAST(i.p_price AS string) LIKE %:keyword%")
     Page<Product> findByP_nameContaining(String keyword, Pageable pageable);
-
-    // 가격 순으로 정렬
-    @Query("SELECT i FROM Product i ORDER BY i.p_price")
-    Page<Product> findAllOrderByP_price(Pageable pageable);
-
-    // 상품 번호순으로 정렬
-    @Query("SELECT i FROM Product i ORDER BY i.p_num")
-    Page<Product> findAllOrderByP_num(Pageable pageable);
 }
