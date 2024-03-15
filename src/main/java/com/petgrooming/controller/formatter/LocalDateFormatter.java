@@ -7,7 +7,6 @@ import java.util.Locale;
 import org.springframework.format.Formatter;
 
 public class LocalDateFormatter implements Formatter<LocalDate> {
-
 	@Override
 	public String print(LocalDate object, Locale locale) {
 		return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(object);
