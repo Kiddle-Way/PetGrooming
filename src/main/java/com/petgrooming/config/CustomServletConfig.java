@@ -9,7 +9,6 @@ import com.petgrooming.controller.formatter.LocalDateFormatter;
 
 @Configuration
 public class CustomServletConfig implements WebMvcConfigurer {
-
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new LocalDateFormatter());

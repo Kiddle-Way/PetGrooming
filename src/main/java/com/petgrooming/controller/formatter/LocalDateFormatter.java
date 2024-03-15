@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-
 import org.springframework.format.Formatter;
 
 public class LocalDateFormatter implements Formatter<LocalDate> {
@@ -17,5 +16,4 @@ public class LocalDateFormatter implements Formatter<LocalDate> {
 	public LocalDate parse(String text, Locale locale) throws ParseException {
 		return LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
-
 }

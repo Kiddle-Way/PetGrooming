@@ -10,6 +10,10 @@ import com.petgrooming.dto.ReviewDTO;
 public interface ReviewService {
 	PageResponseDTO<ReviewDTO> getList(PageRequestDTO pageRequestDTO);
 
+	PageResponseDTO<ReviewDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle);
+
+	PageResponseDTO<ReviewDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent);
+
 	Long register(ReviewDTO reviewDTO);
 
 	ReviewDTO get(Long v_num);

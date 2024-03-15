@@ -55,6 +55,18 @@ public class ReviewController {
 		return reviewService.getList(pageRequestDTO);
 	}
 
+	@GetMapping("/list/searchtitle/{searchTitle}")
+	public PageResponseDTO<ReviewDTO> searchTitlelist(PageRequestDTO pageRequestDTO, @PathVariable("searchTitle") String searchTitle) {
+		log.info("list............." + pageRequestDTO);
+		return reviewService.getSearchTitleList(pageRequestDTO, searchTitle);
+	}
+		
+	@GetMapping("/list/searchcontent/{searchContent}")
+	public PageResponseDTO<ReviewDTO> searchContentlist(PageRequestDTO pageRequestDTO, @PathVariable("searchContent") String searchContent) {
+		log.info("list............." + pageRequestDTO);
+		return reviewService.getSearchContentList(pageRequestDTO, searchContent);
+	}
+
 	@GetMapping("/{v_num}")
 	public ReviewDTO read(@PathVariable(name = "v_num") Long v_num) {
 		return reviewService.get(v_num);

@@ -21,6 +21,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	@Query("update Review v set v.v_delFlag = :flag where v.v_num = :v_num")
 	void updateToDelete(@Param("v_num") Long pno, @Param("flag") boolean flag);
 
-	@Query("select v, vi from Review v left join v.imageList vi where vi.ord = 0 and v.v_delFlag = false ")
-	Page<Object[]> selectList(Pageable pageable);
+	@Query("select v from Review v  where v.v_delFlag = false ")
+	Page<Review> selectList(Pageable pageable);
+	
+	@Query("SELECT v FROM Review v WHERE v.v_delFlag = false AND v.v_title LIKE %:searchTitle%")
+	Page<Review> searchTitleList(Pageable pageable, @Param("searchTitle") String searchTitle);
+	
+	@Query("SELECT v FROM Review v WHERE v.v_delFlag = false AND v.v_content LIKE %:searchContent%")
+	Page<Review> searchContentList(Pageable pageable, @Param("searchContent") String searchContent);
 }
