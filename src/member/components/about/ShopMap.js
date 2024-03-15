@@ -54,7 +54,7 @@ function ShopComponents() {
   return (
     <div
       id="map"
-      style={{ justifyContent: "center", height: "500px", width: "1000px" }}
+      className=" w-96 h-52 flex justify-center"
     ></div>
   );
 }

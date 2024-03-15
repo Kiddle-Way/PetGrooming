@@ -7,20 +7,23 @@ import bcon03 from "../../../image/Bshop2.jpg";
 import bcon04 from "../../../image/Bshop5.jpg";
 import bcon05 from "../../../image/Bshop6.jpg";
 import BasicLayout from "../../../common/layouts/BasicLayout";
+import BasicLayout2 from "../../../common/layouts/BasicLayout copy";
 
-const MainComponents = ({ children }) => {
+const MainComponents = () => {
   return (
     <>
-      <BasicLayout>
+      <BasicLayout2>
         <div>
           <div className=" bg-white my-14 w-full flex space-y-4 md:space-x-4 md:space-y-10">
+            <div className="text-4xl font-semibold">
+              <p>세상 예쁘개, 세상 편하개</p>
+              <p>Pet Grooming</p>
+            </div>
             <h1
               className="my-1 reveal-from-bottom is-revealed text-5xl
                   font-bold m-1 rounded" //my- margin+bottom
               data-reveal-delay="600" //data-reveal-delay페이지가 로드되거나 사용자가 특정동작을 취할 때 요소를 나타냄
-            >
-              {children}
-            </h1>
+            ></h1>
           </div>
           {/* Pet Care Servise */}
           <section>
@@ -162,8 +165,8 @@ const MainComponents = ({ children }) => {
           </section>
           {/* 미용실 간단하게 설명 */}
           <section>
-            <div style={{ display: "flex" }}>
-              <table cellPadding="40%" width="80%" >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <table cellPadding="40%" width="80%">
                 <tr>
                   <td width="50%">
                     <img src={bcon01} alt="int" />
@@ -176,7 +179,7 @@ const MainComponents = ({ children }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="text-right">
                     <p>기분좋개 U・ᴥ・U</p>
                     <p>운영시간 오전9부터 오후 6시까지</p>
                     <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
@@ -198,7 +201,7 @@ const MainComponents = ({ children }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="text-right">
                     <p>기분좋개 U・ᴥ・U</p>
                     <p>운영시간 오전9부터 오후 6시까지</p>
                     <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
@@ -224,7 +227,7 @@ const MainComponents = ({ children }) => {
             {/* 첫번째 */}
           </section>
         </div>
-      </BasicLayout>
+      </BasicLayout2>
     </>
   );
 };
