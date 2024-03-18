@@ -51,13 +51,13 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-black hover:text-blue-600">
-                <Link to={"/"}>예약하기</Link>
+              <Link to={"/reserve/"}>예약하기</Link>
               </summary>
             </details>
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-black hover:text-blue-600">
-                <Link to={"/"}>리뷰게시판</Link>
+              <Link to={"/review/"}>리뷰게시판</Link>
               </summary>
             </details>
 
