@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import logo from "../../image/logo12.jpg";
-import rogo from "../../image/rogo수정.png";
 const Footer = () => {
   return (
     <>
