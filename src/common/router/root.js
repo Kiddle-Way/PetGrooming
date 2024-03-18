@@ -1,32 +1,79 @@
 import { Suspense, lazy } from "react";
-import noticeRouter from "../../admin/router/notice/NoticeRouter";
-
-const { createBrowserRouter } = require("react-router-dom");
 import { createBrowserRouter } from "react-router-dom";
 import AboutRouter from "../../member/router/about/AboutRouter";
+import noticeRouter from "../../admin/router/notice/NoticeRouter";
 import DesignerRouter from "../../admin/router/designer/DesignerRouter";
 import productsRouter from "../../admin/router/product/productRouter";
+import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 
-
-const Loading = <div>Loading....</div>
-const Main = lazy(() => import("../../member/pages/main/MainPage"))
+const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
+const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
+const DesignerIndex = lazy(() =>
+  import("../../admin/pages/designer/IndexPage")
+);
+const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
+const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
+const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
+// const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
 
 const root = createBrowserRouter([
-    {
-        path: "",
-        element: <Suspense fallback={Loading}><Main /></Suspense>
-    }
-    {
-      path: "notice",
-      element: (
-        <Suspense fallback={Loading}>
-          <Main />
-        </Suspense>
-      ),
-      children: noticeRouter(),
-    },
-])
-
+  {
+    path: "",
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <Main />
+      </Suspense>
+    ),
+  },
+  {
+    path: "about",
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <AboutIndex />
+      </Suspense>
+    ),
+    children: AboutRouter(),
+  },
+  {
+    path: "designer",
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <DesignerIndex />
+      </Suspense>
+    ),
+    children: DesignerRouter(),
+  },
+  {
+    path: "product",
+    element: (
+      <Suspense fallback={Loading}>
+        <ProductsIndex />
+      </Suspense>
+    ),
+    children: productsRouter(),
+  },
+  {
+    path: "notice",
+    element: (
+      <Suspense fallback={Loading}>
+        <NoticeIndex />
+      </Suspense>
+    ),
+    children: noticeRouter(),
+  },
+  {
+    path: "qna",
+    element: (
+      <Suspense fallback={Loading}>
+        <QnaIndex />
+      </Suspense>
+    ),
+    children: qnaRouter(),
+  },
+]);
 
 export default root;

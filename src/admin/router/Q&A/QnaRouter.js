@@ -2,50 +2,50 @@ import { Suspense, lazy } from "react";
 import { Navigate } from "react-router";
 
 const Loading = <div>Loading....</div>;
-const NoticeList = lazy(() => import("../../pages/notice/ListPage"));
-const NoticeAdd = lazy(() => import("../../pages/notice/AddPage"));
-const NoticeRead = lazy(() => import("../../pages/notice/ReadPage"));
-const NoticeModify = lazy(() => import("../../pages/notice/ModifyPage"));
+const QnaList = lazy(() => import("../../pages/Q&A/ListPage"));
+const QnaRead = lazy(() => import("../../pages/Q&A/ReadPage"));
+const QnaAdd = lazy(() => import("../../pages/Q&A/AddPage"));
+const QnaModify = lazy(() => import("../../pages/Q&A/ModifyPage"));
 
-const noticeRouter = () => {
+const QnaRouter = () => {
   return [
     {
       path: "list",
       element: (
         <Suspense fallback={Loading}>
-          <NoticeList />
+          <QnaList />
         </Suspense>
       ),
     },
     {
       path: "",
-      element: <Navigate replace to="/notice/list" />,
+      element: <Navigate replace to="list" />,
+    },
+    {
+      path: "read/:f_num",
+      element: (
+        <Suspense fallback={Loading}>
+          <QnaRead />
+        </Suspense>
+      ),
     },
     {
       path: "add",
       element: (
         <Suspense fallback={Loading}>
-          <NoticeAdd />
+          <QnaAdd />
         </Suspense>
       ),
     },
     {
-      path: "read/:n_num",
+      path: "modify/:f_num",
       element: (
         <Suspense fallback={Loading}>
-          <NoticeRead />
-        </Suspense>
-      ),
-    },
-    {
-      path: "modify/:n_num",
-      element: (
-        <Suspense fallback={Loading}>
-          <NoticeModify />
+          <QnaModify />
         </Suspense>
       ),
     },
   ];
 };
 
-export default noticeRouter;
+export default QnaRouter;

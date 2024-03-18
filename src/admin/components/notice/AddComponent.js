@@ -98,7 +98,15 @@ const AddComponent = () => {
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
+          <label
+            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-yellow-300"
+            for="input-file"
+          >
+            파일선택
+          </label>
           <input
+            id="input-file"
+            style={{ display: "none" }}
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             type={"file"}
@@ -110,7 +118,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
           <button
             type="button"
-            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-blue-500"
+            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-blue-400"
             onClick={handleClickAdd}
           >
             등록
@@ -119,7 +127,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
           <button
             type="button"
-            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-500"
+            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-400"
             onClick={handleClickCancel}
           >
             취소

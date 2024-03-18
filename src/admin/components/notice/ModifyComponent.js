@@ -120,7 +120,15 @@ const ModifyComponent = ({ n_num }) => {
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">파일추가등록</div>
+          <label
+            className="input-file-button inline-block rounded p-2 m-10 text-center center text-xl w-32 text-white bg-yellow-300"
+            for="input-file"
+          >
+            파일선택
+          </label>
           <input
+            id="input-file"
+            style={{ display: "none" }}
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             type={"file"}
@@ -135,7 +143,7 @@ const ModifyComponent = ({ n_num }) => {
             {notice.uploadFileNames.map((imgFile, i) => (
               <div className="flex justify-center flex-col w-1/3" key={i}>
                 <button
-                  className="bg-blue-500 text-3xl text-white"
+                  className="bg-orange-300 text-3xl text-white"
                   onClick={() => deleteOldImages(imgFile)}
                 >
                   삭제하기
@@ -150,14 +158,14 @@ const ModifyComponent = ({ n_num }) => {
       <div className="flex justify-end p-2">
         <button
           type="button"
-          className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-orange-500"
+          className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-blue-400"
           onClick={handleClickModify}
         >
           수정완료
         </button>
         <button
           type="button"
-          className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-500"
+          className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-400"
           onClick={handleClickCancel}
         >
           취소
