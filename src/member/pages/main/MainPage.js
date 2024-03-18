@@ -1,14 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+
+import MainComponents from "../../components/main/MainComponents";
 
 const MainPage = () => {
   return (
-    <div>
-      <div className="flex">
-        <Link to={"list"}>Notice</Link>
-      </div>
-      <div className="text-3xl"></div>
-      <Outlet />
-    </div>
+    <MainComponents
+      children={
+        <div>
+          <div> 세상 예쁘개, 세상 편하개</div>
+          <div> Pet Grooming</div>
+        </div>
+      }
+    />
   );
 };
 
