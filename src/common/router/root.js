@@ -7,11 +7,9 @@ import productsRouter from "../../admin/router/product/productRouter";
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
 const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
-const DesignerIndex = lazy(() =>
-  import("../../admin/pages/designer/IndexPage")
-);
+const DesignerIndex = lazy(() => import("../../admin/pages/designer/IndexPage"));
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
-const GuideIndex = lazy(() => import("../../member/pages/guide/IndexPage"));
+const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
 
 const root = createBrowserRouter([
@@ -54,7 +52,7 @@ const root = createBrowserRouter([
     path: "guide",
     element: (
       <Suspense fallback={Loading}>
-        <GuideIndex />
+        <Guide />
       </Suspense>
     ),
   },
