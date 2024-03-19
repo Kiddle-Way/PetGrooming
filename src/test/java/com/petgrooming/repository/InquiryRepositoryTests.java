@@ -99,30 +99,26 @@
  * inquiryRepository.deleteById(i_num); } }
  */
 
-package com.petgrooming.repository;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.test.annotation.Commit;
-import lombok.extern.log4j.Log4j2;
-
-@SpringBootTest
-
-@Log4j2
-public class InquiryRepositoryTests {
-
-	@Autowired
-	InquiryRepository inquiryRepository;
-
-	@Commit
-
-	@Transactional
-
-	@Test
-	public void testDelte() {
-		Long i_num = 2L;
-		inquiryRepository.updateToDelete(i_num, true);
-	}
-}
+/*
+ * package com.petgrooming.repository;
+ * 
+ * import org.junit.jupiter.api.Test; import
+ * org.springframework.beans.factory.annotation.Autowired; import
+ * org.springframework.boot.test.context.SpringBootTest; import
+ * org.springframework.transaction.annotation.Transactional; import
+ * org.springframework.test.annotation.Commit; import
+ * lombok.extern.log4j.Log4j2;
+ * 
+ * @SpringBootTest
+ * 
+ * @Log4j2 public class InquiryRepositoryTests {
+ * 
+ * @Autowired InquiryRepository inquiryRepository;
+ * 
+ * @Commit
+ * 
+ * @Transactional
+ * 
+ * @Test public void testDelte() { Long i_num = 2L;
+ * inquiryRepository.updateToDelete(i_num, true); } }
+ */
