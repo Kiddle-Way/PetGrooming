@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import ModifyComponent from "../../components/designer/ModifyComponent";
 
-const ModifyPage = ({ dno }) => {
-  const navigate = useNavigate();
-  const moveToRead = () => {
-    navigate({ pathname: `/designer/read/${dno}` });
-  };
+const ModifyPage = () => {
 
-  const moveToList = () => {
-    navigate({ pathname: `/designer/list` });
-  };
+  const { dno } = useParams();
 
-  return <div className="text-3xl font-extrabold">Todo Modify Page</div>;
-};
+  return (
+    <div className="p-4 w-full bg-white">
+      <div className="text-3xl font-extrabold">수정페이지</div>
+      <ModifyComponent dno={dno} />
+    </div>
+  );
+}
 export default ModifyPage;

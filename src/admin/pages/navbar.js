@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import logo from "../../image/logo12.jpg";
 
 const navbar = () => {
   return (
     <nav className="bg-gray-50 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <div className="h-20 max-w-screen-xl flex flex-wrap items-center justify-between p-4 border-b">
         <a href="#" className="flex items-start space-x-3 rtl:space-x-reverse">
-          <img src={logo} className="h-12" alt="Flowbite Logo" />
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="h-8"
+            alt="Flowbite Logo"
+          />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            관리자 페이지
+            PatGrooming 관리자 페이지
           </span>
         </a>
         <button
@@ -74,11 +77,21 @@ const navbar = () => {
                   className="py-2 text-sm text-gray-700 dark:text-gray-400"
                   aria-labelledby="dropdownLargeButton"
                 >
-                  <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <Link to={"/product/"}>상품 목록</Link>
+                  <li>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      <Link to={"/product/"}>상품 목록</Link>
+                    </a>
                   </li>
-                  <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <Link to={"/product/guide/"}>미용 안내</Link>
+                  <li>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      미용 안내
+                    </a>
                   </li>
                 </ul>
               </div>
