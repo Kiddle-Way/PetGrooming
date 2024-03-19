@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 const BasicLayout = ({ children }) => {
   return (
@@ -8,7 +8,7 @@ const BasicLayout = ({ children }) => {
       <div className="container mx-auto h-auto">
         <Navbar />
 
-        <main className=" w-full bg-white">
+        <main className="container mx-auto h-auto w-full bg-white">
           <div className="flex">{children}</div>
         </main>
 

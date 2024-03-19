@@ -7,6 +7,7 @@ import productsRouter from "../../admin/router/product/productRouter";
 import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
+import Guide from "../../admin/pages/product/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 
 const Loading = <div>Loading....</div>;
@@ -15,9 +16,7 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
-const GuideIndex = lazy(() => import("../../member/pages/guide/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
 const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
@@ -68,7 +67,7 @@ const root = createBrowserRouter([
     path: "guide",
     element: (
       <Suspense fallback={Loading}>
-        <GuideIndex />
+        <Guide />
       </Suspense>
     ),
   },
