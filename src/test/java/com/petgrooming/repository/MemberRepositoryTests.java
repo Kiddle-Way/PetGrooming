@@ -129,10 +129,10 @@ public class MemberRepositoryTests {
 
 	@Test
 	public void testInsertMemberWithRole() {
-		Member newMember = Member.builder().m_email("new_member@example.com").m_name("New Member").m_birth(new Date())
-				.m_gender(1).m_pw(passwordEncoder.encode("password")).m_phone("123-456-7890").m_addr("New Address")
-				.dog_name("Dog Name").dog_breed("Dog Breed").dog_birth(new Date()).dog_notice("Dog Notice")
-				.m_state(true).m_agree(true).build();
+		Member newMember = Member.builder().m_email("john@petgrooming.com").m_name("John").m_birth(new Date())
+				.m_gender(1).m_pw(passwordEncoder.encode("john1234")).m_phone("010-1234-5678").m_addr("서울특별시 구로구")
+				.dog_name("릴리").dog_breed("말티즈").dog_birth(new Date()).dog_notice("사랑스러움")
+				.m_state(false).m_agree(true).build();
 
 		MemberRole userRole = MemberRole.USER;
 		newMember.addRole(userRole);
