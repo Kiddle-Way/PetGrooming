@@ -5,6 +5,8 @@ import java.util.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petgrooming.domain.Member;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class InquiryDTO {
 
 	private Long i_num;
-	private Long m_num;
+	private Member m_num;
 	private Long i_pw;
 	private String i_title;
 	private String i_content;
