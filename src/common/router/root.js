@@ -7,12 +7,12 @@ import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
 
-const { createBrowserRouter } = require("react-router-dom");
-
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
 const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
-const DesignerIndex = lazy(() => import("../../admin/pages/designer/IndexPage"));
+const DesignerIndex = lazy(() =>
+  import("../../admin/pages/designer/IndexPage")
+);
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
@@ -117,8 +117,8 @@ const root = createBrowserRouter([
       <Suspense fallback={Loading}>
         <MyPage />
       </Suspense>
-    )
-  }
+    ),
+  },
 ]);
 
 export default root;
