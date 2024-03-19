@@ -4,9 +4,18 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.petgrooming.security.filter.JWTCheckFilter;
+import com.petgrooming.security.handler.APILoginFailHandler;
+import com.petgrooming.security.handler.APILoginSuccessHandler;
+import com.petgrooming.security.handler.CustomAccessDeniedHandler;
+
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +26,7 @@ import lombok.extern.log4j.Log4j2;
 @Configuration
 @Log4j2
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class CustomSecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -34,8 +44,15 @@ public class CustomSecurityConfig {
 
 		http.formLogin(config -> {
 			config.loginPage("/api/member/login");
+			config.successHandler(new APILoginSuccessHandler());
+			config.failureHandler(new APILoginFailHandler());
 		});
 
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT체크 추가
+
+		http.exceptionHandling(config -> {
+			config.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
 		return http.build();
 	}
 

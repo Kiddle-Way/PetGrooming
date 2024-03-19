@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.security.access.prepost.PreAuthorize; 
+
 import com.petgrooming.dto.InquiryPageRequestDTO;
 import com.petgrooming.dto.InquiryPageResponseDTO;
 import com.petgrooming.dto.InquiryDTO;
@@ -48,7 +50,9 @@ public class InquiryController {
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
-
+	
+	//@PreAuthorize("hasRole('ROLE_ADMIN')") 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")  // 임시 권한 설정
 	@GetMapping("/list")
 	public InquiryPageResponseDTO<InquiryDTO> list(InquiryPageRequestDTO inquiryPageRequestDTO) {
 		log.info("list............." + inquiryPageRequestDTO);
