@@ -39,7 +39,15 @@ export const deleteOne = async (dno) => {
 
 //수정 기능
 export const putOne = async (dno, designer) => {
-   const header = { headers: { "Content-Type": "multipart/form-data" } };
+  const header = { headers: { "Content-Type": "multipart/form-data" } };
   const res = await axios.put(`${host}/${dno}`, designer, header);
+  return res.data;
+};
+
+export const getSearch = async (keyword, pageParam) => {
+  const { page, size } = pageParam;
+  const res = await axios.get(`${host}/search`, {
+    params: { keyword: keyword, page: page, size: size },
+  });
   return res.data;
 };

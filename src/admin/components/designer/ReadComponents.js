@@ -1,39 +1,39 @@
 import { useEffect, useState } from "react";
 import { getOne } from "../../../common/api/designerApi";
-import useDesignMove from "../../../common/hooks/useDesignMove";
+import useCustomMove from "../../../common/hooks/useCustomMove";
 import { API_SERVER_HOST } from "../../../common/api/productApi";
 import FetchingModal from "../../../common/components/FetchingModal";
 
 const initState = {
-dno:0,
-dname:"",
-dgender:0,
-demail :"",
-dphone:"",
-dstate:0,
-dintro:"",
-dbirth:"",
+  dno: 0,
+  dname: "",
+  dgender: 0,
+  demail: "",
+  dphone: "",
+  dstate: 0,
+  dintro: "",
+  dbirth: "",
   dh_date: "",
-dattach:"",
+  dattach: "",
   complete: false,
-}
+};
 
 const host = API_SERVER_HOST;
 
 const ReadComponent = ({ dno }) => {
   const [designer, setDesigner] = useState(initState);
   //화면    이동용   함수
-  const { moveToList, moveToModify } = useDesignMove();
+  const { moveToList, moveToModify } = useCustomMove();
 
   //fetching
   const [fetching, setFetching] = useState(false);
   useEffect(() => {
-   setFetching(true)
-   getOne(dno).then(data => {
-     setDesigner(data);
-     setFetching(false);
-   })
-  }, [dno])
+    setFetching(true);
+    getOne(dno).then((data) => {
+      setDesigner(data);
+      setFetching(false);
+    });
+  }, [dno]);
 
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4 ">
@@ -45,14 +45,14 @@ const ReadComponent = ({ dno }) => {
           className="inline-block rounded p-4 m-2 text-xs w-20 text-white bg-red-500"
           onClick={() => moveToModify(dno)}
         >
-          Modify
+          수정
         </button>
         <button
           type="button"
           className="rounded p-4 m-2 text-xs w-20 text-white bg-blue-500"
           onClick={moveToList}
         >
-          List
+          목록
         </button>
       </div>
 
@@ -144,11 +144,8 @@ const ReadComponent = ({ dno }) => {
           </button>
         )}
       </div> */}
-      
     </div>
   );
-}
-            
-  
+};
 
 export default ReadComponent;
