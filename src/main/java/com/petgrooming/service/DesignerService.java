@@ -3,6 +3,7 @@ package com.petgrooming.service;
 import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
+import com.petgrooming.dto.ProductDTO;
 
 public interface DesignerService { 
 	
@@ -17,4 +18,7 @@ public interface DesignerService {
 	
 	//삭제기능
 	void remove(Long dno); 
+	
+	//검색 기능
+    PageResponseDTO<DesignerDTO> search(String keyword, PageRequestDTO pageRequestDTO);
 }

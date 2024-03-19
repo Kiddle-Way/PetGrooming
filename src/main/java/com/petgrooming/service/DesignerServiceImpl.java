@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.petgrooming.domain.Designer;
 import com.petgrooming.domain.DesignerImage;
+import com.petgrooming.domain.Product;
 import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
@@ -148,29 +149,25 @@ public class DesignerServiceImpl implements DesignerService {
 	public void remove(Long dno) {
 		designerRepository.updateToDelete(dno, true);
 	}
+	
+	
+	 // 상품 검색
+    @Override
+    public PageResponseDTO<DesignerDTO> search(String keyword, PageRequestDTO pageRequestDTO) {
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(), Sort.by("dno").descending());
+
+        Page<Designer> result = designerRepository.findByDnameContaining(keyword, pageable);
+
+        List<DesignerDTO> dtoList = result.getContent().stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+
+        long totalCount = result.getTotalElements();
+
+        PageResponseDTO<DesignerDTO> responseDTO = PageResponseDTO.<DesignerDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+        return responseDTO;
+    }
 
 }
 
-//	@Override
-//	public Long register(DesignerDTO designerDTO) {
-//		log.info("----------");
-//
-//		Designer designer = modelMapper.map(designerDTO, Designer.class);
-//		Designer saveDesigner = designerRepository.save(designer);
-//
-//		return saveDesigner.getDno();
-//	}
-//
 
-//
-
-//
-//	// 삭제
-//	@Override
-//	public void remove(Long dno) {
-//		designerRepository.deleteById(dno);
-//	}
-//
-//	
-//
-//}

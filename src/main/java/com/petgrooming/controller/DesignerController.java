@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
+import com.petgrooming.dto.ProductDTO;
 import com.petgrooming.service.DesignerService;
 import com.petgrooming.util.CustomFileUtil;
 
@@ -111,5 +113,11 @@ public class DesignerController {
 
 		return Map.of("RESULT", "SUCCESS");
 	}
+	
+	//검색
+	 @GetMapping("/search")
+	    public PageResponseDTO<DesignerDTO> search(@RequestParam String keyword, PageRequestDTO pageRequestDTO) {
+	        return designerService.search(keyword, pageRequestDTO);
+	    }
 
 }

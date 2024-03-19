@@ -11,20 +11,26 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.petgrooming.domain.Designer;
+import com.petgrooming.domain.Product;
 
-public interface DesignerRepository extends JpaRepository<Designer, Long>{
-	
-	
+public interface DesignerRepository extends JpaRepository<Designer, Long> {
+
 	@EntityGraph(attributePaths = "imageList")
-	@Query("select d from Designer d where d.dno = :dno") 
+	@Query("select d from Designer d where d.dno = :dno")
 	Optional<Designer> selectOne(@Param("dno") Long dno);
-	
-	//수정,삭제
+
+	// 수정,삭제
 	@Modifying
-	@Query("update Designer d set d.delFlag = :flag where d.dno = :dno") 
+	@Query("update Designer d set d.delFlag = :flag where d.dno = :dno")
 	void updateToDelete(@Param("dno") Long dno, @Param("flag") boolean flag);
 
-	//목록척리
+	// 목록척리
 	@Query("select d, di  from Designer d left join d.imageList di  where di.ord = 0 and d.delFlag = false ")
-			Page<Object[]> selectList(Pageable pageable);
+	Page<Object[]> selectList(Pageable pageable);
+
+	// 검색 기능
+	@Query("SELECT d FROM Designer d WHERE CONCAT(d.dno, '') LIKE %:keyword% OR d.dname LIKE %:keyword% OR CONCAT(d.dstate, '') LIKE %:keyword%")
+	Page<Designer> findByDnameContaining(@Param("keyword") String keyword, Pageable pageable);
+
+
 }

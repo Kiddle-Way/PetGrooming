@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@SequenceGenerator(name = "DESIGNER_SEQ_GEN", sequenceName = "DESIGNER_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "tbl_design")
 @Getter
 @ToString(exclude = "imageList")
