@@ -9,13 +9,16 @@ import reviewRouter from "../../member/router/review/reviewRouter";
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
 const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
-const DesignerIndex = lazy(() => import("../../admin/pages/designer/IndexPage"));
+const DesignerIndex = lazy(() =>
+  import("../../admin/pages/designer/IndexPage")
+);
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
 
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
+const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
 
 const root = createBrowserRouter([
   {
@@ -78,6 +81,14 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: reviewRouter(),
+  },
+  {
+    path: "adminlogin",
+    element: (
+      <Suspense fallback={Loading}>
+        <AdminLogin />
+      </Suspense>
+    ),
   },
 ]);
 

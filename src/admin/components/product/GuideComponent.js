@@ -1,9 +1,6 @@
 const GuideComponent = () => {
   return (
     <>
-      <div className="flex justify-end mt-1 mb-4 mr-5">
-        홈 ＞ <b>미용 안내</b>
-      </div>
       <div className="p-10 w-full bg-white">
         <h1 class="mb-4 text-center text-6xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-6xl dark:text-white">
           미용 안내

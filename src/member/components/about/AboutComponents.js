@@ -8,7 +8,7 @@ const AboutComponents = () => {
       </div>
 
       <div className="flex justify-center my-10">
-        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl">
+        <h1 class="mb-4 text-xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl">
           환영합니다!&nbsp;
           <span class="text-transparent bg-clip-text bg-gradient-to-r to-amber-600 from-yellow-400">
             펫 구루밍 입니다.
@@ -17,9 +17,13 @@ const AboutComponents = () => {
       </div>
 
       <div className="flex justify-center">
-        <img src={greet} alt="인사 이미지" className="mx-auto" />
+        <img
+          src={greet}
+          alt="인사 이미지"
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
+        />
       </div>
-      <div className="flex justify-center my-16 text-xl font-bold text-start">
+      <div className="flex flex-col items-center justify-center my-16 text-lg font-bold sm:text-xl md:text-2xl">
         📌 가족처럼 생각합니다.
         <br />
         📌 편안하게 즐기다 갈수있게 합니다.

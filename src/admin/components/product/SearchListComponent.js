@@ -59,6 +59,7 @@ const SearchListComponent = () => {
         value={searchTerm}
         onChange={handleChange} // 검색어 변경 처리
         placeholder="검색어를 입력하세요"
+        className="mt-3 ml-8 input input-bordered w-full max-w-xs"
       />
       <button
         className="ml-2 p-2 bg-blue-500 text-white rounded-md"
