@@ -44,8 +44,8 @@ public class DesignerServiceImpl implements DesignerService {
 			Designer designer = (Designer) arr[0];
 			DesignerImage designerImage = (DesignerImage) arr[1];
 
-			DesignerDTO designerDTO = DesignerDTO.builder().dno(designer.getDno()).dname(designer.getDname())
-					.dbirth(designer.getDbirth()).dphone(designer.getDphone()).demail(designer.getDemail())
+			DesignerDTO designerDTO = DesignerDTO.builder().dno(designer.getDno()).dname(designer.getDname()).dgender(designer.getDgender())
+					.dbirth(designer.getDbirth()).dgender(designer.getDgender()).dphone(designer.getDphone()).demail(designer.getDemail())
 					.dh_date(designer.getDh_date()).dstate(designer.getDstate()).dintro(designer.getDintro())
 					.dattach(designer.getDattach()).build();
 
@@ -71,7 +71,7 @@ public class DesignerServiceImpl implements DesignerService {
 
 	private Designer dtoToEntity(DesignerDTO designerDTO) {
 		Designer designer = Designer.builder().dno(designerDTO.getDno()).dname(designerDTO.getDname())
-				.dbirth(designerDTO.getDbirth()).dphone(designerDTO.getDphone()).demail(designerDTO.getDemail())
+				.dbirth(designerDTO.getDbirth()).dgender(designerDTO.getDgender()).dphone(designerDTO.getDphone()).demail(designerDTO.getDemail())
 				.dh_date(designerDTO.getDh_date()).dstate(designerDTO.getDstate()).dintro(designerDTO.getDintro())
 				.dattach(designerDTO.getDattach()).build();
 
@@ -98,7 +98,7 @@ public class DesignerServiceImpl implements DesignerService {
 
 	private DesignerDTO entityToDTO(Designer designer) {
 		DesignerDTO designerDTO = DesignerDTO.builder().dno(designer.getDno()).dname(designer.getDname())
-				.dbirth(designer.getDbirth()).dphone(designer.getDphone()).demail(designer.getDemail())
+				.dbirth(designer.getDbirth()).dgender(designer.getDgender()).dphone(designer.getDphone()).demail(designer.getDemail())
 				.dh_date(designer.getDh_date()).dstate(designer.getDstate()).dintro(designer.getDintro())
 				.dattach(designer.getDattach()).build();
 
@@ -122,6 +122,7 @@ public class DesignerServiceImpl implements DesignerService {
 
 		designer.changeDname(designerDTO.getDname());
 		designer.changeDbirth(designerDTO.getDbirth());
+		designer.changeDgender(designerDTO.getDgender());
 		designer.changeDphone(designerDTO.getDphone());
 		designer.changeDemail(designerDTO.getDemail());
 		designer.changeDh_date(designerDTO.getDh_date());

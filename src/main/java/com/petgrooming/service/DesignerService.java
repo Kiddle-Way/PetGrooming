@@ -3,7 +3,6 @@ package com.petgrooming.service;
 import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
-import com.petgrooming.repository.DesignerRepository;
 
 public interface DesignerService { 
 	

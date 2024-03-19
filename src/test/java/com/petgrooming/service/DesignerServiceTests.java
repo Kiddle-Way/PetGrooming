@@ -58,6 +58,7 @@ public class DesignerServiceTests {
 	public void testRegister() {
 		DesignerDTO designerDTO = DesignerDTO.builder()
 				.dname("groom")
+				.dgender(0)
 				.dbirth(LocalDate.of(2003, 11, 20))
 				.dphone("01012348575")
 				.demail("groom@gomm.com")

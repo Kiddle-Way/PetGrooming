@@ -6,13 +6,11 @@ import java.util.List;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +19,6 @@ import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.service.DesignerService;
-import com.petgrooming.service.ProductService;
 import com.petgrooming.util.CustomFileUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -35,28 +32,20 @@ public class DesignerController {
 	private final DesignerService designerService; // DesignerService 주입
 	private final CustomFileUtil fileUtil;
 
-//	@PostMapping("/")
-//	public Map<String, Long> register(DesignerDTO designerDTO) {
-//
-//		log.info("register: " + designerDTO);
-//
-//		List<MultipartFile> files = designerDTO.getFiles();
-//
-//		List<String> uploadFileNames = fileUtil.saveFiles(files);
-//		designerDTO.setUploadFileNames(uploadFileNames);
-//		log.info(uploadFileNames);
-
 	@PostMapping("/")
-	public Map<String, Long> register(@RequestBody DesignerDTO designerDTO) {
-		log.info("DesignerDTO: " + designerDTO);
-		// 서비스 호출
+	public Map<String, Long> register(DesignerDTO designerDTO) {
+
+	log.info("register: " + designerDTO);
+
+		List<MultipartFile> files = designerDTO.getFiles();
+
+		List<String> uploadFileNames = fileUtil.saveFiles(files);
+		designerDTO.setUploadFileNames(uploadFileNames);
+		log.info(uploadFileNames);
+
+	
 		Long dno = designerService.register(designerDTO);
-		try {
-			Thread.sleep(3000);  // 등록시 시간 걸리게 코드 수정
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return Map.of("DNO", dno);
+		return Map.of("result", dno);
 	}
 
 //이미지 보기
