@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getOne, putOne, deleteOne } from "../../../common/api/reviewApi";
+import { getOne, putOne } from "../../../common/api/reviewApi";
 import { API_SERVER_HOST } from "../../../common/api/noticeApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import FetchingModal from "../../../common/components/FetchingModal";
@@ -20,7 +20,6 @@ const host = API_SERVER_HOST;
 const ModifyComponent = ({ v_num }) => {
   const [review, setReview] = useState(initState);
   const [fetching, setFetching] = useState(false);
-  const uploadRef = useRef();
   //결과 모달
   const [result, setResult] = useState(null);
   //이동용 함수
@@ -39,20 +38,8 @@ const ModifyComponent = ({ v_num }) => {
     setReview({ ...review });
   };
 
-  const deleteOldImages = (imageName) => {
-    const resultFileNames = review.v_uploadFileNames.filter(
-      (fileName) => fileName !== imageName
-    );
-    review.v_uploadFileNames = resultFileNames;
-    setReview({ ...review });
-  };
-
   const handleClickModify = () => {
-    const files = uploadRef.current.files;
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("v_files", files[i]);
-    }
     //other data
     formData.append("v_title", review.v_title);
     formData.append("v_pw", review.v_pw);
@@ -70,14 +57,6 @@ const ModifyComponent = ({ v_num }) => {
     });
   };
 
-  const handleClickDelete = () => {
-    setFetching(true);
-    deleteOne(v_num).then((data) => {
-      setResult("Deleted");
-      setFetching(false);
-    });
-  };
-
   const closeModal = () => {
     if (result === "Modified") {
       moveToRead(v_num); // 조회 화면으로 이동
@@ -85,6 +64,13 @@ const ModifyComponent = ({ v_num }) => {
       moveToList({ page: 1 });
     }
     setResult(null);
+  };
+
+  const handleClickCancel = () => {
+    if (window.confirm("취소 하시겠습니까??")) {
+      alert("취소되었습니다.");
+      moveToRead(v_num);
+    }
   };
 
   return (
@@ -102,92 +88,57 @@ const ModifyComponent = ({ v_num }) => {
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">리뷰 제목</div>
-          <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="v_title"
-            type={"text"}
-            value={review.v_title}
-            onChange={handleChangeReview}
-          ></input>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">비밀번호</div>
-          <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="v_pw"
-            type={"password"}
-            value={review.v_pw}
-            onChange={handleChangeReview}
-          ></input>
+          <div className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md">
+            {review.v_title}
+          </div>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">리뷰 내용</div>
-          <textarea
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y"
-            name="v_content"
-            rows="10"
-            onChange={handleChangeReview}
-            value={review.v_content}
-          >
+          <div className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y">
             {review.v_content}
-          </textarea>
+          </div>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰 사진</div>
-          <input
-            ref={uploadRef}
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            type={"file"}
-            multiple={true}
-          ></input>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">Images</div>
+          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
           <div className="w-4/5 justify-center flex flex-wrap items-start">
             {review.v_uploadFileNames.map((imgFile, i) => (
               <div className="flex justify-center flex-col w-1/3" key={i}>
-                <button
-                  className="bg-blue-500 text-3xl text-white"
-                  onClick={() => deleteOldImages(imgFile)}
-                >
-                  DELETE
-                </button>
                 <img alt="img" src={`${host}/api/review/view/${imgFile}`} />
               </div>
             ))}
           </div>
         </div>
       </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 답변</div>
+          <input
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
+            name="v_c_content"
+            type={"text"}
+            value={review.v_c_content}
+            onChange={handleChangeReview}
+          ></input>
+        </div>
+      </div>
       <div className="flex justify-end p-4">
         <button
           type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
-          onClick={handleClickDelete}
-        >
-          Delete
-        </button>
-        <button
-          type="button"
-          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-orange-500"
+          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
           onClick={handleClickModify}
         >
-          Modify
+          수정하기
         </button>
         <button
           type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
+          onClick={handleClickCancel}
         >
-          List
+          취소
         </button>
       </div>
     </div>

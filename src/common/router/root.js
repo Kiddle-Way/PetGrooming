@@ -7,6 +7,7 @@ import productsRouter from "../../admin/router/product/productRouter";
 import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
+import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -14,9 +15,7 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-const DesignerIndex = lazy(() =>
-  import("../../admin/pages/designer/IndexPage")
-);
+
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const GuideIndex = lazy(() => import("../../member/pages/guide/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
@@ -25,6 +24,9 @@ const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
 
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
+const ReviewAnswerIndex = lazy(() =>
+  import("../../admin/pages/reviewAnswer/IndexPage")
+);
 
 const root = createBrowserRouter([
   {
@@ -105,6 +107,15 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: qnaRouter(),
+  },
+  {
+    path: "reviewAnswer",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReviewAnswerIndex />
+      </Suspense>
+    ),
+    children: ReviewAnswerRouter(),
   },
 ]);
 
