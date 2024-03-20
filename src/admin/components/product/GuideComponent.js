@@ -127,8 +127,8 @@ const GuideComponent = () => {
 
       <div className="my-4">
         <h1 className="mt-8 my-2 text-lg font-bold">✔ 추가 상품</h1>
-        <h1 className="text-lg ">+ 얼굴컷 : 5000원</h1>
-        <h1 className="text-lg ">+ 스파 20,000원</h1>
+        <h1 className="text-lg ">+ 얼굴컷 : 5,000원</h1>
+        <h1 className="text-lg ">+ 스 &nbsp; 파 : 20,000원</h1>
       </div>
 
       <div>

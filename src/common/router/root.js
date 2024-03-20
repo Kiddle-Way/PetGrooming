@@ -13,13 +13,10 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-const DesignerIndex = lazy(() =>
-  import("../../admin/pages/designer/IndexPage")
-);
+
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
-
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
 const Inquiry = lazy(() => import("../../member/pages/inquiry/IndexPage"));
@@ -27,6 +24,7 @@ const Join = lazy(() => import("../../member/pages/member/JoinPage"));
 const Login = lazy(() => import("../../member/pages/member/LoginPage"));
 const MyPage = lazy(() => import("../../member/pages/member/MyPage"));
 const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
+const Pay = lazy(() => import("../pay/Checkout"));
 
 const root = createBrowserRouter([
   {
@@ -128,6 +126,14 @@ const root = createBrowserRouter([
     element: (
       <Suspense fallback={Loading}>
         <AdminLogin />
+      </Suspense>
+    ),
+  },
+  {
+    path: "pay",
+    element: (
+      <Suspense fallback={Loading}>
+        <Pay />
       </Suspense>
     ),
   },

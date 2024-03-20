@@ -4,7 +4,7 @@ const AboutComponents = () => {
   return (
     <div className=" w-auto">
       <div className="flex justify-end mt-1 mb-9 mr-5">
-        홈 ＞ 회사소개 ＞<b>인사말</b>
+        홈 ＞ 회사소개 ＞&nbsp;<b>인사말</b>
       </div>
 
       <div className="flex justify-center my-10">
