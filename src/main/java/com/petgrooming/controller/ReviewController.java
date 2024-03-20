@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	private final CustomFileUtil fileUtil;
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(ReviewDTO reviewDTO) {
 		log.info("rgister: " + reviewDTO);
@@ -44,34 +46,40 @@ public class ReviewController {
 		return Map.of("result", v_num);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<ReviewDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getList(pageRequestDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
 	public PageResponseDTO<ReviewDTO> searchTitlelist(PageRequestDTO pageRequestDTO, @PathVariable("searchTitle") String searchTitle) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getSearchTitleList(pageRequestDTO, searchTitle);
 	}
 		
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
 	public PageResponseDTO<ReviewDTO> searchContentlist(PageRequestDTO pageRequestDTO, @PathVariable("searchContent") String searchContent) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/{v_num}")
 	public ReviewDTO read(@PathVariable(name = "v_num") Long v_num) {
 		return reviewService.get(v_num);
 	}
-
+ 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@PutMapping("/{v_num}")
 	public Map<String, String> modify(@PathVariable(name = "v_num") Long v_num, ReviewDTO reviewDTO) {
 		reviewDTO.setV_num(v_num);
@@ -100,6 +108,7 @@ public class ReviewController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@DeleteMapping("/{v_num}")
 	public Map<String, String> remove(@PathVariable("v_num") Long v_num) {
 
