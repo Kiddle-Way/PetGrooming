@@ -2,6 +2,7 @@ package com.petgrooming.controller;
 
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,35 +26,36 @@ import lombok.extern.log4j.Log4j2;
 public class ReserveController {
 	private final ReserveService service;
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/{r_num}")
 	public ReserveDTO get(@PathVariable(name = "r_num") Long r_num) {
 		return service.get(r_num);
 	}
 
-	// 취소요청안한 리스트
-	@GetMapping("/list")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@GetMapping("/list")// 취소요청안한 리스트
 	public PageResponseDTO<ReserveDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
 		return service.getList(pageRequestDTO);
 	}
 
-	// 취소요청한 리스트
-	@GetMapping("/requestlist")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@GetMapping("/requestlist")// 취소요청한 리스트
 	public PageResponseDTO<ReserveDTO> requestList(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
 		return service.getRequestList(pageRequestDTO);
 	}
 
-	//등록
-	@PostMapping("/")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@PostMapping("/")//등록
 	public Map<String, Long> register(@RequestBody ReserveDTO reserveDTO) {
 		log.info("ReserveDTO: " + reserveDTO);
 		Long r_num = service.register(reserveDTO);
 		return Map.of("r_num", r_num);
 	}
 	
-	//취소 요청
-	@DeleteMapping("/request/{r_num}")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@DeleteMapping("/request/{r_num}")//취소 요청
 	public Map<String, String> removeRequest(@PathVariable("r_num") Long r_num) {
 
 		service.removeRequest(r_num);
@@ -61,8 +63,8 @@ public class ReserveController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	//취소 확정
-	@DeleteMapping("/{r_num}")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@DeleteMapping("/{r_num}")//취소 확정
 	public Map<String, String> remove(@PathVariable("r_num") Long r_num) {
 
 		service.remove(r_num);

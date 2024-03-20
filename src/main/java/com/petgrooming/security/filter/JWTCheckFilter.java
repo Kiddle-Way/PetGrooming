@@ -36,7 +36,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 			// filterChain.doFilter(request, response); //이하 추가
 			Long m_num = (Long) claims.get("m_num");
 			String m_name = (String) claims.get("m_name");
-			Date m_birth = (Date) claims.get("m_date");
+			Date m_birth = (Date) claims.get("m_birth");
 			int m_gender = (int) claims.get("m_gender");
 			String m_pw = (String) claims.get("m_pw");
 			String m_email = (String) claims.get("m_email");
@@ -87,7 +87,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 			return true;
 		}
 		// 이미지 조회 경로는 체크하지 않는다면
-		if (path.startsWith("/api/products/view/")) {
+		if (path.startsWith("/api/product/list")) {
 			return true;
 		}
 		return false;

@@ -98,4 +98,29 @@ public class ProductServiceImpl implements ProductService {
         return responseDTO;
     }
 
+    @Override
+    public List<ProductDTO> listEssentialProducts() {
+        // 필수상품 조회
+        List<Product> products = productRepository.findEssentialProducts();
+
+        // 조회 결과를 ProductDTO로 변환
+        List<ProductDTO> dtoList = products.stream()
+                                .map(product -> modelMapper.map(product, ProductDTO.class))
+                                .collect(Collectors.toList());
+
+        return dtoList;
+    }
+
+    @Override
+    public List<ProductDTO> listAdditionalProducts() {
+        // 추가상품 조회
+        List<Product> products = productRepository.findAdditionalProducts();
+
+        // 조회 결과를 ProductDTO로 변환
+        List<ProductDTO> dtoList = products.stream()
+                                .map(product -> modelMapper.map(product, ProductDTO.class))
+                                .collect(Collectors.toList());
+
+        return dtoList;
+    }
 }

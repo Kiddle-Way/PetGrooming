@@ -18,30 +18,43 @@
  * log.info(inquiryRepository); } }
  */
 
-/*
- * package com.petgrooming.repository;
- * 
- * import java.time.LocalDateTime;
- * 
- * import org.junit.jupiter.api.Test; import
- * org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.boot.test.context.SpringBootTest; import
- * com.petgrooming.domain.Inquiry;
- * 
- * import lombok.extern.log4j.Log4j2;
- * 
- * @SpringBootTest
- * 
- * @Log4j2 public class InquiryRepositoryTests {
- * 
- * @Autowired private InquiryRepository inquiryRepository;
- * 
- * @Test public void testInsert() { for (int i = 1; i <= 100; i++) { Inquiry
- * inquiry = Inquiry.builder().i_title("Title..." + i).i_content("content...")
- * .i_reg(LocalDateTime.of(2023, 12, 31, 0, 0)).build();
- * 
- * inquiryRepository.save(inquiry); } } }
- */
+package com.petgrooming.repository;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import com.petgrooming.domain.Inquiry;
+import com.petgrooming.domain.Member;
+
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+@Log4j2
+public class InquiryRepositoryTests {
+
+    @Autowired
+    private InquiryRepository inquiryRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Test
+    public void testInsert() {
+        // 회원을 레포지토리에서 가져옵니다.
+        Member member = memberRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+
+        // 가져온 회원을 사용하여 Inquiry 객체를 생성합니다.
+        Inquiry inquiry = Inquiry.builder()
+                .m_num(member)
+                .i_title("제목...")
+                .i_content("내용...")
+                .build();
+
+        // Inquiry 객체를 저장합니다.
+        inquiryRepository.save(inquiry);
+    }
+}
 
 /*
  * package com.petgrooming.repository;

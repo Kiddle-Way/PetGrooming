@@ -16,16 +16,23 @@ public class Reserve {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESERVE_SEQ_GEN")
 	private Long r_num;
-	private Long d_num;
-	private Long p_num;
-	private Long m_num;
 
+	@ManyToOne(optional = false)
+    @JoinColumn(name = "d_num", referencedColumnName = "dno")
+	private Designer d_num;
+	
+	@ManyToOne(optional = false)
+    @JoinColumn(name = "m_num", referencedColumnName = "m_num")
+	private Member m_num;
+
+	private String allProduct;
+	
 	@Column(nullable = false)
 	private LocalDate r_date;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private ReserveTime r_time;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "a_t_num", referencedColumnName = "a_t_num")
+	private AvailableTimeslot a_t_num;
 
 	private Long r_total_price;
 	private String r_breed;

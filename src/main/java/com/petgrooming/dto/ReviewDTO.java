@@ -7,13 +7,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petgrooming.domain.Member;
+
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDTO {
 	private Long v_num;
-	private Long m_num;
+	private Member m_num;
 	private Long v_pw;
 	private String v_title;
 	private String v_content;
