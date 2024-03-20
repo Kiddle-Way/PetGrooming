@@ -97,6 +97,14 @@ const root = createBrowserRouter([
     path: "member",
     children: memberRouter(),
   },
+  {
+    path: "myPage",
+    element: (
+      <Suspense fallback={Loading}>
+        <MyPage />
+      </Suspense>
+    ),
+  },
 ]);
 
 export default root;

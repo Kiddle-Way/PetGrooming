@@ -9,6 +9,7 @@ const initState = {
   v_pw: "",
   v_content: "",
   v_files: [],
+  m_num: "1"
 };
 
 const AddComponent = () => {
@@ -36,7 +37,7 @@ const AddComponent = () => {
     formData.append("v_title", review.v_title);
     formData.append("v_pw", review.v_pw);
     formData.append("v_content", review.v_content);
-
+    formData.append("m_num",review.m_num)
     console.log(formData);
 
     setFetching(true);
