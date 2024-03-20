@@ -7,6 +7,7 @@ import productsRouter from "../../admin/router/product/productRouter";
 import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
+import memberRouter from "../../member/router/member/memberRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 import Guide from "../../admin/pages/product/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
@@ -14,6 +15,9 @@ import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRout
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
 const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
+const DesignerIndex = lazy(() =>
+  import("../../admin/pages/designer/IndexPage")
+);
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
@@ -93,6 +97,10 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: reviewRouter(),
+  },
+  {
+    path: "member",
+    children: memberRouter(),
   },
   {
     path: "inquiry",

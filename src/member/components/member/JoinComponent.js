@@ -42,7 +42,7 @@ const JoinComponent = () => {
         setMember({ ...initState });
         setError("");
         // 내 정보 보기 페이지로 이동
-        navigate("/login");
+        navigate("/member/login");
       })
       .catch((e) => {
         console.error(e);

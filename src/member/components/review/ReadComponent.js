@@ -6,6 +6,7 @@ import FetchingModal from "../../../common/components/FetchingModal";
 
 const initState = {
   v_num: 0,
+  m_num: 0,
   v_pw: 0,
   v_title: "",
   v_content: "",
@@ -32,8 +33,17 @@ const ReadComponent = ({ v_num }) => {
       <div className="flex justify-center mt-10">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">리뷰 번호</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 번호</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {review.v_num}
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center mt-10">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 작성 회원 번호</div>
+          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
+            {review.m_num.m_num}
           </div>
         </div>
       </div>
