@@ -76,8 +76,8 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	private Reserve dtoToEntity(ReserveDTO reserveDTO) {
-		Reserve reserve = Reserve.builder().d_num(reserveDTO.getD_num()).p_num(reserveDTO.getP_num())
-				.m_num(reserveDTO.getM_num()).r_date(reserveDTO.getR_date()).r_time(reserveDTO.getR_time())
+		Reserve reserve = Reserve.builder().d_num(reserveDTO.getD_num()).allProduct(reserveDTO.getAllProduct())
+				.m_num(reserveDTO.getM_num()).r_date(reserveDTO.getR_date()).a_t_num(reserveDTO.getA_t_num())
 				.r_total_price(reserveDTO.getR_total_price()).r_breed(reserveDTO.getR_breed())
 				.r_dog_name(reserveDTO.getR_dog_name()).r_dog_notice(reserveDTO.getR_dog_notice()).build();
 		return reserve;

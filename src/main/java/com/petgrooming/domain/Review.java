@@ -18,7 +18,11 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REVIEW_SEQ_GEN")
 	private Long v_num;
-	private Long m_num;
+	
+	@ManyToOne(optional = false)
+    @JoinColumn(name = "m_num", referencedColumnName = "m_num")
+    private Member m_num;
+	
 	private Long v_pw;
 	private String v_title;
 	private String v_content;
