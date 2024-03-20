@@ -18,9 +18,6 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-const DesignerIndex = lazy(() =>
-  import("../../admin/pages/designer/IndexPage")
-);
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
 const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
