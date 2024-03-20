@@ -19,7 +19,11 @@ public class Inquiry {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INQUIRY_SEQ_GEN")
 	// 사용할 전략을 시퀀스로 선택, 식별자 생성기를 설정해 놓은 INQUIRY_SEQ_GEN으로 설정
 	private Long i_num;
-	private Long m_num;
+	
+	@ManyToOne(optional = false)
+    @JoinColumn(name = "m_num", referencedColumnName = "m_num")
+    private Member m_num;
+	
 	private Long i_pw;
 	private String i_title;
 	private String i_content;

@@ -1,34 +1,34 @@
 
-/*
- * package com.petgrooming.repository;
- * 
- * import com.petgrooming.domain.Member;
- * 
- * import org.junit.jupiter.api.Test; import
- * org.junit.jupiter.api.extension.ExtendWith; import
- * org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.boot.test.context.SpringBootTest; import
- * org.springframework.test.context.junit.jupiter.SpringExtension;
- * 
- * import java.util.Date;
- * 
- * import static org.junit.jupiter.api.Assertions.assertNotNull;
- * 
- * @SpringBootTest public class MemberRepositoryTests {
- * 
- * @Autowired private MemberRepository memberRepository;
- * 
- * @Test public void testinsert() { Member member =
- * Member.builder().m_name("john").m_birth(new Date()).m_gender(0)
- * .m_email("john@petgrooming.com").m_pw("john1234").m_phone("01012345678").
- * m_addr("usa")
- * .dog_breed("Labrador Retriever").dog_name("biki").dog_birth(null).dog_notice(
- * null).m_state(false) .m_agree(false).build();
- * 
- * memberRepository.save(member);
- * 
- * } }
- */
+package com.petgrooming.repository;
+
+import com.petgrooming.domain.Member;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest
+public class MemberRepositoryTests {
+
+	@Autowired
+	private MemberRepository memberRepository;
+
+	@Test
+	public void testinsert() {
+		Member member = Member.builder().m_name("john").m_birth(new Date()).m_gender(0).m_email("john@petgrooming.com")
+				.m_pw("john1234").m_phone("01012345678").m_addr("usa").dog_breed("Labrador Retriever").dog_name("biki")
+				.dog_birth(null).dog_notice(null).m_state(false).m_agree(false).build();
+
+		memberRepository.save(member);
+
+	}
+}
 
 /*
  * package com.petgrooming.repository;

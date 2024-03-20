@@ -2,6 +2,10 @@ package com.petgrooming.dto;
 
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.petgrooming.domain.AvailableTimeslot;
+import com.petgrooming.domain.Designer;
+import com.petgrooming.domain.Member;
+import com.petgrooming.domain.Product;
 import com.petgrooming.domain.ReserveTime;
 
 import lombok.AllArgsConstructor;
@@ -15,14 +19,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReserveDTO {
 	private Long r_num;
-	private Long d_num;
-	private Long p_num;
-	private Long m_num;
+	private Designer d_num;
+	private Member m_num;
+	private String allProduct;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate r_date;
 
-	private ReserveTime r_time;
+	private AvailableTimeslot a_t_num;
 
 	private Long r_total_price;
 	private String r_breed;
