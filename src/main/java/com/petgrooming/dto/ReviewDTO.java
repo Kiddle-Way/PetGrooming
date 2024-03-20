@@ -2,9 +2,13 @@ package com.petgrooming.dto;
 
 import lombok.*;
 
+
 import java.time.LocalDateTime;
 import java.util.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.petgrooming.domain.Member;
+
 
 import com.petgrooming.domain.Member;
 
