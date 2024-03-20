@@ -25,6 +25,9 @@ public class Inquiry {
 	private String i_content;
 	private boolean i_delFlag;
 
+	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
+	private String i_a_content;
+
 	@Column(nullable = false, columnDefinition = "number(1,0) default 0")
 	public void changeDel(boolean delflag) {
 		this.i_delFlag = delflag;
@@ -38,6 +41,11 @@ public class Inquiry {
 	@Builder.Default
 	private List<InquiryImage> imageList = new ArrayList<>();
 
+	@PrePersist
+	public void prePersist() {
+		this.i_a_content = this.i_a_content == null ? "답변 미작성" : this.i_a_content;
+	}
+
 	public void changeI_pw(Long i_pw) {
 		this.i_pw = i_pw;
 	}
@@ -48,6 +56,10 @@ public class Inquiry {
 
 	public void changeI_content(String i_content) {
 		this.i_content = i_content;
+	}
+
+	public void changeI_a_content(String i_a_content) {
+		this.i_a_content = i_a_content;
 	}
 
 	public void addImage(InquiryImage image) {

@@ -1,12 +1,20 @@
 package com.petgrooming.service;
 
 import com.petgrooming.dto.MemberDTO;
+
+import com.petgrooming.dto.PageRequestDTO;
+import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.domain.Member;
 import com.petgrooming.repository.MemberRepository;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +22,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	private final ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	public String createMember(MemberDTO memberDTO) {
@@ -102,6 +112,24 @@ public class MemberServiceImpl implements MemberService {
 				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 		member.setM_state(!member.isM_state()); // 상태를 반전시켜 업데이트
 		memberRepository.save(member);
+	}
+
+	@Override
+	public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO) {
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage(), pageRequestDTO.getSize());
+
+		Page<Member> result = memberRepository.findAll(pageable);
+
+		List<MemberDTO> dtolist = result.getContent().stream().map(member -> modelMapper.map(member, MemberDTO.class))
+				.collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		PageResponseDTO<MemberDTO> responseDTO = PageResponseDTO.<MemberDTO>withAll().dtoList(dtolist)
+				.pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+
+		return responseDTO;
+
 	}
 
 }

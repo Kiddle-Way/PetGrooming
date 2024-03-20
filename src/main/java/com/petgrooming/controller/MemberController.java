@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.petgrooming.domain.Member;
+import com.petgrooming.dto.MemberDTO;
+import com.petgrooming.dto.PageRequestDTO;
+import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.repository.MemberRepository;
 import com.petgrooming.service.MemberService;
 
@@ -63,6 +66,12 @@ public class MemberController {
 
 		Member updatedMember = memberRepository.save(member);
 		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
+	}
+
+	@GetMapping("/list")
+	public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO) {
+		log.info(pageRequestDTO);
+		return memberService.list(pageRequestDTO);
 	}
 
 	/*
