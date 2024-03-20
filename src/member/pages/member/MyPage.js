@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"; 
 import MyPageComponent from '../../components/member/MyPageComponent';
+import Navbar from "../../../common/layouts/Navbar"; 
 
 const MyPage = () => {
 
@@ -7,6 +8,7 @@ const MyPage = () => {
 
   return (
     <div>
+      <Navbar />
       <MyPageComponent m_num={m_num}></MyPageComponent>
     </div>
   );
