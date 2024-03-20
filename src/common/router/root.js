@@ -6,6 +6,7 @@ import DesignerRouter from "../../admin/router/designer/DesignerRouter";
 import productsRouter from "../../admin/router/product/productRouter";
 import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
+import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 import Guide from "../../admin/pages/product/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
@@ -23,6 +24,10 @@ const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
 
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
+const Inquiry = lazy(() => import("../../member/pages/inquiry/IndexPage"));
+const Join = lazy(() => import("../../member/pages/member/JoinPage"));
+const Login = lazy(() => import("../../member/pages/member/LoginPage"));
+const MyPage = lazy(() => import("../../member/pages/member/MyPage"));
 const ReviewAnswerIndex = lazy(() =>
   import("../../admin/pages/reviewAnswer/IndexPage")
 );
@@ -88,6 +93,39 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: reviewRouter(),
+  },
+  {
+    path: "inquiry",
+    element: (
+      <Suspense fallback={Loading}>
+        <Inquiry />
+      </Suspense>
+    ),
+    children: inquiryRouter(),
+  },
+  {
+    path: "join",
+    element: (
+      <Suspense fallback={Loading}>
+        <Join />
+      </Suspense>
+    ),
+  },
+  {
+    path: "login",
+    element: (
+      <Suspense fallback={Loading}>
+        <Login />
+      </Suspense>
+    ),
+  },
+  {
+    path: "myPage",
+    element: (
+      <Suspense fallback={Loading}>
+        <MyPage />
+      </Suspense>
+    ),
   },
   {
     path: "notice",
