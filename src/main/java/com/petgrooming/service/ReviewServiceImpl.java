@@ -1,6 +1,7 @@
 package com.petgrooming.service;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
@@ -29,88 +30,68 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public PageResponseDTO<ReviewDTO> getList(PageRequestDTO pageRequestDTO) {
-	    log.info("getList..............");
+		log.info("getList..............");
 
-	    Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-	            Sort.by("v_num").descending());
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("v_num").descending());
 
-	    Page<Review> result = reviewRepository.selectList(pageable);
+		Page<Review> result = reviewRepository.selectList(pageable);
 
-	    List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
-	        ReviewDTO reviewDTO = ReviewDTO.builder()
-	                .v_num(review.getV_num())
-	                .m_num(review.getM_num())
-	                .v_pw(review.getV_pw())
-	                .v_title(review.getV_title())
-	                .v_content(review.getV_content())
-	                .build();
-	        return reviewDTO;
-	    }).collect(Collectors.toList());
+		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
+			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
+					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
+					.v_content(review.getV_c_content()).build();
 
-	    long totalCount = result.getTotalElements();
-	    return PageResponseDTO.<ReviewDTO>withAll()
-	            .dtoList(dtoList)
-	            .totalCount(totalCount)
-	            .pageRequestDTO(pageRequestDTO)
-	            .build();
+			return reviewDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+		return PageResponseDTO.<ReviewDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
 	}
 
 	@Override
 	public PageResponseDTO<ReviewDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
-	    log.info("getSearchTitleList..............");
+		log.info("getSearchTitleList..............");
 
-	    Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-	            Sort.by("v_num").descending());
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("v_num").descending());
 
-	    Page<Review> result = reviewRepository.searchTitleList(pageable, searchTitle);
+		Page<Review> result = reviewRepository.searchTitleList(pageable, searchTitle);
 
-	    List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
-	        ReviewDTO reviewDTO = ReviewDTO.builder()
-	                .v_num(review.getV_num())
-	                .m_num(review.getM_num())
-	                .v_pw(review.getV_pw())
-	                .v_title(review.getV_title())
-	                .v_content(review.getV_content())
-	                .build();
-	        return reviewDTO;
-	    }).collect(Collectors.toList());
+		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
+			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
+					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
+					.v_c_content(review.getV_c_content()).build();
+			return reviewDTO;
+		}).collect(Collectors.toList());
 
-	    long totalCount = result.getTotalElements();
-	    return PageResponseDTO.<ReviewDTO>withAll()
-	            .dtoList(dtoList)
-	            .totalCount(totalCount)
-	            .pageRequestDTO(pageRequestDTO)
-	            .build();
+		long totalCount = result.getTotalElements();
+		return PageResponseDTO.<ReviewDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
 	}
 
 	@Override
 	public PageResponseDTO<ReviewDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent) {
-	    log.info("getSearchContentList..............");
+		log.info("getSearchContentList..............");
 
-	    Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-	            Sort.by("v_num").descending());
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("v_num").descending());
 
-	    Page<Review> result = reviewRepository.searchContentList(pageable, searchContent);
+		Page<Review> result = reviewRepository.searchContentList(pageable, searchContent);
 
-	    List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
-	        ReviewDTO reviewDTO = ReviewDTO.builder()
-	                .v_num(review.getV_num())
-	                .m_num(review.getM_num())
-	                .v_pw(review.getV_pw())
-	                .v_title(review.getV_title())
-	                .v_content(review.getV_content())
-	                .build();
-	        return reviewDTO;
-	    }).collect(Collectors.toList());
+		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
+			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
+					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
+					.v_c_content(review.getV_c_content()).build();
+			return reviewDTO;
+		}).collect(Collectors.toList());
 
-	    long totalCount = result.getTotalElements();
-	    return PageResponseDTO.<ReviewDTO>withAll()
-	            .dtoList(dtoList)
-	            .totalCount(totalCount)
-	            .pageRequestDTO(pageRequestDTO)
-	            .build();
+		long totalCount = result.getTotalElements();
+		return PageResponseDTO.<ReviewDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
 	}
-	
+
 	@Override
 	public Long register(ReviewDTO reviewDTO) {
 		Review review = dtoToEntity(reviewDTO);
@@ -120,7 +101,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	private Review dtoToEntity(ReviewDTO reviewDTO) {
 		Review review = Review.builder().v_num(reviewDTO.getV_num()).m_num(reviewDTO.getM_num())
-				.v_pw(reviewDTO.getV_pw()).v_title(reviewDTO.getV_title()).v_content(reviewDTO.getV_content()).build();
+				.v_pw(reviewDTO.getV_pw()).v_title(reviewDTO.getV_title()).v_content(reviewDTO.getV_content())
+				.v_c_content(reviewDTO.getV_c_content()).build();
 
 		List<String> uploadFileNames = reviewDTO.getV_uploadFileNames();
 		if (uploadFileNames == null) {
@@ -142,7 +124,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	private ReviewDTO entityToDTO(Review review) {
 		ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
-				.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content()).build();
+				.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
+				.v_c_content(review.getV_c_content()).build();
 
 		List<ReviewImage> imageList = review.getImageList();
 
@@ -163,6 +146,7 @@ public class ReviewServiceImpl implements ReviewService {
 		review.changeV_pw(reviewDTO.getV_pw());
 		review.changeV_title(reviewDTO.getV_title());
 		review.changeV_content(reviewDTO.getV_content());
+		review.changeV_c_content(reviewDTO.getV_c_content());
 
 		review.clearList();
 		List<String> uploadFileNames = reviewDTO.getV_uploadFileNames();

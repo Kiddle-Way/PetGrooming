@@ -19,6 +19,7 @@ public class InquiryDTO {
 	private String i_title;
 	private String i_content;
 	private LocalDateTime i_reg;
+	private String i_a_content;
 
 	@Builder.Default
 	private List<MultipartFile> i_files = new ArrayList<>();
