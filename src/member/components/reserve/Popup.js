@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const App = () => {
+const Popup = () => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
 
@@ -684,10 +684,9 @@ const App = () => {
 
   return (
     <div>
-      <div style={{ fontSize: 24 }}>약관 동의 및 예약</div>
       <div className="policy-box">
         <h3 style={{ fontSize: 24 }}>1. 서비스 이용 약관</h3>
-        <button onClick={handlePopup1}>자세히 보기</button>
+        <div onClick={handlePopup1}>자세히 보기</div>
       </div>
 
       <div className="agree-box">
@@ -696,28 +695,16 @@ const App = () => {
       </div>
 
       <div className="policy-box">
-        <h3 style={{ fontSize: 24 }}>2. 개인정보 이용내용 자세히 보기</h3>
-        <button onClick={handlePopup2}>자세히 보기</button>
+        <h3 style={{ fontSize: 24 }}>2. 개인정보 이용 약관</h3>
+        <div onClick={handlePopup2}>자세히 보기</div>
       </div>
 
       <div className="agree-box">
         <input type="checkbox" checked={agree2} onChange={handleAgree2} />
         <label>개인정보 이용약관 및 특별 약관에 동의합니다.</label>
       </div>
-
-      <div className="action-box">
-        <p>총 가격: ₩{/* 총 가격 계산 로직을 여기에 작성합니다. */}</p>
-        <button
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-        >
-          예약 등록
-        </button>
-        <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
-          돌아가기
-        </button>
-      </div>
     </div>
   );
 };
 
-export default App;
+export default Popup;
