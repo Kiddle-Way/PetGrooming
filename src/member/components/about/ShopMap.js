@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function ShopComponents() {
+function ShopMap() {
   useEffect(() => {
     // 카카오 맵 스크립트를 동적으로 생성하여 추가
     const script = document.createElement("script");
@@ -51,11 +51,6 @@ function ShopComponents() {
   }, []); // useEffect 의존성 배열은 빈 배열로 지정하여 한 번만 실행되도록 설정
 
   // 지도를 표시할 div 요소 반환
-  return (
-    <div
-      id="map"
-      className=" w-96 h-52 flex justify-center"
-    ></div>
-  );
+  return <div id="map" className="w-2/3 h-96 flex justify-center m-10"></div>;
 }
-export default ShopComponents;
+export default ShopMap;

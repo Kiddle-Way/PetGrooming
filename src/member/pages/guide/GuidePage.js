@@ -1,10 +1,13 @@
 import GuideComponent from "../../../admin/components/product/GuideComponent";
+import BasicLayout from "../../../common/layouts/BasicLayout";
 
 const GuidePage = () => {
   return (
-    <GuideComponent
-      children={<div>Pet Groomming 홈페이지에 오신것을 환영합니다</div>}
-    />
+    <BasicLayout>
+      <div className="m-16 flex-col w-full">
+        <GuideComponent />
+      </div>
+    </BasicLayout>
   );
 };
 export default GuidePage;

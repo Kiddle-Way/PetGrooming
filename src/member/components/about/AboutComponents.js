@@ -3,7 +3,7 @@ import greet from "../../../image/gre.png";
 const AboutComponents = () => {
   return (
     <div className=" w-auto">
-      <div className="flex justify-end my-9 mr-5">
+      <div className="flex justify-end mt-1 mb-9 mr-5">
         홈 ＞ 회사소개 ＞<b>인사말</b>
       </div>
 
