@@ -7,10 +7,10 @@ import {
   getAvailableTime,
   makeUnavailable,
 } from "../../../common/api/reserveApi";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Calendar from "react-calendar";
 import "../../../../node_modules/react-calendar/dist/Calendar.css";
-import Popup from "./Popup";
+import App from "./App";
 
 const ReserveComponent2 = () => {
   const location = useLocation();
@@ -28,9 +28,6 @@ const ReserveComponent2 = () => {
     r_dog_name: "",
     r_dog_notice: "",
   });
-
-  const [a, setA] = useState("");
-  const [b, setB] = useState(0);
   const [essentialProducts, setEssentialProducts] = useState([]);
   const [additionalProducts, setAdditionalProducts] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -75,24 +72,7 @@ const ReserveComponent2 = () => {
 
   const handleProductChange = (e) => {
     const { value } = e.target;
-    console.log(value); // 변경된 값
-    const [price, name] = value.split(':');
-    
-    // 이전 값과 새 값 사이의 차이를 계산하여 업데이트
-    setReserve((prevReserve) => ({
-      ...prevReserve,
-      allProduct: prevReserve.allProduct.replace(' '+a, "") + ` ${name}`,
-    }));
-
-    setReserve((prevReserve) => ({
-      ...prevReserve,
-      r_total_price: prevReserve.r_total_price - parseInt(b) + parseInt(price),
-    }));
-    // a 값을 업데이트
-    setA(name);
-    setB(price);
-    console.log(a); // 새로운 값
-    console.log(reserve.allProduct); // 변경된 allProduct 확인
+    setReserve({ ...reserve, allProduct: value });
   };
 
   const handleAdditionalProductChange = (e, product) => {
@@ -100,16 +80,14 @@ const ReserveComponent2 = () => {
     if (checked) {
       setReserve((prevReserve) => ({
         ...prevReserve,
-        allProduct: prevReserve.allProduct + ` ${product.p_name}`,
-        r_total_price: prevReserve.r_total_price + product.p_price,
+        allProduct: prevReserve.allProduct + `, ${product.p_name}`,
       }));
     } else {
       // 만약 체크가 해제된 경우 해당 추가 상품 정보를 문자열에서 제거
-      const regex = new RegExp(` ${product.p_name}`, "g");
+      const regex = new RegExp(`, ${product.p_name}`, "g");
       setReserve((prevReserve) => ({
         ...prevReserve,
         allProduct: prevReserve.allProduct.replace(regex, ""),
-        r_total_price: prevReserve.r_total_price - product.p_price,
       }));
     }
   };
@@ -140,7 +118,6 @@ const ReserveComponent2 = () => {
       alert("예약 추가 중 오류가 발생했습니다.");
     }
   };
-
   return (
     <div className="w-full">
       <form>
@@ -222,7 +199,7 @@ const ReserveComponent2 = () => {
                   <option value="">상품 선택</option>
                   {/* 필수상품 목록 출력 */}
                   {essentialProducts.map((product) => (
-                    <option key={product.p_num} value={`${product.p_price}:${product.p_name}`}>
+                    <option key={product.p_num} value={product.p_name}>
                       {product.p_name}
                     </option>
                   ))}
@@ -232,7 +209,7 @@ const ReserveComponent2 = () => {
                     <div key={product.p_num}>
                       <input
                         type="checkbox"
-                        id={product.p_name}
+                        id={product.name}
                         value={product.p_price}
                         onChange={(e) =>
                           handleAdditionalProductChange(e, product)
@@ -267,9 +244,9 @@ const ReserveComponent2 = () => {
               </div>
             </div>
             <div className="relative mb-4 flex items-center flex-col">
-              <Popup />
+              <App />
               <div className="action-box">
-                <p  style={{ fontSize: 20 }}>총 가격: {reserve.r_total_price}원{/* 총 가격 계산 로직을 여기에 작성합니다. */}</p>
+                <p>총 가격: ₩{/* 총 가격 계산 로직을 여기에 작성합니다. */}</p>
                 <button
                   type="button"
                   onClick={handleSubmit}
@@ -277,11 +254,11 @@ const ReserveComponent2 = () => {
                 >
                   예약 등록
                 </button>
-                <Link to={{ pathname: "/reserve/page" }}>
-                  <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
-                    돌아가기
-                  </button>
-                </Link>
+                <button
+                  className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+                >
+                  돌아가기
+                </button>
               </div>
             </div>
           </div>

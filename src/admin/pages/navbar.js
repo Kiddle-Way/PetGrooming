@@ -11,7 +11,6 @@ const Navbar = () => {
               <img src={Logo} className="h-20" alt="" />
             </Link>
           </div>
-          관리자 페이지
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
@@ -65,6 +64,11 @@ const Navbar = () => {
                 <li>자주묻는질문</li>
                 <li>문의게시판</li>
               </ul>
+            </details>
+            <details className="dropdown">
+              <summary className="m-1 text-xl btn btn-ghost text-gray-600">
+                <Link to={"/reviewAnswer/"}>리뷰게시판</Link>
+              </summary>
             </details>
 
             <details className="dropdown">
