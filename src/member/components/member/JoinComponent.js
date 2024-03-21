@@ -28,6 +28,7 @@ const JoinComponent = () => {
       ...member,
       [e.target.name]: e.target.value,
     });
+    console.log(member);
   };
 
   const handleClickAdd = () => {
@@ -37,6 +38,7 @@ const JoinComponent = () => {
     }
     postAdd(member)
       .then((result) => {
+        console.log(member);
         console.log(result);
         // 초기화
         setMember({ ...initState });
@@ -71,7 +73,7 @@ const JoinComponent = () => {
         <input
           type="text"
           name="m_name"
-          value={member.m_name}
+          defaultValue={member.m_name}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -81,7 +83,7 @@ const JoinComponent = () => {
         <input
           type="date"
           name="m_birth"
-          value={member.m_birth}
+          defaultValue={member.m_birth}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -90,7 +92,7 @@ const JoinComponent = () => {
         <label className="block mb-1">성별:</label>
         <select
           name="m_gender"
-          value={member.m_state ? "1" : "0"}
+          defaultValue={member.m_state ? "1" : "0"}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         >
@@ -104,7 +106,7 @@ const JoinComponent = () => {
         <input
           type="email"
           name="m_email"
-          value={member.m_email}
+          defaultValue={member.m_email}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -114,7 +116,7 @@ const JoinComponent = () => {
         <input
           type="password"
           name="m_pw"
-          value={member.m_pw}
+          defaultValue={member.m_pw}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -124,7 +126,7 @@ const JoinComponent = () => {
         <input
           type="tel"
           name="m_phone"
-          value={member.m_phone}
+          defaultValue={member.m_phone}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -134,7 +136,7 @@ const JoinComponent = () => {
         <input
           type="text"
           name="m_addr"
-          value={member.m_addr}
+          defaultValue={member.m_addr}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -144,7 +146,7 @@ const JoinComponent = () => {
         <input
           type="text"
           name="dog_breed"
-          value={member.dog_breed}
+          defaultValue={member.dog_breed}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -154,7 +156,7 @@ const JoinComponent = () => {
         <input
           type="text"
           name="dog_name"
-          value={member.dog_name}
+          defaultValue={member.dog_name}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -164,7 +166,7 @@ const JoinComponent = () => {
         <input
           type="date"
           name="dog_birth"
-          value={member.dog_birth}
+          defaultValue={member.dog_birth}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -174,7 +176,7 @@ const JoinComponent = () => {
         <input
           type="text"
           name="dog_notice"
-          value={member.dog_notice}
+          defaultValue={member.dog_notice}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
@@ -183,7 +185,7 @@ const JoinComponent = () => {
         <label className="block mb-1">탈퇴 요청 여부:</label>
         <select
           name="m_state"
-          value={member.m_state ? "false" : "true"}
+          defaultValue={member.m_state ? "false" : "true"}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         >
@@ -196,7 +198,7 @@ const JoinComponent = () => {
         <label className="block mb-1">개인정보 동의 여부:</label>
         <select
           name="m_agree"
-          value={member.m_agree ? "false" : "true"}
+          defaultValue={member.m_agree ? "false" : "true"}
           onChange={handleChangeMember}
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         >
