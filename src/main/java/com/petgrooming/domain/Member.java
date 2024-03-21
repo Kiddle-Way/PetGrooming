@@ -8,6 +8,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 
+@Data
 @Entity
 @Table(name = "MEMBER")
 @Getter
@@ -31,7 +32,7 @@ public class Member {
 
 	@Column(name = "m_gender", nullable = false)
 	private int m_gender;
-	
+
 	@Column(name = "m_email", length = 50, nullable = false, unique = true)
 	private String m_email;
 
@@ -76,5 +77,12 @@ public class Member {
 
 	public void clearRole() {
 		memberRoleList.clear();
+	}
+
+	@PrePersist
+	public void addDefaultRole() {
+		// 회원 역할 추가
+		MemberRole userRole = MemberRole.USER;
+		this.addRole(userRole);
 	}
 }

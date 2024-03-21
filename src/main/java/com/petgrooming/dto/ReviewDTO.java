@@ -10,6 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.petgrooming.domain.Member;
 
 
+import com.petgrooming.domain.Member;
+
+
+import com.petgrooming.domain.Member;
+
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -22,10 +28,9 @@ public class ReviewDTO {
 	private String v_content;
 	private LocalDateTime v_date;
 	private String v_c_content;
-
+	
 	@Builder.Default
 	private List<MultipartFile> v_files = new ArrayList<>();
-
 
 	@Builder.Default
 	private List<String> v_uploadFileNames = new ArrayList<>();

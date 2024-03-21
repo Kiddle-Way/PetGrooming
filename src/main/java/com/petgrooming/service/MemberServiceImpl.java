@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,14 +23,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	private final ModelMapper modelMapper = new ModelMapper();
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
-	public String createMember(MemberDTO memberDTO) {
-		Member member = convertToEntity(memberDTO);
+	public Long registerMember(Member member) {
+		// 비밀번호 인코딩 등 회원가입 처리
+		String encodedPassword = passwordEncoder.encode(member.getM_pw());
+		member.setM_pw(encodedPassword);
+
+		// 회원 등록
 		Member savedMember = memberRepository.save(member);
-		return savedMember.getM_email();
+
+		// 등록된 회원의 고유 ID 반환
+		return savedMember.getM_num();
 	}
 
 	@Override

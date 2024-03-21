@@ -16,6 +16,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Log4j2
@@ -26,13 +27,13 @@ public class MemberController {
 
 	private final MemberRepository memberRepository;
 	private final MemberService memberService;
+	
 
 	// 회원 추가
 	@PostMapping("/")
-	public ResponseEntity<Member> createMember(@RequestBody Member member) {
-		log.info("Received request to create member: {}", member);
-		Member savedMember = memberRepository.save(member);
-		return new ResponseEntity<>(savedMember, HttpStatus.CREATED);
+	public ResponseEntity<Long> registerMember(@RequestBody Member member) {
+	    Long memberId = memberService.registerMember(member);
+	    return new ResponseEntity<>(memberId, HttpStatus.CREATED);
 	}
 
 	// 회원 조회
