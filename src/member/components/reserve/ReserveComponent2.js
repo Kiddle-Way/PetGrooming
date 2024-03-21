@@ -286,9 +286,6 @@ const ReserveComponent2 = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center"></div>
-      </form>
-        <div className="flex justify-center"></div>
       </form>
     </div>
   );
