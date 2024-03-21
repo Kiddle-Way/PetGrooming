@@ -34,17 +34,12 @@ public class InquiryServiceImpl implements InquiryService {
 		Pageable pageable = PageRequest.of(inquiryPageRequestDTO.getPage() - 1, inquiryPageRequestDTO.getSize(),
 				Sort.by("i_num").descending());
 
-		Page<Object[]> result = inquiryRepository.selectList(pageable);
+		Page<Inquiry> result = inquiryRepository.selectList(pageable);
 
-		List<InquiryDTO> dtoList = result.get().map(arr -> {
-			Inquiry inquiry = (Inquiry) arr[0];
-			InquiryImage inquiryImage = (InquiryImage) arr[1];
-
+		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
 			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
 					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
 					.i_a_content(inquiry.getI_a_content()).build();
-			String imageStr = inquiryImage.getFileName();
-			inquiryDTO.setI_uploadFileNames(List.of(imageStr));
 
 			return inquiryDTO;
 		}).collect(Collectors.toList());
