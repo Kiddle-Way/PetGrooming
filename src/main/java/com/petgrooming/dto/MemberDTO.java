@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.petgrooming.domain.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -88,4 +90,23 @@ public class MemberDTO extends User {
 
 		return dataMap;
 	}
+	
+	  public Member toMember() {
+	        Member member = new Member();
+	        member.setM_num(this.getM_num());
+	        member.setM_name(this.getM_name());
+	        member.setM_birth(this.getM_birth());
+	        member.setM_gender(this.getM_gender());
+	        member.setM_email(this.getM_email());
+	        member.setM_pw(this.getM_pw());
+	        member.setM_phone(this.getM_phone());
+	        member.setM_addr(this.getM_addr());
+	        member.setDog_breed(this.getDog_breed());
+	        member.setDog_name(this.getDog_name());
+	        member.setDog_birth(this.getDog_birth());
+	        member.setDog_notice(this.getDog_notice());
+	        member.setM_state(this.isM_state());
+	        member.setM_agree(this.isM_agree());
+	        return member;
+	    }
 }

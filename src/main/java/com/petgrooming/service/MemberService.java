@@ -10,7 +10,7 @@ import com.petgrooming.dto.PageResponseDTO;
 public interface MemberService {
 
 	// 회원가입
-	String createMember(MemberDTO memberDTO);
+	Long registerMember(Member member);
 
 	// 내정보
 	MemberDTO getMemberById(Long m_num);
