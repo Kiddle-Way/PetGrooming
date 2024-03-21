@@ -12,6 +12,7 @@ const initState = {
   v_content: "",
   v_c_content: "",
   v_uploadFileNames: [],
+  m_num: 0,
   v_delFlag: false,
 };
 
