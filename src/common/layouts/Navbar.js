@@ -73,7 +73,7 @@ const Navbar = () => {
                   <Link to={"/"}>자주묻는질문</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>문의게시판</Link>
+                  <Link to={"/inquiry"}>문의게시판</Link>
                 </li>
               </ul>
             </details>
