@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Popup = () => {
+const Popup = ({ onAgree }) => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
 
@@ -510,11 +510,7 @@ const Popup = () => {
   };
 
   const handlePopup2 = () => {
-    const popup = window.open(
-      "", // 새로운 창의 URL (비워두면 현재 페이지가 열립니다.)
-      "_blank", // 새로운 창의 타겟 이름
-      "width=500,height=300" // 새로운 창의 크기 및 기타 옵션
-    );
+    const popup = window.open("", "_blank", "width=500,height=300");
     popup.document.write(`
       <!DOCTYPE html>
       <html lang="ko">
@@ -674,12 +670,14 @@ const Popup = () => {
     `);
   };
 
-  const handleAgree1 = () => {
-    setAgree1(!agree1);
+  const handleAgree1 = (e) => {
+    setAgree1(e.target.checked);
+    onAgree(1, e.target.checked); // 부모 컴포넌트로 체크 상태 전달
   };
 
-  const handleAgree2 = () => {
-    setAgree2(!agree2);
+  const handleAgree2 = (e) => {
+    setAgree2(e.target.checked);
+    onAgree(2, e.target.checked); // 부모 컴포넌트로 체크 상태 전달
   };
 
   return (
