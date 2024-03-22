@@ -1,82 +1,78 @@
-import React, { useState } from "react";
-import { login } from "../../../common/api/memberApi";
-import "./LoginComponent.css"; // 스타일 파일 추가
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useCustomLogin from "../../../common/hooks/useCustomLogin";
+
+const initState = {
+  email: "",
+  pw: "",
+};
 
 const LoginComponent = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
+  const [loginParam, setLoginParam] = useState({ ...initState });
 
-  const navigate = useNavigate();
+  const { doLogin, moveToPath } = useCustomLogin();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // 입력값이 변경될 때마다 에러를 초기화
+    loginParam[e.target.name] = e.target.value;
+    setLoginParam({ ...loginParam });
+  };
+  const handleClickLogin = (e) => {
+    doLogin(loginParam) // loginSlice의 비동기 호출
+      .then((data) => {
+        console.log(data);
+
+        if (data.error) {
+          alert("이메일과 패스워드를 다시 확인하세요");
+        } else {
+          alert("로그인 성공");
+          moveToPath("/");
+        }
+      });
   };
 
-  const validateForm = () => {
-    let isValid = true;
-    const newErrors = {};
-
-    if (!formData.email.trim()) {
-      newErrors.email = "이메일을 입력하세요.";
-      isValid = false;
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = "비밀번호를 입력하세요.";
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-  
-    try {
-      const response = await login(formData.email, formData.password);
-      console.log("로그인 성공:", response);
-      // 로그인 성공 후 다음 페이지로 이동 등의 처리
-      navigate(`/mypage/${response.m_num}`); // 로그인 후 마이페이지로 이동
-    } catch (error) {
-      console.error("로그인 실패:", error);
-      setErrors({ ...errors, email: "이메일 또는 비밀번호가 올바르지 않습니다." });
-    }
-  };
-  
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <div>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        {errors.email && <div className="error">{errors.email}</div>}
+    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
+      <div className="flex justify-center">
+        <div className="text-4xl m-4 p-4 font-extrabold text-blue-500">
+          Login Component
+        </div>
       </div>
-      <div>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        {errors.password && <div className="error">{errors.password}</div>}
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-full p-3 text-left font-bold">Email</div>
+          <input
+            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="email"
+            type={"text"}
+            value={loginParam.email}
+            onChange={handleChange}
+          ></input>
+        </div>
       </div>
-      <button type="submit" className="login-button">로그인</button>
-    </form>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-full p-3 text-left font-bold">Password</div>
+          <input
+            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="pw"
+            type={"password"}
+            value={loginParam.pw}
+            onChange={handleChange}
+          ></input>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full justify-center">
+          <div className="w-2/5 p-6 flex justify-center font-bold">
+            <button
+              className="rounded p-4 w-36 bg-blue-500 text-xl  text-white"
+              onClick={handleClickLogin}
+            >
+              LOGIN
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

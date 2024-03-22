@@ -6,9 +6,11 @@ import FetchingModal from "../../../common/components/FetchingModal";
 
 const initState = {
   v_num: 0,
+  m_num: 0,
   v_pw: 0,
   v_title: "",
   v_content: "",
+  v_c_content: "",
   v_uploadFileNames: [],
 };
 const host = API_SERVER_HOST;
@@ -30,15 +32,24 @@ const ReadComponent = ({ v_num }) => {
       {fetching ? <FetchingModal /> : <></>}
       <div className="flex justify-center mt-10">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">v_num</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 번호</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 번호</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {review.v_num}
           </div>
         </div>
       </div>
+      <div className="flex justify-center mt-10">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 작성 회원 번호</div>
+          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
+            {review.m_num.m_num}
+          </div>
+        </div>
+      </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰내용</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 제목</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {review.v_title}
           </div>
@@ -46,7 +57,7 @@ const ReadComponent = ({ v_num }) => {
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰비밀번호</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 비밀번호</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {review.v_pw}
           </div>
@@ -54,7 +65,7 @@ const ReadComponent = ({ v_num }) => {
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">PDESC</div>
+          <div className="w-1/5 p-6 text-right font-bold">리뷰 내용</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {review.v_content}
           </div>
@@ -69,22 +80,6 @@ const ReadComponent = ({ v_num }) => {
             src={`${host}/api/review/view/${imgFile}`}
           />
         ))}
-      </div>
-      <div className="flex justify-end p-4">
-        <button
-          type="button"
-          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
-          onClick={() => moveToModify(v_num)}
-        >
-          Modify
-        </button>
-        <button
-          type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-          onClick={moveToList}
-        >
-          List
-        </button>
       </div>
     </div>
   );

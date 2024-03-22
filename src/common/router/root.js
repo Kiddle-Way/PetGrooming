@@ -1,11 +1,16 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import AboutRouter from "../../member/router/about/AboutRouter";
+import noticeRouter from "../../admin/router/notice/NoticeRouter";
 import DesignerRouter from "../../admin/router/designer/DesignerRouter";
 import productsRouter from "../../admin/router/product/productRouter";
 import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
+import memberRouter from "../../member/router/member/memberRouter";
+import qnaRouter from "../../admin/router/Q&A/QnaRouter";
+import Guide from "../../admin/pages/product/GuidePage";
+import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -13,9 +18,9 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
-const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
+const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
+const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
@@ -23,6 +28,9 @@ const Inquiry = lazy(() => import("../../member/pages/inquiry/IndexPage"));
 const Join = lazy(() => import("../../member/pages/member/JoinPage"));
 const Login = lazy(() => import("../../member/pages/member/LoginPage"));
 const MyPage = lazy(() => import("../../member/pages/member/MyPage"));
+const ReviewAnswerIndex = lazy(() =>
+  import("../../admin/pages/reviewAnswer/IndexPage")
+);
 const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
 const Pay = lazy(() => import("../pay/Checkout"));
 
@@ -89,6 +97,10 @@ const root = createBrowserRouter([
     children: reviewRouter(),
   },
   {
+    path: "member",
+    children: memberRouter(),
+  },
+  {
     path: "inquiry",
     element: (
       <Suspense fallback={Loading}>
@@ -122,20 +134,31 @@ const root = createBrowserRouter([
     ),
   },
   {
-    path: "adminlogin",
+    path: "notice",
     element: (
       <Suspense fallback={Loading}>
-        <AdminLogin />
+        <NoticeIndex />
       </Suspense>
     ),
+    children: noticeRouter(),
   },
   {
-    path: "pay",
+    path: "qna",
     element: (
       <Suspense fallback={Loading}>
-        <Pay />
+        <QnaIndex />
       </Suspense>
     ),
+    children: qnaRouter(),
+  },
+  {
+    path: "reviewAnswer",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReviewAnswerIndex />
+      </Suspense>
+    ),
+    children: ReviewAnswerRouter(),
   },
 ]);
 

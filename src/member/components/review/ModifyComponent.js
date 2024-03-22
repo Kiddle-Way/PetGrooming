@@ -10,6 +10,7 @@ const initState = {
   v_pw: 0,
   v_title: "",
   v_content: "",
+  v_c_content: "",
   v_uploadFileNames: [],
   v_delFlag: false,
 };
@@ -56,6 +57,7 @@ const ModifyComponent = ({ v_num }) => {
     formData.append("v_title", review.v_title);
     formData.append("v_pw", review.v_pw);
     formData.append("v_content", review.v_content);
+    formData.append("v_c_content", review.v_c_content);
     for (let i = 0; i < review.v_uploadFileNames.length; i++) {
       formData.append("v_uploadFileNames", review.v_uploadFileNames[i]);
     }
@@ -109,6 +111,7 @@ const ModifyComponent = ({ v_num }) => {
           ></input>
         </div>
       </div>
+
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">비밀번호</div>
@@ -146,6 +149,7 @@ const ModifyComponent = ({ v_num }) => {
           ></input>
         </div>
       </div>
+
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">Images</div>

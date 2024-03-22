@@ -53,13 +53,13 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                공지사항관리
+                <Link to={"/notice/"}>공지사항관리</Link>
               </summary>
             </details>
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                고객센터관리
+                <Link to={"/qna/"}>고객센터관리</Link>
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>자주묻는질문</li>

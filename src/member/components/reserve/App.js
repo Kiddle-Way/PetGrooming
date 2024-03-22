@@ -704,18 +704,6 @@ const App = () => {
         <input type="checkbox" checked={agree2} onChange={handleAgree2} />
         <label>개인정보 이용약관 및 특별 약관에 동의합니다.</label>
       </div>
-
-      <div className="action-box">
-        <p>총 가격: ₩{/* 총 가격 계산 로직을 여기에 작성합니다. */}</p>
-        <button
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-        >
-          예약 등록
-        </button>
-        <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
-          돌아가기
-        </button>
-      </div>
     </div>
   );
 };

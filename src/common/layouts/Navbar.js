@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../image/logo12.jpg";
 import { useState } from "react";
 
 const Navbar = () => {
+  const loginState = useSelector((state) => state.loginSlice);
+
   const [isOpen, setIsOpen] = useState(false); // 메뉴 상태 관리
 
   // 햄버거 메뉴 클릭 이벤트 핸들러
@@ -101,27 +104,32 @@ const Navbar = () => {
                 </li>
               </ul>
             </details>
-
-            <details className="dropdown">
-              <summary className="m-1 text-xl btn btn-ghost text-black">
-                <div className="flex font-medium  text-black hover:text-blue-600 text-sm rounded ">
-                  <ul>
-                    <li>
-                      <Link to={"/login"}>Login</Link>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <Link to={"/join"}>Join US</Link>
-                    </li>
-                  </ul>
-                </div>
-              </summary>
-            </details>
           </ul>
+        </div>
+        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
+          {!loginState.m_email ? (
+            <div className="text-white text-sm m-1 rounded">
+              <Link to={"/member/login"}>Login</Link>
+            </div>
+          ) : (
+            <div className="text-white text-sm m-1 rounded">
+              <Link to={"/member/logout"}>Logout</Link>
+            </div>
+          )}
+        </div>
+        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
+          <div className="text-white text-sm m-1 rounded">
+            <Link to={"/member/join"}>Join</Link>
+          </div>
+        </div>
+        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
+          <div className="text-white text-sm m-1 rounded">
+            <Link to={"/member/mypage"}>MyPage</Link>
+          </div>
         </div>
       </nav>
     </div>
   );
 };
+
 export default Navbar;

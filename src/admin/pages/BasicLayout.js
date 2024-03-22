@@ -5,7 +5,7 @@ const BasicLayout = ({ children }) => {
   return (
     <>
       <div className="container mx-auto h-auto">
-        <Navbar/>
+        <Navbar />
 
         <div className="bg-white w-full flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
           <aside className="w-1/6 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
