@@ -54,7 +54,7 @@ const AddComponent = () => {
   };
 
   return (
-    <div className="border-2 bg-yellow-200 mt-10 m-2 p-4">
+    <div className="flex-col mx-auto items-center justify-center border-2 bg-white mt-10 m-2 p-4">
       {fetching ? <FetchingModal /> : <></>}
       {result ? (
         <ResultModal
@@ -65,9 +65,9 @@ const AddComponent = () => {
       ) : (
         <></>
       )}
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰 제목</div>
+      <div className="flex mx-auto justify-center">
+        <div className="mb-4 flex justify-center w-full">
+          <div className="w-1/7 p-6 text-right font-bold">리뷰 제목</div>
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="v_title"
@@ -78,8 +78,8 @@ const AddComponent = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">비밀번호</div>
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
+          <div className="w-1/7 p-6 text-right font-bold">비밀 번호</div>
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="v_pw"
@@ -90,8 +90,8 @@ const AddComponent = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰 내용</div>
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
+          <div className="w-1/7 p-6 text-right font-bold">리뷰 내용</div>
           <textarea
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y"
             name="v_content"
@@ -104,8 +104,8 @@ const AddComponent = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">리뷰 사진</div>
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
+          <div className="w-1/7 p-6 text-right font-bold">리뷰 사진</div>
           <input
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300
@@ -122,7 +122,7 @@ const AddComponent = () => {
             className="rounded p-4 w-36 bg-blue-500 text-xl text-white "
             onClick={handleClickAdd}
           >
-            ADD
+            작성 완료
           </button>
         </div>
       </div>

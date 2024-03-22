@@ -9,7 +9,6 @@ import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
 import memberRouter from "../../member/router/member/memberRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
-import Guide from "../../member/pages/guide/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
 
@@ -111,14 +110,7 @@ const root = createBrowserRouter([
     ),
     children: inquiryRouter(),
   },
-  {
-    path: "myPage",
-    element: (
-      <Suspense fallback={Loading}>
-        <MyPage />
-      </Suspense>
-    ),
-  },
+
   {
     path: "notice",
     element: (

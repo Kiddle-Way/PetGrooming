@@ -113,7 +113,7 @@ const Navbar = () => {
                 <Link to={"/member/login"}>로그인</Link>
               </li>
             ) : (
-              <li className="text-white text-sm m-2 hover:text-blue-600">
+              <li className="text-black text-sm m-2 hover:text-blue-600">
                 <Link to={"/member/logout"}>로그아웃</Link>
               </li>
             )}
