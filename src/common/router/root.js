@@ -9,7 +9,7 @@ import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
 import memberRouter from "../../member/router/member/memberRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
-import Guide from "../../admin/pages/product/GuidePage";
+import Guide from "../../member/pages/guide/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 
 const Loading = <div>Loading....</div>;
@@ -108,22 +108,6 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: inquiryRouter(),
-  },
-  {
-    path: "join",
-    element: (
-      <Suspense fallback={Loading}>
-        <Join />
-      </Suspense>
-    ),
-  },
-  {
-    path: "login",
-    element: (
-      <Suspense fallback={Loading}>
-        <Login />
-      </Suspense>
-    ),
   },
   {
     path: "myPage",

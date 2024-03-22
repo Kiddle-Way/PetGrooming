@@ -25,7 +25,7 @@ const Navbar = () => {
   });
   return (
     <div className="container mt-2 sm:px-2 lg:px-1">
-      <nav className="rounded-2xl flex flex-wrap justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
+      <nav className="rounded-2xl mx-auto flex flex-wrap justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
         <div className="flex flex-wrap items-center justify-between mb-1 mr-5">
           <Link to={"/"}>
             <img src={Logo} className="h-16 md:h-20 lg:h-24 xl:h-28" alt="" />
@@ -106,25 +106,27 @@ const Navbar = () => {
             </details>
           </ul>
         </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          {!loginState.m_email ? (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/login"}>Login</Link>
+        <div className="flex items-end justify-end ml-6 outline outline-orange-400 rounded-3xl">
+          <ul className="w-1/7 flex justify-end p-1 font-semibold ">
+            {!loginState.m_email ? (
+              <li className="text-black text-sm m-2 hover:text-blue-600">
+                <Link to={"/member/login"}>로그인</Link>
+              </li>
+            ) : (
+              <li className="text-white text-sm m-2 hover:text-blue-600">
+                <Link to={"/member/logout"}>로그아웃</Link>
+              </li>
+            )}
+          </ul>
+          <div className="w-1/7 flex justify-end p-1 font-semibold">
+            <div className="text-black text-sm m-2 hover:text-blue-600">
+              <Link to={"/member/join"}>회원가입</Link>
             </div>
-          ) : (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/logout"}>Logout</Link>
-            </div>
-          )}
-        </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/member/join"}>Join</Link>
           </div>
-        </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/member/mypage"}>MyPage</Link>
+          <div className="w-1/7 flex justify-end p-1 font-semibold ">
+            <div className="text-black text-sm m-2 hover:text-blue-600">
+              <Link to={"/member/mypage"}>마이페이지</Link>
+            </div>
           </div>
         </div>
       </nav>
