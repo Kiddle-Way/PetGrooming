@@ -11,22 +11,24 @@ import { useLocation, Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "../../../../node_modules/react-calendar/dist/Calendar.css";
 import Popup from "./Popup";
+import { getCookie } from "../../../common/util/cookieUtil";
 
 const ReserveComponent2 = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const selectedInfo = searchParams.get("info");
+  const memberCookieValue = getCookie("member");
 
   const [reserve, setReserve] = useState({
     d_num: { dno: selectedInfo },
-    m_num: { m_num: 1 },
+    m_num: { m_num: memberCookieValue.m_num },
     allProduct: "",
     r_date: "",
     a_t_num: { a_t_num: 1 },
     r_total_price: 0,
-    r_breed: "",
-    r_dog_name: "",
-    r_dog_notice: "",
+    r_breed: memberCookieValue.dog_breed,
+    r_dog_name: memberCookieValue.dog_name,
+    r_dog_notice: memberCookieValue.dog_notice,
   });
 
   const [a, setA] = useState("");
@@ -76,12 +78,12 @@ const ReserveComponent2 = () => {
   const handleProductChange = (e) => {
     const { value } = e.target;
     console.log(value); // 변경된 값
-    const [price, name] = value.split(':');
-    
+    const [price, name] = value.split(":");
+
     // 이전 값과 새 값 사이의 차이를 계산하여 업데이트
     setReserve((prevReserve) => ({
       ...prevReserve,
-      allProduct: prevReserve.allProduct.replace(' '+a, "") + ` ${name}`,
+      allProduct: prevReserve.allProduct.replace(" " + a, "") + ` ${name}`,
     }));
 
     setReserve((prevReserve) => ({
@@ -120,11 +122,44 @@ const ReserveComponent2 = () => {
     setReserve({ ...reserve, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    console.log(reserve);
+  const [agreements, setAgreements] = useState({
+    1: false,
+    2: false,
+  });
 
+  // 체크 상태 변경 핸들러
+  const handleAgreeChange = (index, isChecked) => {
+    setAgreements({ ...agreements, [index]: isChecked });
+  };
+
+  // 제출 버튼 활성화 여부 확인 함수
+  const isSubmitEnabled = () => {
+    return agreements[1] && agreements[2];
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 필수 입력 필드에 대한 유효성 검사
+    if (
+      !reserve.r_date ||
+      !reserve.a_t_num.a_t_num ||
+      !reserve.r_breed ||
+      !reserve.r_dog_name ||
+      !reserve.r_dog_notice ||
+      !reserve.allProduct
+    ) {
+      alert("모든 입력 사항을 채워주세요.");
+      return;
+    }
+
+    if (!isSubmitEnabled()) {
+      alert("모든 약관에 동의해주세요.");
+      return;
+    }
+
     try {
+      console.log(reserve);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
         (timeSlot) => timeSlot.a_t_num === parseInt(reserve.a_t_num.a_t_num)
@@ -135,6 +170,7 @@ const ReserveComponent2 = () => {
       await makeUnavailable(reserve.a_t_num.a_t_num); // 예약한 시간을 서버에 전달하여 예약 불가능하게 만듦
       alert(`예약이 성공적으로 추가되었습니다!\n예약한 시간: ${reservedTime}`);
       // 예약 성공 후 추가적인 작업을 할 수 있음
+      window.location.href = 'http://localhost:3000/';
     } catch (error) {
       console.error("예약 추가 오류:", error);
       alert("예약 추가 중 오류가 발생했습니다.");
@@ -152,7 +188,9 @@ const ReserveComponent2 = () => {
                 className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
                 name="email"
                 type="email"
-              ></input>
+                value={memberCookieValue.m_email}
+                readOnly
+              />
             </div>
             <div className="relative mb-4 flex items-center">
               <div className="w-40 p-6 text-right font-bold">이름</div>
@@ -160,6 +198,8 @@ const ReserveComponent2 = () => {
                 className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
                 name="name"
                 type="text"
+                value={memberCookieValue.m_name}
+                readOnly
               ></input>
             </div>
             <div className="relative mb-4 flex items-center">
@@ -168,6 +208,8 @@ const ReserveComponent2 = () => {
                 className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
                 name="number"
                 type="text"
+                value={memberCookieValue.m_phone}
+                readOnly
               ></input>
             </div>
             <div className="relative mb-4 flex items-center">
@@ -222,7 +264,10 @@ const ReserveComponent2 = () => {
                   <option value="">상품 선택</option>
                   {/* 필수상품 목록 출력 */}
                   {essentialProducts.map((product) => (
-                    <option key={product.p_num} value={`${product.p_price}:${product.p_name}`}>
+                    <option
+                      key={product.p_num}
+                      value={`${product.p_price}:${product.p_name}`}
+                    >
                       {product.p_name}
                     </option>
                   ))}
@@ -267,12 +312,16 @@ const ReserveComponent2 = () => {
               </div>
             </div>
             <div className="relative mb-4 flex items-center flex-col">
-              <Popup />
+              <Popup onAgree={handleAgreeChange} />
               <div className="action-box">
-                <p  style={{ fontSize: 20 }}>총 가격: {reserve.r_total_price}원{/* 총 가격 계산 로직을 여기에 작성합니다. */}</p>
+                <p style={{ fontSize: 20 }}>
+                  총 가격: {reserve.r_total_price}원
+                  {/* 총 가격 계산 로직을 여기에 작성합니다. */}
+                </p>
                 <button
                   type="button"
                   onClick={handleSubmit}
+                  disabled={!isSubmitEnabled()}
                   className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
                 >
                   예약 등록
