@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const App = () => {
+const Popup = () => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
 
@@ -684,10 +684,9 @@ const App = () => {
 
   return (
     <div>
-      <div style={{ fontSize: 24 }}>약관 동의 및 예약</div>
       <div className="policy-box">
         <h3 style={{ fontSize: 24 }}>1. 서비스 이용 약관</h3>
-        <button onClick={handlePopup1}>자세히 보기</button>
+        <div onClick={handlePopup1}>자세히 보기</div>
       </div>
 
       <div className="agree-box">
@@ -696,8 +695,8 @@ const App = () => {
       </div>
 
       <div className="policy-box">
-        <h3 style={{ fontSize: 24 }}>2. 개인정보 이용내용 자세히 보기</h3>
-        <button onClick={handlePopup2}>자세히 보기</button>
+        <h3 style={{ fontSize: 24 }}>2. 개인정보 이용 약관</h3>
+        <div onClick={handlePopup2}>자세히 보기</div>
       </div>
 
       <div className="agree-box">
@@ -708,4 +707,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Popup;

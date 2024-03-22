@@ -11,6 +11,7 @@ import memberRouter from "../../member/router/member/memberRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 import Guide from "../../member/pages/guide/GuidePage";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
+import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -21,15 +22,16 @@ const DesignerIndex = lazy(() =>
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
 const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
+const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
 const Inquiry = lazy(() => import("../../member/pages/inquiry/IndexPage"));
-const Join = lazy(() => import("../../member/pages/member/JoinPage"));
-const Login = lazy(() => import("../../member/pages/member/LoginPage"));
-const MyPage = lazy(() => import("../../member/pages/member/MyPage"));
 const ReviewAnswerIndex = lazy(() =>
   import("../../admin/pages/reviewAnswer/IndexPage")
+);
+const InquiryAnswerIndex = lazy(() =>
+  import("../../admin/pages/inquiryAnswer/IndexPage")
 );
 const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
 const Pay = lazy(() => import("../pay/Checkout"));
@@ -143,6 +145,15 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: ReviewAnswerRouter(),
+  },
+  {
+    path: "inquiryAnswer",
+    element: (
+      <Suspense fallback={Loading}>
+        <InquiryAnswerIndex />
+      </Suspense>
+    ),
+    children: inquiryAnswerRouter(),
   },
 ]);
 

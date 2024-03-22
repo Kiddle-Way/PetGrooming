@@ -46,3 +46,4 @@ export const search = async (searchType, searchTerm, pageParam) => {
     throw error; // 에러 처리
   }
 };
+

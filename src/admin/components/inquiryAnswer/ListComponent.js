@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { getList } from "../../../common/api/QnaApi";
+import { getList } from "../../../common/api/inquiryAnswerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
-import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -31,19 +30,26 @@ const ListComponent = () => {
 
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-      <div className="flex flex-wrap mx-auto justify-center p-6">
-        {serverData.dtoList.map((qna) => (
+      <div className="flex flex-wrap mx-auto p-6">
+        {serverData.dtoList.map((inquiry) => (
           <div
-            key={qna.f_num}
-            className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
-            onClick={() => moveToRead(qna.f_num)}
+            key={inquiry.i_num}
+            className="w-1/2 p-1 rounded shadow-md border-2"
+            onClick={() => moveToRead(inquiry.i_num)}
           >
-            <div className="flex">
-              <div className="text-1xl m-1 p-2 w-8/12 font-extrabold">
-                {qna.f_title}
+            <div className="flex flex-col h-full">
+              <div className="font-extrabold text-2xl p-2 w-full">
+                {inquiry.i_num}
               </div>
-              <div className="text-1xl m-1 p-2 w-2/10 font-medium">
-                {qna.f_content}
+              <div className="text-1xl m-1 p-2 w-full flex flex-col">
+                <div className="bottom-0 font-extrabold bg-white">
+                  <div className="text-center p-1">
+                    문의제목 : {inquiry.i_title}
+                  </div>
+                  <div className="text-center p-1">
+                    문의내용 : {inquiry.i_content}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -53,15 +59,6 @@ const ListComponent = () => {
         serverData={serverData}
         movePage={moveToList}
       ></PageComponent>
-      <div className="flex justify-end p-4">
-        <Link
-          to={"/qna/add"}
-          type="button"
-          className="inline-block rounded p-2 m-2 text-center w-32 text-white bg-blue-500"
-        >
-          글쓰기
-        </Link>
-      </div>
     </div>
   );
 };

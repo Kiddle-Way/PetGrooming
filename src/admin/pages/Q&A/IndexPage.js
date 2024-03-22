@@ -20,7 +20,7 @@ const IndexPage = () => {
           자주묻는질문
         </div>
         <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer">
-          <Link to={"/reviewAnswer/"}>문의게시판</Link>
+          <Link to={"/inquiryAnswer/"}>문의게시판</Link>
         </div>
       </div>
     </BasicLayout>
