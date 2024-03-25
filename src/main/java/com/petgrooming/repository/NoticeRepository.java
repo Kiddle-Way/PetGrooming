@@ -21,9 +21,15 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 	@Query("update Notice p set p.delFlag = :flag where p.n_num = :n_num")
 	void updateToDelete(@Param("n_num") Long n_num, @Param("flag") boolean flag);
 
-	@Query("SELECT p, pi FROM Notice p LEFT JOIN p.imageList pi ON pi.ord = 0 WHERE p.delFlag = false")
-	Page<Object[]> selectList(Pageable pageable);
+	@Query("SELECT p FROM Notice p WHERE p.delFlag = false")
+	Page<Notice> selectList(Pageable pageable);
 
-	@Query("SELECT i FROM Notice i ORDER BY i.n_num DESC")
-	Page<Notice> findAllOrderByNnumDesc(Pageable pageable);
+	@Query("SELECT p FROM Notice p WHERE p.delFlag = false AND p.n_title LIKE %:searchTitle%")
+	Page<Notice> searchTitleList(Pageable pageable, @Param("searchTitle") String searchTitle);
+
+	@Query("SELECT p FROM Notice p WHERE p.delFlag = false AND p.n_content LIKE %:searchContent%")
+	Page<Notice> searchContentList(Pageable pageable, @Param("searchContent") String searchContent);
+
+	@Query("SELECT p FROM Notice p WHERE p.delFlag = false AND p.n_head LIKE %:searchHead")
+	Page<Notice> searchHeadList(Pageable pageable, @Param("searchHead") String searchHead);
 }
