@@ -33,7 +33,6 @@ const InquiryAnswerIndex = lazy(() =>
   import("../../admin/pages/inquiryAnswer/IndexPage")
 );
 const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
-const Pay = lazy(() => import("../pay/Checkout"));
 
 const root = createBrowserRouter([
   {

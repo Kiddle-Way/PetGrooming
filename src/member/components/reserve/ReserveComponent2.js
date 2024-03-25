@@ -1,5 +1,5 @@
 import MenuTable from "./MenuTable";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   postAdd,
   getEssentialProducts,
@@ -12,8 +12,14 @@ import Calendar from "react-calendar";
 import "../../../../node_modules/react-calendar/dist/Calendar.css";
 import Popup from "./Popup";
 import { getCookie } from "../../../common/util/cookieUtil";
+import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
+import { nanoid } from "nanoid";
+import { useQuery } from "react-query";
 
 const ReserveComponent2 = () => {
+  const [paymentWidget, setPaymentWidget] = useState(null);
+  const paymentMethodsWidgetRef = useRef(null);
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const selectedInfo = searchParams.get("info");
@@ -50,6 +56,20 @@ const ReserveComponent2 = () => {
       }
     };
     fetchProducts();
+
+    // PaymentWidget 로드
+    const loadPayment = async () => {
+      try {
+        const paymentWidget = await loadPaymentWidget(
+          "test_ck_kYG57Eba3GKqJ0dgdgG63pWDOxmA",
+          ANONYMOUS
+        );
+        setPaymentWidget(paymentWidget);
+      } catch (error) {
+        console.error("Error while loading payment widget:", error);
+      }
+    };
+    loadPayment();
   }, []); // 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행
 
   const handleDateChange = async (date) => {
@@ -159,7 +179,26 @@ const ReserveComponent2 = () => {
     }
 
     try {
-      console.log(reserve);
+      // 결제 요청
+      await paymentWidget
+        .requestPayment({
+          orderId: nanoid(),
+          orderName: "Pet Grooming Reservation",
+          customerName: memberCookieValue.m_name,
+          customerEmail: memberCookieValue.m_email,
+          successUrl: `${window.location.origin}/reserve/success`,
+          failUrl: `${window.location.origin}/reserve/fail`,
+          
+        })
+        .catch(function (error) {
+          if (error.code === "INVALID_ORDER_NAME") {
+            // 유효하지 않은 'orderName' 처리하기
+          } else if (error.code === "INVALID_ORDER_ID") {
+            // 유효하지 않은 'orderId' 처리하기
+          }
+        });
+      
+      // 결제 성공 후 예약 등록
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
         (timeSlot) => timeSlot.a_t_num === parseInt(reserve.a_t_num.a_t_num)
@@ -170,12 +209,53 @@ const ReserveComponent2 = () => {
       await makeUnavailable(reserve.a_t_num.a_t_num); // 예약한 시간을 서버에 전달하여 예약 불가능하게 만듦
       alert(`예약이 성공적으로 추가되었습니다!\n예약한 시간: ${reservedTime}`);
       // 예약 성공 후 추가적인 작업을 할 수 있음
-      window.location.href = 'http://localhost:3000/';
+      window.location.href = "http://localhost:3000/";
     } catch (error) {
-      console.error("예약 추가 오류:", error);
-      alert("예약 추가 중 오류가 발생했습니다.");
+      console.error("예약 및 결제 오류:", error);
+      alert("예약 및 결제 중 오류가 발생했습니다.");
     }
   };
+
+  useEffect(() => {
+    const fetchPaymentWidget = async () => {
+      try {
+        const loadedWidget = await loadPaymentWidget(
+          "test_ck_kYG57Eba3GKqJ0dgdgG63pWDOxmA",
+          ANONYMOUS
+        );
+        setPaymentWidget(loadedWidget);
+      } catch (error) {
+        console.error("Error fetching payment widget:", error);
+      }
+    };
+    fetchPaymentWidget();
+  }, []);
+
+  useEffect(() => {
+    if (paymentWidget == null) {
+      return;
+    }
+
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      "#payment-widget",
+      { value: reserve.r_total_price }, // price 대신에 reserve.r_total_price 사용
+      { variantKey: "DEFAULT" }
+    );
+
+    paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
+
+    paymentMethodsWidgetRef.current = paymentMethodsWidget;
+  }, [paymentWidget, reserve.r_total_price]);
+
+  useEffect(() => {
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
+
+    if (paymentMethodsWidget == null) {
+      return;
+    }
+
+    paymentMethodsWidget.updateAmount(reserve.r_total_price); // price 대신에 reserve.r_total_price 사용
+  }, [reserve.r_total_price]); // price 대신에 reserve.r_total_price 사용
 
   return (
     <div className="w-full">
@@ -313,25 +393,27 @@ const ReserveComponent2 = () => {
             </div>
             <div className="relative mb-4 flex items-center flex-col">
               <Popup onAgree={handleAgreeChange} />
-              <div className="action-box">
-                <p style={{ fontSize: 20 }}>
-                  총 가격: {reserve.r_total_price}원
-                  {/* 총 가격 계산 로직을 여기에 작성합니다. */}
-                </p>
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={!isSubmitEnabled()}
-                  className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-                >
-                  예약 등록
+            </div>
+            <div id="payment-widget" />
+            <div id="agreement" />
+            <div className="action-box">
+              <p style={{ fontSize: 20 }}>
+                총 가격: {reserve.r_total_price}원
+                {/* 총 가격 계산 로직을 여기에 작성합니다. */}
+              </p>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={!isSubmitEnabled()}
+                className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+              >
+                예약 등록
+              </button>
+              <Link to={{ pathname: "/reserve/page" }}>
+                <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
+                  돌아가기
                 </button>
-                <Link to={{ pathname: "/reserve/page" }}>
-                  <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
-                    돌아가기
-                  </button>
-                </Link>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
