@@ -11,7 +11,7 @@ const initState = {
 const ModifyComponent = ({ f_num, moveList, moveRead }) => {
   const [qna, setQna] = useState({ ...initState });
 
-  const { moveToList, moveToRead } = useCustomMove();
+  const { moveToList } = useCustomMove();
 
   useEffect(() => {
     getOne(f_num).then((data) => setQna(data));
@@ -23,17 +23,23 @@ const ModifyComponent = ({ f_num, moveList, moveRead }) => {
   };
 
   const handleClickModify = () => {
-    putOne(qna).then((data) => {
-      console.log("modify result: " + data);
-      moveToRead(f_num);
-    });
+    if (window.confirm("수정 하시겠습니까??")) {
+      alert("수정되었습니다.");
+      putOne(qna).then((data) => {
+        console.log("modify result: " + data);
+        moveToList({ page: 1 });
+      });
+    }
   };
 
   const handleClickDelete = () => {
-    deleteOne(f_num).then((data) => {
-      console.log("delete result: " + data);
-      moveToList({ page: 1 });
-    });
+    if (window.confirm("삭제 하시겠습니까??")) {
+      alert("삭제되었습니다.");
+      deleteOne(f_num).then((data) => {
+        console.log("delete result: " + data);
+        moveToList({ page: 1 });
+      });
+    }
   };
 
   return (
