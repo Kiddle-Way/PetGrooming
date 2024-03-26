@@ -27,35 +27,28 @@ public class MemberController {
 
 	private final MemberRepository memberRepository;
 	private final MemberService memberService;
-	
 
 	// 회원 추가
 	@PostMapping("/")
 	public ResponseEntity<Long> registerMember(@RequestBody Member member) {
-	    Long memberId = memberService.registerMember(member);
-	    return new ResponseEntity<>(memberId, HttpStatus.CREATED);
+		Long m_num = memberService.registerMember(member);
+		return new ResponseEntity<>(m_num, HttpStatus.CREATED);
 	}
 
 	// 회원 조회
 	@GetMapping("/{m_num}")
 	public ResponseEntity<Member> getMemberById(@PathVariable Long m_num) {
-		Member member = memberRepository.findById(m_num)
-				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
+		Optional<Member> optionalMember = memberRepository.findById(m_num);
+		Member member = optionalMember.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
 
-	// 회원 수정
-	@PutMapping("/{m_num}")
-	public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member memberDetails) {
-		Member member = memberRepository.findById(m_num)
-				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
-
-		// BeanUtils.copyProperties()를 사용하여 업데이트
-		BeanUtils.copyProperties(memberDetails, member, "m_email"); // m_email은 업데이트하지 않음
-
-		Member updatedMember = memberRepository.save(member);
-		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
-	}
+	// 회원 정보 수정
+    @PutMapping("/{m_num}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member member) {
+        Member updatedMember = memberService.updateMember(m_num, member);
+        return new ResponseEntity<>(updatedMember, HttpStatus.OK);
+    }
 
 	// 회원 삭제
 	@PutMapping("/{m_num}/delete")
@@ -75,17 +68,4 @@ public class MemberController {
 		return memberService.list(pageRequestDTO);
 	}
 
-	/*
-	 * // 회원 로그인
-	 * 
-	 * @PostMapping("/login2") public ResponseEntity<String> login(@RequestBody
-	 * MemberLoginRequest request) { Optional<Member> memberOptional =
-	 * memberService.login(request.getM_email(), request.getM_pw()); if
-	 * (memberOptional.isPresent()) { return ResponseEntity.ok("Login successful");
-	 * } else { return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
-	 * body("Invalid email or password"); } }
-	 * 
-	 * @Data static class MemberLoginRequest { private String m_email; private
-	 * String m_pw; }
-	 */
 }
