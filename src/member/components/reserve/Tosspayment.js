@@ -15,6 +15,8 @@ export default function Tosspayment({ reserve, onPaymentSuccess }) {
   const [price, setPrice] = useState(reserve.r_total_price);
   const memberCookieValue = getCookie("member");
 
+  const phoneNumber = memberCookieValue.m_phone.replace(/\D/g, "");
+
   useEffect(() => {
     const fetchPaymentWidget = async () => {
       try {
@@ -55,7 +57,7 @@ export default function Tosspayment({ reserve, onPaymentSuccess }) {
           orderName: reserve.allProduct,
           customerName: memberCookieValue.m_name,
           customerEmail: memberCookieValue.m_email,
-          customerMobilePhone: memberCookieValue.m_phone,
+          customerMobilePhone: phoneNumber,
         });
       onPaymentSuccess();
     } catch (error) {

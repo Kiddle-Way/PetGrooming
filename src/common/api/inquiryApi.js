@@ -1,11 +1,11 @@
 import jwtAxios from "../util/jwtUtil"
 import { API_SERVER_HOST } from "./noticeApi";
-const host = `${API_SERVER_HOST}/api/review`;
+const host = `${API_SERVER_HOST}/api/inquiry`;
 
-export const postAdd = async (review) => {
+export const postAdd = async (inquiry) => {
   const header = { headers: { "Content-Type": "multipart/form-data" } };
   // 경로 뒤 '/' 주의
-  const res = await jwtAxios.post(`${host}/`, review, header);
+  const res = await jwtAxios.post(`${host}/`, inquiry, header);
   return res.data;
 };
 
@@ -17,19 +17,19 @@ export const getList = async (pageParam) => {
   return res.data;
 };
 
-export const getOne = async (v_num) => {  
-  const res = await jwtAxios.get(`${host}/${v_num}`);
+export const getOne = async (i_num) => {
+  const res = await jwtAxios.get(`${host}/${i_num}`);
   return res.data;
 };
 
-export const putOne = async (v_num, review) => {
+export const putOne = async (i_num, inquiry) => {
   const header = { headers: { "Content-Type": "multipart/form-data" } };
-  const res = await jwtAxios.put(`${host}/${v_num}`, review, header);
+  const res = await jwtAxios.put(`${host}/${i_num}`, inquiry, header);
   return res.data;
 };
 
-export const deleteOne = async (v_num) => {
-  const res = await jwtAxios.delete(`${host}/${v_num}`);
+export const deleteOne = async (i_num) => {
+  const res = await jwtAxios.delete(`${host}/${i_num}`);
   return res.data;
 };
 
@@ -46,4 +46,3 @@ export const search = async (searchType, searchTerm, pageParam) => {
     throw error; // 에러 처리
   }
 };
-

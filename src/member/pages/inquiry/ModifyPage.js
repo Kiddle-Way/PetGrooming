@@ -1,18 +1,13 @@
-import { useNavigate } from "react-router-dom"; 
- 
-const ModifyPage = ({m_num}) => { 
-  const navigate = useNavigate() 
-  const moveToRead = () => { 
-    navigate({pathname:`/inquiry/read/${m_num}`}) 
-  } 
-  const moveToList = () => { 
-    navigate({pathname:`/inquiry/list`}) 
-  } 
-  return (  
-    <div className="text-3xl font-extrabold"> 
-      문의게시판 Modify Page  
-    </div>  
-   ); 
-} 
-  
+import { useParams } from "react-router-dom";
+import ModifyComponent from "../../components/inquiry/ModifyComponent";
+
+const ModifyPage = () => {
+  const { i_num } = useParams();
+  return (
+    <div className="p-4 w-full bg-white">
+      <div className="text-3xl font-extrabold">문의 수정 페이지</div>
+      <ModifyComponent i_num={i_num}></ModifyComponent>
+    </div>
+  );
+};
 export default ModifyPage;

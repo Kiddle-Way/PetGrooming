@@ -8,13 +8,16 @@ const initState = {
 
 const LoginComponent = () => {
   const [loginParam, setLoginParam] = useState({ ...initState });
-
   const { doLogin, moveToPath } = useCustomLogin();
-
+  
   const handleChange = (e) => {
-    loginParam[e.target.name] = e.target.value;
-    setLoginParam({ ...loginParam });
+    // Create a new object instead of mutating the state directly
+    setLoginParam({
+      ...loginParam,
+      [e.target.name]: e.target.value,
+    });
   };
+
   const handleClickLogin = (e) => {
     doLogin(loginParam) // loginSlice의 비동기 호출
       .then((data) => {
