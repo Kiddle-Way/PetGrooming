@@ -27,7 +27,7 @@ const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
-const Inquiry = lazy(() => import("../../member/pages/inquiry/IndexPage"));
+const InquiryIndex = lazy(() => import("../../member/pages/inquiry/IndexPage"));
 const ReviewAnswerIndex = lazy(() =>
   import("../../admin/pages/reviewAnswer/IndexPage")
 );
@@ -105,7 +105,7 @@ const root = createBrowserRouter([
     path: "inquiry",
     element: (
       <Suspense fallback={Loading}>
-        <Inquiry />
+        <InquiryIndex />
       </Suspense>
     ),
     children: inquiryRouter(),
