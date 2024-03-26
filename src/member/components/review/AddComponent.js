@@ -4,6 +4,7 @@ import FetchingModal from "../../../common/components/FetchingModal";
 import ResultModal from "../../../common/components/ResultModal";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import { getCookie } from "../../../common/util/cookieUtil";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
 
 const initState = {
   v_title: "",
@@ -23,6 +24,16 @@ const AddComponent = () => {
 
   const { moveToList } = useCustomMove();
 
+  const [rating, setRating] = useState(5);
+
+  const handleChangeRating = (newRating) => {
+    setRating(newRating);
+    setReview((prevState) => ({
+      ...prevState,
+      v_rating: newRating,
+    }));
+  };
+  
   useEffect(() => {
     // 컴포넌트가 마운트될 때 쿠키에서 m_num 값을 가져와서 상태로 설정
     const memberCookieValue = getCookie("member");
@@ -50,6 +61,7 @@ const AddComponent = () => {
     formData.append("v_pw", review.v_pw);
     formData.append("v_content", review.v_content);
     formData.append("m_num", review.m_num);
+    formData.append("v_rating", review.v_rating);
     console.log(formData);
 
     setFetching(true);
@@ -99,6 +111,25 @@ const AddComponent = () => {
             value={review.v_pw}
             onChange={handleChangeReview}
           ></input>
+        </div>
+      </div>
+      <div>
+        <div className="flex justify-start items-center">
+          <div className="w-1/5 p-6 text-right font-bold">별점</div>
+          {[...Array(rating)].map((a, i) => (
+            <PiStarFill
+              className="star-lg"
+              key={i}
+              onClick={() => handleChangeRating(i + 1)}
+            />
+          ))}
+          {[...Array(5 - rating)].map((a, i) => (
+            <PiStarLight
+              className="star-lg"
+              key={i}
+              onClick={() => handleChangeRating(rating + i + 1)}
+            />
+          ))}
         </div>
       </div>
       <div className="flex justify-center">
