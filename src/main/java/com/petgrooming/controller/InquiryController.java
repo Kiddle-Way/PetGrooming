@@ -1,6 +1,7 @@
 package com.petgrooming.controller;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.security.access.prepost.PreAuthorize; 
 
 import com.petgrooming.dto.InquiryPageRequestDTO;
 import com.petgrooming.dto.InquiryPageResponseDTO;
@@ -51,13 +51,16 @@ public class InquiryController {
 		return fileUtil.getFile(fileName);
 	}
 	
-	//@PreAuthorize("hasRole('ROLE_ADMIN')") 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")  // 임시 권한 설정
-	@GetMapping("/list")
-	public InquiryPageResponseDTO<InquiryDTO> list(InquiryPageRequestDTO inquiryPageRequestDTO) {
-		log.info("list............." + inquiryPageRequestDTO);
-		return inquiryService.getList(inquiryPageRequestDTO);
-	}
+	/*
+	 * //@PreAuthorize("hasRole('ROLE_ADMIN')")
+	 * 
+	 * @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 임시 권한 설정
+	 * 
+	 * @GetMapping("/list") public InquiryPageResponseDTO<InquiryDTO>
+	 * list(InquiryPageRequestDTO inquiryPageRequestDTO) {
+	 * log.info("list............." + inquiryPageRequestDTO); return
+	 * inquiryService.getList(inquiryPageRequestDTO); }
+	 */
 
 	@GetMapping("/{i_num}")
 	public InquiryDTO read(@PathVariable(name = "i_num") Long i_num) {

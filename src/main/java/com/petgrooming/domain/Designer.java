@@ -38,6 +38,14 @@ public class Designer {
 	public void changeDel(boolean delFlag) {
 		this.delFlag = delFlag;
 	}
+	
+	@Enumerated(EnumType.STRING) // Enum이 문자열로 저장되도록 설정
+	@Column(name = "gender")
+    private Gender gender;
+	
+	@Enumerated(EnumType.STRING) // Enum이 문자열로 저장되도록 설정
+    @Column(name = "state")
+    private State state;
 
 	// Image의 목록을 가지고 관리하는 기능 작성
 	@ElementCollection
@@ -94,4 +102,39 @@ public class Designer {
 	public void clearList() {
 		this.imageList.clear();
 	}
+	
+	
+	public String getDstateAsString() {
+	    return dstate == 1 ? "퇴사" : "근무";
+	}
+
+	public String getDgenderAsString() {
+	    return dgender == 1 ? "여자" : "남자";
+	}
+	
+	public void setDstate(int dstate) {
+	    this.dstate = dstate;
+	}
+
+	
+//	private boolean isStateChanged; // 상태 변경 여부를 나타내는 필드
+//	
+//	public Designer(Long dno, int dstate) {
+//        this.dno = dno;
+//        this.dstate = dstate;
+//    }
+//
+//    public Long getDno() {
+//        return dno;
+//    }
+//
+//    public void setDno(Long dno) {
+//        this.dno = dno;
+//    }
+//
+//    public int getDstate() {
+//        return dstate;
+//    }
+
+   
 }

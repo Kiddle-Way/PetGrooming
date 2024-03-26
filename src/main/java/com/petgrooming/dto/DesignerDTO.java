@@ -29,7 +29,6 @@ public class DesignerDTO {
 	private String dattach;  // 첨부파일명
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate dbirth; // 생년월일  //사용할때 : 예)LocalDate.of(1996,1,26)
 	
 	
