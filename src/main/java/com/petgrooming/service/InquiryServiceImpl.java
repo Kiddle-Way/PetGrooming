@@ -47,6 +47,48 @@ public class InquiryServiceImpl implements InquiryService {
 		return InquiryPageResponseDTO.<InquiryDTO>withAll().dtoList(dtoList).totalCount(totalCount)
 				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
 	}
+	
+	@Override
+	public InquiryPageResponseDTO<InquiryDTO> getSearchTitleList(InquiryPageRequestDTO inquiryPageRequestDTO, String searchTitle) {
+		log.info("getSearchTitleList..............");
+
+		Pageable pageable = PageRequest.of(inquiryPageRequestDTO.getPage() - 1, inquiryPageRequestDTO.getSize(),
+				Sort.by("i_num").descending());
+
+		Page<Inquiry> result = inquiryRepository.searchTitleList(pageable, searchTitle);
+
+		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
+			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
+					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
+					.i_a_content(inquiry.getI_a_content()).build();
+			return inquiryDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+		return InquiryPageResponseDTO.<InquiryDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
+	}
+
+	@Override
+	public InquiryPageResponseDTO<InquiryDTO> getSearchContentList(InquiryPageRequestDTO inquiryPageRequestDTO, String searchContent) {
+		log.info("getSearchContentList..............");
+
+		Pageable pageable = PageRequest.of(inquiryPageRequestDTO.getPage() - 1, inquiryPageRequestDTO.getSize(),
+				Sort.by("i_num").descending());
+
+		Page<Inquiry> result = inquiryRepository.searchContentList(pageable, searchContent);
+
+		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
+			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
+					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
+					.i_a_content(inquiry.getI_a_content()).build();
+			return inquiryDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+		return InquiryPageResponseDTO.<InquiryDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
+	}
 
 	@Override
 	public Long register(InquiryDTO inquiryDTO) {

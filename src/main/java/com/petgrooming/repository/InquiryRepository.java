@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.petgrooming.domain.Inquiry;
+import com.petgrooming.domain.Review;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 	@EntityGraph(attributePaths = {"imageList", "m_num"})
@@ -24,4 +25,10 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
 	@Query("select i from Inquiry i where i.i_delFlag = false ")
 	Page<Inquiry> selectList(Pageable pageable);
+	
+	@Query("SELECT i FROM Inquiry i WHERE i.i_delFlag = false AND i.i_title LIKE %:searchTitle%")
+	Page<Inquiry> searchTitleList(Pageable pageable, @Param("searchTitle") String searchTitle);
+	
+	@Query("SELECT i FROM Inquiry i WHERE i.i_delFlag = false AND i.i_content LIKE %:searchContent%")
+	Page<Inquiry> searchContentList(Pageable pageable, @Param("searchContent") String searchContent);
 }

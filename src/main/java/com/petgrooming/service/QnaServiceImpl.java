@@ -83,4 +83,38 @@ public class QnaServiceImpl implements QnaService {
 		return responseDTO;
 	}
 
+	@Override
+	public PageResponseDTO<QnaDTO> getSerchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
+
+		Page<Qna> result = qnaRepository.searchTitleList(pageable, searchTitle);
+
+		List<QnaDTO> dtoList = result.getContent().stream().map(qna -> modelMapper.map(qna, QnaDTO.class))
+				.collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		PageResponseDTO<QnaDTO> responseDTO = PageResponseDTO.<QnaDTO>withAll().dtoList(dtoList)
+				.pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+
+		return responseDTO;
+	}
+
+	@Override
+	public PageResponseDTO<QnaDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent) {
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
+
+		Page<Qna> result = qnaRepository.searchContentList(pageable, searchContent);
+
+		List<QnaDTO> dtoList = result.getContent().stream().map(qna -> modelMapper.map(qna, QnaDTO.class))
+				.collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		PageResponseDTO<QnaDTO> responseDTO = PageResponseDTO.<QnaDTO>withAll().dtoList(dtoList)
+				.pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
+
+		return responseDTO;
+	}
+
 }

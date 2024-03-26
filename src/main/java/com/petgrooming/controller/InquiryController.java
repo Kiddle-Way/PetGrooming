@@ -58,6 +58,21 @@ public class InquiryController {
 		log.info("list............." + inquiryPageRequestDTO);
 		return inquiryService.getList(inquiryPageRequestDTO);
 	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@GetMapping("/list/searchtitle/{searchTitle}")
+	public InquiryPageResponseDTO<InquiryDTO> searchTitlelist(InquiryPageRequestDTO inquiryPageRequestDTO, @PathVariable("searchTitle") String searchTitle) {
+		log.info("list............." + inquiryPageRequestDTO);
+		return inquiryService.getSearchTitleList(inquiryPageRequestDTO, searchTitle);
+	}
+		
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	@GetMapping("/list/searchcontent/{searchContent}")
+	public InquiryPageResponseDTO<InquiryDTO> searchContentlist(InquiryPageRequestDTO inquiryPageRequestDTO, @PathVariable("searchContent") String searchContent) {
+		log.info("list............." + inquiryPageRequestDTO);
+		return inquiryService.getSearchContentList(inquiryPageRequestDTO, searchContent);
+	}
+
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/{i_num}")
