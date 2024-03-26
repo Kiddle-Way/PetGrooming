@@ -96,6 +96,7 @@ public class NoticeController {
 		return Map.of("RESULT", n_num);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
