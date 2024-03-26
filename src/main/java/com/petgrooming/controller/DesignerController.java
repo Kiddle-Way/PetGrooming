@@ -59,7 +59,8 @@ public class DesignerController {
 		return Map.of("DNO", dno);
 	}
 
-//이미지 보기
+	//이미지 보기
+	//여기 회원만 보기 달기 금지
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
