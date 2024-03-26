@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.petgrooming.domain.Member;
+import com.petgrooming.dto.MemberDTO;
+import com.petgrooming.dto.PageRequestDTO;
+import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.repository.MemberRepository;
 import com.petgrooming.service.MemberService;
 
@@ -13,6 +16,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Log4j2
@@ -26,32 +30,25 @@ public class MemberController {
 
 	// 회원 추가
 	@PostMapping("/")
-	public ResponseEntity<Member> createMember(@RequestBody Member member) {
-		log.info("Received request to create member: {}", member);
-		Member savedMember = memberRepository.save(member);
-		return new ResponseEntity<>(savedMember, HttpStatus.CREATED);
+	public ResponseEntity<Long> registerMember(@RequestBody Member member) {
+		Long m_num = memberService.registerMember(member);
+		return new ResponseEntity<>(m_num, HttpStatus.CREATED);
 	}
 
 	// 회원 조회
 	@GetMapping("/{m_num}")
 	public ResponseEntity<Member> getMemberById(@PathVariable Long m_num) {
-		Member member = memberRepository.findById(m_num)
-				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
+		Optional<Member> optionalMember = memberRepository.findById(m_num);
+		Member member = optionalMember.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
 
-	// 회원 수정
-	@PutMapping("/{m_num}")
-	public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member memberDetails) {
-		Member member = memberRepository.findById(m_num)
-				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
-
-		// BeanUtils.copyProperties()를 사용하여 업데이트
-		BeanUtils.copyProperties(memberDetails, member, "m_email"); // m_email은 업데이트하지 않음
-
-		Member updatedMember = memberRepository.save(member);
-		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
-	}
+	// 회원 정보 수정
+    @PutMapping("/{m_num}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member member) {
+        Member updatedMember = memberService.updateMember(m_num, member);
+        return new ResponseEntity<>(updatedMember, HttpStatus.OK);
+    }
 
 	// 회원 삭제
 	@PutMapping("/{m_num}/delete")
@@ -65,17 +62,10 @@ public class MemberController {
 		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
 	}
 
-	/*
-	 * // 회원 로그인
-	 * 
-	 * @PostMapping("/login2") public ResponseEntity<String> login(@RequestBody
-	 * MemberLoginRequest request) { Optional<Member> memberOptional =
-	 * memberService.login(request.getM_email(), request.getM_pw()); if
-	 * (memberOptional.isPresent()) { return ResponseEntity.ok("Login successful");
-	 * } else { return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
-	 * body("Invalid email or password"); } }
-	 * 
-	 * @Data static class MemberLoginRequest { private String m_email; private
-	 * String m_pw; }
-	 */
+	@GetMapping("/list")
+	public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO) {
+		log.info(pageRequestDTO);
+		return memberService.list(pageRequestDTO);
+	}
+
 }

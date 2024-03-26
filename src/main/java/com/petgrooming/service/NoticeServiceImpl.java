@@ -113,19 +113,74 @@ public class NoticeServiceImpl implements NoticeService {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
 				Sort.by("n_num").descending());
 
-		Page<Object[]> result = noticeRepository.selectList(pageable);
+		Page<Notice> result = noticeRepository.selectList(pageable);
 
-		List<NoticeDTO> dtoList = result.get().map(arr -> {
-			Notice notice = (Notice) arr[0];
-			NoticeImage noticeImage = (NoticeImage) arr[1];
-
+		List<NoticeDTO> dtoList = result.getContent().stream().map(notice -> {
 			NoticeDTO noticeDTO = NoticeDTO.builder().n_num(notice.getN_num()).n_head(notice.getN_head())
 					.n_title(notice.getN_title()).n_content(notice.getN_content()).n_reg(notice.getN_reg()).build();
 
-			if (noticeImage != null) {
-				String imageStr = noticeImage.getFileName();
-				noticeDTO.setUploadFileNames(List.of(imageStr));
-			}
+			return noticeDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		return PageResponseDTO.<NoticeDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
+	}
+
+	@Override
+	public PageResponseDTO<NoticeDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("n_num").descending());
+
+		Page<Notice> result = noticeRepository.searchTitleList(pageable, searchTitle);
+
+		List<NoticeDTO> dtoList = result.getContent().stream().map(notice -> {
+			NoticeDTO noticeDTO = NoticeDTO.builder().n_num(notice.getN_num()).n_head(notice.getN_head())
+					.n_title(notice.getN_title()).n_content(notice.getN_content()).n_reg(notice.getN_reg()).build();
+
+			return noticeDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		return PageResponseDTO.<NoticeDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
+	}
+
+	@Override
+	public PageResponseDTO<NoticeDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent) {
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("n_num").descending());
+
+		Page<Notice> result = noticeRepository.searchContentList(pageable, searchContent);
+
+		List<NoticeDTO> dtoList = result.getContent().stream().map(notice -> {
+			NoticeDTO noticeDTO = NoticeDTO.builder().n_num(notice.getN_num()).n_head(notice.getN_head())
+					.n_title(notice.getN_title()).n_content(notice.getN_content()).n_reg(notice.getN_reg()).build();
+
+			return noticeDTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
+
+		return PageResponseDTO.<NoticeDTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
+	}
+
+	@Override
+	public PageResponseDTO<NoticeDTO> getSearchHeadList(PageRequestDTO pageRequestDTO, String searchHead) {
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("n_num").descending());
+
+		Page<Notice> result = noticeRepository.searchHeadList(pageable, searchHead);
+
+		List<NoticeDTO> dtoList = result.getContent().stream().map(notice -> {
+			NoticeDTO noticeDTO = NoticeDTO.builder().n_num(notice.getN_num()).n_head(notice.getN_head())
+					.n_title(notice.getN_title()).n_content(notice.getN_content()).n_reg(notice.getN_reg()).build();
 
 			return noticeDTO;
 		}).collect(Collectors.toList());

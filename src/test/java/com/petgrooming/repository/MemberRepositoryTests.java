@@ -1,3 +1,4 @@
+/*
 package com.petgrooming.repository;
 
 import com.petgrooming.domain.Member;
@@ -27,7 +28,7 @@ public class MemberRepositoryTests {
 		memberRepository.save(member);
 
 	}
-}
+}*/
 
 /*
  * package com.petgrooming.repository;
@@ -101,42 +102,38 @@ public class MemberRepositoryTests {
  * memberRepository.updateToDelete(i_num, true); } }
  */
 
-package com.petgrooming.repository;
 
-import lombok.extern.log4j.Log4j2;
-
-import java.util.Date;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import com.petgrooming.domain.Member;
-import com.petgrooming.domain.MemberRole;
-import com.petgrooming.repository.MemberRepository;
-
-@SpringBootTest
-
-@Log4j2
-public class MemberRepositoryTests {
-
-	@Autowired
-	private MemberRepository memberRepository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Test
-	public void testInsertMemberWithRole() {
-		Member newMember = Member.builder().m_email("john@petgrooming.com").m_name("John").m_birth(new Date())
-				.m_gender(1).m_pw(passwordEncoder.encode("john1234")).m_phone("010-1234-5678").m_addr("서울특별시 구로구")
-				.dog_name("릴리").dog_breed("말티즈").dog_birth(new Date()).dog_notice("사랑스러움")
-				.m_state(false).m_agree(true).build();
-
-		MemberRole userRole = MemberRole.USER;
-		newMember.addRole(userRole);
-		Member savedMember = memberRepository.save(newMember);
-		log.info("-----------------");
-		log.info("Inserted Member: " + savedMember);
-	}
-}
+  package com.petgrooming.repository;
+  
+  import lombok.extern.log4j.Log4j2;
+  
+  import java.util.Date;
+  
+  import org.junit.jupiter.api.Test; import
+  org.springframework.beans.factory.annotation.Autowired; import
+  org.springframework.boot.test.context.SpringBootTest; import
+  org.springframework.security.crypto.password.PasswordEncoder; import
+  com.petgrooming.domain.Member; import com.petgrooming.domain.MemberRole;
+  import com.petgrooming.repository.MemberRepository;
+  
+  @SpringBootTest
+  
+  @Log4j2 public class MemberRepositoryTests {
+  
+  @Autowired private MemberRepository memberRepository;
+  
+  @Autowired private PasswordEncoder passwordEncoder;
+  
+  @Test public void testInsertMemberWithRole() { Member newMember =
+  Member.builder().m_email("new_member@example.com").m_name("New Member").
+  m_birth(new Date())
+  .m_gender(1).m_pw(passwordEncoder.encode("password")).m_phone("123-456-7890")
+  .m_addr("New Address")
+  .dog_name("Dog Name").dog_breed("Dog Breed").dog_birth(new
+  Date()).dog_notice("Dog Notice") .m_state(true).m_agree(true).build();
+  
+  MemberRole userRole = MemberRole.USER; newMember.addRole(userRole); Member
+  savedMember = memberRepository.save(newMember);
+  log.info("-----------------"); log.info("Inserted Member: " + savedMember); }
+  }
+ 

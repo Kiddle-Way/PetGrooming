@@ -5,7 +5,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Table(name = "review")
@@ -27,8 +31,13 @@ public class Review {
 	private String v_title;
 	private String v_content;
 	private boolean v_delFlag;
+	
+	private Long v_rating;
 
-	@Column(nullable = false, columnDefinition = "number(1,0) default 0")
+	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
+	private String v_c_content;
+
+	@Column(columnDefinition = "number(1,0) default 0")
 	public void changeDel(boolean delFlag) {
 		this.v_delFlag = delFlag;
 	}
@@ -40,6 +49,11 @@ public class Review {
 	@ElementCollection
 	@Builder.Default
 	private List<ReviewImage> imageList = new ArrayList<>();
+
+	@PrePersist
+	public void prePersist() {
+		this.v_c_content = this.v_c_content == null ? "답변 미작성" : this.v_c_content;
+	}
 
 	public void changeV_pw(Long pw) {
 		this.v_pw = pw;
@@ -53,6 +67,14 @@ public class Review {
 		this.v_content = content;
 	}
 
+	public void changeV_rating(Long v_rating) {
+		this.v_rating = v_rating;
+	}
+
+	public void changeV_c_content(String v_c_content) {
+		this.v_c_content = v_c_content;
+	}
+	
 	public void addImage(ReviewImage image) {
 		image.setOrd(this.imageList.size());
 		imageList.add(image);
@@ -66,4 +88,5 @@ public class Review {
 	public void clearList() {
 		this.imageList.clear();
 	}
+
 }

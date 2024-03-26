@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.petgrooming.dto.NoticeDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
+import com.petgrooming.dto.ReviewDTO;
 
 @Transactional
 public interface NoticeService {
@@ -17,4 +18,10 @@ public interface NoticeService {
 	void remove(Long n_num);
 
 	PageResponseDTO<NoticeDTO> getlist(PageRequestDTO pageRequestDTO);
+
+	PageResponseDTO<NoticeDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle);
+
+	PageResponseDTO<NoticeDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent);
+
+	PageResponseDTO<NoticeDTO> getSearchHeadList(PageRequestDTO pageRequestDTO, String searchHead);
 }
