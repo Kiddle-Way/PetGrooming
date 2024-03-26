@@ -21,7 +21,7 @@ const ModifyComponent = ({ n_num }) => {
   // 결과 모달
   const [result, setResult] = useState(null);
   // 이동용 함수
-  const { moveToRead, moveToList } = useCustomMove();
+  const { moveToRead } = useCustomMove();
 
   useEffect(() => {
     getOne(n_num).then((data) => {

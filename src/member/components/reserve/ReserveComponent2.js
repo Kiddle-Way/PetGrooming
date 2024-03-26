@@ -12,9 +12,8 @@ import Calendar from "react-calendar";
 import "../../../../node_modules/react-calendar/dist/Calendar.css";
 import Popup from "./Popup";
 import { getCookie } from "../../../common/util/cookieUtil";
-import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
-import { nanoid } from "nanoid";
-import { useQuery } from "react-query";
+import Modal from "react-modal";
+import Tosspayment from "./Tosspayment";
 
 const ReserveComponent2 = () => {
   const [paymentWidget, setPaymentWidget] = useState(null);
@@ -42,6 +41,18 @@ const ReserveComponent2 = () => {
   const [essentialProducts, setEssentialProducts] = useState([]);
   const [additionalProducts, setAdditionalProducts] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  // 모달 열기 함수
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  // 모달 닫기 함수
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   // 컴포넌트가 마운트될 때 필수상품 목록과 추가상품 목록을 불러옴
   useEffect(() => {
@@ -178,27 +189,12 @@ const ReserveComponent2 = () => {
       return;
     }
 
-    try {
-      // 결제 요청
-      await paymentWidget
-        .requestPayment({
-          orderId: nanoid(),
-          orderName: "Pet Grooming Reservation",
-          customerName: memberCookieValue.m_name,
-          customerEmail: memberCookieValue.m_email,
-          successUrl: `${window.location.origin}/reserve/success`,
-          failUrl: `${window.location.origin}/reserve/fail`,
-          
-        })
-        .catch(function (error) {
-          if (error.code === "INVALID_ORDER_NAME") {
-            // 유효하지 않은 'orderName' 처리하기
-          } else if (error.code === "INVALID_ORDER_ID") {
-            // 유효하지 않은 'orderId' 처리하기
-          }
-        });
-      
-      // 결제 성공 후 예약 등록
+    openModal();
+  };
+
+  const handlePaymentSuccess = async () => {
+     try {
+      console.log(reserve);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
         (timeSlot) => timeSlot.a_t_num === parseInt(reserve.a_t_num.a_t_num)
@@ -207,59 +203,20 @@ const ReserveComponent2 = () => {
         ? `${reservedTimeSlot.time} (${reservedTimeSlot.a_t_date})`
         : "시간 미정";
       await makeUnavailable(reserve.a_t_num.a_t_num); // 예약한 시간을 서버에 전달하여 예약 불가능하게 만듦
-      alert(`예약이 성공적으로 추가되었습니다!\n예약한 시간: ${reservedTime}`);
+      alert(`결재가 성공적으로 되었습니다!\n예약한 시간: ${reservedTime}`);
       // 예약 성공 후 추가적인 작업을 할 수 있음
       window.location.href = "http://localhost:3000/";
     } catch (error) {
       console.error("예약 및 결제 오류:", error);
       alert("예약 및 결제 중 오류가 발생했습니다.");
     }
+    setPaymentSuccess(true);
   };
 
-  useEffect(() => {
-    const fetchPaymentWidget = async () => {
-      try {
-        const loadedWidget = await loadPaymentWidget(
-          "test_ck_kYG57Eba3GKqJ0dgdgG63pWDOxmA",
-          ANONYMOUS
-        );
-        setPaymentWidget(loadedWidget);
-      } catch (error) {
-        console.error("Error fetching payment widget:", error);
-      }
-    };
-    fetchPaymentWidget();
-  }, []);
-
-  useEffect(() => {
-    if (paymentWidget == null) {
-      return;
-    }
-
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-      "#payment-widget",
-      { value: reserve.r_total_price }, // price 대신에 reserve.r_total_price 사용
-      { variantKey: "DEFAULT" }
-    );
-
-    paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
-
-    paymentMethodsWidgetRef.current = paymentMethodsWidget;
-  }, [paymentWidget, reserve.r_total_price]);
-
-  useEffect(() => {
-    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-
-    if (paymentMethodsWidget == null) {
-      return;
-    }
-
-    paymentMethodsWidget.updateAmount(reserve.r_total_price); // price 대신에 reserve.r_total_price 사용
-  }, [reserve.r_total_price]); // price 대신에 reserve.r_total_price 사용
 
   return (
     <div className="w-full">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="w-full flex justify-center">
           <div className="w-2/3">
             <div className="relative mb-4 flex items-center">
@@ -393,27 +350,43 @@ const ReserveComponent2 = () => {
             </div>
             <div className="relative mb-4 flex items-center flex-col">
               <Popup onAgree={handleAgreeChange} />
-            </div>
-            <div id="payment-widget" />
-            <div id="agreement" />
-            <div className="action-box">
-              <p style={{ fontSize: 20 }}>
-                총 가격: {reserve.r_total_price}원
-                {/* 총 가격 계산 로직을 여기에 작성합니다. */}
-              </p>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={!isSubmitEnabled()}
-                className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-              >
-                예약 등록
-              </button>
-              <Link to={{ pathname: "/reserve/page" }}>
-                <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
-                  돌아가기
+              <div className="action-box">
+                <p style={{ fontSize: 20 }}>
+                  총 가격: {reserve.r_total_price}원
+                  {/* 총 가격 계산 로직을 여기에 작성합니다. */}
+                </p>
+                <button
+                  type="submit"
+                  className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+                >
+                  결재 하기
                 </button>
-              </Link>
+
+                {/* 모달 */}
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={closeModal}
+                  contentLabel="Tosspayment Modal"
+                >
+                  {/* Tosspayment 컴포넌트 표시 */}
+                  <Tosspayment reserve={reserve} onPaymentSuccess={handlePaymentSuccess}/>
+
+                  {/* 모달 닫기 버튼 */}
+                  <button
+                    onClick={closeModal}
+                    className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+                  >
+                    결재창 닫기
+                  </button>
+                </Modal>
+
+                {/* 돌아가기 버튼 */}
+                <Link to={{ pathname: "/reserve/page" }}>
+                  <button className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500">
+                    돌아가기
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
