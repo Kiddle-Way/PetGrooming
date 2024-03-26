@@ -1,9 +1,25 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../image/logo12.jpg";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const loginState = useSelector((state) => state.loginSlice);
+  const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (withdrawalCompleted) {
+      // 회원 탈퇴가 완료되면 로그인 상태를 false로 설정
+      dispatch({ type: "logout" });
+      setWithdrawalCompleted(false); // withdrawalCompleted 상태 재설정
+    }
+  }, [withdrawalCompleted, dispatch]);
+
+  const handleLogout = () => {
+    // 로그아웃 버튼 클릭 시 실행되는 함수
+    setWithdrawalCompleted(true); // withdrawalCompleted 상태 변경
+  };
 
   window.addEventListener("click", function (e) {
     document.querySelectorAll(".dropdown").forEach(function (dropdown) {
@@ -80,25 +96,27 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          {!loginState.m_email ? (
+          {/* 로그인 상태에 따라 Join 항목 렌더링 */}
+          {!loginState.m_email && (
             <div className="text-white text-sm m-1 rounded">
               <Link to={"/member/login"}>Login</Link>
             </div>
-          ) : (
+          )}
+          {loginState.m_email && (
             <div className="text-white text-sm m-1 rounded">
               <Link to={"/member/logout"}>Logout</Link>
             </div>
           )}
-        </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/member/join"}>Join</Link>
-          </div>
-        </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
-          <div className="text-white text-sm m-1 rounded">
-            <Link to={"/member/mypage"}>MyPage</Link>
-          </div>
+          {!loginState.m_email && (
+            <div className="text-white text-sm m-1 rounded">
+              <Link to={"/member/join"}>Join</Link>
+            </div>
+          )}
+          {loginState.m_email && (
+            <div className="text-white text-sm m-1 rounded">
+              <Link to={"/member/mypage"}>MyPage</Link>
+            </div>
+          )}
         </div>
       </nav>
     </div>

@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { postAdd } from "../../../common/api/inquiryApi";
 import FetchingModal from "../../../common/components/FetchingModal";
 import ResultModal from "../../../common/components/ResultModal";
 import useCustomMove from "../../../common/hooks/useCustomMove";
+import { getCookie } from "../../../common/util/cookieUtil";
 
 const initState = {
   i_title: "",
@@ -21,6 +22,17 @@ const AddComponent = () => {
   const [result, setResult] = useState(null);
 
   const {moveToList} = useCustomMove()
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 쿠키에서 m_num 값을 가져와서 상태로 설정
+    const memberCookieValue = getCookie("member");
+    if (memberCookieValue) {
+      setInquiry((prevState) => ({
+        ...prevState,
+        m_num: memberCookieValue.m_num,
+      }));
+    }
+  }, []); // [] 빈 배열을 전달하여 한 번만 실행되도록 설정
 
   const handleChangeInquiry = (e) => {
     inquiry[e.target.name] = e.target.value;
