@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getList } from "../../../common/api/QnaApi";
+import React, { useEffect, useState } from "react";
+import { getList, search } from "../../../common/api/QnaApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
 import { Link } from "react-router-dom";
@@ -18,16 +18,50 @@ const initState = {
 };
 
 const ListComponent = () => {
-  const { page, size, refresh, moveToList, moveToRead } = useCustomMove();
+  const { page, size, refresh, moveToList, moveToModify } = useCustomMove();
 
   const [serverData, setServerData] = useState(initState);
+  const [expandedId, setExpandedId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchType, setSearchType] = useState("제목");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleCategoryChange = (category) => {
+    console.log("Selected category:", category);
+    setSearchType(category);
+  };
+
+  const handleSearchButtonClick = async () => {
+    if (!searchTerm.trim()) {
+      alert("검색어를 입력해주세요.");
+    }
+
+    const pageParam = { page: 1, size: 10 };
+    try {
+      const result = await search(
+        searchType === "제목" ? "title" : "content",
+        searchTerm,
+        pageParam
+      );
+      setServerData(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     getList({ page, size }).then((data) => {
       console.log(data);
       setServerData(data);
     });
-  }, [page, size, refresh]);
+  }, [page, size, refresh, searchTerm]);
+
+  const toggleAccordion = (id) => {
+    setExpandedId(id === expandedId ? null : id);
+  };
 
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
@@ -36,23 +70,60 @@ const ListComponent = () => {
           <div
             key={qna.f_num}
             className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
-            onClick={() => moveToRead(qna.f_num)}
           >
-            <div className="flex">
-              <div className="text-1xl m-1 p-2 w-8/12 font-extrabold">
-                {qna.f_title}
+            <div
+              className="flex cursor-pointer justify-between items-center"
+              onClick={() => toggleAccordion(qna.f_num)}
+            >
+              <div className="text-1xl m-1 p-2 font-extrabold">
+                Q.{qna.f_title}
               </div>
-              <div className="text-1xl m-1 p-2 w-2/10 font-medium">
-                {qna.f_content}
-              </div>
+              <button
+                onClick={() => moveToModify(qna.f_num)}
+                className="text-white bg-orange-500 rounded-md px-4 py-2"
+              >
+                수정
+              </button>
             </div>
+            {expandedId === qna.f_num && (
+              <div className="p-2">A.{qna.f_content}</div>
+            )}
           </div>
         ))}
       </div>
-      <PageComponent
-        serverData={serverData}
-        movePage={moveToList}
-      ></PageComponent>
+      <div>
+        <PageComponent
+          serverData={serverData}
+          movePage={moveToList}
+        ></PageComponent>
+      </div>
+      <div className="flex justify-center">
+        <div className="flex items-center">
+          <select
+            className="px-4 py-2 mr-2 border rounded"
+            onChange={(e) => handleCategoryChange(e.target.value)}
+          >
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          <input
+            className="px-4 py-2 mr-2 border rounded"
+            type="text"
+            placeholder="검색"
+            value={searchTerm}
+            onChange={handleChange}
+          />
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={handleSearchButtonClick}
+          >
+            검색
+          </button>
+        </div>
+      </div>
       <div className="flex justify-end p-4">
         <Link
           to={"/qna/add"}
@@ -65,5 +136,7 @@ const ListComponent = () => {
     </div>
   );
 };
+
+const categories = ["제목", "내용"];
 
 export default ListComponent;

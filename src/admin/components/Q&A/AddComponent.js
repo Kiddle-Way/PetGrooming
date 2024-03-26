@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { postAdd } from "../../../common/api/QnaApi";
+import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
   f_title: "",
@@ -9,19 +10,30 @@ const initState = {
 const AddComponent = () => {
   const [qna, setQna] = useState({ ...initState });
 
+  const { moveToList } = useCustomMove();
+
   const handleChangeQna = (e) => {
     qna[e.target.name] = e.target.value;
     setQna({ ...qna });
   };
   const handleClickAdd = () => {
-    postAdd(qna)
-      .then((result) => {
-        console.log(result);
-        setQna({ ...initState });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    if (window.confirm("등록 하시겠습니까?")) {
+      alert("등록되었습니다.");
+      postAdd(qna)
+        .then((result) => {
+          console.log(result);
+          setQna({ ...initState });
+          moveToList({ page: 1 });
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  };
+  const handleClickCancel = () => {
+    if (window.confirm("취소 하시겠습니까?")) {
+      moveToList({ page: 1 });
+    }
   };
 
   return (
@@ -50,16 +62,21 @@ const AddComponent = () => {
           ></input>
         </div>
       </div>
-      <div className="flex justify-end">
-        <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
-          <button
-            type="button"
-            className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
-            onClick={handleClickAdd}
-          >
-            등록
-          </button>
-        </div>
+      <div className="flex justify-end p-4">
+        <button
+          type="button"
+          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
+          onClick={handleClickCancel}
+        >
+          취소
+        </button>
+        <button
+          type="button"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          onClick={handleClickAdd}
+        >
+          수정
+        </button>
       </div>
     </div>
   );
