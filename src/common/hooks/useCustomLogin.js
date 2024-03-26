@@ -6,7 +6,7 @@ const useCustomLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.loginSlice); //-------로그인 상태
-  const isLogin = loginState.email ? true : false; //----------로그인 여부
+  const isLogin = loginState.m_email ? true : false; //----------로그인 여부
 
   const doLogin = async (loginParam) => {
     //----------로그인 함수
@@ -31,6 +31,7 @@ const useCustomLogin = () => {
 
   const moveToLoginReturn = () => {
     //--------------------로그인 페이지로 이동 컴포넌트
+    alert("로그인이 필요합니다.");
     return <Navigate replace to="/member/login" />;
   };
 
@@ -59,6 +60,7 @@ const useCustomLogin = () => {
     moveToPath,
     moveToLogin,
     moveToLoginReturn,
+    exceptionHandle
   };
 };
 
