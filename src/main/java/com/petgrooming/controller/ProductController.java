@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -57,5 +58,14 @@ public class ProductController {
     public PageResponseDTO<ProductDTO> search(@RequestParam String keyword, PageRequestDTO pageRequestDTO) {
         return service.search(keyword, pageRequestDTO);
     }
+    
+    @GetMapping("/essentialproducts")
+    public List<ProductDTO> listEssentialProducts() {
+        return service.listEssentialProducts();
+    }
 
+    @GetMapping("/additionalproducts")
+    public List<ProductDTO> listAdditionalProducts() {
+        return service.listAdditionalProducts();
+    }
 }

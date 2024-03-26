@@ -4,11 +4,13 @@ import com.petgrooming.dto.MemberDTO;
 import com.petgrooming.domain.Member;
 import com.petgrooming.repository.MemberRepository;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
@@ -49,6 +51,13 @@ public abstract class MemberServiceImpl implements MemberService {
 		memberRepository.save(member);
 	}
 
+	/*
+	 * // 로그인
+	 * 
+	 * @Override public Optional<Member> login(String m_email, String m_pw) { return
+	 * memberRepository.login(m_email, m_pw); }
+	 */
+
 	private MemberDTO convertToDTO(Member member) {
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setM_num(member.getM_num());
@@ -85,6 +94,14 @@ public abstract class MemberServiceImpl implements MemberService {
 		member.setM_state(memberDTO.isM_state());
 		member.setM_agree(memberDTO.isM_agree());
 		return member;
+	}
+
+	@Override
+	public void updateMemberState(Long m_num) {
+		Member member = memberRepository.findById(m_num)
+				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
+		member.setM_state(!member.isM_state()); // 상태를 반전시켜 업데이트
+		memberRepository.save(member);
 	}
 
 }

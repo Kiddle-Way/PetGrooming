@@ -19,37 +19,32 @@ public class ProductRepositoryTests {
     // 데이터 추가 테스트
     @Test
     public void testInsert() {
-        Product product = Product.builder().p_type("필수상품").p_name("목욕_4kg").p_price(20000).build();
+        Product product = Product.builder().p_type("추가상품").p_name("얼굴컷").p_price(5000).build();
         productRepository.save(product);
+        Product product1 = Product.builder().p_type("추가상품").p_name("스파").p_price(20000).build();
+        productRepository.save(product1);
     }
 
-    // 데이터 조회 테스트
-    @Test
-    public void testRead() {
-        Long p_num = 1L;
-        java.util.Optional<Product> result = productRepository.findById(p_num);
-        Product product = result.orElseThrow();
-        log.info(product);
-    }
-
-    // 데이터 수정 테스트
-    @Test
-    public void testModify() {
-        Long p_num = 1L;
-        java.util.Optional<Product> result = productRepository.findById(p_num);
-        Product product = result.orElseThrow();
-        product.changeP_type("추가상품");
-        product.changeP_name("스파");
-        product.changeP_price(10000);
-        productRepository.save(product);
-    }
-
-    // 데이터 삭제 테스트
-    @Test
-    public void testDelete() {
-        Long p_num = 21L;
-        productRepository.deleteById(p_num);
-    }
+	/*
+	 * // 데이터 조회 테스트
+	 * 
+	 * @Test public void testRead() { Long p_num = 1L; java.util.Optional<Product>
+	 * result = productRepository.findById(p_num); Product product =
+	 * result.orElseThrow(); log.info(product); }
+	 * 
+	 * // 데이터 수정 테스트
+	 * 
+	 * @Test public void testModify() { Long p_num = 1L; java.util.Optional<Product>
+	 * result = productRepository.findById(p_num); Product product =
+	 * result.orElseThrow(); product.changeP_type("추가상품");
+	 * product.changeP_name("스파"); product.changeP_price(10000);
+	 * productRepository.save(product); }
+	 * 
+	 * // 데이터 삭제 테스트
+	 * 
+	 * @Test public void testDelete() { Long p_num = 21L;
+	 * productRepository.deleteById(p_num); }
+	 */
 
 /*    @Test
     public void testPaging() {

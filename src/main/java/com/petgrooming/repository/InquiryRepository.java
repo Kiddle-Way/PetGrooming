@@ -13,8 +13,8 @@ import org.springframework.data.repository.query.Param;
 import com.petgrooming.domain.Inquiry;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
-	@EntityGraph(attributePaths = "imageList")
-	@Query("select i from Inquiry i where i.i_num = :i_num")
+	@EntityGraph(attributePaths = {"imageList", "m_num"})
+	@Query("select i from Inquiry i join fetch i.m_num where i.i_num = :i_num")
 	Optional<Inquiry> selectOne(@Param("i_num") Long i_num);
 
 	@Modifying

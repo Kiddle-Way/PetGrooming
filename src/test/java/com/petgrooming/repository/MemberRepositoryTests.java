@@ -1,34 +1,34 @@
 
-/*
- * package com.petgrooming.repository;
- * 
- * import com.petgrooming.domain.Member;
- * 
- * import org.junit.jupiter.api.Test; import
- * org.junit.jupiter.api.extension.ExtendWith; import
- * org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.boot.test.context.SpringBootTest; import
- * org.springframework.test.context.junit.jupiter.SpringExtension;
- * 
- * import java.util.Date;
- * 
- * import static org.junit.jupiter.api.Assertions.assertNotNull;
- * 
- * @SpringBootTest public class MemberRepositoryTests {
- * 
- * @Autowired private MemberRepository memberRepository;
- * 
- * @Test public void testinsert() { Member member =
- * Member.builder().m_name("john").m_birth(new Date()).m_gender(0)
- * .m_email("john@petgrooming.com").m_pw("john1234").m_phone("01012345678").
- * m_addr("usa")
- * .dog_breed("Labrador Retriever").dog_name("biki").dog_birth(null).dog_notice(
- * null).m_state(false) .m_agree(false).build();
- * 
- * memberRepository.save(member);
- * 
- * } }
- */
+package com.petgrooming.repository;
+
+import com.petgrooming.domain.Member;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest
+public class MemberRepositoryTests {
+
+	@Autowired
+	private MemberRepository memberRepository;
+
+	@Test
+	public void testinsert() {
+		Member member = Member.builder().m_name("john").m_birth(new Date()).m_gender(0).m_email("john@petgrooming.com")
+				.m_pw("john1234").m_phone("01012345678").m_addr("usa").dog_breed("Labrador Retriever").dog_name("biki")
+				.dog_birth(null).dog_notice(null).m_state(false).m_agree(false).build();
+
+		memberRepository.save(member);
+
+	}
+}
 
 /*
  * package com.petgrooming.repository;
@@ -129,10 +129,10 @@ public class MemberRepositoryTests {
 
 	@Test
 	public void testInsertMemberWithRole() {
-		Member newMember = Member.builder().m_email("new_member@example.com").m_name("New Member").m_birth(new Date())
-				.m_gender(1).m_pw(passwordEncoder.encode("password")).m_phone("123-456-7890").m_addr("New Address")
-				.dog_name("Dog Name").dog_breed("Dog Breed").dog_birth(new Date()).dog_notice("Dog Notice")
-				.m_state(true).m_agree(true).build();
+		Member newMember = Member.builder().m_email("john@petgrooming.com").m_name("John").m_birth(new Date())
+				.m_gender(1).m_pw(passwordEncoder.encode("john1234")).m_phone("010-1234-5678").m_addr("서울특별시 구로구")
+				.dog_name("릴리").dog_breed("말티즈").dog_birth(new Date()).dog_notice("사랑스러움")
+				.m_state(false).m_agree(true).build();
 
 		MemberRole userRole = MemberRole.USER;
 		newMember.addRole(userRole);
