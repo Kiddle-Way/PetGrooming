@@ -1,5 +1,5 @@
 import MenuTable from "./MenuTable";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   postAdd,
   getEssentialProducts,
@@ -16,9 +16,6 @@ import Modal from "react-modal";
 import Tosspayment from "./Tosspayment";
 
 const ReserveComponent2 = () => {
-  const [paymentWidget, setPaymentWidget] = useState(null);
-  const paymentMethodsWidgetRef = useRef(null);
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const selectedInfo = searchParams.get("info");
@@ -67,20 +64,6 @@ const ReserveComponent2 = () => {
       }
     };
     fetchProducts();
-
-    // PaymentWidget 로드
-    const loadPayment = async () => {
-      try {
-        const paymentWidget = await loadPaymentWidget(
-          "test_ck_kYG57Eba3GKqJ0dgdgG63pWDOxmA",
-          ANONYMOUS
-        );
-        setPaymentWidget(paymentWidget);
-      } catch (error) {
-        console.error("Error while loading payment widget:", error);
-      }
-    };
-    loadPayment();
   }, []); // 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행
 
   const handleDateChange = async (date) => {
@@ -193,7 +176,7 @@ const ReserveComponent2 = () => {
   };
 
   const handlePaymentSuccess = async () => {
-     try {
+    try {
       console.log(reserve);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
@@ -207,12 +190,11 @@ const ReserveComponent2 = () => {
       // 예약 성공 후 추가적인 작업을 할 수 있음
       window.location.href = "http://localhost:3000/";
     } catch (error) {
-      console.error("예약 및 결제 오류:", error);
-      alert("예약 및 결제 중 오류가 발생했습니다.");
+      console.error("예약 추가 오류:", error);
+      alert("예약 추가 중 오류가 발생했습니다.");
     }
     setPaymentSuccess(true);
   };
-
 
   return (
     <div className="w-full">
@@ -369,7 +351,10 @@ const ReserveComponent2 = () => {
                   contentLabel="Tosspayment Modal"
                 >
                   {/* Tosspayment 컴포넌트 표시 */}
-                  <Tosspayment reserve={reserve} onPaymentSuccess={handlePaymentSuccess}/>
+                  <Tosspayment
+                    reserve={reserve}
+                    onPaymentSuccess={handlePaymentSuccess}
+                  />
 
                   {/* 모달 닫기 버튼 */}
                   <button

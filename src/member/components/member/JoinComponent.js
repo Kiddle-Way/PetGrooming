@@ -66,7 +66,7 @@ const JoinComponent = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+    <div className="max-w-md mx-auto p-4 m-10 bg-white shadow-md rounded-md space-y-5">
       <h2 className="text-2xl font-bold mb-4">회원 정보 입력</h2>
       <div>
         <label className="block mb-1">이름:</label>
@@ -181,7 +181,7 @@ const JoinComponent = () => {
           className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
         />
       </div>
-      <div>
+      <div className="hidden">
         <label className="block mb-1">탈퇴 요청 여부:</label>
         <select
           name="m_state"

@@ -24,7 +24,7 @@ const Navbar = () => {
     });
   });
   return (
-    <div className="container mt-2 sm:px-2 lg:px-1">
+    <div className="container mx-auto mt-2 sm:px-2 lg:px-1">
       <nav className="rounded-2xl mx-auto flex flex-wrap justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
         <div className="flex flex-wrap items-center justify-between mb-1 mr-5">
           <Link to={"/"}>
