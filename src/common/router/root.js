@@ -41,29 +41,17 @@ const MemberIndex = lazy(() => import("../../admin/pages/member/IndexPage"));
 const root = createBrowserRouter([
   {
     path: "",
-    element: (
-      <Suspense fallback={Loading}>
-        <Main />
-      </Suspense>
-    ),
+    element: <Suspense fallback={Loading}> <Main /></Suspense>,
   },
   {
     path: "about",
-    element: (
-      <Suspense fallback={Loading}>
-        <AboutIndex />
-      </Suspense>
-    ),
-    children: AboutRouter(),
+    element: <Suspense fallback={Loading}> <AboutIndex /></Suspense>,
+    children : AboutRouter()
   },
   {
     path: "designer",
-    element: (
-      <Suspense fallback={Loading}>
-        <DesignerIndex />
-      </Suspense>
-    ),
-    children: DesignerRouter(),
+    element: <Suspense fallback={Loading}> <DesignerIndex /></Suspense>,
+    children: DesignerRouter()
   },
   {
     path: "product",
