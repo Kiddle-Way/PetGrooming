@@ -207,7 +207,7 @@ const MainComponents = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="text-right">
+                  <td>
                     <p>기분좋개 U・ᴥ・U</p>
                     <p>운영시간 오전9부터 오후 6시까지</p>
                     <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
@@ -229,7 +229,7 @@ const MainComponents = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="text-right">
+                  <td>
                     <p>기분좋개 U・ᴥ・U</p>
                     <p>운영시간 오전9부터 오후 6시까지</p>
                     <p>마음을 녹이는 아로마 스파와 머드 마사지</p>

@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 import MyPageComponent from "../../components/member/MyPageComponent";
-import Navbar from "../../../common/layouts/Navbar";
+import BasicLayout from "../../../common/layouts/BasicLayout";
 
 const MyPage = () => {
   const { m_num } = useParams();
 
   return (
     <div>
-      <Navbar />
-      <MyPageComponent m_num={m_num}></MyPageComponent>
+      <BasicLayout>
+        <MyPageComponent m_num={m_num}></MyPageComponent>
+      </BasicLayout>
     </div>
   );
 };

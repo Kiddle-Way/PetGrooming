@@ -16,11 +16,6 @@ const Navbar = () => {
     }
   }, [withdrawalCompleted, dispatch]);
 
-  const handleLogout = () => {
-    // 로그아웃 버튼 클릭 시 실행되는 함수
-    setWithdrawalCompleted(true); // withdrawalCompleted 상태 변경
-  };
-
   window.addEventListener("click", function (e) {
     document.querySelectorAll(".dropdown").forEach(function (dropdown) {
       if (!dropdown.contains(e.target)) {
@@ -82,7 +77,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost  text-black hover:text-blue-600">
-                공지사항
+                고객센터
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>
