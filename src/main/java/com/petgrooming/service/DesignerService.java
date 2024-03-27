@@ -50,11 +50,14 @@ public interface DesignerService {
 	PageResponseDTO<DesignerDTO> getSearchGenderList(int searchGender, PageRequestDTO pageRequestDTO);
 	
 	
+	//복직, 퇴사 상태 변경
+	void updateState(Long dno, Long state);
+	
 	//복직
-	void rehireDesigner (Long dno);
+	//void rehireDesigner (Long dno);
 	//List<Designer> rehireDesigner(Long dno);
 	// 퇴사 처리 메서드
-    void fireDesigner(Long dno);
+    //void fireDesigner(Long dno);
 	//List<Designer> fireDesigner(Long dno);
 //	//ResponseEntity<Void> rehireDesigner(@PathVariable(name = "dno") Long dno);
 //    

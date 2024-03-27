@@ -20,11 +20,11 @@ public class DesignerDTO {
 
 	private String dname; // 이름
 
-	private int  dgender; // 성별 남자 = 0, 여자 = 1
+	private Long  dgender; // 성별 남자 = 0, 여자 = 1
 	private String demail; // 이메일
 	private String dphone; // 연락처
 
-	private int dstate; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
+	private Long dstate; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
 	private String dintro; // 소개
 	private String dattach;  // 첨부파일명
 	

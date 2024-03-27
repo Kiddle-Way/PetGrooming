@@ -33,10 +33,15 @@ public class AvailableTimeslot {
 	public void changeDel(boolean delFlag) {
 		this.isAvailable = delFlag;
 	}
-
-    public AvailableTimeslot(LocalDate a_t_date, ReserveTime time, boolean isAvailable) {
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "d_num", referencedColumnName = "dno")
+	private Designer d_num;
+    
+    public AvailableTimeslot(LocalDate a_t_date, ReserveTime time, boolean isAvailable, Designer d_num) {
         this.a_t_date = a_t_date;
         this.time = time;
         this.isAvailable = isAvailable;
+        this.d_num = d_num;
     }
 }

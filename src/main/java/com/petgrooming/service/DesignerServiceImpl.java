@@ -176,7 +176,7 @@ public class DesignerServiceImpl implements DesignerService {
     }
  // 복직 메서드
     @Override
-    public void rehireDesigner(Long dno) {
+    public void updateState(Long dno, Long state) {
         try {
             Optional<Designer> result = designerRepository.findById(dno);
             Designer designer = result.orElseThrow(() -> new NoSuchElementException("디자이너를 찾을 수 없습니다. ID: " + dno));
@@ -184,7 +184,7 @@ public class DesignerServiceImpl implements DesignerService {
             // 복직 처리 등 원하는 동작 수행
             //designer.setState(State.근무); // 복직 상태로 변경
 
-            designerRepository.save(designer); // 변경 사항 저장
+            designerRepository.updateState(dno,state); // 변경 사항 저장
         } catch (NoSuchElementException e) {
             // 디자이너를 찾을 수 없는 경우 처리
             System.err.println("디자이너를 찾을 수 없습니다. ID: " + dno);
@@ -196,27 +196,27 @@ public class DesignerServiceImpl implements DesignerService {
         }
     }
 
-    // 퇴직 메서드
-    @Override
-    public void fireDesigner(Long dno) {
-        try {
-            Optional<Designer> result = designerRepository.findById(dno);
-            Designer designer = result.orElseThrow(() -> new NoSuchElementException("디자이너를 찾을 수 없습니다. ID: " + dno));
-
-            // 퇴사 처리 등 원하는 동작 수행
-            //designer.setState(State.퇴사); // 퇴사 상태로 변경
-
-            designerRepository.save(designer); // 변경 사항 저장
-        } catch (NoSuchElementException e) {
-            // 디자이너를 찾을 수 없는 경우 처리
-            System.err.println("디자이너를 찾을 수 없습니다. ID: " + dno);
-            e.printStackTrace();
-        } catch (Exception e) {
-            // 그 외 예외 처리
-            System.err.println("오류가 발생했습니다.");
-            e.printStackTrace();
-        }
-    }
+//    // 퇴직 메서드
+//    @Override
+//    public void fireDesigner(Long dno) {
+//        try {
+//            Optional<Designer> result = designerRepository.findById(dno);
+//            Designer designer = result.orElseThrow(() -> new NoSuchElementException("디자이너를 찾을 수 없습니다. ID: " + dno));
+//
+//            // 퇴사 처리 등 원하는 동작 수행
+//            //designer.setState(State.퇴사); // 퇴사 상태로 변경
+//
+//            designerRepository.save(designer); // 변경 사항 저장
+//        } catch (NoSuchElementException e) {
+//            // 디자이너를 찾을 수 없는 경우 처리
+//            System.err.println("디자이너를 찾을 수 없습니다. ID: " + dno);
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            // 그 외 예외 처리
+//            System.err.println("오류가 발생했습니다.");
+//            e.printStackTrace();
+//        }
+//    }
     
     
     

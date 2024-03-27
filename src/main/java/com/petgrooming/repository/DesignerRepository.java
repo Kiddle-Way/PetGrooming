@@ -55,8 +55,8 @@ public interface DesignerRepository extends JpaRepository<Designer, Long> {
 	 
 	// 퇴사 또는 복직 처리
 	 @Modifying
-	 @Query("UPDATE Designer d SET d.state = :state WHERE d.dno = :dno")
-	 void updateState(@Param("dno") Long dno, @Param("state") State state);
+	 @Query("UPDATE Designer d SET d.dstate = :state WHERE d.dno = :dno")
+	 void updateState(@Param("dno") Long dno, @Param("state") Long state);
 	 
 //	 //변경된 리스트 반환 
 //	 

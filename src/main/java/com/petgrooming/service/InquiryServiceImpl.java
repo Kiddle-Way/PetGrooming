@@ -113,8 +113,8 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public InquiryDTO get(Long pno) {
-		java.util.Optional<Inquiry> result = inquiryRepository.selectOne(pno);
+	public InquiryDTO get(Long i_num) {
+		java.util.Optional<Inquiry> result = inquiryRepository.selectOne(i_num);
 		Inquiry inquiry = result.orElseThrow();
 		InquiryDTO inquiryDTO = entityToDTO(inquiry);
 		return inquiryDTO;

@@ -2,6 +2,7 @@ package com.petgrooming.dto;
 
 import java.time.LocalDate;
 
+import com.petgrooming.domain.Designer;
 import com.petgrooming.domain.ReserveTime;
 
 import lombok.*;
@@ -16,4 +17,6 @@ public class AvailableTimeslotDTO {
     private LocalDate a_t_date;
     private ReserveTime time;
     private boolean isAvailable;
+    private Designer d_num;
+    
 }
