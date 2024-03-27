@@ -1,4 +1,5 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import BasicLayout from "../BasicLayout";
 import { useCallback } from "react";
 
 const IndexPage = () => {
@@ -12,26 +13,35 @@ const IndexPage = () => {
     navigate({ pathname: "add" });
   });
 
+  const handleClickDelete = useCallback(() => {
+    navigate({ pathname: "delete" });
+  });
+
   return (
-    <div className="w-full flex m-2 p-2 ">
-      <div
-        className="text-xl m-1 p-2 w-20 font-extrabold text-center underline"
-        onClick={handleClickList}
-      >
-        LIST
-      </div>
+    <BasicLayout>
+      <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 space-y-2 font-medium">
+        <div
+          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
+          onClick={handleClickList}
+        >
+          디자이너관리
+        </div>
 
-      <div
-        className="text-xl m-1 p-2 w-20 font-extrabold text-center underline"
-        onClick={handleClickAdd}
-      >
-        ADD
-      </div>
+        <div
+          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
+          onClick={handleClickAdd}
+        >
+          디자이너 등록
+        </div>
 
-      <div className="flex flex-wrap w-full">
-        <Outlet />
+        <div
+          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
+          onClick={handleClickDelete}
+        >
+          디자이너 삭제
+        </div>
       </div>
-    </div>
+    </BasicLayout>
   );
 };
 export default IndexPage;

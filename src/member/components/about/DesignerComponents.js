@@ -1,10 +1,19 @@
 import de01 from "../../../image/mini.jpg";
 
-const DesignerComponents = () => {
+const DesignerComponents = ({ children }) => {
   return (
-    <div className="w-auto">
-      <div className="flex justify-end my-9 mr-5">
-        홈 ＞ 회사소개 ＞<b>디자이너 소개</b>
+    <>
+      <br />
+      <br />
+      <p className="text-xs text-right mb-2 mr-10">
+        {" "}
+        홈 ＞ 회사소개 ＞<b>디자이너소개</b>
+      </p>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="my-1 reveal-from-bottom is-revealed text-2xl font-bold m-1 rounded">
+          {children}
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -37,7 +46,7 @@ const DesignerComponents = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

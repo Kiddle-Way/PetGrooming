@@ -32,10 +32,10 @@ export const getAdditionalProducts = async () => {
   }
 };
 
-export const getAvailableTime = async (date) => {
+export const getAvailableTime = async (date, d_num) => { // d_num 매개변수 추가
   try {
     const response = await jwtAxios.get(
-      `${API_SERVER_HOST}/api/availabletime/list?date=${date}`
+      `${API_SERVER_HOST}/api/availabletime/list?date=${date}&d_num=${d_num}` // d_num 추가
     );
     return response.data; // 서버에서 받은 데이터를 반환
   } catch (error) {

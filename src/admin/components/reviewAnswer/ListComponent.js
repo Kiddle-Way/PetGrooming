@@ -71,12 +71,16 @@ const ListComponent = () => {
             onClick={() => moveToRead(review.v_num)}
           >
             <div className="flex flex-col h-full w-full">
-              <div className="font-extrabold text-2xl p-2 w-full flex justify-between">
-                <span>{review.v_num}</span>
+              <div className="font-extrabold text-lg p-2 w-full flex justify-between">
+                <span className="text-xl">{review.v_num}</span>
                 {review.v_content === "답변 미작성" ? (
-                  <span className="text-red-500">X</span>
+                  <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
+                    답변대기
+                  </span>
                 ) : (
-                  <span className="text-green-500">O</span>
+                  <span className="text-green-500 bg-green-100 rounded-md px-2 text-sm">
+                    답변완료
+                  </span>
                 )}
               </div>
               <div className="text-1xl m-1 p-2 w-full flex flex-col">
