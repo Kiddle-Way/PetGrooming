@@ -68,7 +68,6 @@ const ListComponent = () => {
           <div
             key={review.v_num}
             className="w-1/2 p-1 rounded shadow-md border-2 flex"
-            className="w-1/2 p-1 rounded shadow-md border-2 flex"
             onClick={() => moveToRead(review.v_num)}
           >
             <div className="flex flex-col h-full w-full">
@@ -88,13 +87,6 @@ const ListComponent = () => {
                 <div className="bottom-0 font-extrabold bg-yellow-300">
                   <div className="text-center p-1">
                     리뷰제목: {review.v_title}
-                  </div>
-                </div>
-              </div>
-              <div className="text-1xl m-1 p-2 w-full flex flex-col">
-                <div className="bottom-0 font-extrabold bg-yellow-200">
-                  <div className="text-center p-1">
-                    작성자: {review.m_num.m_email}
                   </div>
                 </div>
               </div>
