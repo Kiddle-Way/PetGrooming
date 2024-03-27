@@ -39,8 +39,9 @@ public class DesignerRepositoryTests {
 
 	@Test
 	public void testRegister() {
-		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이").dgender(0).dbirth(LocalDate.of(1996,1,26))
-				.dphone("010-2546-4512").demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0).dintro("디자이 잘해")
+		for(int i =0 ; i<5; i++) {
+		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이"+ i).dgender(0).dbirth(LocalDate.of(1996,1,26))
+				.dphone("010-2546-451"+i).demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0).dintro("디자이 잘해")
 				.dattach("디자이.jpg").build();
 
 		designerDTO.setUploadFileNames(
@@ -48,6 +49,7 @@ public class DesignerRepositoryTests {
 				java.util.List.of(UUID.randomUUID() + "_" + "Test1.jpg", UUID.randomUUID() + "_" + "Test2.jpg"));
 
 		designerService.register(designerDTO);
+		}
 	}
 
 }

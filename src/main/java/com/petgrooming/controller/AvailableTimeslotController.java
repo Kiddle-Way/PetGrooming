@@ -1,5 +1,6 @@
 package com.petgrooming.controller;
 
+import com.petgrooming.domain.Designer;
 import com.petgrooming.dto.AvailableTimeslotDTO;
 import com.petgrooming.service.AvailableTimeslotService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class AvailableTimeslotController {
 
 	// ex)http://localhost:8080/api/availabletime/list?date=2024-03-19
 	@GetMapping("/list")
-	public List<AvailableTimeslotDTO> listAvailableTime(@RequestParam("date") String dateString) {
-		LocalDate date = LocalDate.parse(dateString);
-		return availableTimeslotService.listAvailableTime(date);
+	public List<AvailableTimeslotDTO> listAvailableTime(@RequestParam("date") String dateString, @RequestParam("d_num") Designer d_num) {
+	    LocalDate date = LocalDate.parse(dateString);
+	    return availableTimeslotService.listAvailableTime(date, d_num);
 	}
 
 	// 타임슬롯을 예약 가능하게 만드는 엔드포인트
