@@ -1,13 +1,13 @@
 package com.petgrooming.controller;
 
 import java.util.Map;
+
 import java.util.stream.Collectors;
 import java.util.List;
 
 import org.springframework.core.io.Resource;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -165,19 +165,12 @@ public class DesignerController {
 		}
 		
 		// 퇴직 또는 복직 처리 엔드포인트
-		@PutMapping("/{dno}/state")
-		@CrossOrigin(origins = "http://localhost:3000")
-		public ResponseEntity<Void> updateDesignerState(@PathVariable(name = "dno") Long dno, @RequestParam(name = "action") String action) {
-		    if ("rehire".equals(action)) {
-		        designerService.rehireDesigner(dno); // 복직 처리
+		@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
+		@PutMapping("/{dno}/{state}")
+		public ResponseEntity<Void> updateDesignerState(@PathVariable(name = "dno") Long dno, @PathVariable(name = "state") Long state) {
+		  
+		        designerService.updateState(dno,state); // 복직 처리
 		        log.info("dno");
-		    } else if ("fire".equals(action)) {
-		        designerService.fireDesigner(dno); // 퇴사 처리
-		        log.info("dno");
-		    } else {
-		        return ResponseEntity.badRequest().build(); // 잘못된 동작 요청 시 에러 응답
-
-		    }
 		    return ResponseEntity.ok().build();
 		}
 		

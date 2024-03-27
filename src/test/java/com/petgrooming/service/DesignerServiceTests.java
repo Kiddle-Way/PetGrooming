@@ -84,12 +84,12 @@ public class DesignerServiceTests {
             // 디비 생성
             Designer designer =Designer.builder()
                     .dname("구르밍"+i)
-				.dgender(0)
+				.dgender(0L)
 				.dbirth(LocalDate.of(2003, 11, 20))
 				.dphone("010-1234-8575"+i)
 				.demail("groom"+i +"@gomm.com")
 				.dh_date(LocalDate.of(2024, 11, 20))
-				.dstate(0)
+				.dstate(0L)
 				.dintro("짱잘함"+i)
 				.dattach("gromm"+ i +".tex")
 				.build();

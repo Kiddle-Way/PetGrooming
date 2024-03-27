@@ -39,8 +39,8 @@ public class DesignerRepositoryTests {
 
 	@Test
 	public void testRegister() {
-		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이").dgender(1).dbirth(LocalDate.of(1996,1,26))
-				.dphone("010-2546-4512").demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0).dintro("디자이 잘해")
+		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이").dgender(1L).dbirth(LocalDate.of(1996,1,26))
+				.dphone("010-2546-4512").demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0L).dintro("디자이 잘해")
 				.dattach("디자이.jpg").build();
 
 		designerDTO.setUploadFileNames(
