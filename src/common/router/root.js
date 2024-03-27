@@ -12,6 +12,7 @@ import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
 //import memberRouter2 from "../../admin/router/member/MemberRouter";
+import memberqnaRouter from "../../member/router/Q&A/qnaRouter"
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -25,7 +26,7 @@ const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
 const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
 const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
-
+const MemberQnaIndex = lazy(() => import("../../member/pages/Q&A/IndexPage"));
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
 const InquiryIndex = lazy(() => import("../../member/pages/inquiry/IndexPage"));
@@ -152,12 +153,21 @@ const root = createBrowserRouter([
     children: inquiryAnswerRouter(),
   },
   {
-    path: "member/List",
+    path: "memberList",
     element: (
       <Suspense fallback={Loading}>
         <Member />
       </Suspense>
     ),
+  },
+  {
+    path: "memberqna",
+    element: (
+      <Suspense fallback={Loading}>
+        <MemberQnaIndex />
+      </Suspense>
+    ),
+    children: memberqnaRouter(),
   },
 ]);
 

@@ -40,7 +40,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                디자이너관리
+                <Link to={"/designer/list/"}>디자이너관리</Link>
               </summary>
             </details>
 

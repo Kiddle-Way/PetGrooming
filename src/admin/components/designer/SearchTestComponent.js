@@ -4,7 +4,7 @@ import {
   searchGender,
   searchState,
   getList,
-  updateDesignerStatus,
+  updateDesignerState,
 } from "../../../common/api/designerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
@@ -119,48 +119,38 @@ const SearchTestComponen = () => {
     setState(e.target.value);
   };
 
-  // 디자이너 상태 변경 시 실행되는 함수
-  const handleStatusChange = async (designer, isResign, event) => {
-    event.preventDefault(); // 기본 동작인 페이지 리로드 방지
-    // 확인 메시지 표시
-    const confirmMessage = isResign
-      ? "퇴사상태로 변경하시겠습니까?"
-      : "근무상태로 변경하시겠습니까?";
-    const confirmResult = window.confirm(confirmMessage);
-
-    if (confirmResult) {
-      // 사용자가 확인을 선택한 경우에만 상태 변경
-      const updatedDesigner = { ...designer, dstate: isResign ? 1 : 0 };
+  // 상태 변경 함수
+  const handleResignButtonClick = async (designer, event) => {
+    if (window.confirm("처리하시겠습니까?")) {
+      event.preventDefault();
       try {
-        await updateDesignerStatus(updatedDesigner); // 디자이너 상태 변경 요청
-        // 변경된 상태를 다시 가져오기
-        const newData = await fetchData(); // 전체 리스트 다시 가져오기
-
-        // 변경된 상태를 반영하여 팝업 표시
-        window.alert("변경 완료되었습니다.");
-
-        // 변경된 데이터를 반영하여 상세 페이지로 이동
-        setServerData(newData); // 변경된 데이터로 상태 업데이트
-
-        // 팝업 표시 후 상세 페이지로 이동
-        moveToRead(designer.dno); // 상세 페이지로 이동
+        await updateDesignerState(designer.dno, 1);
+        console.log("Designer has been fired successfully.");
+        // 퇴직 처리 후 필요한 작업 수행
+        // 새로고침 실행
       } catch (error) {
-        console.error("디자이너 상태 업데이트 오류:", error);
+        console.error("Failed to fire designer:", error);
+        // 에러 처리
       }
+      moveToList({ page: 1 });
     }
   };
-  // 상태 변경 함수
-  const handleResignButtonClick = (designer, event) => {
-    event.preventDefault(); // 기본 이벤트 실행 막기
-    handleStatusChange(designer, true, event); // 퇴사 버튼 클릭 시 퇴사 상태로 변경
-  };
 
-  // 상태 변경 함수
-  const handleRehireButtonClick = (designer, event) => {
-    event.preventDefault(); // 기본 이벤트 실행 막기
-    handleStatusChange(designer, false, event); // 복직 버튼 클릭 시 복직 상태로 변경
+  const handleRehireButtonClick = async (designer, event) => {
+    if (window.confirm("처리하시겠습니까?")) {
+      event.preventDefault();
+      try {
+        await updateDesignerState(designer.dno, 0);
+        console.log("Designer has been rehired successfully.");
+        // 복직 처리 후 필요한 작업 수행
+        // 새로고침 실행
+      } catch (error) {
+        console.error("Failed to rehire designer:", error);
+        // 에러 처리
+      }
+      moveToList({ page: 1 });
+    }
   };
-
   return (
     <div className="border-2 border-blue-100 mt-1 mr-2 ml-2">
       {/* 성별 선택 셀렉트 박스 */}
@@ -228,31 +218,54 @@ const SearchTestComponen = () => {
             <div
               key={designer.dno}
               className="w-full p-2 rounded shadow-md cursor-pointer"
-              onClick={() => moveToRead(designer.dno)}
             >
               <div className="flex">
-                <div className="text-sm w-2/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-2/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dno}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dname}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dbirth}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dgender === 1 ? "여자" : "남자"}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dphone}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.demail}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dh_date}
                 </div>
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.dno)}
+                >
                   {designer.dstate === 0 ? "근무" : "퇴사"}
                 </div>
 
@@ -277,7 +290,6 @@ const SearchTestComponen = () => {
                       onClick={(event) =>
                         handleRehireButtonClick(designer, event)
                       }
-                      disabled={false}
                       value="복직"
                     />
                   )}

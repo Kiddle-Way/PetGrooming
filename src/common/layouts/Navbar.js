@@ -7,7 +7,7 @@ const Navbar = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (withdrawalCompleted) {
       // 회원 탈퇴가 완료되면 로그인 상태를 false로 설정
@@ -24,6 +24,7 @@ const Navbar = () => {
       }
     });
   });
+  
   return (
     <div className="container mt-2">
       <nav className="rounded-2xl flex justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
@@ -81,7 +82,7 @@ const Navbar = () => {
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>
-                  <Link to={"/"}>자주묻는질문</Link>
+                  <Link to={"/memberqna"}>자주묻는질문</Link>
                 </li>
                 <li>
                   <Link to={"/inquiry"}>문의게시판</Link>
