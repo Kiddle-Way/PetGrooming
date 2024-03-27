@@ -28,4 +28,9 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 	@Modifying
 	@Query("update Reserve r set r.r_delete_request = :flag_request where r.r_num = :r_num")
 	void updateToDelete_request(@Param("r_num") Long pno, @Param("flag_request") boolean flag_request);
-}
+	
+	// 내 예약 확인
+	@Query("SELECT r FROM Reserve r WHERE r.m_num.m_num = :m_num")
+	Page<Reserve> selectReserveByMemberNumber(@Param("m_num") Long m_num, Pageable pageable);
+
+} 
