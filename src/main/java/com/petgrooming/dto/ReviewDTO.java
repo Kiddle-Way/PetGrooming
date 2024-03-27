@@ -28,6 +28,7 @@ public class ReviewDTO {
 	private String v_content;
 	private LocalDateTime v_date;
 	private String v_c_content;
+	private Long v_rating;
 	
 	@Builder.Default
 	private List<MultipartFile> v_files = new ArrayList<>();

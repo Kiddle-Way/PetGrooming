@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@SequenceGenerator(name = "DESIGNER_SEQ_GEN", sequenceName = "DESIGNER_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "tbl_design")
 @Getter
 @ToString(exclude = "imageList")
@@ -23,11 +24,11 @@ public class Designer {
 
 	private String dname; // 이름
 	private LocalDate dbirth; // 생년월일
-	private int dgender; // 성별 남자 = 0, 여자 = 1
+	private Long dgender; // 성별 남자 = 0, 여자 = 1
 	private String demail; // 이메일
 	private String dphone; // 연락처
 	private LocalDate dh_date; // 입사일
-	private int dstate; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
+	private Long dstate; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
 	private String dintro; // 소개
 	private String dattach; // 첨부파일명
 	
@@ -37,7 +38,10 @@ public class Designer {
 	public void changeDel(boolean delFlag) {
 		this.delFlag = delFlag;
 	}
-
+	
+	@Enumerated(EnumType.STRING) // Enum이 문자열로 저장되도록 설정
+	@Column(name = "gender")
+    private Gender gender;
 	// Image의 목록을 가지고 관리하는 기능 작성
 	@ElementCollection
 	@Builder.Default
@@ -52,7 +56,7 @@ public class Designer {
 		this.dbirth = dbirth;
 	}
 
-	public void changeDgender(int dgender) {
+	public void changeDgender(Long dgender) {
 		this.dgender = dgender;
 	}
 
@@ -68,7 +72,7 @@ public class Designer {
 		this.dh_date = dh_date;
 	}
 
-	public void changeDstate(int dstate) {
+	public void changeDstate(Long dstate) {
 		this.dstate = dstate;
 	}
 
@@ -93,4 +97,39 @@ public class Designer {
 	public void clearList() {
 		this.imageList.clear();
 	}
+	
+	
+	public String getDstateAsString() {
+	    return dstate == 1 ? "퇴사" : "근무";
+	}
+
+	public String getDgenderAsString() {
+	    return dgender == 1 ? "여자" : "남자";
+	}
+	
+	public void setDstate(Long dstate) {
+	    this.dstate = dstate;
+	}
+
+	
+//	private boolean isStateChanged; // 상태 변경 여부를 나타내는 필드
+//	
+//	public Designer(Long dno, int dstate) {
+//        this.dno = dno;
+//        this.dstate = dstate;
+//    }
+//
+//    public Long getDno() {
+//        return dno;
+//    }
+//
+//    public void setDno(Long dno) {
+//        this.dno = dno;
+//    }
+//
+//    public int getDstate() {
+//        return dstate;
+//    }
+
+   
 }

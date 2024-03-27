@@ -38,6 +38,17 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 		    // 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
 		    // performJWTValidation(authHeaderStr);
 		}
+		if (authHeaderStr == null) {
+		    // authHeaderStr이 null인 경우에 대한 예외 처리
+		    // 로그를 출력하고 예외를 던집니다.
+		    log.error("Authentication header is null. Unable to process JWT token.");
+		    throw new IllegalStateException("Authentication header is null");
+		} else {
+		    // authHeaderStr이 null이 아닌 경우에는 기존의 로직을 수행합니다.
+		    // JWT 토큰 확인 등의 작업을 이곳에 수행합니다.
+		    // 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
+		    // performJWTValidation(authHeaderStr);
+		}
 		try {
 			// Bearer accestoken...
 			String accessToken = authHeaderStr.substring(7);
@@ -101,6 +112,26 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 		}
 		// 이미지 조회 경로는 체크하지 않는다면
 		if (path.startsWith("/api/product/list")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/review/view")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/inquiry/view")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/designer/view")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/notice/view")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/availabletime")) {
 			return true;
 		}
 		return false;

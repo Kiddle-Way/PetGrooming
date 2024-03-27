@@ -1,9 +1,9 @@
 package com.petgrooming.service;
 
-import java.util.Optional;
+
 
 import com.petgrooming.domain.Member;
-import com.petgrooming.dto.MemberDTO;
+import com.petgrooming.dto.Member2DTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
 
@@ -22,6 +22,6 @@ public interface MemberService {
 	void updateMemberState(Long m_num);
 
 	// 회원 리스트
-	PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO);
+	PageResponseDTO<Member2DTO> getList(PageRequestDTO pageRequestDTO);
 
 }

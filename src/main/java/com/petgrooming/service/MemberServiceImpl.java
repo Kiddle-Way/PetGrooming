@@ -1,11 +1,14 @@
 package com.petgrooming.service;
 
+import com.petgrooming.dto.Member2DTO;
 import com.petgrooming.dto.MemberDTO;
 
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.domain.Member;
 import com.petgrooming.repository.MemberRepository;
+
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j2
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
@@ -53,31 +57,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 회원 정보 수정
-    @Override
-    public Member updateMember(Long m_num, Member member) {
-        Member existingMember = memberRepository.findById(m_num)
-                .orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
+	@Override
+	public Member updateMember(Long m_num, Member member) {
+		Member existingMember = memberRepository.findById(m_num)
+				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 
         // 비밀번호 암호화
         //String encodedPassword = passwordEncoder.encode(member.getM_pw());
         existingMember.setM_pw(member.getM_pw());
 
-        // 기타 필요한 정보 업데이트
-        existingMember.setM_name(member.getM_name());
-        existingMember.setM_birth(member.getM_birth());
-        existingMember.setM_gender(member.getM_gender());
-        existingMember.setM_phone(member.getM_phone());
-        existingMember.setM_addr(member.getM_addr());
-        existingMember.setDog_breed(member.getDog_breed());
-        existingMember.setDog_name(member.getDog_name());
-        existingMember.setDog_birth(member.getDog_birth());
-        existingMember.setDog_notice(member.getDog_notice());
-        existingMember.setM_state(member.isM_state());
-        existingMember.setM_agree(member.isM_agree());
+		// 기타 필요한 정보 업데이트
+		existingMember.setM_name(member.getM_name());
+		existingMember.setM_birth(member.getM_birth());
+		existingMember.setM_gender(member.getM_gender());
+		existingMember.setM_phone(member.getM_phone());
+		existingMember.setM_addr(member.getM_addr());
+		existingMember.setDog_breed(member.getDog_breed());
+		existingMember.setDog_name(member.getDog_name());
+		existingMember.setDog_birth(member.getDog_birth());
+		existingMember.setDog_notice(member.getDog_notice());
+		existingMember.setM_state(member.isM_state());
+		existingMember.setM_agree(member.isM_agree());
 
-        // 엔티티 저장 및 반환
-        return memberRepository.save(existingMember);
-    }
+		// 엔티티 저장 및 반환
+		return memberRepository.save(existingMember);
+	}
 
 	private MemberDTO convertToDTO(Member member) {
 		MemberDTO memberDTO = new MemberDTO();
@@ -127,21 +131,26 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO) {
-		Pageable pageable = PageRequest.of(pageRequestDTO.getPage(), pageRequestDTO.getSize());
+	public PageResponseDTO<Member2DTO> getList(PageRequestDTO pageRequestDTO) {
+		log.info("getList..............");
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
 
 		Page<Member> result = memberRepository.findAll(pageable);
 
-		List<MemberDTO> dtolist = result.getContent().stream().map(member -> modelMapper.map(member, MemberDTO.class))
-				.collect(Collectors.toList());
+		List<Member2DTO> dtoList = result.getContent().stream().map(member -> {
+			Member2DTO member2DTO = Member2DTO.builder().m_num(member.getM_num()).m_name(member.getM_name())
+					.m_birth(member.getM_birth()).m_gender(member.getM_gender()).m_email(member.getM_email())
+					.m_pw(member.getM_pw()).m_phone(member.getM_phone()).m_addr(member.getM_addr())
+					.dog_breed(member.getDog_breed()).dog_name(member.getDog_name()).dog_birth(member.getDog_birth())
+					.dog_notice(member.getDog_notice()).m_state(member.isM_state()).m_agree(member.isM_agree()).build();
+
+			return member2DTO;
+		}).collect(Collectors.toList());
 
 		long totalCount = result.getTotalElements();
-
-		PageResponseDTO<MemberDTO> responseDTO = PageResponseDTO.<MemberDTO>withAll().dtoList(dtolist)
-				.pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
-
-		return responseDTO;
-
+		log.info(dtoList);
+		return PageResponseDTO.<Member2DTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
 	}
-
 }

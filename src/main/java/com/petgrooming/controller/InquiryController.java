@@ -1,11 +1,13 @@
 package com.petgrooming.controller;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.security.access.prepost.PreAuthorize; 
 
 import com.petgrooming.dto.InquiryPageRequestDTO;
 import com.petgrooming.dto.InquiryPageResponseDTO;
@@ -47,7 +48,6 @@ public class InquiryController {
 		return Map.of("result", i_num);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);

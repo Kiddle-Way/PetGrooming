@@ -40,7 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
 			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
 					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
-					.v_content(review.getV_c_content()).build();
+					.v_rating(review.getV_rating()).v_content(review.getV_c_content()).build();
 
 			return reviewDTO;
 		}).collect(Collectors.toList());
@@ -62,7 +62,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
 			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
 					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
-					.v_c_content(review.getV_c_content()).build();
+					.v_rating(review.getV_rating()).v_c_content(review.getV_c_content()).build();
 			return reviewDTO;
 		}).collect(Collectors.toList());
 
@@ -83,7 +83,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
 			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
 					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
-					.v_c_content(review.getV_c_content()).build();
+					.v_rating(review.getV_rating()).v_c_content(review.getV_c_content()).build();
 			return reviewDTO;
 		}).collect(Collectors.toList());
 
@@ -102,7 +102,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private Review dtoToEntity(ReviewDTO reviewDTO) {
 		Review review = Review.builder().v_num(reviewDTO.getV_num()).m_num(reviewDTO.getM_num())
 				.v_pw(reviewDTO.getV_pw()).v_title(reviewDTO.getV_title()).v_content(reviewDTO.getV_content())
-				.v_c_content(reviewDTO.getV_c_content()).build();
+				.v_rating(reviewDTO.getV_rating()).v_c_content(reviewDTO.getV_c_content()).build();
 
 		List<String> uploadFileNames = reviewDTO.getV_uploadFileNames();
 		if (uploadFileNames == null) {
@@ -125,7 +125,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDTO entityToDTO(Review review) {
 		ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
 				.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
-				.v_c_content(review.getV_c_content()).build();
+				.v_rating(review.getV_rating()).v_c_content(review.getV_c_content()).build();
 
 		List<ReviewImage> imageList = review.getImageList();
 
@@ -147,6 +147,7 @@ public class ReviewServiceImpl implements ReviewService {
 		review.changeV_title(reviewDTO.getV_title());
 		review.changeV_content(reviewDTO.getV_content());
 		review.changeV_c_content(reviewDTO.getV_c_content());
+		review.changeV_rating(reviewDTO.getV_rating());
 
 		review.clearList();
 		List<String> uploadFileNames = reviewDTO.getV_uploadFileNames();

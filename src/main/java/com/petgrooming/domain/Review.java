@@ -31,6 +31,8 @@ public class Review {
 	private String v_title;
 	private String v_content;
 	private boolean v_delFlag;
+	
+	private Long v_rating;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
 	private String v_c_content;
@@ -65,11 +67,14 @@ public class Review {
 		this.v_content = content;
 	}
 
+	public void changeV_rating(Long v_rating) {
+		this.v_rating = v_rating;
+	}
+
 	public void changeV_c_content(String v_c_content) {
 		this.v_c_content = v_c_content;
 	}
-
-
+	
 	public void addImage(ReviewImage image) {
 		image.setOrd(this.imageList.size());
 		imageList.add(image);
