@@ -1,22 +1,20 @@
 package com.petgrooming.controller;
 
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.petgrooming.domain.Member;
-import com.petgrooming.dto.MemberDTO;
+import com.petgrooming.dto.Member2DTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.repository.MemberRepository;
 import com.petgrooming.service.MemberService;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.Map;
 import java.util.Optional;
 
 @Log4j2
@@ -44,11 +42,11 @@ public class MemberController {
 	}
 
 	// 회원 정보 수정
-    @PutMapping("/{m_num}")
-    public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member member) {
-        Member updatedMember = memberService.updateMember(m_num, member);
-        return new ResponseEntity<>(updatedMember, HttpStatus.OK);
-    }
+	@PutMapping("/{m_num}")
+	public ResponseEntity<Member> updateMember(@PathVariable Long m_num, @RequestBody Member member) {
+		Member updatedMember = memberService.updateMember(m_num, member);
+		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
+	}
 
 	// 회원 삭제
 	@PutMapping("/{m_num}/delete")
@@ -63,9 +61,9 @@ public class MemberController {
 	}
 
 	@GetMapping("/list")
-	public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO) {
+	public PageResponseDTO<Member2DTO> getList(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
-		return memberService.list(pageRequestDTO);
+		return memberService.getList(pageRequestDTO);
 	}
 
 }
