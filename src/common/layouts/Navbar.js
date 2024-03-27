@@ -7,7 +7,7 @@ const Navbar = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (withdrawalCompleted) {
       // 회원 탈퇴가 완료되면 로그인 상태를 false로 설정
@@ -15,11 +15,6 @@ const Navbar = () => {
       setWithdrawalCompleted(false); // withdrawalCompleted 상태 재설정
     }
   }, [withdrawalCompleted, dispatch]);
-
-  const handleLogout = () => {
-    // 로그아웃 버튼 클릭 시 실행되는 함수
-    setWithdrawalCompleted(true); // withdrawalCompleted 상태 변경
-  };
 
   window.addEventListener("click", function (e) {
     document.querySelectorAll(".dropdown").forEach(function (dropdown) {
@@ -29,6 +24,7 @@ const Navbar = () => {
       }
     });
   });
+  
   return (
     <div className="container mt-2">
       <nav className="rounded-2xl flex justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">

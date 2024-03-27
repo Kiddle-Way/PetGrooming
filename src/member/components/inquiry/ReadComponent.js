@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getOne } from "../../../common/api/inquiryApi";
 import { API_SERVER_HOST } from "../../../common/api/noticeApi";
-import useCustomMove from "../../../common/hooks/useCustomMove";
 import FetchingModal from "../../../common/components/FetchingModal";
 
 const initState = {
@@ -16,8 +15,6 @@ const initState = {
 const host = API_SERVER_HOST;
 const ReadComponent = ({ i_num }) => {
   const [inquiry, setInquiry] = useState(initState);
-  //화면 이동용 함수
-  const { moveToList, moveToModify } = useCustomMove();
   //fetching
   const [fetching, setFetching] = useState(false);
   useEffect(() => {

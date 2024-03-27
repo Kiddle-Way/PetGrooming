@@ -55,3 +55,29 @@ export const makeUnavailable = async (a_t_num) => {
     throw error; // 에러 발생 시 예외를 던집니다.
   }
 };
+
+// 내 정보에서 예약내역 확인
+export const getMyReservations = async (m_num) => {
+  try {
+    const response = await jwtAxios.get(
+      `${host}/my-reservations?m_num=${m_num}`
+    );
+    return response.data; // 서버에서 받은 데이터를 반환
+  } catch (error) {
+    console.error("Error while fetching my reservations:", error);
+    throw error; // 에러 발생 시 예외를 던집니다.
+  }
+};
+
+// 내 예약 취소 신청
+export const removeRequest = async (r_num) => {
+  try {
+    const response = await jwtAxios.delete(
+      `${host}/request/${r_num}`
+    );
+    return response.data; // 서버에서 받은 데이터를 반환
+  } catch (error) {
+    console.error("Error while cancelling reservation:", error);
+    throw error; // 에러 발생 시 예외를 던집니다.
+  }
+};

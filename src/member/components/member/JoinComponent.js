@@ -28,26 +28,71 @@ const JoinComponent = () => {
     const { name, value } = e.target;
     let formattedValue = value;
 
-      // 휴대폰 번호 입력 시 자동으로 하이픈(-) 추가
-  if (name === "m_phone" && value.length === 3) {
-    formattedValue += "-";
-  } else if (name === "m_phone" && value.length === 8) {
-    formattedValue += "-";
-  }
+    // 이름의 길이가 30자를 초과하는지 확인
+    if (name === "m_name" && value.length > 15) {
+      // 이름의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 15);
+    }
 
-  // 개인정보 동의 콤보박스의 경우 현재 선택된 값과 새로운 값이 다를 때만 업데이트
-  if (name === "m_agree" && member.m_agree.toString() !== value) {
-    setMember({
-      ...member,
-      [name]: value === "true", // "true"를 boolean 값으로 변환하여 저장
-    });
-  } else {
-    setMember({
-      ...member,
-      [name]: formattedValue,
-    });
-  }
-};
+    // 이메일의 길이가 20자를 초과하는지 확인
+    if (name === "m_email" && value.length > 20) {
+      // 이메일의 길이가 20자를 초과하면 앞에서부터 20자까지만 저장
+      formattedValue = value.slice(0, 20);
+    }
+
+    // 전화번호 입력 시 자동으로 하이픈(-) 추가
+    if (name === "m_phone") {
+      // 숫자 이외의 문자 제거
+      formattedValue = formattedValue.replace(/[^0-9]/g, "");
+      if (formattedValue.length > 3 && formattedValue.length <= 7) {
+        formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(
+          3
+        )}`;
+      } else if (formattedValue.length > 7) {
+        formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(
+          3,
+          7
+        )}-${formattedValue.slice(7, 11)}`;
+      }
+    }
+
+    // 주소의 길이가 30자를 초과하는지 확인
+    if (name === "m_addr" && value.length > 30) {
+      // 주소의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견종 길이가 30자를 초과하는지 확인
+    if (name === "dog_breed" && value.length > 30) {
+      // 애견종의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견이름 길이가 30자를 초과하는지 확인
+    if (name === "dog_name" && value.length > 30) {
+      // 애견이름의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견특이사항 길이가 300자를 초과하는지 확인
+    if (name === "dog_breed" && value.length > 300) {
+      // 애견특이사항의 길이가 300자를 초과하면 앞에서부터 300자까지만 저장
+      formattedValue = value.slice(0, 300);
+    }
+
+    // 개인정보 동의 콤보박스의 경우 현재 선택된 값과 새로운 값이 다를 때만 업데이트
+    if (name === "m_agree" && member.m_agree.toString() !== value) {
+      setMember({
+        ...member,
+        [name]: value === "true", // "true"를 boolean 값으로 변환하여 저장
+      });
+    } else {
+      setMember({
+        ...member,
+        [name]: formattedValue,
+      });
+    }
+  };
 
   const handleClickAdd = () => {
     // 개인정보 동의 여부 확인
