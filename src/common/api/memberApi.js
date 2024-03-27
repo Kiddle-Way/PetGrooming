@@ -1,34 +1,39 @@
 import axios from "axios";
+import { API_SERVER_HOST } from "../../common/api/noticeApi";
 
-//서버 주소
-export const API_SERVER_HOST = "http://localhost:8080";
-
-const prefix = `${API_SERVER_HOST}/api/member`;
+const host = `${API_SERVER_HOST}/api/member`;
 
 export const postAdd = async (member) => {
-  const res = await axios.post(`${prefix}/`, member);
+  const res = await axios.post(`${host}/`, member);
   return res.data;
 };
 
 export const getOne = async (m_num) => {
-  const res = await axios.get(`${prefix}/${m_num}`);
+  const res = await axios.get(`${host}/${m_num}`);
   return res.data;
 };
 
 export const putOne = async (member) => {
-  const res = await axios.put(`${prefix}/${member.m_num}`, member);
+  const res = await axios.put(`${host}/${member.m_num}`, member);
   return res.data;
-}
-
-export const login = async (m_email, m_pw) => {
-  try {
-    const res = await axios.post(
-      `${prefix}/login2`,
-      { m_email, m_pw }
-    );
-    return res.data;
-  } catch (error) {
-    throw new Error("로그인에 실패했습니다."); 
-  }
 };
 
+export const loginPost = async (loginParam) => {
+  const header = { headers: { "Content-Type": "x-www-form-urlencoded" } };
+
+  const form = new FormData();
+  form.append("username", loginParam.email);
+  form.append("password", loginParam.pw);
+
+  const res = await axios.post(`${host}/login`, form, header);
+
+  return res.data;
+};
+
+export const getList = async (pageParam) => {
+  const { page, size } = pageParam;
+  const res = await axios.get(`${host}/list`, {
+    params: { page: page, size: size },
+  });
+  return res.data;
+};

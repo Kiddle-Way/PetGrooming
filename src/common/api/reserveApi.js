@@ -1,15 +1,15 @@
-import axios from "axios";
+import jwtAxios from "../util/jwtUtil";
 export const API_SERVER_HOST = "http://localhost:8080";
 const host = `${API_SERVER_HOST}/api/reserve`;
 
 export const postAdd = async (reserve) => {
-  const res = await axios.post(`${host}/`, reserve);
+  const res = await jwtAxios.post(`${host}/`, reserve);
   return res.data;
 };
 
 export const getEssentialProducts = async () => {
   try {
-    const response = await axios.get(
+    const response = await jwtAxios.get(
       `${API_SERVER_HOST}/api/product/essentialproducts`
     );
     return response.data; // 서버에서 받은 데이터를 반환
@@ -22,7 +22,7 @@ export const getEssentialProducts = async () => {
 // 추가상품 목록을 불러오는 함수
 export const getAdditionalProducts = async () => {
   try {
-    const response = await axios.get(
+    const response = await jwtAxios.get(
       `${API_SERVER_HOST}/api/product/additionalproducts`
     );
     return response.data; // 서버에서 받은 데이터를 반환
@@ -34,7 +34,7 @@ export const getAdditionalProducts = async () => {
 
 export const getAvailableTime = async (date) => {
   try {
-    const response = await axios.get(
+    const response = await jwtAxios.get(
       `${API_SERVER_HOST}/api/availabletime/list?date=${date}`
     );
     return response.data; // 서버에서 받은 데이터를 반환
@@ -46,7 +46,7 @@ export const getAvailableTime = async (date) => {
 
 export const makeUnavailable = async (a_t_num) => {
   try {
-    await axios.get(
+    await jwtAxios.get(
       `${API_SERVER_HOST}/api/availabletime/makeUnavailable?a_t_num=${a_t_num}`
     );
     console.log("Time slot made unavailable successfully.");

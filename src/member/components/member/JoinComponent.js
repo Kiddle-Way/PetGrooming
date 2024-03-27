@@ -19,30 +19,68 @@ const initState = {
 };
 
 const JoinComponent = () => {
-  const [member, setMember] = useState({ ...initState });
+  const [member, setMember] = useState({ ...initState, m_state: false });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showDetails, setShowDetails] = useState(false); // 개인정보 상세 내용 표시 여부 상태 추가
 
   const handleChangeMember = (e) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+
+      // 휴대폰 번호 입력 시 자동으로 하이픈(-) 추가
+  if (name === "m_phone" && value.length === 3) {
+    formattedValue += "-";
+  } else if (name === "m_phone" && value.length === 8) {
+    formattedValue += "-";
+  }
+
+  // 개인정보 동의 콤보박스의 경우 현재 선택된 값과 새로운 값이 다를 때만 업데이트
+  if (name === "m_agree" && member.m_agree.toString() !== value) {
     setMember({
       ...member,
-      [e.target.name]: e.target.value,
+      [name]: value === "true", // "true"를 boolean 값으로 변환하여 저장
     });
-  };
+  } else {
+    setMember({
+      ...member,
+      [name]: formattedValue,
+    });
+  }
+};
 
   const handleClickAdd = () => {
-    if (!validateForm()) {
-      setError("모든 필수 입력란을 작성해주세요.");
+    // 개인정보 동의 여부 확인
+    if (!validateAgree(!member.m_agree)) {
+      setError("개인정보 수집 및 이용에 동의해야 합니다.");
       return;
     }
+
+    // 데이터 유효성 검사
+    if (!validateEmail(member.m_email)) {
+      setError("유효한 이메일을 입력해주세요.");
+      return;
+    }
+
+    if (!validatePassword(member.m_pw)) {
+      setError(
+        "비밀번호는 최소 8자 이상, 영문 대소문자 및 숫자를 포함해야 합니다."
+      );
+      return;
+    }
+
+    if (!validatePhone(member.m_phone)) {
+      setError("유효한 휴대폰 번호를 입력해주세요. (형식: xxx-xxxx-xxxx)");
+      return;
+    }
+
+    // 서버로 데이터를 전송합니다.
     postAdd(member)
       .then((result) => {
-        console.log(result);
-        // 초기화
-        setMember({ ...initState });
+        setMember({ ...initState, m_state: false });
         setError("");
-        // 내 정보 보기 페이지로 이동
-        navigate("/login");
+        navigate("/member/login");
+        showCongratulationsAlert(member.m_name); // 회원 가입 완료 후 축하 메시지 띄우기
       })
       .catch((e) => {
         console.error(e);
@@ -50,166 +88,215 @@ const JoinComponent = () => {
       });
   };
 
-  const validateForm = () => {
-    // 필수 입력 필드가 모두 작성되었는지 확인
-    return (
-      member.m_name.trim() !== "" &&
-      member.m_birth.trim() !== "" &&
-      member.m_gender.trim() !== "" &&
-      member.m_email.trim() !== "" &&
-      member.m_pw.trim() !== "" &&
-      member.m_phone.trim() !== "" &&
-      member.m_addr.trim() !== ""
-    );
+  // 개인정보동의 유효성 검사 함수
+  const validateAgree = (agree) => {
+    return agree; // 동의 여부가 true이면 유효성 통과, false이면 유효성 실패
+  };
+
+  // 이메일 유효성 검사 함수
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  // 비밀번호 유효성 검사 함수
+  const validatePassword = (password) => {
+    const re = /^(?=.*\d)(?=.*[a-zA-Z]).{8,20}$/;
+    return re.test(password);
+  };
+
+  // 휴대폰 번호 유효성 검사 함수
+  const validatePhone = (phone) => {
+    const re = /^\d{3}-\d{3,4}-\d{4}$/;
+    return re.test(phone);
+  };
+
+  // 현재 날짜를 가져오는 함수
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month < 10 ? `0${month}` : month;
+    day = day < 10 ? `0${day}` : day;
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const showCongratulationsAlert = (name) => {
+    alert(`${name}님, 회원 가입을 축하합니다!`);
+  };
+
+  const toggleDetails = () => {
+    setShowDetails(!showDetails); // 상세 내용 표시 여부를 토글
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">회원 정보 입력</h2>
-      <div>
-        <label className="block mb-1">이름:</label>
+    <div className="max-w-md mx-auto p-8 bg-white shadow-md rounded-md">
+      <div className="mb-4">
         <input
           type="text"
           name="m_name"
           value={member.m_name}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="*이름"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">생년월일:</label>
-        <input
-          type="date"
-          name="m_birth"
-          value={member.m_birth}
-          onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-        />
+      <div className="mb-4">
+        <div className="flex items-center">
+          <label htmlFor="m_birth" className="text-sm font-medium mr-2">
+            *생년월일:
+          </label>
+          <input
+            type="date"
+            name="m_birth"
+            value={member.m_birth}
+            onChange={handleChangeMember}
+            max={getCurrentDate()} // 현재 날짜 이전만 선택 가능하도록 설정
+            placeholder="생년월일"
+            className="input-field"
+          />
+        </div>
       </div>
-      <div>
-        <label className="block mb-1">성별:</label>
+      <div className="mb-4">
         <select
           name="m_gender"
-          value={member.m_state ? "1" : "0"}
+          value={member.m_gender}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          className="input-field"
         >
-          <option value="">선택하세요</option>
+          <option value="">*성별 선택</option>
           <option value="1">남자</option>
           <option value="0">여자</option>
         </select>
       </div>
-      <div>
-        <label className="block mb-1">이메일:</label>
+      <div className="mb-4">
         <input
           type="email"
           name="m_email"
           value={member.m_email}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="*이메일"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">비밀번호:</label>
+      <div className="mb-4">
         <input
           type="password"
           name="m_pw"
           value={member.m_pw}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="*비밀번호(8자리 이상)"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">전화번호:</label>
+      <div className="mb-4">
         <input
           type="tel"
           name="m_phone"
           value={member.m_phone}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="*휴대폰 번호(-없이 입력)"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">주소:</label>
+      <div className="mb-4">
         <input
           type="text"
           name="m_addr"
           value={member.m_addr}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="*주소(시군구 까지만)"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">애견 종:</label>
+      <div className="mb-4">
         <input
           type="text"
           name="dog_breed"
           value={member.dog_breed}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="애견 종"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">애견 이름:</label>
+      <div className="mb-4">
         <input
           type="text"
           name="dog_name"
           value={member.dog_name}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="애견 이름"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">애견 생년월일:</label>
-        <input
-          type="date"
-          name="dog_birth"
-          value={member.dog_birth}
-          onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-        />
+      <div className="mb-4">
+        <div className="flex items-center">
+          <label htmlFor="dog_birth" className="text-sm font-medium mr-2">
+            애견 생년월일:
+          </label>
+          <input
+            type="date"
+            name="dog_birth"
+            value={member.dog_birth}
+            onChange={handleChangeMember}
+            max={getCurrentDate()} // 현재 날짜 이전만 선택 가능하도록 설정
+            placeholder="애견 생년월일"
+            className="input-field"
+          />
+        </div>
       </div>
-      <div>
-        <label className="block mb-1">애견 특이사항:</label>
+      <div className="mb-4">
         <input
           type="text"
           name="dog_notice"
           value={member.dog_notice}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          placeholder="애견 특이사항"
+          className="input-field"
         />
       </div>
-      <div>
-        <label className="block mb-1">탈퇴 요청 여부:</label>
-        <select
-          name="m_state"
-          value={member.m_state ? "false" : "true"}
-          onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-        >
-          <option value="">선택하세요</option>
-          <option value="false">탈퇴 요청 안 함</option>
-          <option value="true">탈퇴 요청 함</option>
-        </select>
-      </div>
-      <div>
-        <label className="block mb-1">개인정보 동의 여부:</label>
+      <div className="mb-4">
         <select
           name="m_agree"
-          value={member.m_agree ? "false" : "true"}
+          value={member.m_agree ? "true" : "false"}
           onChange={handleChangeMember}
-          className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-500"
+          className="input-field"
         >
-          <option value="">선택하세요</option>
-          <option value="false">동의함</option>
-          <option value="true">동의하지 않음</option>
+          <option value="false">*개인정보 동의함</option>
+          <option value="true">개인정보 동의하지 않음</option>
         </select>
+        {/* 개인정보 동의 콤보박스 */}
+        <button
+          type="button"
+          className="text-blue-500 hover:underline ml-2 focus:outline-none"
+          onClick={toggleDetails}
+        >
+          {showDetails ? "접기" : "자세히 보기"}
+        </button>
       </div>
-      <div className="text-red-500 mb-2">{error}</div>
+      {/* 개인정보 상세 내용 */}
+      {showDetails && (
+        <div className="bg-gray-100 p-4 rounded-md">
+          {/* 개인정보 동의에 대한 상세 내용 */}
+          <p>
+            이 웹사이트는 회원 가입 및 로그인 시 개인정보를 수집합니다. 수집된
+            개인정보는 회원 관리, 서비스 제공, 고객 의견 조사 등을 위해
+            사용됩니다.
+          </p>
+          {/* 추가적인 정보 */}
+        </div>
+      )}
+
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <button
         type="button"
         className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        onClick={handleClickAdd}
+        onClick={() => {
+          handleClickAdd();
+        }}
       >
         등록
       </button>
