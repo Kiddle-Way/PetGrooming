@@ -1,6 +1,7 @@
-const PageComponent = ({ serverData, movePage }) => {
+const PageComponent = ({ serverData, movePage, moveToRead }) => {
   return (
     <div className="m-6 flex justify-center">
+      {/* 이전 페이지로 이동 버튼 */}
       {serverData.prev ? (
         <div
           className="m-2 p-2 w-16 text-center font-bold text-blue-400 "
@@ -11,7 +12,7 @@ const PageComponent = ({ serverData, movePage }) => {
       ) : (
         <></>
       )}
-
+      {/* 페이지 번호를 나타내는 버튼들 */}
       {serverData.pageNumList.map((pageNum) => (
         <div
           key={pageNum}
@@ -23,6 +24,7 @@ const PageComponent = ({ serverData, movePage }) => {
           {pageNum}
         </div>
       ))}
+      {/* 다음 페이지로 이동 버튼 */}
       {serverData.next ? (
         <div
           className="m-2 p-2 w-16 text-center font-bold text-blue-400"

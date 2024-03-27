@@ -16,96 +16,35 @@ const DesignerComponents = ({ children }) => {
         </div>
       </div>
 
-      <div className="w-auto h-auto m-auto">
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div>
+      <div className="flex flex-col gap-4">
+        {/* 이미지와 텍스트 그룹 반복 */}
+        {[1, 2, 3, 4, 5].map((item) => (
+          <div key={item} className="flex flex-col items-center">
             <img
               src={de01}
-              width="40%"
-              height="150%"
-              alt="int"
-              style={{ margin: "0 auto" }}
+              alt="디자이너 이미지"
+              className="w-40 h-60 mx-auto"
             />
-            {/*  textAlign: "center"중앙정렬 */}
-            <h4 className="my-10 text-xl " style={{ textAlign: "center" }}>
-              편안한 미용
-              <br />
-              강아지들이 스트레스 없이
-              <br />
-              편하게 즐길 수 있는 공간 : P
+            <h4 className="my-10 text-lg text-center">
+              {item === 1 && "편안한 미용"}
+              {item === 2 && "보호자와 소통"}
+              {item === 3 && "상담 가능"}
+              {item === 4 && "전문적인 샴푸 및 트리밍"}
+              {item === 5 && "안전하고 쾌적한 환경"}
             </h4>
+            <p className="text-gray-600 text-center">
+              {item === 1 &&
+                "강아지들이 스트레스 없이 편하게 즐길 수 있는 공간 : P"}
+              {item === 2 &&
+                "강아지의 미용 / 목욕 전 후 사진과 동영상을 받아보세요!"}
+              {item === 3 &&
+                "담당 디자이너가 상주하여 카카오톡 / 고객센터에서 가능!"}
+              {item === 4 &&
+                "강아지의 피부 및 모질 상태에 맞는 전문적인 샴푸 및 트리밍 제공"}
+              {item === 5 && "넓고 쾌적한 공간에서 안전하고 편안하게 이용 가능"}
+            </p>
           </div>
-
-          <div style={{ marginBottom: "20px", marginLeft: "10px" }}>
-            <img
-              src={de01}
-              width="40%"
-              height="150%"
-              alt="int"
-              style={{ margin: "0 auto" }}
-            />
-
-            {/*  textAlign: "center"중앙정렬 */}
-            <h4 className="my-10 text-xl " style={{ textAlign: "center" }}>
-              보호자와 소통
-              <br />
-              강아지의 미용 / 목욕 전 후
-              <br />
-              사진과 동영상을 받아보세요!
-            </h4>
-          </div>
-          <div style={{ marginBottom: "20px", marginLeft: "10px" }}>
-            <img
-              src={de01}
-              width="40%"
-              height="150%"
-              alt="int"
-              style={{ margin: "0 auto" }}
-            />
-            {/*  textAlign: "center"중앙정렬 */}
-            <h4 className="my-10 text-xl " style={{ textAlign: "center" }}>
-              보호자와 소통
-              <br />
-              강아지의 미용 / 목욕 전 후
-              <br />
-              사진과 동영상을 받아보세요!
-            </h4>
-          </div>
-          <div style={{ marginBottom: "20px", marginLeft: "10px" }}>
-            <img
-              src={de01}
-              width="40%"
-              height="150%"
-              alt="int"
-              style={{ margin: "0 auto" }}
-            />
-            {/*  textAlign: "center"중앙정렬 */}
-            <h4 className="my-10 text-xl " style={{ textAlign: "center" }}>
-              보호자와 소통
-              <br />
-              강아지의 미용 / 목욕 전 후
-              <br />
-              사진과 동영상을 받아보세요!
-            </h4>
-          </div>
-          <div style={{ marginBottom: "20px", marginLeft: "10px" }}>
-            <img
-              src={de01}
-              width="40%"
-              height="150%"
-              alt="int"
-              style={{ margin: "0 auto" }}
-            />
-            {/*  textAlign: "center"중앙정렬 */}
-            <h4 className="my-10 text-xl " style={{ textAlign: "center" }}>
-              상담 가능
-              <br />
-              담당 디자이너가 상주하여
-              <br />
-              카카오톡 / 고객센터에서 가능!
-            </h4>
-          </div>
-        </div>
+        ))}
       </div>
     </>
   );

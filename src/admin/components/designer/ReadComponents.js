@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOne } from "../../../common/api/designerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
-import { API_SERVER_HOST } from "../../../common/api/productApi";
+//import { API_SERVER_HOST } from "../../../common/api/productApi";
 import FetchingModal from "../../../common/components/FetchingModal";
 
 const initState = {
@@ -18,7 +18,8 @@ const initState = {
   complete: false,
 };
 
-const host = API_SERVER_HOST;
+
+//const host = API_SERVER_HOST;
 
 const ReadComponent = ({ dno }) => {
   const [designer, setDesigner] = useState(initState);
@@ -60,7 +61,7 @@ const ReadComponent = ({ dno }) => {
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">상태</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
-            {designer.dstate === "0" ? "근무" : "퇴사"}
+            {designer.dstate === "1" ? "퇴사" : "근무"}
           </div>
         </div>
       </div>
