@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getOne } from "../../../common/api/reviewAnswerApi";
 import { API_SERVER_HOST } from "../../../common/api/noticeApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
 
 const initState = {
   v_num: 0,
@@ -10,6 +11,7 @@ const initState = {
   v_title: "",
   v_content: "",
   v_c_content: "",
+  v_rating: 0,
   v_uploadFileNames: [],
 };
 
@@ -78,6 +80,19 @@ const ReadComponent = ({ v_num }) => {
             src={`${host}/api/review/view/${imgFile}`}
           />
         ))}
+      </div>
+      <div>
+        <div className="flex justify-start items-center">
+          <div className="w-1/5 p-6 text-right font-bold">별점</div>
+          <div className="flex w-4/5 p-6 rounded-r border border-solid shadow-md">
+            {[...Array(review.v_rating)].map((a, i) => (
+              <PiStarFill className="star-lg" key={i} />
+            ))}
+            {[...Array(5 - review.v_rating)].map((a, i) => (
+              <PiStarLight className="star-lg" key={i} />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
