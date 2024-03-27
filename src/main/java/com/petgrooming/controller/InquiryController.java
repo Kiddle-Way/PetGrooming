@@ -1,6 +1,7 @@
 package com.petgrooming.controller;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.security.access.prepost.PreAuthorize; 
 
 import com.petgrooming.dto.InquiryPageRequestDTO;
 import com.petgrooming.dto.InquiryPageResponseDTO;
