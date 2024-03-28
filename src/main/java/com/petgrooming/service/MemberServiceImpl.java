@@ -62,9 +62,9 @@ public class MemberServiceImpl implements MemberService {
 		Member existingMember = memberRepository.findById(m_num)
 				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 
-		// 비밀번호 암호화
-		String encodedPassword = passwordEncoder.encode(member.getM_pw());
-		existingMember.setM_pw(encodedPassword);
+        // 비밀번호 암호화
+        //String encodedPassword = passwordEncoder.encode(member.getM_pw());
+        existingMember.setM_pw(member.getM_pw());
 
 		// 기타 필요한 정보 업데이트
 		existingMember.setM_name(member.getM_name());
