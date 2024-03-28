@@ -1,10 +1,13 @@
 import ListComponent from "../../components/member/ListComponent";
+import BasicLayout from "../BasicLayout2";
 
 const ListPage = () => {
   return (
-    <div className="p-4 w-full bg-white">
-      <ListComponent />
-    </div>
+    <BasicLayout>
+      <div className="m-16 flex-col w-full">
+        <ListComponent />
+      </div>
+    </BasicLayout>
   );
 };
 

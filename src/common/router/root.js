@@ -160,10 +160,9 @@ const root = createBrowserRouter([
     path: "memberList",
     element: (
       <Suspense fallback={Loading}>
-        <MemberIndex />
+        <Member />
       </Suspense>
     ),
-    children: memberRouter2(),
   },
   {
     path: "memberqna",

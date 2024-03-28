@@ -2,16 +2,15 @@ import { useState, useEffect } from "react";
 import { getOne, putOne } from "../../../common/api/memberApi";
 import FetchingModal from "../../../common/components/FetchingModal";
 import { getCookie, removeCookie } from "../../../common/util/cookieUtil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../common/slice/loginSlice"; // loginSlice에서 logout 액션 import
+import { logout } from "../../../common/slice/loginSlice";
 
 const initState = {
   m_name: "",
   m_birth: "",
   m_gender: 0,
   m_email: "",
-  m_pw: "",
   m_phone: "",
   m_addr: "",
   dog_breed: "",
@@ -28,44 +27,45 @@ const MyPageComponent = () => {
   const [editMode, setEditMode] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [withdrawalCompleted, setWithdrawalCompleted] = useState(false); // withdrawalCompleted 상태 추가
-  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 dispatch 함수를 가져옴
-  const [showDetails, setShowDetails] = useState(false); // 개인정보 상세 내용 표시 여부 상태 추가
+  const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
+  const dispatch = useDispatch();
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
-    setFetching(true);
-
-    // 쿠키에서 사용자 정보 가져오기
     const memberCookieValue = getCookie("member");
-
-    // 쿠키에서 m_num 가져오기
-    const m_num = memberCookieValue ? memberCookieValue.m_num : null;
-
-    if (m_num) {
-      getOne(m_num)
-        .then((data) => {
-          // Date 객체로 변환
-          data.m_birth = new Date(data.m_birth).toISOString().split("T")[0];
-          data.dog_birth = new Date(data.dog_birth).toISOString().split("T")[0];
-          setMember(data);
-          setFetching(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching member data:", error);
-          setFetching(false);
-        });
-    } else {
-      setFetching(false);
+    if (!memberCookieValue) {
+      navigate("/member/login");
+      return;
     }
-  }, []);
+
+    setFetching(true);
+    const m_num = memberCookieValue.m_num;
+
+    getOne(m_num)
+      .then((data) => {
+        data.m_birth = new Date(data.m_birth).toISOString().split("T")[0];
+        data.dog_birth = new Date(data.dog_birth).toISOString().split("T")[0];
+        setMember(data);
+        setFetching(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching member data:", error);
+        setFetching(false);
+      });
+  }, [navigate]);
 
   const handleChangeMember = (e) => {
     const { name, value } = e.target;
     let formattedValue = value;
 
-    // 전화번호 입력 시 자동으로 하이픈(-) 추가
+    // 이름의 길이가 30자를 초과하는지 확인
+    if (name === "m_name" && value.length > 15) {
+      // 이름의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 15);
+    }
+
     if (name === "m_phone") {
-      formattedValue = formattedValue.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+      formattedValue = formattedValue.replace(/[^0-9]/g, "");
       if (formattedValue.length > 3 && formattedValue.length <= 7) {
         formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(
           3
@@ -74,18 +74,41 @@ const MyPageComponent = () => {
         formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(
           3,
           7
-        )}-${formattedValue.slice(7)}`;
+        )}-${formattedValue.slice(7, 11)}`;
       }
     } else if (name === "m_birth" || name === "dog_birth") {
-      // 생년월일 입력 시 '-' 추가
       const selectedDate = new Date(value);
       formattedValue = selectedDate.toISOString().split("T")[0];
     }
 
-    setMember({
-      ...member,
+    // 주소의 길이가 30자를 초과하는지 확인
+    if (name === "m_addr" && value.length > 30) {
+      // 주소의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견종 길이가 30자를 초과하는지 확인
+    if (name === "dog_breed" && value.length > 30) {
+      // 애견종의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견이름 길이가 30자를 초과하는지 확인
+    if (name === "dog_name" && value.length > 30) {
+      // 애견이름의 길이가 30자를 초과하면 앞에서부터 30자까지만 저장
+      formattedValue = value.slice(0, 30);
+    }
+
+    // 애견특이사항 길이가 300자를 초과하는지 확인
+    if (name === "dog_breed" && value.length > 300) {
+      // 애견특이사항의 길이가 300자를 초과하면 앞에서부터 300자까지만 저장
+      formattedValue = value.slice(0, 300);
+    }
+
+    setMember((prevMember) => ({
+      ...prevMember,
       [name]: formattedValue,
-    });
+    }));
   };
 
   const handleEdit = () => {
@@ -99,14 +122,8 @@ const MyPageComponent = () => {
   };
 
   const handleSubmit = () => {
-    // 이메일, 비밀번호, 전화번호 유효성 검사
     if (!validateEmail(member.m_email)) {
       setError("유효하지 않은 이메일 형식입니다.");
-      return;
-    }
-
-    if (!validatePassword(member.m_pw)) {
-      setError("비밀번호는 숫자와 영문자를 포함한 8~20자여야 합니다.");
       return;
     }
 
@@ -115,7 +132,6 @@ const MyPageComponent = () => {
       return;
     }
 
-    // 서버로 업데이트 요청
     putOne(member)
       .then(() => {
         setEditMode(false);
@@ -147,30 +163,20 @@ const MyPageComponent = () => {
 
   useEffect(() => {
     if (withdrawalCompleted) {
-      // withdrawalCompleted 상태가 변경되면 네비게이션 업데이트
       navigate("/member/login");
     }
   }, [withdrawalCompleted, navigate]);
 
-  // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
 
-  // 비밀번호 유효성 검사 함수
-  const validatePassword = (password) => {
-    const re = /^(?=.*\d)(?=.*[a-zA-Z]).{8,20}$/;
-    return re.test(password);
-  };
-
-  // 휴대폰 번호 유효성 검사 함수
   const validatePhone = (phone) => {
     const re = /^\d{3}-\d{3,4}-\d{4}$/;
     return re.test(phone);
   };
 
-  // 현재 날짜를 가져오는 함수
   const getCurrentDate = () => {
     const date = new Date();
     const year = date.getFullYear();
@@ -184,15 +190,23 @@ const MyPageComponent = () => {
   };
 
   const toggleDetails = () => {
-    setShowDetails(!showDetails); // 상세 내용 표시 여부를 토글
+    setShowDetails(!showDetails);
   };
+
+  if (fetching) {
+    return <FetchingModal />;
+  }
+
+  if (!member) {
+    return null;
+  }
 
   return (
     <div className="max-w-md mx-auto p-8 bg-white shadow-md rounded-md">
       {fetching ? (
         <FetchingModal />
       ) : (
-        <div>
+        <>
           <h2 className="text-2xl font-bold mb-4">회원 정보</h2>
           {editMode ? (
             <div>
@@ -216,7 +230,7 @@ const MyPageComponent = () => {
                     name="m_birth"
                     value={member.m_birth}
                     onChange={handleChangeMember}
-                    max={getCurrentDate()} // 현재 날짜 이전만 선택 가능하도록 설정
+                    max={getCurrentDate()}
                     placeholder="생년월일"
                     className="input-field"
                   />
@@ -243,16 +257,6 @@ const MyPageComponent = () => {
                   placeholder="*이메일"
                   className="input-field"
                   disabled
-                />
-              </div>
-              <div className="mb-4">
-                <input
-                  type="password"
-                  name="m_pw"
-                  value={member.m_pw}
-                  onChange={handleChangeMember}
-                  placeholder="*비밀번호"
-                  className="input-field"
                 />
               </div>
               <div className="mb-4">
@@ -308,7 +312,7 @@ const MyPageComponent = () => {
                     name="dog_birth"
                     value={member.dog_birth}
                     onChange={handleChangeMember}
-                    max={getCurrentDate()} // 현재 날짜 이전만 선택 가능하도록 설정
+                    max={getCurrentDate()}
                     placeholder="애견 생년월일"
                     className="input-field"
                   />
@@ -330,11 +334,11 @@ const MyPageComponent = () => {
                   value={member.m_agree ? "true" : "false"}
                   onChange={handleChangeMember}
                   className="input-field"
+                  disabled
                 >
                   <option value="false">*개인정보 동의함</option>
                   <option value="true">개인정보 동의하지 않음</option>
                 </select>
-                {/* 개인정보 동의 콤보박스 */}
                 <button
                   type="button"
                   className="text-blue-500 hover:underline ml-2 focus:outline-none"
@@ -343,16 +347,13 @@ const MyPageComponent = () => {
                   {showDetails ? "접기" : "자세히 보기"}
                 </button>
               </div>
-              {/* 개인정보 상세 내용 */}
               {showDetails && (
                 <div className="bg-gray-100 p-4 rounded-md">
-                  {/* 개인정보 동의에 대한 상세 내용 */}
                   <p>
                     이 웹사이트는 회원 가입 및 로그인 시 개인정보를 수집합니다.
                     수집된 개인정보는 회원 관리, 서비스 제공, 고객 의견 조사
                     등을 위해 사용됩니다.
                   </p>
-                  {/* 추가적인 정보 */}
                 </div>
               )}
               {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -381,7 +382,7 @@ const MyPageComponent = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
                   이름:
@@ -393,7 +394,6 @@ const MyPageComponent = () => {
                   생년월일:
                 </label>
                 <div className="mt-1">{member.m_birth}</div>
-                {/* 숫자로 변환된 날짜 */}
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
@@ -438,7 +438,6 @@ const MyPageComponent = () => {
                   애견 생년월일:
                 </label>
                 <div className="mt-1">{member.dog_birth}</div>
-                {/* 숫자로 변환된 날짜 */}
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
@@ -448,22 +447,31 @@ const MyPageComponent = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
-                  개인정보 동의 여부:
+                  개인정보 동의:
                 </label>
                 <div className="mt-1">
-                  {member.m_agree ? "동의하지 않음" : "동의함"}
+                  {member.m_agree ? "동의함" : "동의하지 않음"}
                 </div>
               </div>
-              <button
-                type="button"
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                onClick={handleEdit}
-              >
-                수정하기
-              </button>
-            </div>
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                  onClick={handleEdit}
+                >
+                  수정하기
+                </button>
+                <Link
+                  to="/member/myreservation"
+                  className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:bg-green-600 text-center"
+                  style={{ display: "inline-block", width: "fit-content" }}
+                >
+                  내 예약 정보
+                </Link>
+              </div>
+            </>
           )}
-        </div>
+        </>
       )}
     </div>
   );
