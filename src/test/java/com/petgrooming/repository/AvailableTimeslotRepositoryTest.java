@@ -35,7 +35,7 @@ public class AvailableTimeslotRepositoryTest {
 			}
 			availableTimeslotRepository.saveAll(timeslots);
 		
-	}
+	}	
 	@Test
 	public void addOneYearOfData2() {
 		LocalDate currentDate = LocalDate.now();
