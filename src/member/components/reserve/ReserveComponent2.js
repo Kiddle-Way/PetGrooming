@@ -77,7 +77,10 @@ const ReserveComponent2 = () => {
     setReserve({ ...reserve, r_date: formattedDate }); // 선택된 날짜 설정
 
     try {
-      const availableTimes = await getAvailableTime(formattedDate, reserve.d_num.dno); // 선택된 날짜에 해당하는 가능한 시간 가져오기
+      const availableTimes = await getAvailableTime(
+        formattedDate,
+        reserve.d_num.dno
+      ); // 선택된 날짜에 해당하는 가능한 시간 가져오기
       setAvailableTimes(availableTimes);
     } catch (error) {
       console.error("Error while fetching available time:", error);
@@ -176,7 +179,7 @@ const ReserveComponent2 = () => {
   };
 
   const handlePaymentSuccess = async () => {
-     try {
+    try {
       console.log(reserve);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
@@ -195,7 +198,6 @@ const ReserveComponent2 = () => {
     }
     setPaymentSuccess(true);
   };
-
 
   return (
     <div className="w-full">
@@ -352,15 +354,11 @@ const ReserveComponent2 = () => {
                   contentLabel="Tosspayment Modal"
                 >
                   {/* Tosspayment 컴포넌트 표시 */}
-                  <Tosspayment reserve={reserve} onPaymentSuccess={handlePaymentSuccess}/>
-
-                  {/* 모달 닫기 버튼 */}
-                  <button
-                    onClick={closeModal}
-                    className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-                  >
-                    결재창 닫기
-                  </button>
+                  <Tosspayment
+                    reserve={reserve}
+                    onPaymentSuccess={handlePaymentSuccess}
+                    closeModal={closeModal}
+                  />
                 </Modal>
 
                 {/* 돌아가기 버튼 */}

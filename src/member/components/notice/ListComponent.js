@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getList, search } from "../../../common/api/noticeApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/component/PageComponent";
-import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -63,7 +62,7 @@ const ListComponent = () => {
       <div className="flex flex-wrap mx-auto justify-center p-6">
         <div className="w-full p-2 m-2 rounded shadow-md">
           <div className="flex">
-            <div className="font-extrabold text-left m-1 text-1xl p-2 w-2/12">
+            <div className="font-extrabold text-left m-1 text-1xl p-2 w-1/12">
               게시물 번호
             </div>
             <div className="font-extrabold text-1xl m-1 p-2 w-8/12">제목</div>
@@ -77,7 +76,7 @@ const ListComponent = () => {
             onClick={() => moveToRead(notice.n_num)}
           >
             <div className="flex">
-              <div className="font-extrabold text-2xl p-2 w-2/12">
+              <div className="font-extrabold text-2xl p-2 w-1/12">
                 {notice.n_num}
               </div>
               <div className="text-1xl m-1 p-2 w-8/12 font-extrabold">
@@ -123,15 +122,6 @@ const ListComponent = () => {
             검색
           </button>
         </div>
-      </div>
-      <div className="flex justify-end p-4">
-        <Link
-          to={"/notice/add"}
-          type="button"
-          className="inline-block rounded p-2 m-2 text-center w-32 text-white bg-blue-500"
-        >
-          글쓰기
-        </Link>
       </div>
     </div>
   );
