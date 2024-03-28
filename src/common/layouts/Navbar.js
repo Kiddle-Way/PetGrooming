@@ -53,7 +53,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-black hover:text-blue-600">
-                <Link to={"/"}>공지사항</Link>
+                <Link to={"/memnotice"}>공지사항</Link>
               </summary>
             </details>
 
