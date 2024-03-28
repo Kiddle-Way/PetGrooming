@@ -450,7 +450,7 @@ const MyPageComponent = () => {
                   개인정보 동의:
                 </label>
                 <div className="mt-1">
-                  {member.m_agree ? "동의함" : "동의하지 않음"}
+                  {member.m_agree ? "동의하지 않음" : "동의함"}
                 </div>
               </div>
               <div className="flex justify-between">
