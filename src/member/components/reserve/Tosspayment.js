@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
+import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { getCookie } from "../../../common/util/cookieUtil";
 
@@ -9,10 +9,10 @@ const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "w45nqhBbc4qd16BKjixJm";
 // const paymentWidget = PaymentWidget(widgetClientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
 
-export default function Tosspayment({ reserve, onPaymentSuccess }) {
+export default function Tosspayment({ reserve, onPaymentSuccess, closeModal }) {
   const [paymentWidget, setPaymentWidget] = useState(null);
   const paymentMethodsWidgetRef = useRef(null);
-  const [price, setPrice] = useState(reserve.r_total_price);
+  const [price] = useState(reserve.r_total_price);
   const memberCookieValue = getCookie("member");
 
   const phoneNumber = memberCookieValue.m_phone.replace(/\D/g, "");
@@ -51,14 +51,13 @@ export default function Tosspayment({ reserve, onPaymentSuccess }) {
 
   const handlePaymentRequest = async () => {
     try {
-      await paymentWidget
-        ?.requestPayment({
-          orderId: nanoid(),
-          orderName: reserve.allProduct,
-          customerName: memberCookieValue.m_name,
-          customerEmail: memberCookieValue.m_email,
-          customerMobilePhone: phoneNumber,
-        });
+      await paymentWidget?.requestPayment({
+        orderId: nanoid(),
+        orderName: reserve.allProduct,
+        customerName: memberCookieValue.m_name,
+        customerEmail: memberCookieValue.m_email,
+        customerMobilePhone: phoneNumber,
+      });
       onPaymentSuccess();
     } catch (error) {
       console.error("Error requesting payment:", error);
@@ -73,9 +72,17 @@ export default function Tosspayment({ reserve, onPaymentSuccess }) {
       {/* 결제하기 버튼 */}
       <button
         onClick={handlePaymentRequest}
-        className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+        className="rounded p-4 m-2 text-xl w-40 text-white bg-blue-500"
       >
         결제하기
+      </button>
+
+      {/* 모달 닫기 버튼 */}
+      <button
+        onClick={closeModal}
+        className="rounded p-4 m-2 text-xl w-40 text-white bg-blue-500"
+      >
+        결재창 닫기
       </button>
     </div>
   );
