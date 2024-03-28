@@ -39,7 +39,7 @@ public class DesignerRepositoryTests {
 
 	@Test
 	public void testRegister() {
-		for(int i =0 ; i<5; i++) {
+		for(int i =1 ; i<5; i++) {
 		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이"+ i).dgender(0L).dbirth(LocalDate.of(1996,1,26))
 				.dphone("010-2546-451"+i).demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0L).dintro("디자이 잘해")
 				.dattach("디자이.jpg").build();

@@ -52,28 +52,4 @@ public interface DesignerService {
 	
 	//복직, 퇴사 상태 변경
 	void updateState(Long dno, Long state);
-	
-	//복직
-	//void rehireDesigner (Long dno);
-	//List<Designer> rehireDesigner(Long dno);
-	// 퇴사 처리 메서드
-    //void fireDesigner(Long dno);
-	//List<Designer> fireDesigner(Long dno);
-//	//ResponseEntity<Void> rehireDesigner(@PathVariable(name = "dno") Long dno);
-//    
-//    // 변경된 리스트 반환 메서드
-//	List<Designer> getAllDesigners(Long dno);
-//    
-	
-	//퇴사
-	//void fireDesigner(DesignerDTO designerDTO);
-	//ResponseEntity<Void> fireDesigner(@PathVariable(name = "dno") Long dno);
-	
-    
-    
-    
-//    
-//	PageResponseDTO<ReviewDTO> getSearchDnameList(PageRequestDTO pageRequestDTO, String searchDname);
-//
-//	PageResponseDTO<ReviewDTO> getSearchDstatetList(PageRequestDTO pageRequestDTO, String searchDstate);
 }

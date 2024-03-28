@@ -1,6 +1,7 @@
 package com.petgrooming.service;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -8,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.petgrooming.domain.Qna;
@@ -84,7 +84,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public PageResponseDTO<QnaDTO> getSerchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
+	public PageResponseDTO<QnaDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
 
 		Page<Qna> result = qnaRepository.searchTitleList(pageable, searchTitle);
