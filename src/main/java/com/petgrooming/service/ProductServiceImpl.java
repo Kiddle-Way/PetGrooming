@@ -97,11 +97,24 @@ public class ProductServiceImpl implements ProductService {
         PageResponseDTO<ProductDTO> responseDTO = PageResponseDTO.<ProductDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO).totalCount(totalCount).build();
         return responseDTO;
     }
+    
+    @Override
+    public List<ProductDTO> findEssentialProductsCategory() {
+        // 필수상품 카테고리 조회
+        List<Product> products = productRepository.findEssentialProductsCategory();
+
+        // 조회 결과를 ProductDTO로 변환
+        List<ProductDTO> dtoList = products.stream()
+                                .map(product -> modelMapper.map(product, ProductDTO.class))
+                                .collect(Collectors.toList());
+
+        return dtoList;
+    }
 
     @Override
-    public List<ProductDTO> listEssentialProducts() {
+    public List<ProductDTO> findEssentialProducts(String p_name) {
         // 필수상품 조회
-        List<Product> products = productRepository.findEssentialProducts();
+        List<Product> products = productRepository.findEssentialProducts(p_name);
 
         // 조회 결과를 ProductDTO로 변환
         List<ProductDTO> dtoList = products.stream()

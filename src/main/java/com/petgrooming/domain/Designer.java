@@ -110,26 +110,5 @@ public class Designer {
 	public void setDstate(Long dstate) {
 	    this.dstate = dstate;
 	}
-
-	
-//	private boolean isStateChanged; // 상태 변경 여부를 나타내는 필드
-//	
-//	public Designer(Long dno, int dstate) {
-//        this.dno = dno;
-//        this.dstate = dstate;
-//    }
-//
-//    public Long getDno() {
-//        return dno;
-//    }
-//
-//    public void setDno(Long dno) {
-//        this.dno = dno;
-//    }
-//
-//    public int getDstate() {
-//        return dstate;
-//    }
-
    
 }
