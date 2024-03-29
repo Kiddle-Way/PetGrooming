@@ -32,7 +32,7 @@ const memberRouter = () => {
       ),
     },
     {
-      path: "member",
+      path: "mypage",
       element: (
         <Suspense fallback={Loading}>
           <MyPage />

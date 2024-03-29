@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { getList, search } from "../../../common/api/QnaApi";
+import { useEffect, useState } from "react";
+import { getList, search } from "../../../common/api/inquiryApi"; // getList 및 search 함수 import
 import useCustomMove from "../../../common/hooks/useCustomMove";
+import FetchingModal from "../../../common/components/FetchingModal";
 import PageComponent from "../../../common/components/PageComponent";
-import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -18,10 +18,9 @@ const initState = {
 };
 
 const ListComponent = () => {
-  const { page, size, refresh, moveToList, moveToModify } = useCustomMove();
-
+  const { page, size, refresh, moveToList, moveToRead } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
-  const [expandedId, setExpandedId] = useState(null);
+  const [fetching, setFetching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("제목");
 
@@ -35,59 +34,54 @@ const ListComponent = () => {
   };
 
   const handleSearchButtonClick = async () => {
-    if (!searchTerm.trim()) {
-      alert("검색어를 입력해주세요.");
-    }
-
     const pageParam = { page: 1, size: 10 };
     try {
+      setFetching(true); // 검색 시작 시 로딩 표시
       const result = await search(
         searchType === "제목" ? "title" : "content",
         searchTerm,
         pageParam
       );
-      setServerData(result);
+      setServerData(result); // 검색 결과로 서버 데이터 업데이트
     } catch (error) {
       console.error(error);
+    } finally {
+      setFetching(false); // 검색 완료 시 로딩 표시 제거
     }
   };
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
-      console.log(data);
-      setServerData(data);
-    });
-  }, [page, size, refresh, searchTerm]);
-
-  const toggleAccordion = (id) => {
-    setExpandedId(id === expandedId ? null : id);
-  };
+    if (!searchTerm) {
+      // 검색어가 비어있을 때 전체 목록을 불러옴
+      getList({ page, size }).then((data) => {
+        setServerData(data);
+        setFetching(false);
+      });
+    }
+  }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-      <div className="flex flex-wrap mx-auto justify-center p-6">
-        {serverData.dtoList.map((qna) => (
+      {fetching ? <FetchingModal /> : null}
+      <div className="flex flex-wrap mx-auto p-6">
+        {serverData.dtoList.map((inquiry) => (
           <div
-            key={qna.f_num}
-            className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
+            key={inquiry.i_num}
+            className="w-1/2 p-1 rounded shadow-md border-2"
+            onClick={() => moveToRead(inquiry.i_num)}
           >
-            <div
-              className="flex cursor-pointer justify-between items-center"
-              onClick={() => toggleAccordion(qna.f_num)}
-            >
-              <div className="text-1xl m-1 p-2 font-extrabold">
-                Q.{qna.f_title}
+            <div className="flex flex-col h-full">
+              <div className="font-extrabold text-2xl p-2 w-full">
+                {inquiry.i_num}
               </div>
-              <button
-                onClick={() => moveToModify(qna.f_num)}
-                className="text-white bg-orange-500 rounded-md px-4 py-2"
-              >
-                수정
-              </button>
+              <div className="text-1xl m-1 p-2 w-full flex flex-col">
+                <div className="bottom-0 font-extrabold bg-yellow-300">
+                  <div className="text-center p-1">
+                    리뷰제목: {inquiry.i_title}
+                  </div>
+                </div>
+              </div>
             </div>
-            {expandedId === qna.f_num && (
-              <div className="p-2">A.{qna.f_content}</div>
-            )}
           </div>
         ))}
       </div>
@@ -123,15 +117,6 @@ const ListComponent = () => {
             검색
           </button>
         </div>
-      </div>
-      <div className="flex justify-end p-4">
-        <Link
-          to={"/qna/add"}
-          type="button"
-          className="inline-block rounded p-2 m-2 text-center w-32 text-white bg-blue-500"
-        >
-          글쓰기
-        </Link>
       </div>
     </div>
   );

@@ -67,17 +67,41 @@ const ListComponent = () => {
         {serverData.dtoList.map((review) => (
           <div
             key={review.v_num}
-            className="w-1/2 p-1 rounded shadow-md border-2"
+            className="w-1/2 p-1 rounded shadow-md border-2 flex"
+            className="w-1/2 p-1 rounded shadow-md border-2 flex"
             onClick={() => moveToRead(review.v_num)}
           >
-            <div className="flex flex-col h-full">
-              <div className="font-extrabold text-2xl p-2 w-full">
-                {review.v_num}
+            <div className="flex flex-col h-full w-full">
+              <div className="font-extrabold text-lg p-2 w-full flex justify-between">
+                <span className="text-xl">{review.v_num}</span>
+                {review.v_content === "답변 미작성" ? (
+                  <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
+                    답변대기
+                  </span>
+                ) : (
+                  <span className="text-green-500 bg-green-100 rounded-md px-2 text-sm">
+                    답변완료
+                  </span>
+                )}
               </div>
               <div className="text-1xl m-1 p-2 w-full flex flex-col">
                 <div className="bottom-0 font-extrabold bg-yellow-300">
                   <div className="text-center p-1">
                     리뷰제목: {review.v_title}
+                  </div>
+                </div>
+              </div>
+              <div className="text-1xl m-1 p-2 w-full flex flex-col">
+                <div className="bottom-0 font-extrabold bg-yellow-200">
+                  <div className="text-center p-1">
+                    작성자: {review.m_num.m_email}
+                  </div>
+                </div>
+              </div>
+              <div className="text-1xl m-1 p-2 w-full flex flex-col">
+                <div className="bottom-0 font-extrabold bg-yellow-200">
+                  <div className="text-center p-1">
+                    작성자: {review.m_num.m_email}
                   </div>
                 </div>
               </div>

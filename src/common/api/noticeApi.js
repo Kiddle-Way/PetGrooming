@@ -37,3 +37,17 @@ export const putOne = async (n_num, notice) => {
   const res = await jwtAxios.put(`${prefix}/${n_num}`, notice, header);
   return res.data;
 };
+
+export const search = async (searchType, searchTerm, pageParam) => {
+  try {
+    const { page, size } = pageParam;
+    const url = `${prefix}/list/search${searchType}/${searchTerm}`;
+    const res = await jwtAxios.get(url, {
+      params: { page: page, size: size },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
