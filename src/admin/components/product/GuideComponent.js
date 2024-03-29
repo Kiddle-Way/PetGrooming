@@ -75,51 +75,52 @@ const GuideComponent = () => {
           <tbody>
             {/* row 1 */}
             <tr>
-              <th className="bg-gray-100">목욕</th>
-              <td>20,000원</td>
-              <td>30,000원</td>
-              <td>40,000원</td>
-              <td>50,000원</td>
+              <th className="bg-gray-100">위생</th>
+              <td>15,000원</td>
+              <td>25,000원</td>
+              <td>35,000원</td>
+              <td>45,000원</td>
             </tr>
             {/* row 2 */}
             <tr>
-              <th className="bg-gray-100">위생</th>
-              <td>15,000원</td>
-              <td>20,000원</td>
+              <th className="bg-gray-100">목욕</th>
+              <td>25,000원</td>
               <td>35,000원</td>
-              <td>40,000원</td>
+              <td>45,000원</td>
+              <td>55,000원</td>
             </tr>
             {/* row 3 */}
             <tr>
               <th className="bg-gray-100">목욕+위생</th>
-              <td>30,000원</td>
-              <td>45,000원</td>
-              <td>70,000원</td>
-              <td>85,000원</td>
+              <td>35,000원</td>
+              <td>50,000원</td>
+              <td>65,000원</td>
+              <td>80,000원</td>
             </tr>
             {/* row 4 */}
             <tr>
               <th className="bg-gray-100">클리핑</th>
-              <td>35,000원</td>
               <td>45,000원</td>
-              <td>55,000원</td>
-              <td>65,000원</td>
-            </tr>
-            {/* row 5 */}
-            <tr>
-              <th className="bg-gray-100">가위컷</th>
+              <td>60,000원</td>
               <td>75,000원</td>
               <td>90,000원</td>
-              <td>110,000원</td>
-              <td>130,000원</td>
             </tr>
-            {/* row 6 */}
+            {/* row 5 */}
             <tr>
               <th className="bg-gray-100">스포팅</th>
               <td>70,000원</td>
               <td>80,000원</td>
               <td>100,000원</td>
               <td>120,000원</td>
+            </tr>
+            {/* row 6 */}
+
+            <tr>
+              <th className="bg-gray-100">가위컷</th>
+              <td>80,000원</td>
+              <td>90,000원</td>
+              <td>110,000원</td>
+              <td>130,000원</td>
             </tr>
           </tbody>
         </table>

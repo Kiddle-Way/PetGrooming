@@ -3,6 +3,7 @@ import { getOne } from "../../../common/api/reviewApi";
 import { API_SERVER_HOST } from "../../../common/api/noticeApi";
 import FetchingModal from "../../../common/components/FetchingModal";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
+import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
   v_num: 0,
@@ -19,6 +20,7 @@ const ReadComponent = ({ v_num }) => {
   const [review, setReview] = useState(initState);
   //fetching
   const [fetching, setFetching] = useState(false);
+  const { moveToModify, moveToList } = useCustomMove();
   useEffect(() => {
     setFetching(true);
     getOne(v_num).then((data) => {

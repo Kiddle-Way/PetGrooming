@@ -35,7 +35,7 @@ const reserveRouter = () => {
         <Suspense fallback={Loading}>
           <Success />
         </Suspense>
-      )
+      ),
     },
     {
       path: "fail",

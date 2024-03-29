@@ -108,7 +108,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost  text-black hover:text-blue-600">
-                공지사항
+                고객센터
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>
@@ -121,26 +121,26 @@ const Navbar = () => {
             </details>
           </ul>
         </div>
-        <div className="w-1/7 flex justify-end bg-orange-300 p-4 font-medium">
+        <div className="flex items-center justify-center ml-6 outline outline-orange-400 rounded-3xl w-60 p-1 font-semibold ">
           {/* 로그인 상태에 따라 Join 항목 렌더링 */}
           {!loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/login"}>Login</Link>
+            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
+              <Link to={"/member/login"}>로그인</Link>
             </div>
           )}
           {loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/logout"}>Logout</Link>
+            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
+              <Link to={"/member/logout"}>로그아웃</Link>
             </div>
           )}
           {!loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/join"}>Join</Link>
+            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
+              <Link to={"/member/join"}>회원가입</Link>
             </div>
           )}
           {loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/mypage"}>MyPage</Link>
+            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
+              <Link to={"/member/mypage"}>마이페이지</Link>
             </div>
           )}
         </div>
