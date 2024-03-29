@@ -46,51 +46,6 @@ public class DesignerServiceImpl implements DesignerService {
 		return convertToPageResponseDTO(result, pageRequestDTO);
 	}
 
-	// 검색
-	@Override
-	public PageResponseDTO<DesignerDTO> search(Gender gender, State state, String keyword,
-			PageRequestDTO pageRequestDTO) {
-		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-				Sort.by("dno").descending());
-		Page<Designer> page;
-
-		if (gender != null && state != null) {
-			page = designerRepository.findByGenderAndStateAndDname(gender, state, keyword, pageable);
-		} else {
-			page = designerRepository.findByGenderAndStateAndDname(null, null, keyword, pageable);
-		}
-
-		List<DesignerDTO> dtoList = page.getContent().stream().map(designer -> {
-			DesignerDTO designerDTO = DesignerDTO.builder().dno(designer.getDno()).dname(designer.getDname())
-					.dbirth(designer.getDbirth()).dgender(designer.getDgender()).dphone(designer.getDphone())
-					.demail(designer.getDemail()).dh_date(designer.getDh_date()).dstate(designer.getDstate()).build();
-			return designerDTO;
-		}).collect(Collectors.toList());
-
-		PageResponseDTO<DesignerDTO> pageResponseDTO = PageResponseDTO.<DesignerDTO>builder().dtoList(dtoList)
-				.pageRequestDTO(pageRequestDTO).totalCount(page.getTotalElements()).build();
-
-		return pageResponseDTO;
-	}
-
-	// 성별셀렉박스리스트
-	@Override
-	public PageResponseDTO<DesignerDTO> getSearchGenderList(int searchGender, PageRequestDTO pageRequestDTO) {
-		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-				Sort.by("dno").descending());
-		Page<Designer> result = designerRepository.findByDgendersOrderByDnoDesc(searchGender, pageable);
-		return convertToPageResponseDTO(result, pageRequestDTO);
-	}
-
-	// 근무형태셀렉박스리스트
-	@Override
-	public PageResponseDTO<DesignerDTO> getSearchStateList(int searchState, PageRequestDTO pageRequestDTO) {
-		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
-				Sort.by("dno").descending());
-		Page<Designer> result = designerRepository.findByDstateOrderByDnoDesc(searchState, pageable);
-		return convertToPageResponseDTO(result, pageRequestDTO);
-	}
-
 	// 중복 코드를 줄이고 각 메서드에서 페이지 응답을 변환
 	public PageResponseDTO<DesignerDTO> convertToPageResponseDTO(Page<Designer> page, PageRequestDTO pageRequestDTO) {
 		List<DesignerDTO> dtoList = page.getContent().stream().map(designer -> {
@@ -215,4 +170,27 @@ public class DesignerServiceImpl implements DesignerService {
 		designerRepository.updateToDelete(dno, true);
 	}
 
+	// ////////////////////////////////////////////////////////////////선명
+	@Override
+	public PageResponseDTO<DesignerDTO> search(String keyword, Long state, Long gender, PageRequestDTO pageRequestDTO) {
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+				Sort.by("dno").descending());
+
+		Page<Designer> page;
+
+		page = designerRepository.search(keyword, state, gender, pageable);
+
+		List<DesignerDTO> dtoList = page.getContent().stream().map(designer -> {
+			DesignerDTO designerDTO = DesignerDTO.builder().dno(designer.getDno()).dname(designer.getDname())
+					.dbirth(designer.getDbirth()).dgender(designer.getDgender()).dphone(designer.getDphone())
+					.demail(designer.getDemail()).dh_date(designer.getDh_date()).dstate(designer.getDstate()).build();
+			return designerDTO;
+		}).collect(Collectors.toList());
+
+		PageResponseDTO<DesignerDTO> pageResponseDTO = PageResponseDTO.<DesignerDTO>builder().dtoList(dtoList)
+				.pageRequestDTO(pageRequestDTO).totalCount(page.getTotalElements()).build();
+
+		return pageResponseDTO;
+	}
 }

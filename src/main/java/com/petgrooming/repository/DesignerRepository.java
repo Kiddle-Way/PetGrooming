@@ -14,6 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.petgrooming.domain.Designer;
 import com.petgrooming.domain.Gender;
+import com.petgrooming.domain.Review;
 import com.petgrooming.domain.State;
 
 public interface DesignerRepository extends JpaRepository<Designer, Long> {
@@ -49,4 +50,9 @@ public interface DesignerRepository extends JpaRepository<Designer, Long> {
 	@Modifying
 	@Query("UPDATE Designer d SET d.dstate = :state WHERE d.dno = :dno")
 	void updateState(@Param("dno") Long dno, @Param("state") Long state);
+
+	// 선명
+	@Query("SELECT d FROM Designer d WHERE (:keyword IS NULL OR d.dname LIKE %:keyword%) AND (:state IS NULL OR d.dstate = :state) AND (:gender IS NULL OR d.dgender = :gender)")
+	Page<Designer> search(@Param("keyword") String keyword, @Param("state") Long state,
+			@Param("gender") Long gender, Pageable pageable);
 }

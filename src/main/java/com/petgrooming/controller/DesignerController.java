@@ -135,38 +135,6 @@ public class DesignerController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	// 검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
-	@GetMapping("/list/searchTerm/{keyword}")
-	public PageResponseDTO<DesignerDTO> search(@RequestParam(required = false) Gender gender,
-			@RequestParam(required = false) State state, @RequestParam(required = false) String keyword,
-			PageRequestDTO pageRequestDTO) {
-		log.info("search list............." + pageRequestDTO);
-
-		return designerService.search(gender, state, keyword, pageRequestDTO);
-	}
-
-	// 성별검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
-	@GetMapping("/list/searchGender/{searchGender}")
-	public PageResponseDTO<DesignerDTO> getSearchGenderList(@PathVariable int searchGender,
-			PageRequestDTO pageRequestDTO) {
-		log.info("searchGender list............." + pageRequestDTO);
-		int genderValue = searchGender == 0 ? 0 : 1; // 성별값으로 변환
-		PageResponseDTO<DesignerDTO> result = designerService.getSearchGenderList(genderValue, pageRequestDTO);
-		return result;
-	}
-
-	// 근무형태
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
-	@GetMapping("/list/searchState/{searchState}")
-	public PageResponseDTO<DesignerDTO> getSearchStateList(int searchState, PageRequestDTO pageRequestDTO) {
-		log.info("searchState list............." + pageRequestDTO);
-		int stateValue = searchState == 0 ? 0 : 1; // 상태값으로 변환
-		PageResponseDTO<DesignerDTO> result = designerService.getSearchStateList(stateValue, pageRequestDTO);
-		return result;
-	}
-
 	// 퇴직 또는 복직 처리 엔드포인트
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{dno}/{state}")
@@ -192,6 +160,14 @@ public class DesignerController {
 			currentDate = currentDate.plusDays(1);
 		}
 		availableTimeslotRepository.saveAll(timeslots);
+	}
+
+	// 검색
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/list/search/g{gender}/s{state}/k{keyword}")
+	public PageResponseDTO<DesignerDTO> searchDesigners( @PathVariable(name = "gender", required = false) Long gender,
+			 @PathVariable(name = "state", required = false) Long state, @PathVariable("keyword") String keyword, PageRequestDTO pageRequestDTO) {
+		return designerService.search(keyword, state, gender, pageRequestDTO);
 	}
 
 }
