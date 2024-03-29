@@ -45,52 +45,6 @@ export const putOne = async (dno, designer) => {
   const res = await jwtAxios.put(`${host}/${dno}`, designer, header);
   return res.data;
 };
-//검색
-export const search = async (keyword, pageParam) => {
-  try {
-    const { page, size } = pageParam;
-    const url = `${host}/list/searchTerm/${keyword}`;
-    const res = await jwtAxios.get(url, {
-      params: { keyword: keyword, page: page, size: size },
-    });
-    return res.data; // PageResponseDTO<DTO> 반환
-  } catch (error) {
-    console.error(error);
-    throw error; // 에러 처리
-  }
-};
-
-//성별
-export const searchGender = async (searchGender, pageParam) => {
-  try {
-    const { page, size } = pageParam || {};
-    const url = `${host}/list/searchGender/${searchGender}`;
-
-    const res = await jwtAxios.get(url, {
-      params: { searchGender: searchGender, page: page, size: size },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-//근무상태
-export const searchState = async (searchState, pageParam) => {
-  try {
-    const { page, size } = pageParam || {};
-    const url = `${host}/list/searchState/${searchState}`;
-
-    const res = await jwtAxios.get(url, {
-      params: { searchState: searchState, page: page, size: size },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
 // 복직 API 호출 함수
 export const rehireDesigner = async (dno) => {
@@ -123,3 +77,20 @@ export const updateDesignerState = async (dno, state) => {
     throw error;
   }
 };
+
+//화내지마세요
+export const search = async (searchGender, searchState, searchKeyword, pageParam) => {
+  try {
+    const { page, size } = pageParam;
+    const url = `${host}/list/search/g${searchGender}/s${searchState}/k${searchKeyword}`;
+    const res = await jwtAxios.get(url, {
+      params: { page: page, size: size },
+    });
+    return res.data; // PageResponseDTO<ReviewDTO> 반환
+  } catch (error) {
+    console.error(error);
+    throw error; // 에러 처리
+  }
+};
+
+

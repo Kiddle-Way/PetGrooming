@@ -51,7 +51,7 @@ const ReadComponent = ({ i_num }) => {
       <div className="flex justify-center mt-10">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">
-            리뷰 작성 회원 번호
+            문의 작성 회원 번호
           </div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {inquiry.m_num.m_num}
