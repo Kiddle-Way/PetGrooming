@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   search,
-  searchGender,
-  searchState,
   getList,
   updateDesignerState,
 } from "../../../common/api/designerApi";
@@ -26,7 +24,6 @@ const SearchTestComponen = () => {
   const { page, size, moveToList, refresh, moveToRead } = useCustomMove();
   const [keyword, setKeyword] = useState(""); // 검색어 상태
   const [serverData, setServerData] = useState(initState); // 서버에서 받아온 데이터 상태
-  //const [isSearched, setIsSearched] = useState(false); // 검색 여부 상태
   const [gender, setGender] = useState(""); // 성별 선택 상태
   const [state, setState] = useState(""); // 근무 상태 선택 상태
 
@@ -35,42 +32,13 @@ const SearchTestComponen = () => {
     try {
       let data;
       if (keyword || gender || state) {
-        // 검색어, 성별, 근무 상태 중 하나라도 값이 존재할 때
-        // 각 상태값에 따라 검색 함수를 호출하여 데이터를 가져옴
-        if (gender !== "" && state !== "") {
-          // 성별과 근무 상태를 모두 고려한 검색
-          data = await searchGenderAndState(gender, state, { page, size });
-        } else if (gender !== "") {
-          // 성별만 선택된 경우
-          if (keyword !== "") {
-            // 검색어가 입력된 경우 성별에도 적용
-            data = await searchGender(gender, { page, size });
-            data.dtoList = data.dtoList.filter((designer) =>
-              designer.dname.includes(keyword)
-            );
-          } else {
-            data = await searchGender(gender, { page, size });
-          }
-        } else if (state !== "") {
-          // 근무 상태만 선택된 경우
-          if (keyword !== "") {
-            // 검색어가 입력된 경우 근무 상태에도 적용
-            data = await searchState(state, { page, size });
-            data.dtoList = data.dtoList.filter((designer) =>
-              designer.dname.includes(keyword)
-            );
-          } else {
-            data = await searchState(state, { page, size });
-          }
-        } else if (keyword !== "") {
-          // 검색어만 입력된 경우
-          data = await search(keyword, { page, size });
-        }
+        // 검색어, 성별, 근무 상태가 존재할 경우 검색 함수 호출
+        data = await search(gender, state, keyword, { page, size });
       } else {
-        // 검색어, 성별, 근무 상태가 모두 선택되지 않은 경우
+        // 검색어, 성별, 근무 상태가 없을 경우 전체 리스트 호출
         data = await getList({ page, size });
       }
-      setServerData(data);
+      setServerData(data); // 서버에서 받아온 데이터 설정
     } catch (error) {
       console.error("데이터를 불러오는 데 실패했습니다:", error);
     }
@@ -80,28 +48,15 @@ const SearchTestComponen = () => {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, size, refresh, keyword, gender, state]);
+  }, [page, size, refresh]);
 
   // 검색 버튼 클릭 시 실행되는 함수
   const handleSearchClick = async () => {
     try {
-      await fetchData(keyword, gender, state);
+      await fetchData(); // fetchData 함수 내부에서 검색 조건을 고려하여 데이터 불러오기
     } catch (error) {
       console.error("검색 중 오류 발생:", error);
     }
-  };
-
-  // 성별과 근무 상태에 따른 검색 함수
-  const searchGenderAndState = async (gender, state, { page, size }) => {
-    let data;
-    if (gender !== "" && state !== "") {
-      data = await searchGenderAndState(gender, state, { page, size });
-    } else if (gender !== "") {
-      data = await searchGender(gender, "", { page, size });
-    } else if (state !== "") {
-      data = await searchState(state, { page, size });
-    }
-    return data;
   };
 
   // 검색어 입력 시 실행되는 함수
@@ -151,6 +106,7 @@ const SearchTestComponen = () => {
       moveToList({ page: 1 });
     }
   };
+
   return (
     <div className="border-2 border-blue-100 mt-1 mr-2 ml-2">
       {/* 성별 선택 셀렉트 박스 */}

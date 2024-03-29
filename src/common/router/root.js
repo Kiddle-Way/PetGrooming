@@ -157,10 +157,10 @@ const root = createBrowserRouter([
     children: inquiryAnswerRouter(),
   },
   {
-    path: "memberList",
+    path: "member/list",
     element: (
       <Suspense fallback={Loading}>
-        <Member />
+        <MemberIndex />
       </Suspense>
     ),
   },
