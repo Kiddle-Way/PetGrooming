@@ -37,3 +37,11 @@ export const getList = async (pageParam) => {
   });
   return res.data;
 };
+
+export const getList2 = async (pageParam) => {
+  const { page, size } = pageParam;
+  const res = await axios.get(`${host}/retire`, {
+    params: { page: page, size: size },
+  });
+  return res.data;
+};

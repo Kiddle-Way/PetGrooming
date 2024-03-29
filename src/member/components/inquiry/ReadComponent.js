@@ -92,6 +92,30 @@ const ReadComponent = ({ i_num }) => {
           />
         ))}
       </div>
+      <div className="flex justify-center">
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-1/5 p-6 text-right font-bold">문의 답변</div>
+          <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
+            {inquiry.i_a_content}
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end p-4">
+        <button
+          type="button"
+          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
+          onClick={handleModifyClick}
+        >
+          수정
+        </button>
+        <button
+          type="button"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          onClick={moveToList}
+        >
+          목록
+        </button>
+      </div>
     </div>
   );
 };

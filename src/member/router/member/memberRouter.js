@@ -4,7 +4,11 @@ const LoginPage = lazy(() => import("../../pages/member/LoginPage"));
 const LogoutPage = lazy(() => import("../../pages/member/LogoutPage"));
 const JoinPage = lazy(() => import("../../pages/member/JoinPage"));
 const MyPage = lazy(() => import("../../pages/member/MyPage"));
-const MyReservationPage = lazy(() => import("../../pages/member/MyReservationPage"));
+const MyReservationPage = lazy(() =>
+  import("../../pages/member/MyReservationPage")
+);
+const MemberList = lazy(() => import("../../../admin/pages/member/ListPage"));
+const MemberList2 = lazy(() => import("../../../admin/pages/member/ListPage2"));
 
 const memberRouter = () => {
   return [
@@ -46,8 +50,24 @@ const memberRouter = () => {
         <Suspense fallback={Loading}>
           <MyReservationPage />
         </Suspense>
-      )
-    }
+      ),
+    },
+    {
+      path: "list",
+      element: (
+        <Suspense fallback={Loading}>
+          <MemberList />
+        </Suspense>
+      ),
+    },
+    {
+      path: "retire",
+      element: (
+        <Suspense fallback={Loading}>
+          <MemberList2 />
+        </Suspense>
+      ),
+    },
   ];
 };
 
