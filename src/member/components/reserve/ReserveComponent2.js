@@ -77,7 +77,10 @@ const ReserveComponent2 = () => {
     setReserve({ ...reserve, r_date: formattedDate }); // 선택된 날짜 설정
 
     try {
-      const availableTimes = await getAvailableTime(formattedDate, reserve.d_num.dno); // 선택된 날짜에 해당하는 가능한 시간 가져오기
+      const availableTimes = await getAvailableTime(
+        formattedDate,
+        reserve.d_num.dno
+      ); // 선택된 날짜에 해당하는 가능한 시간 가져오기
       setAvailableTimes(availableTimes);
     } catch (error) {
       console.error("Error while fetching available time:", error);
@@ -176,7 +179,7 @@ const ReserveComponent2 = () => {
   };
 
   const handlePaymentSuccess = async () => {
-     try {
+    try {
       console.log(reserve);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
@@ -196,6 +199,20 @@ const ReserveComponent2 = () => {
     setPaymentSuccess(true);
   };
 
+  const mapTimeRange = (time) => {
+    switch (time) {
+      case "TIME_1":
+        return "09:00~11:00";
+      case "TIME_2":
+        return "12:00~14:00";
+      case "TIME_3":
+        return "14:00~16:00";
+      case "TIME_4":
+        return "16:00~18:00";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="w-full">
@@ -276,7 +293,7 @@ const ReserveComponent2 = () => {
                   <option value="">시간 선택</option>
                   {availableTimes.map((timeSlot) => (
                     <option key={timeSlot.a_t_num} value={timeSlot.a_t_num}>
-                      {`${timeSlot.time} (${timeSlot.a_t_date})`}
+                      {mapTimeRange(timeSlot.time)} ({timeSlot.a_t_date})
                     </option>
                   ))}
                 </select>
@@ -352,7 +369,10 @@ const ReserveComponent2 = () => {
                   contentLabel="Tosspayment Modal"
                 >
                   {/* Tosspayment 컴포넌트 표시 */}
-                  <Tosspayment reserve={reserve} onPaymentSuccess={handlePaymentSuccess}/>
+                  <Tosspayment
+                    reserve={reserve}
+                    onPaymentSuccess={handlePaymentSuccess}
+                  />
 
                   {/* 모달 닫기 버튼 */}
                   <button
