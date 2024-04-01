@@ -13,6 +13,8 @@ import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRout
 import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
 import memberqnaRouter from "../../member/router/Q&A/qnaRouter";
 import noticeRouter2 from "../../member/router/notice/noticeRouter";
+import statisticsRouter from "../../admin/router/statistics/StatisticsRoter";
+import adminReserveRouter from "../../admin/router/reserve/reserveRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -20,7 +22,6 @@ const AboutIndex = lazy(() => import("../../member/pages/about/IndexPage"));
 const DesignerIndex = lazy(() =>
   import("../../admin/pages/designer/IndexPage")
 );
-
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
 const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
@@ -39,13 +40,26 @@ const InquiryAnswerIndex = lazy(() =>
 const MemberNoticeIndex = lazy(() =>
   import("../../member/pages/notice/IndexPage")
 );
+const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
+const StatisticsIndex = lazy(() =>
+  import("../../admin/pages/statistics/IndexPage")
+);
+const ReserveList = lazy(() => import("../../admin/pages/reserve//IndexPage"));
 
 const root = createBrowserRouter([
+  {
+    path: "reserve/list",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReserveList />
+      </Suspense>
+    ),
+    children: adminReserveRouter(),
+  },
   {
     path: "",
     element: (
       <Suspense fallback={Loading}>
-        {" "}
         <Main />
       </Suspense>
     ),
@@ -54,7 +68,6 @@ const root = createBrowserRouter([
     path: "about",
     element: (
       <Suspense fallback={Loading}>
-        {" "}
         <AboutIndex />
       </Suspense>
     ),
@@ -118,6 +131,7 @@ const root = createBrowserRouter([
     ),
     children: inquiryRouter(),
   },
+
   {
     path: "notice",
     element: (
@@ -171,6 +185,15 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: noticeRouter2(),
+  },
+  {
+    path: "statistics",
+    element: (
+      <Suspense fallback={Loading}>
+        <StatisticsIndex />
+      </Suspense>
+    ),
+    children: statisticsRouter(),
   },
 ]);
 

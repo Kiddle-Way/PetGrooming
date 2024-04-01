@@ -12,7 +12,9 @@ const ListPage = () => {
           </span>
         </button>
       </div>
-      <SearchListComponent />
+      <div className="m-5 flex-col w-full">
+        <SearchListComponent />
+      </div>
     </>
   );
 };

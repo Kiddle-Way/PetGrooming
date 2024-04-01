@@ -27,6 +27,7 @@ const IndexPage = () => {
         >
           미용 안내
         </div>
+
       </div>
     </BasicLayout>
   );

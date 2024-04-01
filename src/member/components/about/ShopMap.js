@@ -51,6 +51,11 @@ function ShopMap() {
   }, []); // useEffect 의존성 배열은 빈 배열로 지정하여 한 번만 실행되도록 설정
 
   // 지도를 표시할 div 요소 반환
-  return <div id="map" className="w-2/3 h-96 flex justify-center m-10"></div>;
+  return (
+    <div
+      id="map"
+      className="flex justify-center w-2/3 h-96 md:w-2/3 md:h-96 m-10"
+    ></div>
+  );
 }
 export default ShopMap;
