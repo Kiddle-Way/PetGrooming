@@ -134,7 +134,7 @@ public class DesignerServiceImpl implements DesignerService {
 
 	@Override
 	public void updateState(Long d_num, boolean d_state) {
-		designerRepository.updateToState(d_num, true);
+		designerRepository.updateToState(d_num, d_state);
 	}
 
 	@Override
