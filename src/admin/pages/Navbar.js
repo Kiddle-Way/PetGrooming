@@ -73,11 +73,15 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                <Link to={"/qna/"}>고객센터관리</Link>
+                고객센터관리
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
-                <li>자주묻는질문</li>
-                <li>문의게시판</li>
+                <li>
+                  <Link to={"/qna/list"}>자주묻는질문</Link>
+                </li>
+                <li>
+                  <Link to={"/inquiryAnswer/list"}>문의게시판</Link>
+                </li>
               </ul>
             </details>
             <details className="dropdown">

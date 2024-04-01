@@ -53,82 +53,22 @@ const ListComponent = () => {
             <Link to={"/member/list"}>회원보기</Link>
           </button>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+        <div className="my-5 overflow-x-auto">
+          <table className="table text-center">
             <thead className="bg-orange-50">
-              <tr>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  회원번호
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  회원이름
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  생년월일
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  성별
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  이메일
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  전화번호
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  주소
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  견종
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  견명
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  견생년월일
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  견특이사항
-                </th>
-                <th
-                  scope="col"
-                  className="font-extrabold text-sm px-6 py-3 text-left"
-                >
-                  탈퇴여부
-                </th>
+              <tr className="bg-green-100">
+                <th>회원번호</th>
+                <th>회원이름</th>
+                <th>생년월일</th>
+                <th>성별</th>
+                <th>이메일</th>
+                <th>전화번호</th>
+                <th>주소</th>
+                <th>견종</th>
+                <th>견명</th>
+                <th>견생년월일</th>
+                <th>견특이사항</th>
+                <th>탈퇴여부</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -144,45 +84,18 @@ const ListComponent = () => {
                 )
                 .map((member) => (
                   <tr key={member.m_num}>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_num}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_name}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_birth.slice(0, 10)}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_gender === 1 ? "남자" : "여자"}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_email}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_phone}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_addr}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.dog_breed}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.dog_name}
-                    </td>
-                    <td
-                      className="px-
-6 py-4 whitespace-nowrap"
-                    >
-                      {member.dog_birth.slice(0, 10)}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.dog_notice}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      {member.m_state ? "회원탈퇴" : "회원"}
-                    </td>
+                    <td>{member.m_num}</td>
+                    <td>{member.m_name}</td>
+                    <td>{member.m_birth.slice(0, 10)}</td>
+                    <td>{member.m_gender === 1 ? "남자" : "여자"}</td>
+                    <td>{member.m_email}</td>
+                    <td>{member.m_phone}</td>
+                    <td>{member.m_addr}</td>
+                    <td>{member.dog_breed}</td>
+                    <td>{member.dog_name}</td>
+                    <td>{member.dog_birth.slice(0, 10)}</td>
+                    <td>{member.dog_notice}</td>
+                    <td>{member.m_state ? "회원탈퇴" : "회원"}</td>
                   </tr>
                 ))}
             </tbody>

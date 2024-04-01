@@ -2,6 +2,7 @@ import BasicLayout from "../../../common/layouts/BasicLayout";
 import { Outlet } from "react-router-dom";
 
 const IndexPage = () => {
+  
   return (
     <>
       <BasicLayout>
