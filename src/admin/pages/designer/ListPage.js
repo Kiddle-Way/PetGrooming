@@ -1,5 +1,4 @@
-import SearchTestComponen from "../../components/designer/SearchTestComponent";
-//import ListComponent from "../../components/designer/ListComponent";
+import ListComponent from "../../components/designer/ListComponent";
 
 const ListPage = () => {
   return (
@@ -7,8 +6,7 @@ const ListPage = () => {
       <div className="p-4 w-full bg-white flex items-center">
         <div className="text-2xl font-extrabold mx-auto">디자이너</div>
       </div>
-      <SearchTestComponen />
-      {/* <ListComponent /> */}
+      <ListComponent />
     </>
   );
 };
