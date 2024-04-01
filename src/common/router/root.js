@@ -37,7 +37,6 @@ const ReviewAnswerIndex = lazy(() =>
 const InquiryAnswerIndex = lazy(() =>
   import("../../admin/pages/inquiryAnswer/IndexPage")
 );
-const MemberIndex = lazy(() => import("../../admin/pages/member/IndexPage"));
 const MemberNoticeIndex = lazy(() =>
   import("../../member/pages/notice/IndexPage")
 );
