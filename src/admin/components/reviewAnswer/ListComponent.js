@@ -3,6 +3,7 @@ import { getList, search } from "../../../common/api/reviewApi"; // getList 및 
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import FetchingModal from "../../../common/components/FetchingModal";
 import PageComponent from "../../../common/components/PageComponent";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
 
 const initState = {
   dtoList: [],
@@ -23,6 +24,7 @@ const ListComponent = () => {
   const [fetching, setFetching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("제목");
+  const [sortByRatingAsc, setSortByRatingAsc] = useState(true); // 별점 오름차순으로 정렬
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -60,6 +62,18 @@ const ListComponent = () => {
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
+  const handleSortByRating = () => {
+    const sortedData = [...serverData.dtoList].sort((a, b) => {
+      if (sortByRatingAsc) {
+        return b.v_rating - a.v_rating; // 내림차순으로 변경
+      } else {
+        return a.v_rating - b.v_rating;
+      }
+    });
+    setServerData({ ...serverData, dtoList: sortedData });
+    setSortByRatingAsc(!sortByRatingAsc); // 정렬 순서 변경
+  };
+
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       {fetching ? <FetchingModal /> : null}
@@ -73,7 +87,7 @@ const ListComponent = () => {
             <div className="flex flex-col h-full w-full">
               <div className="font-extrabold text-lg p-2 w-full flex justify-between">
                 <span className="text-xl">{review.v_num}</span>
-                {review.v_content === "답변 미작성" ? (
+                {review.v_c_content === "답변 미작성" ? (
                   <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
                     답변대기
                   </span>
@@ -97,6 +111,17 @@ const ListComponent = () => {
                   </div>
                 </div>
               </div>
+              <div className="text-1xl m-1 p-2 w-full flex flex-col">
+                <div className="flex justify-center bottom-0 font-extrabold bg-yellow-200 text-center p-1 items-center">
+                  <div className="mr-2">별점 :</div>
+                  {[...Array(review.v_rating)].map((a, i) => (
+                    <PiStarFill className="star-lg" key={i} />
+                  ))}
+                  {[...Array(5 - review.v_rating)].map((a, i) => (
+                    <PiStarLight className="star-lg" key={i} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -109,6 +134,16 @@ const ListComponent = () => {
       </div>
       <div className="flex justify-center">
         <div className="flex items-center">
+          <button
+            className={`px-4 py-2 rounded ml-2 ${
+              sortByRatingAsc
+                ? "bg-green-300 text-white"
+                : "bg-red-300 text-white"
+            }`}
+            onClick={handleSortByRating}
+          >
+            {sortByRatingAsc ? "별점 높은 순" : "별점 낮은 순"}
+          </button>
           <select
             className="px-4 py-2 mr-2 border rounded"
             onChange={(e) => handleCategoryChange(e.target.value)}

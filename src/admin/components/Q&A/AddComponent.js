@@ -17,6 +17,11 @@ const AddComponent = () => {
     setQna({ ...qna });
   };
   const handleClickAdd = () => {
+    if (!qna.f_title || !qna.f_content) {
+      alert("제목과 내용을 입력해주세요.");
+      return;
+    }
+
     if (window.confirm("등록 하시겠습니까?")) {
       alert("등록되었습니다.");
       postAdd(qna)
@@ -75,7 +80,7 @@ const AddComponent = () => {
           className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
           onClick={handleClickAdd}
         >
-          수정
+          등록
         </button>
       </div>
     </div>
