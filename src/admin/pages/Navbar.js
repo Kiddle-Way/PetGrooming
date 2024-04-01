@@ -98,6 +98,9 @@ const Navbar = () => {
                   <Link to={"/statistics/reserve"}>예약 통계</Link>
                 </li>
                 <li>
+                  <Link to={"/statistics/product"}>상품별 예약 통계</Link>
+                </li>
+                <li>
                   <Link to={"/statistics/breed"}>견종별 예약 통계</Link>
                 </li>
               </ul>

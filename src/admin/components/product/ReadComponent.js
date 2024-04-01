@@ -25,7 +25,7 @@ const ReadComponent = ({ p_num }) => {
       {makeDiv("상품번호", product.p_num)}
       {makeDiv("상품유형", product.p_type)}
       {makeDiv("상품명", product.p_name)}
-      {makeDiv("가격", product.p_price)}
+      {makeDiv("가격", product.p_price.toLocaleString())}
 
       <div className="flex justify-end p-4">
         <button

@@ -6,7 +6,7 @@ const ReadPage = () => {
 
   return (
     <div className="font-extrabold w-full bg-white mt-6">
-      <div className="text-2xl "> Todo Read Page Component {p_num} </div>
+      <div className="text-2xl "> {p_num}번 상품 </div>
       <ReadComponent p_num={p_num}></ReadComponent>
     </div>
   );

@@ -58,37 +58,32 @@ const ListComponent = () => {
   }, [page, size, refresh, searchTerm]);
 
   return (
-    <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-      <div className="flex flex-wrap mx-auto justify-center p-6">
-        <div className="w-full p-2 m-2 rounded shadow-md">
-          <div className="flex">
-            <div className="font-extrabold text-left m-1 text-1xl p-2 w-1/12">
-              게시물 번호
-            </div>
-            <div className="font-extrabold text-1xl m-1 p-2 w-8/12">제목</div>
-            <div className="text-1xl m-1 p-2 w-2/10 font-medium">등록일</div>
-          </div>
-        </div>
-        {serverData.dtoList.map((notice) => (
-          <div
-            key={notice.n_num}
-            className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
-            onClick={() => moveToRead(notice.n_num)}
-          >
-            <div className="flex">
-              <div className="font-extrabold text-2xl p-2 w-1/12">
-                {notice.n_num}
-              </div>
-              <div className="text-1xl m-1 p-2 w-8/12 font-extrabold">
-                {notice.n_head}
-                {notice.n_title}
-              </div>
-              <div className="text-1xl m-1 p-2 w-2/10 font-medium">
-                {notice.n_reg}
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="mt-10 mr-2 ml-2">
+      <div className="overflow-x-auto">
+        <table className="table text-center">
+          <thead>
+            <tr className="bg-green-100">
+              <th>게시물 번호</th>
+              <th>글유형</th>
+              <th>제목</th>
+              <th>등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serverData.dtoList.map((notice) => (
+              <tr
+                key={notice.n_num}
+                className="cursor-pointer"
+                onClick={() => moveToRead(notice.n_num)}
+              >
+                <td>{notice.n_num}</td>
+                <td>{notice.n_head}</td>
+                <td>{notice.n_head}</td>
+                <td>{notice.n_reg}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <div>
         <PageComponent
