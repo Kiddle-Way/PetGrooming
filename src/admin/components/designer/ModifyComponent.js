@@ -119,7 +119,7 @@ const ModifyComponent = ({ dno }) => {
     });
   };
 
-//삭제
+  //삭제
   const handleClickDelete = () => {
     setFetching(true);
     deleteOne(dno).then((data) => {
@@ -153,21 +153,23 @@ const ModifyComponent = ({ dno }) => {
       <div className="flex justify-end p-4">
         <button
           type="button"
-          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-orange-500"
-          onClick={handleClickModify}
-        >
-          수정
-        </button>
-        <button
-          type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           onClick={moveToList}
         >
           리스트
         </button>
+
         <button
           type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
+          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          onClick={handleClickModify}
+        >
+          수정
+        </button>
+
+        <button
+          type="button"
+          className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           onClick={handleClickDelete}
         >
           삭제
@@ -304,9 +306,8 @@ const ModifyComponent = ({ dno }) => {
             name="dintro"
             rows="4"
             onChange={handleChangeDesigner}
-          >
-            {designer.dintro}
-          </textarea>
+            defaultValue={designer.dintro}
+          ></textarea>
         </div>
       </div>
       {/* 파일 업로드 입력 폼 */}

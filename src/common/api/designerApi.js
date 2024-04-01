@@ -45,75 +45,27 @@ export const putOne = async (dno, designer) => {
   const res = await jwtAxios.put(`${host}/${dno}`, designer, header);
   return res.data;
 };
-//검색
-export const search = async (keyword, pageParam) => {
+
+export const search = async (
+  searchGender,
+  searchState,
+  searchKeyword,
+  pageParam
+) => {
   try {
     const { page, size } = pageParam;
-    const url = `${host}/list/searchTerm/${keyword}`;
+    const url = `${host}/list/search/g${searchGender}/s${searchState}/k${searchKeyword}`;
     const res = await jwtAxios.get(url, {
-      params: { keyword: keyword, page: page, size: size },
+      params: { page: page, size: size },
     });
-    return res.data; // PageResponseDTO<DTO> 반환
+    return res.data; // PageResponseDTO<ReviewDTO> 반환
   } catch (error) {
     console.error(error);
     throw error; // 에러 처리
   }
 };
 
-//성별
-export const searchGender = async (searchGender, pageParam) => {
-  try {
-    const { page, size } = pageParam || {};
-    const url = `${host}/list/searchGender/${searchGender}`;
-
-    const res = await jwtAxios.get(url, {
-      params: { searchGender: searchGender, page: page, size: size },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-//근무상태
-export const searchState = async (searchState, pageParam) => {
-  try {
-    const { page, size } = pageParam || {};
-    const url = `${host}/list/searchState/${searchState}`;
-
-    const res = await jwtAxios.get(url, {
-      params: { searchState: searchState, page: page, size: size },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-// 복직 API 호출 함수
-export const rehireDesigner = async (dno) => {
-  try {
-    const response = await jwtAxios.put(`${host}/modify/${dno}/rehire`); // 복직 API 엔드포인트에 따라 경로가 다를 수 있습니다.
-    return response.data;
-  } catch (error) {
-    console.error("Error rehiring designer:", error);
-    throw error; // 예외를 상위 컴포넌트로 전파하거나 처리할 수 있습니다.
-  }
-};
-
-// 퇴사 API 호출 함수
-export const fireDesigner = async (dno) => {
-  try {
-    const response = await jwtAxios.put(`${host}/modify/${dno}/fire`); // 퇴사 API 엔드포인트에 따라 경로가 다를 수 있습니다.
-    return response.data;
-  } catch (error) {
-    console.error("Error fire designer:", error);
-    throw error; // 예외를 상위 컴포넌트로 전파하거나 처리할 수 있습니다.
-  }
-};
-
+//퇴직,복직
 export const updateDesignerState = async (dno, state) => {
   try {
     const response = await jwtAxios.put(`${host}/${dno}/${state}`);
