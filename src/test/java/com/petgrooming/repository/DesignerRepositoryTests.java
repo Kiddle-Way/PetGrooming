@@ -42,7 +42,7 @@ public class DesignerRepositoryTests {
 		for (int i = 1; i < 5; i++) {
 			DesignerDTO designerDTO = DesignerDTO.builder().d_name("디자이" + i).d_gender(false)
 					.d_birth(LocalDate.of(1996, 1, 26)).d_phone("010-2546-451" + i).d_email("de@gab.nam")
-					.d_h_date(LocalDate.of(2024, 1, 26)).d_state(false).d_intro("디자이 잘해").build();
+					.d_h_date(LocalDate.of(2024, 1, 26)).d_state(false).d_intro("디자인 잘해").build();
 
 			designerDTO.setD_uploadFileNames(null);
 
