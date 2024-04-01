@@ -27,8 +27,11 @@ public interface ProductService {
     //검색 기능
     PageResponseDTO<ProductDTO> search(String keyword, PageRequestDTO pageRequestDTO);
 
+    //필수상품 카테고리 조회
+    List<ProductDTO> findEssentialProductsCategory();
+    
     // 필수상품 목록 조회
-    List<ProductDTO> listEssentialProducts();
+    List<ProductDTO> findEssentialProducts(String p_name);
 
     // 추가상품 목록 조회
     List<ProductDTO> listAdditionalProducts();
