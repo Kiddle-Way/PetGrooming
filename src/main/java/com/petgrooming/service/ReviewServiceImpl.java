@@ -40,7 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewDTO> dtoList = result.getContent().stream().map(review -> {
 			ReviewDTO reviewDTO = ReviewDTO.builder().v_num(review.getV_num()).m_num(review.getM_num())
 					.v_pw(review.getV_pw()).v_title(review.getV_title()).v_content(review.getV_content())
-					.v_rating(review.getV_rating()).v_content(review.getV_c_content()).build();
+					.v_rating(review.getV_rating()).v_c_content(review.getV_c_content()).build();
 
 			return reviewDTO;
 		}).collect(Collectors.toList());
