@@ -99,18 +99,24 @@ const Navbar = () => {
             </div>
           )}
           {loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/logout"}>Logout</Link>
-            </div>
+            <>
+              <div className="text-white text-sm m-1 rounded">
+                <Link to={"/member/logout"}>Logout</Link>
+              </div>
+              <div className="text-white text-sm m-1 rounded">
+                <Link to={"/member/mypage"}>MyPage</Link>
+              </div>
+              {/* 관리자인 경우에만 표시 */}
+              {loginState.isAdmin && (
+                <div className="text-white text-sm m-1 rounded">
+                  <Link to={"/designer/list"}>Admin</Link>
+                </div>
+              )}
+            </>
           )}
           {!loginState.m_email && (
             <div className="text-white text-sm m-1 rounded">
               <Link to={"/member/join"}>Join</Link>
-            </div>
-          )}
-          {loginState.m_email && (
-            <div className="text-white text-sm m-1 rounded">
-              <Link to={"/member/mypage"}>MyPage</Link>
             </div>
           )}
         </div>
