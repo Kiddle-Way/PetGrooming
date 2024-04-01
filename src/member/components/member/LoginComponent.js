@@ -33,47 +33,37 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-      <div className="flex justify-center">
-        <div className="text-4xl m-4 p-4 font-extrabold text-blue-500">
-          Login Component
-        </div>
+    <div className="relative flex flex-col justify-center my-10 w-full p-6 m-auto bg-white rounded-lg shadow-xl lg:max-w-lg">
+      <div className="text-3xl my-10 font-semibold text-center text-amber-500">
+        펫 구루밍 로그인
       </div>
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-full p-3 text-left font-bold">Email</div>
-          <input
-            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
-            name="email"
-            type={"text"}
-            value={loginParam.email}
-            onChange={handleChange}
-          ></input>
-        </div>
+      <div className="relative mb-4 flex w-full flex-wrap items-stretch space-y-4">
+        <div className="text-base label-text">아이디</div>
+        <input
+          className="w-full input input-bordered input-warning"
+          name="email"
+          type={"text"}
+          value={loginParam.email}
+          onChange={handleChange}
+        ></input>
       </div>
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-full p-3 text-left font-bold">Password</div>
-          <input
-            className="w-full p-3 rounded-r border border-solid border-neutral-500 shadow-md"
-            name="pw"
-            type={"password"}
-            value={loginParam.pw}
-            onChange={handleChange}
-          ></input>
-        </div>
+      <div className="relative mb-4 flex w-full flex-wrap items-stretch space-y-4">
+        <div className="text-base label-text">비밀번호</div>
+        <input
+          className="w-full input input-bordered input-warning"
+          name="pw"
+          type={"password"}
+          value={loginParam.pw}
+          onChange={handleChange}
+        ></input>
       </div>
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full justify-center">
-          <div className="w-2/5 p-6 flex justify-center font-bold">
-            <button
-              className="rounded p-4 w-36 bg-blue-500 text-xl  text-white"
-              onClick={handleClickLogin}
-            >
-              LOGIN
-            </button>
-          </div>
-        </div>
+      <div className="flex mx-auto font-bold">
+        <button
+          className="text-gray-100 btn btn-success mt-3"
+          onClick={handleClickLogin}
+        >
+          LOGIN
+        </button>
       </div>
     </div>
   );

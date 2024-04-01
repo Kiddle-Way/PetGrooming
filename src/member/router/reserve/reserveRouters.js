@@ -5,6 +5,8 @@ const reserveRouter = () => {
   const Loading = <div>Loading....</div>;
   const ReservePage = lazy(() => import("../../pages/reserve/ReservePage"));
   const ReserveMore = lazy(() => import("../../pages/reserve/ReserveMore"));
+  const Success = lazy(() => import("../../pages/reserve/Success"));
+  const Fail = lazy(() => import("../../pages/reserve/Fail"));
 
   return [
     {
@@ -24,6 +26,22 @@ const reserveRouter = () => {
       element: (
         <Suspense fallback={Loading}>
           <ReserveMore />
+        </Suspense>
+      ),
+    },
+    {
+      path: "success",
+      element: (
+        <Suspense fallback={Loading}>
+          <Success />
+        </Suspense>
+      ),
+    },
+    {
+      path: "fail",
+      element: (
+        <Suspense fallback={Loading}>
+          <Fail />
         </Suspense>
       ),
     },

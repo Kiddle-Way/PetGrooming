@@ -36,7 +36,7 @@ const JoinComponent = () => {
 
     // 이메일의 길이가 50자를 초과하는지 확인
     if (name === "m_email" && value.length > 50) {
-      // 이메일의 길이가 20자를 초과하면 앞에서부터 50자까지만 저장
+      // 이메일의 길이가 50자를 초과하면 앞에서부터 50자까지만 저장
       formattedValue = value.slice(0, 50);
     }
 

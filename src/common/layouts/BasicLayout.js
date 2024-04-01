@@ -8,7 +8,7 @@ const BasicLayout = ({ children }) => {
       <div className="container mx-auto h-auto">
         <Navbar />
 
-        <main className="container mx-auto h-auto w-full bg-white">
+        <main className="md:container md:mx-auto md:h-auto w-full bg-white">
           <div className="flex">{children}</div>
         </main>
 

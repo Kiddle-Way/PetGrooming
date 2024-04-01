@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 const Loading = <div>Loading....</div>;
-const ListPage = lazy(() => import("../../pages/Q&A/ListPage"));
+const ListPage = lazy(() => import("../../../member/pages/Q&A/ListPage"));
 
 const qnaRouter = () => {
   return [

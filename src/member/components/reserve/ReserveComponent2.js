@@ -215,6 +215,20 @@ const ReserveComponent2 = () => {
     setPaymentSuccess(true);
   };
 
+  const mapTimeRange = (time) => {
+    switch (time) {
+      case "TIME_1":
+        return "09:00~11:00";
+      case "TIME_2":
+        return "12:00~14:00";
+      case "TIME_3":
+        return "14:00~16:00";
+      case "TIME_4":
+        return "16:00~18:00";
+      default:
+        return "";
+    }
+  };
   const handleCategoryChange = async (e) => {
     const { value } = e.target;
     setSelectedCategory(value);
@@ -335,7 +349,7 @@ const ReserveComponent2 = () => {
                   <option value="">시간 선택</option>
                   {availableTimes.map((timeSlot) => (
                     <option key={timeSlot.a_t_num} value={timeSlot.a_t_num}>
-                      {`${timeSlot.time} (${timeSlot.a_t_date})`}
+                      {mapTimeRange(timeSlot.time)} ({timeSlot.a_t_date})
                     </option>
                   ))}
                 </select>
