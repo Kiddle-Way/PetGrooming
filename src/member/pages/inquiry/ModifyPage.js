@@ -5,7 +5,6 @@ const ModifyPage = () => {
   const { i_num } = useParams();
   return (
     <div className="p-4 w-full bg-white">
-      <div className="text-3xl font-extrabold">문의 수정 페이지</div>
       <ModifyComponent i_num={i_num}></ModifyComponent>
     </div>
   );

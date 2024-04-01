@@ -33,7 +33,7 @@ const AddComponent = () => {
       v_rating: newRating,
     }));
   };
-  
+
   useEffect(() => {
     // 컴포넌트가 마운트될 때 쿠키에서 m_num 값을 가져와서 상태로 설정
     const memberCookieValue = getCookie("member");

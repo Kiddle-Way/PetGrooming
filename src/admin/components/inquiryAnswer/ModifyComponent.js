@@ -41,10 +41,14 @@ const ModifyComponent = ({ i_num }) => {
     for (let i = 0; i < inquiry.i_uploadFileNames.length; i++) {
       formData.append("i_uploadFileNames", inquiry.i_uploadFileNames[i]);
     }
-    putOne(i_num, formData).then((data) => {
-      setinquiry(data);
-      moveToRead(i_num);
-    });
+    if (window.confirm("수정 하시겠습니까??")) {
+      alert("수정되었습니다.");
+
+      putOne(i_num, formData).then((data) => {
+        setinquiry(data);
+        moveToRead(i_num);
+      });
+    }
   };
 
   const handleClickCancel = () => {

@@ -8,10 +8,24 @@ export const postAdd = async (reserve) => {
   return res.data;
 };
 
-export const getEssentialProducts = async () => {
+// 필수상품 카테고리 목록을 불러오는 함수
+export const getEssentialProductsCategory = async () => {
   try {
     const response = await jwtAxios.get(
-      `${API_SERVER_HOST}/api/product/essentialproducts`
+      `${API_SERVER_HOST}/api/product/essentialproductscategory`
+    );
+    return response.data; // 서버에서 받은 데이터를 반환
+  } catch (error) {
+    console.error("Error while fetching additional products:", error);
+    return []; // 에러 발생 시 빈 배열 반환 또는 예외 처리
+  }
+};
+
+// 필수상품
+export const getEssentialProducts = async (p_name) => {
+  try {
+    const response = await jwtAxios.get(
+      `${API_SERVER_HOST}/api/product/essentialproducts/${p_name}`
     );
     return response.data; // 서버에서 받은 데이터를 반환
   } catch (error) {
