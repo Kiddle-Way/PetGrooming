@@ -15,6 +15,7 @@ import memberRouter2 from "../../admin/router/member/MemberRouter";
 import memberqnaRouter from "../../member/router/Q&A/qnaRouter";
 import noticeRouter2 from "../../member/router/notice/noticeRouter";
 import statisticsRouter from "../../admin/router/statistics/StatisticsRoter";
+import adminReserveRouter from "../../admin/router/reserve/reserveRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -37,7 +38,7 @@ const ReviewAnswerIndex = lazy(() =>
 const InquiryAnswerIndex = lazy(() =>
   import("../../admin/pages/inquiryAnswer/IndexPage")
 );
-const MemberIndex = lazy(() => import("../../admin/pages/member/IndexPage"));
+const Member = lazy(() => import("../../admin/pages/member/ListPage"));
 const MemberNoticeIndex = lazy(() =>
   import("../../member/pages/notice/IndexPage")
 );
@@ -45,13 +46,22 @@ const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
 const StatisticsIndex = lazy(() =>
   import("../../admin/pages/statistics/IndexPage")
 );
+const ReserveList = lazy(() => import("../../admin/pages/reserve//IndexPage"));
 
 const root = createBrowserRouter([
+  {
+    path: "reserve/list",
+    element: (
+      <Suspense fallback={Loading}>
+        <ReserveList />
+      </Suspense>
+    ),
+    children: adminReserveRouter(),
+  },
   {
     path: "",
     element: (
       <Suspense fallback={Loading}>
-        {" "}
         <Main />
       </Suspense>
     ),
@@ -60,7 +70,6 @@ const root = createBrowserRouter([
     path: "about",
     element: (
       <Suspense fallback={Loading}>
-        {" "}
         <AboutIndex />
       </Suspense>
     ),
@@ -162,7 +171,7 @@ const root = createBrowserRouter([
     children: inquiryAnswerRouter(),
   },
   {
-    path: "memberList",
+    path: "member/List",
     element: (
       <Suspense fallback={Loading}>
         <Member />
@@ -187,15 +196,15 @@ const root = createBrowserRouter([
     ),
     children: noticeRouter2(),
   },
-{
-  path: "statistics",
-  element: (
-    <Suspense fallback={Loading}>
-      <StatisticsIndex />
-    </Suspense>
-  ),
-  children: statisticsRouter(),
-}
+  {
+    path: "statistics",
+    element: (
+      <Suspense fallback={Loading}>
+        <StatisticsIndex />
+      </Suspense>
+    ),
+    children: statisticsRouter(),
+  },
 ]);
 
 export default root;

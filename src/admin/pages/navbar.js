@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import Logo from "../../image/logo12.jpg";
 
 const Navbar = () => {
+  // 드롭다운 메뉴 이벤트 리스너
+  window.addEventListener("click", function (e) {
+    //모든 .dropdown 요소를 찾아 실행
+    document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+      if (!dropdown.contains(e.target)) {
+        // 클릭된 요소가 드롭다운이 아닌 경우 드롭다운 메뉴를 닫음
+        dropdown.open = false;
+      }
+    });
+  });
+
   return (
     <div className="container mx-auto h-auto">
       <nav className="navbar bg-gray-50 border-gray-200 dark:bg-gray-900 dark:border-gray-700 border-b">
@@ -19,8 +30,12 @@ const Navbar = () => {
                 예약관리
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
-                <li>예약현황</li>
-                <li>지난예약내역</li>
+                <li>
+                  <Link to={"/reserve/list"}>예약 내역</Link>
+                </li>
+                <li>
+                  <Link to={"/reserve/list/past"}>지난 예약</Link>
+                </li>
               </ul>
             </details>
 

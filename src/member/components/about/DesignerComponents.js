@@ -4,7 +4,7 @@ const DesignerComponents = ({ children }) => {
   return (
     <div className="w-auto">
       <div className="flex justify-end my-9 mr-5">
-        홈 ＞ 회사소개 ＞&nbsp;<b>디자이너 소개</b>
+        홈 ＞ 회사소개 ＞<b>디자이너 소개</b>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -37,7 +37,7 @@ const DesignerComponents = ({ children }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

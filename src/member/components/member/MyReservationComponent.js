@@ -37,7 +37,7 @@ const MyReservationComponent = () => {
       setCurrentTime(new Date());
       console.log(reservations);
     }, 1000);
-
+  
     return () => clearInterval(interval);
   }, []);
 

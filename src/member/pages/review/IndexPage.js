@@ -7,9 +7,6 @@ import { useCallback, useState } from "react";
 
 const IndexPage = () => {
   const { isLogin, moveToLoginReturn } = useCustomLogin();
-  if (!isLogin) {
-    return moveToLoginReturn();
-  }
   const navigate = useNavigate();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const toggle = () => setDrawerOpen(!isDrawerOpen);
@@ -21,6 +18,10 @@ const IndexPage = () => {
   const handleClickadd = useCallback(() => {
     navigate({ pathname: "/review/add" });
   });
+
+  if (!isLogin) {
+    return moveToLoginReturn();
+  }
 
   return (
     <BasicLayout>

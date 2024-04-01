@@ -1,4 +1,4 @@
-import LogoutComponent from "../../components/member/LogoutComponent";import LogoutComponent from "../../components/member/LogoutComponent";
+import LogoutComponent from "../../components/member/LogoutComponent";
 import Navbar from "../../../common/layouts/Navbar";
 const LogoutPage = () => {
   return (
