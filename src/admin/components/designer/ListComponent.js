@@ -172,7 +172,7 @@ const SearchTestComponen = () => {
         {serverData.dtoList && serverData.dtoList.length > 0 ? (
           serverData.dtoList.map((designer) => (
             <div
-              key={designer.dno}
+              key={designer.d_num}
               className="w-full p-2 rounded shadow-md cursor-pointer"
             >
               <div className="flex">
