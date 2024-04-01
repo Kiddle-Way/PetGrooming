@@ -1,24 +1,18 @@
 package com.petgrooming.service;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.petgrooming.domain.Designer;
-import com.petgrooming.domain.DesignerSpecification;
 import com.petgrooming.dto.DesignerDTO;
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
-import com.petgrooming.domain.Gender;
-import com.petgrooming.domain.State;
 
+@Transactional
 public interface DesignerService { 
 	
 	//목록데이터처리, PageRequestDTO 파라미터 처리, PageResponseDTO 타입 리턴타입지정
@@ -38,42 +32,15 @@ public interface DesignerService {
 	
 	//삭제기능
 	void remove(Long dno); 
-	
+
 	//검색 기능
-	PageResponseDTO<DesignerDTO> search(Gender gender, State state, String dname, PageRequestDTO pageRequestDTO);
-
-	//근무형태
-
-	PageResponseDTO<DesignerDTO> getSearchStateList(int searchState, PageRequestDTO pageRequestDTO);
-
-	//성별 검색
-	PageResponseDTO<DesignerDTO> getSearchGenderList(int searchGender, PageRequestDTO pageRequestDTO);
-	
+	   PageResponseDTO<DesignerDTO> search(String keyword, Long state, Long gender , PageRequestDTO pageRequestDTO);
 	
 	//복직, 퇴사 상태 변경
 	void updateState(Long dno, Long state);
 	
-	//복직
-	//void rehireDesigner (Long dno);
-	//List<Designer> rehireDesigner(Long dno);
-	// 퇴사 처리 메서드
-    //void fireDesigner(Long dno);
-	//List<Designer> fireDesigner(Long dno);
-//	//ResponseEntity<Void> rehireDesigner(@PathVariable(name = "dno") Long dno);
-//    
-//    // 변경된 리스트 반환 메서드
-//	List<Designer> getAllDesigners(Long dno);
-//    
+//	//executeQuery
+//	PageResponseDTO<DesignerDTO> executeQuery(String query, Map<String, Object> params, PageRequestDTO pageRequestDTO);
 	
-	//퇴사
-	//void fireDesigner(DesignerDTO designerDTO);
-	//ResponseEntity<Void> fireDesigner(@PathVariable(name = "dno") Long dno);
-	
-    
-    
-    
-//    
-//	PageResponseDTO<ReviewDTO> getSearchDnameList(PageRequestDTO pageRequestDTO, String searchDname);
-//
-//	PageResponseDTO<ReviewDTO> getSearchDstatetList(PageRequestDTO pageRequestDTO, String searchDstate);
+
 }

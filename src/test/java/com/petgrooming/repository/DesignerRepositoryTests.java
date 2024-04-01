@@ -1,30 +1,15 @@
 package com.petgrooming.repository;
 
-import java.util.Arrays;
-
 import java.time.LocalDate;
-import java.util.Date;
 
-import java.util.Optional;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-//import org.springframework.test.annotation.Commit;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import com.petgrooming.domain.Designer;
 
+import com.petgrooming.domain.Designer;
 import com.petgrooming.dto.DesignerDTO;
-import com.petgrooming.dto.PageRequestDTO;
-import com.petgrooming.dto.PageResponseDTO;
 import com.petgrooming.service.DesignerService;
 
 import lombok.extern.log4j.Log4j2;
@@ -34,20 +19,37 @@ import lombok.extern.log4j.Log4j2;
 public class DesignerRepositoryTests {
 
 	@Autowired
-	
 	private DesignerService designerService;
+	@Autowired
+	private DesignerRepository designerRepository;
 
+	//@Test
+//	public void testRegister() {
+//		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이").dgender(1L).dbirth(LocalDate.of(1996, 1, 26))
+//				.dphone("010-2546-4512").demail("de@gab.nam").dh_date(LocalDate.of(2024, 1, 26)).dstate(0L)
+//				.dintro("디자이 잘해").dattach("디자이.jpg").build();
+//
+//		designerDTO.setUploadFileNames(
+//
+//				java.util.List.of(UUID.randomUUID() + "_" + "Test1.jpg", UUID.randomUUID() + "_" + "Test2.jpg"));
+//
+//		designerService.register(designerDTO);
+//	}
+
+	// 디자이너 등록테스트
 	@Test
-	public void testRegister() {
-		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이").dgender(1L).dbirth(LocalDate.of(1996,1,26))
-				.dphone("010-2546-4512").demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0L).dintro("디자이 잘해")
-				.dattach("디자이.jpg").build();
-
-		designerDTO.setUploadFileNames(
-
-				java.util.List.of(UUID.randomUUID() + "_" + "Test1.jpg", UUID.randomUUID() + "_" + "Test2.jpg"));
-
-		designerService.register(designerDTO);
+	public void testInsert() {
+		for (int i = 0; i < 30; i++) {
+			Designer designer = Designer.builder().dname("구르밍" + i).dbirth(LocalDate.of(1996, 1, 26)).dgender(1L)
+					.dphone("010-2546-451"+i).demail("de" + i + "@gab.nam").dh_date(LocalDate.of(2024, 1, 26)).dstate(0L)
+					.dintro("구르밍" + i + "년근무").dattach("구르밍" + i + ".jpg").build();
+			
+			// 2 개의 이미지 파일 추가
+			designer.addImageString(UUID.randomUUID().toString() + "-" + "mini.jpg");
+			designer.addImageString(UUID.randomUUID().toString() + "-" + "bob_3.jpg");
+			designerRepository.save(designer);
+			log.info("-------------------");
+		}
 	}
 
 }

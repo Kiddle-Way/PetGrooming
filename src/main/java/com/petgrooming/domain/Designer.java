@@ -39,9 +39,7 @@ public class Designer {
 		this.delFlag = delFlag;
 	}
 	
-	@Enumerated(EnumType.STRING) // Enum이 문자열로 저장되도록 설정
-	@Column(name = "gender")
-    private Gender gender;
+	
 	// Image의 목록을 가지고 관리하는 기능 작성
 	@ElementCollection
 	@Builder.Default
@@ -99,17 +97,14 @@ public class Designer {
 	}
 	
 	
-	public String getDstateAsString() {
-	    return dstate == 1 ? "퇴사" : "근무";
-	}
-
-	public String getDgenderAsString() {
-	    return dgender == 1 ? "여자" : "남자";
-	}
-	
 	public void setDstate(Long dstate) {
 	    this.dstate = dstate;
 	}
+	
+	public void setDgender(Long dgender) {
+	    this.dgender = dgender;
+	}
+
 
 	
 //	private boolean isStateChanged; // 상태 변경 여부를 나타내는 필드
