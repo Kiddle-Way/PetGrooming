@@ -4,12 +4,11 @@ import { useCallback } from "react";
 
 const IndexPage = () => {
   const navigate = useNavigate();
-  const handleClickList = useCallback(() => {
-    navigate("list");
-    window.location.reload();
+  const handleClickAllList = useCallback(() => {
+    navigate({ pathname: "/reserve/list" });
   });
-  const handleClickGuide = useCallback(() => {
-    navigate({ pathname: "guide" });
+  const handleClickPastList = useCallback(() => {
+    navigate({ pathname: "past" });
   });
 
   return (
@@ -17,15 +16,15 @@ const IndexPage = () => {
       <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 space-y-2 font-medium">
         <div
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
-          onClick={handleClickList}
+          onClick={handleClickAllList}
         >
-          상품 목록
+          예약 내역
         </div>
         <div
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
-          onClick={handleClickGuide}
+          onClick={handleClickPastList}
         >
-          미용 안내
+          지난 예약
         </div>
 
       </div>

@@ -1,9 +1,6 @@
 const GuideComponent = () => {
   return (
     <>
-      <div className="flex justify-end mt-1 mb-4 mr-5">
-        홈 ＞ <b>미용 안내</b>
-      </div>
       <div className="p-10 w-full bg-white">
         <h1 class="mb-4 text-center text-6xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-6xl dark:text-white">
           미용 안내
@@ -78,45 +75,37 @@ const GuideComponent = () => {
           <tbody>
             {/* row 1 */}
             <tr>
-              <th className="bg-gray-100">목욕</th>
-              <td>20,000원</td>
-              <td>30,000원</td>
-              <td>40,000원</td>
-              <td>50,000원</td>
+              <th className="bg-gray-100">위생</th>
+              <td>15,000원</td>
+              <td>25,000원</td>
+              <td>35,000원</td>
+              <td>45,000원</td>
             </tr>
             {/* row 2 */}
             <tr>
-              <th className="bg-gray-100">위생</th>
-              <td>15,000원</td>
-              <td>20,000원</td>
+              <th className="bg-gray-100">목욕</th>
+              <td>25,000원</td>
               <td>35,000원</td>
-              <td>40,000원</td>
+              <td>45,000원</td>
+              <td>55,000원</td>
             </tr>
             {/* row 3 */}
             <tr>
               <th className="bg-gray-100">목욕+위생</th>
-              <td>30,000원</td>
-              <td>45,000원</td>
-              <td>70,000원</td>
-              <td>85,000원</td>
+              <td>35,000원</td>
+              <td>50,000원</td>
+              <td>65,000원</td>
+              <td>80,000원</td>
             </tr>
             {/* row 4 */}
             <tr>
               <th className="bg-gray-100">클리핑</th>
-              <td>35,000원</td>
               <td>45,000원</td>
-              <td>55,000원</td>
-              <td>65,000원</td>
-            </tr>
-            {/* row 5 */}
-            <tr>
-              <th className="bg-gray-100">가위컷</th>
+              <td>60,000원</td>
               <td>75,000원</td>
               <td>90,000원</td>
-              <td>110,000원</td>
-              <td>130,000원</td>
             </tr>
-            {/* row 6 */}
+            {/* row 5 */}
             <tr>
               <th className="bg-gray-100">스포팅</th>
               <td>70,000원</td>
@@ -124,14 +113,23 @@ const GuideComponent = () => {
               <td>100,000원</td>
               <td>120,000원</td>
             </tr>
+            {/* row 6 */}
+
+            <tr>
+              <th className="bg-gray-100">가위컷</th>
+              <td>80,000원</td>
+              <td>90,000원</td>
+              <td>110,000원</td>
+              <td>130,000원</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <div className="my-4">
         <h1 className="mt-8 my-2 text-lg font-bold">✔ 추가 상품</h1>
-        <h1 className="text-lg ">+ 얼굴컷 : 5000원</h1>
-        <h1 className="text-lg ">+ 스파 20,000원</h1>
+        <h1 className="text-lg ">+ 얼굴컷 : 5,000원</h1>
+        <h1 className="text-lg ">+ 스 &nbsp; 파 : 20,000원</h1>
       </div>
 
       <div>

@@ -19,7 +19,7 @@ const productsRouter = () => {
       ),
     },
     {
-      path: "",
+      path: "/product",
       element: <Navigate replace to="/product/list" />,
     },
     {

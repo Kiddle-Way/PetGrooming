@@ -8,11 +8,14 @@ const initState = {
 };
 
 const loadMemberCookie = () => {  
-  const memberInfo =  getCookie("member");
-  if(memberInfo && memberInfo.m_name) { 
+  const memberInfo = getCookie("member");
+  if (memberInfo && memberInfo.m_name) { 
     memberInfo.nickname = decodeURIComponent(memberInfo.m_name);
   } 
-  return memberInfo;
+  return { 
+    ...memberInfo,
+    isAdmin: memberInfo && memberInfo.roleNames && memberInfo.roleNames.includes("ADMIN") 
+  };
 }
 
 export const loginPostAsync = createAsyncThunk("loginPostAsync", (param) => {
@@ -42,14 +45,21 @@ const loginSlice = createSlice({
         if (!payload.error) {
           console.log("쿠키 저장");
           setCookie("member", JSON.stringify(payload), 1); 
+          return { ...payload, isAdmin: payload.roleNames && payload.roleNames.includes("ADMIN") }; // isAdmin 설정
         }
-        return { ...payload, isAdmin: payload.roleNames.includes("ADMIN") }; // isAdmin 설정
+        return state; // 에러가 발생한 경우 상태 변경 없음
       })
       .addCase(loginPostAsync.pending, (state, action) => {
         console.log("pending : 처리중");
       })
       .addCase(loginPostAsync.rejected, (state, action) => {
         console.log("rejected : 오류");
+        const error = action.error.message;
+        if (error === "Unauthorized") {
+          alert("이메일과 패스워드를 다시 확인하세요");
+        } else {
+          alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
       });
   },
 });
