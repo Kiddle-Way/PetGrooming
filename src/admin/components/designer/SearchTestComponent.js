@@ -128,10 +128,10 @@ const SearchTestComponen = () => {
           data = await searchWithKeyword(keyword, { page, size });
         }
       } else {
-        // 검색어, 성별, 근무 상태가 모두 선택되지 않은 경우
+        // 검색어, 성별, 근무 상태가 없을 경우 전체 리스트 호출
         data = await getList({ page, size });
       }
-      setServerData(data);
+      setServerData(data); // 서버에서 받아온 데이터 설정
     } catch (error) {
       console.error("데이터를 불러오는 데 실패했습니다:", error);
     }
@@ -140,7 +140,7 @@ const SearchTestComponen = () => {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, size, refresh, keyword, gender, state]);
+  }, [page, size, refresh]);
 
   // 검색 버튼 클릭 시 실행되는 함수
   const handleSearchClick = async () => {
@@ -212,6 +212,7 @@ const SearchTestComponen = () => {
       moveToList({ page: 1 });
     }
   };
+
 
   return (
     <div className="border-2 border-blue-100 mt-1 mr-2 ml-2">

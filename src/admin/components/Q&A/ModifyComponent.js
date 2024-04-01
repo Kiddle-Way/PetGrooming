@@ -78,10 +78,17 @@ const ModifyComponent = ({ f_num, moveList, moveRead }) => {
         </button>
         <button
           type="button"
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-orange-500"
           onClick={handleClickModify}
         >
           수정
+        </button>
+        <button
+          type="button"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          onClick={moveToList}
+        >
+          목록
         </button>
       </div>
     </div>

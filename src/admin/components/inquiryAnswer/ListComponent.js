@@ -38,8 +38,17 @@ const ListComponent = () => {
             onClick={() => moveToRead(inquiry.i_num)}
           >
             <div className="flex flex-col h-full">
-              <div className="font-extrabold text-2xl p-2 w-full">
-                {inquiry.i_num}
+              <div className="font-extrabold text-2xl p-2 w-full flex justify-between">
+                <span className="text-xl">{inquiry.i_num}</span>
+                {inquiry.v_content === "답변 미작성" ? (
+                  <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
+                    답변대기
+                  </span>
+                ) : (
+                  <span className="text-green-500 bg-green-100 rounded-md px-2 text-sm">
+                    답변완료
+                  </span>
+                )}
               </div>
               <div className="text-1xl m-1 p-2 w-full flex flex-col">
                 <div className="bottom-0 font-extrabold bg-white">
@@ -47,7 +56,7 @@ const ListComponent = () => {
                     문의제목 : {inquiry.i_title}
                   </div>
                   <div className="text-center p-1">
-                    문의내용 : {inquiry.i_content}
+                    문의내용 : {inquiry.m_num.m_email}
                   </div>
                 </div>
               </div>
