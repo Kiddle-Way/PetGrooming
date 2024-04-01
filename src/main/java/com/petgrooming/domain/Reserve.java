@@ -18,7 +18,7 @@ public class Reserve {
 	private Long r_num;
 
 	@ManyToOne(optional = false)
-    @JoinColumn(name = "d_num", referencedColumnName = "dno")
+    @JoinColumn(name = "d_num", referencedColumnName = "d_num")
 	private Designer d_num;
 	
 	@ManyToOne(optional = false)

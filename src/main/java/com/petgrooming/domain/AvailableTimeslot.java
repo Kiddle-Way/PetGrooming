@@ -35,7 +35,7 @@ public class AvailableTimeslot {
 	}
     
     @ManyToOne(optional = false)
-    @JoinColumn(name = "d_num", referencedColumnName = "dno")
+    @JoinColumn(name = "d_num", referencedColumnName = "d_num")
 	private Designer d_num;
     
     public AvailableTimeslot(LocalDate a_t_date, ReserveTime time, boolean isAvailable, Designer d_num) {

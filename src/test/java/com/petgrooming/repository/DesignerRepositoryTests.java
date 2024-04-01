@@ -34,21 +34,19 @@ import lombok.extern.log4j.Log4j2;
 public class DesignerRepositoryTests {
 
 	@Autowired
-	
+
 	private DesignerService designerService;
 
 	@Test
 	public void testRegister() {
-		for(int i =1 ; i<5; i++) {
-		DesignerDTO designerDTO = DesignerDTO.builder().dname("디자이"+ i).dgender(0L).dbirth(LocalDate.of(1996,1,26))
-				.dphone("010-2546-451"+i).demail("de@gab.nam").dh_date(LocalDate.of(2024,1,26)).dstate(0L).dintro("디자이 잘해")
-				.dattach("디자이.jpg").build();
+		for (int i = 1; i < 5; i++) {
+			DesignerDTO designerDTO = DesignerDTO.builder().d_name("디자이" + i).d_gender(false)
+					.d_birth(LocalDate.of(1996, 1, 26)).d_phone("010-2546-451" + i).d_email("de@gab.nam")
+					.d_h_date(LocalDate.of(2024, 1, 26)).d_state(false).d_intro("디자이 잘해").build();
 
-		designerDTO.setUploadFileNames(
+			designerDTO.setD_uploadFileNames(null);
 
-				java.util.List.of(UUID.randomUUID() + "_" + "Test1.jpg", UUID.randomUUID() + "_" + "Test2.jpg"));
-
-		designerService.register(designerDTO);
+			designerService.register(designerDTO);
 		}
 	}
 

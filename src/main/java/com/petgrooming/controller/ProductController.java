@@ -10,6 +10,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -66,11 +69,27 @@ public class ProductController {
         return service.search(keyword, pageRequestDTO);
     }
     
-    @GetMapping("/essentialproducts")
-    public List<ProductDTO> listEssentialProducts() {
-        return service.listEssentialProducts();
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+    @GetMapping("/essentialproductscategory")
+    public List<ProductDTO> findEssentialProductsCategory() {
+        return service.findEssentialProductsCategory();
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+    @GetMapping("/essentialproducts/{p_name}")
+    public List<ProductDTO> findEssentialProducts(@PathVariable(name = "p_name") String p_name) {
+        try {
+        	 String decodedName = URLDecoder.decode(p_name, "UTF-8");
+             String encodedName = decodedName.replaceAll("\\+", "%2B");
+             return service.findEssentialProducts(encodedName);
+        } catch (UnsupportedEncodingException e) {
+            // 디코딩 중 발생한 예외 처리
+            e.printStackTrace();
+            return Collections.emptyList(); // 예외 발생 시 빈 리스트 반환 또는 예외 처리
+        }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능s
     @GetMapping("/additionalproducts")
     public List<ProductDTO> listAdditionalProducts() {
         return service.listAdditionalProducts();
