@@ -18,7 +18,7 @@ const DesignerRouter = () => {
       element : <Navigate replace to = "list"/>
     },
     {
-      path: "read/:dno",
+      path: "read/:d_num",
       element: <Suspense fallback={Loading}><DesignerRead/></Suspense>
     },
     {
@@ -26,7 +26,7 @@ const DesignerRouter = () => {
       element: <Suspense fallback={Loading}><DesignerAdd/></Suspense>
     },
     {
-      path: "modify/:dno",
+      path: "modify/:d_num",
       element: <Suspense fallback={Loading}><DesignerModify/></Suspense>
     }
     

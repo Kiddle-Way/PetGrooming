@@ -6,6 +6,7 @@ import {
   getAdditionalProducts,
   getAvailableTime,
   makeUnavailable,
+  getEssentialProductsCategory,
 } from "../../../common/api/reserveApi";
 import { useLocation, Link } from "react-router-dom";
 import Calendar from "react-calendar";
@@ -28,13 +29,19 @@ const ReserveComponent2 = () => {
     r_date: "",
     a_t_num: { a_t_num: 1 },
     r_total_price: 0,
-    r_breed: memberCookieValue.dog_breed,
+    r_breed: "",
     r_dog_name: memberCookieValue.dog_name,
     r_dog_notice: memberCookieValue.dog_notice,
   });
 
   const [a, setA] = useState("");
   const [b, setB] = useState(0);
+
+  const [essentialProductCategories, setEssentialProductCategories] = useState(
+    []
+  );
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const [essentialProducts, setEssentialProducts] = useState([]);
   const [additionalProducts, setAdditionalProducts] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -55,9 +62,11 @@ const ReserveComponent2 = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const essentialProducts = await getEssentialProducts();
+        
+        const categories = await getEssentialProductsCategory();
+        setEssentialProductCategories(categories);
+
         const additionalProducts = await getAdditionalProducts();
-        setEssentialProducts(essentialProducts);
         setAdditionalProducts(additionalProducts);
       } catch (error) {
         console.error("Error while fetching products:", error);
@@ -114,6 +123,15 @@ const ReserveComponent2 = () => {
     console.log(reserve.allProduct); // 변경된 allProduct 확인
   };
 
+  const handleBreedChange = (e) => {
+    const { value } = e.target;
+    setReserve((Reserve) => ({
+      ...Reserve,
+      r_breed: value,
+    }));
+    console.log(reserve.r_breed);
+  };
+
   const handleAdditionalProductChange = (e, product) => {
     const { checked } = e.target;
     if (checked) {
@@ -135,7 +153,6 @@ const ReserveComponent2 = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // name이 'r_date', 'r_total_price', 'r_breed', 'r_dog_name', 'r_dog_notice' 등인 경우 일반적인 업데이트
     setReserve({ ...reserve, [name]: value });
   };
 
@@ -190,7 +207,6 @@ const ReserveComponent2 = () => {
         : "시간 미정";
       await makeUnavailable(reserve.a_t_num.a_t_num); // 예약한 시간을 서버에 전달하여 예약 불가능하게 만듦
       alert(`결재가 성공적으로 되었습니다!\n예약한 시간: ${reservedTime}`);
-      // 예약 성공 후 추가적인 작업을 할 수 있음
       window.location.href = "http://localhost:3000/";
     } catch (error) {
       console.error("예약 추가 오류:", error);
@@ -211,6 +227,17 @@ const ReserveComponent2 = () => {
         return "16:00~18:00";
       default:
         return "";
+    }
+  };
+  const handleCategoryChange = async (e) => {
+    const { value } = e.target;
+    setSelectedCategory(value);
+  
+    try {
+      const essentialProducts = await getEssentialProducts(value); // 선택한 카테고리 값을 사용하여 필수 상품 목록 가져오기
+      setEssentialProducts(essentialProducts);
+    } catch (error) {
+      console.error("Error while fetching essential products:", error);
     }
   };
 
@@ -250,14 +277,43 @@ const ReserveComponent2 = () => {
               ></input>
             </div>
             <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">견종</div>
-              <input
-                className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
-                name="r_breed"
-                type={"text"}
+              <label className="w-40 p-6 text-right font-bold">견종</label>
+              <select
+                className="w-full h-8 rounded-r border border-solid shadow-md"
                 value={reserve.r_breed}
-                onChange={handleChange}
-              ></input>
+                onChange={handleBreedChange}
+              >
+                <option value="견종 선택">견종 선택</option>
+                <option value="시베리아허스키">시베리아허스키</option>
+                <option value="푸들">푸들</option>
+                <option value="저먼 셰퍼드">저먼 셰퍼드</option>
+                <option value="알래스칸 맬러뮤트">알래스칸 맬러뮤트</option>
+                <option value="도베르만 핀셔">도베르만 핀셔</option>
+                <option value="골든 리트리버">골든 리트리버</option>
+                <option value="래브라도 레트리버">래브라도 레트리버</option>
+                <option value="베들링턴 테리어">베들링턴 테리어 </option>
+                <option value="이탈리안 그레이 하운드">
+                  이탈리안 그레이 하운드
+                </option>
+                <option value="웰시코기">웰시코기</option>
+                <option value="사모예드">사모예드</option>
+                <option value="시바 이누">시바 이누</option>
+                <option value="재페니스 스피츠">재페니스 스피츠</option>
+                <option value="미니어처 슈나우저">미니어처 슈나우저</option>
+                <option value="비숑프리제">비숑프리제</option>
+                <option value="시추">시추</option>
+                <option value="잭 러셀 테리어">잭 러셀 테리어</option>
+                <option value="포메라니안">포메라니안</option>
+                <option value="미니어처 핀셔">미니어처 핀셔</option>
+                <option value="파피용">파피용</option>
+                <option value="요크셔 테리어">요크셔 테리어</option>
+                <option value="말티즈">말티즈</option>
+                <option value="닥스훈트">닥스훈트</option>
+                <option value="치와와">치와와</option>
+                <option value="퍼그">퍼그</option>
+                <option value="프렌치불독">프렌치불독</option>
+                <option value="그 외">그 외</option>
+              </select>
             </div>
             <div className="relative mb-4 flex items-center">
               <div className="w-40 p-6 text-right font-bold">견이름</div>
@@ -294,6 +350,20 @@ const ReserveComponent2 = () => {
                   {availableTimes.map((timeSlot) => (
                     <option key={timeSlot.a_t_num} value={timeSlot.a_t_num}>
                       {mapTimeRange(timeSlot.time)} ({timeSlot.a_t_date})
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="">카테고리 선택</option>
+                  {essentialProductCategories.map((category) => (
+                    <option
+                      key={category.p_name}
+                      value={category.p_name.split(' ')[1]}
+                    >
+                      {category.p_name.split(' ')[1]}
                     </option>
                   ))}
                 </select>
@@ -372,15 +442,8 @@ const ReserveComponent2 = () => {
                   <Tosspayment
                     reserve={reserve}
                     onPaymentSuccess={handlePaymentSuccess}
+                    closeModal={closeModal}
                   />
-
-                  {/* 모달 닫기 버튼 */}
-                  <button
-                    onClick={closeModal}
-                    className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
-                  >
-                    결재창 닫기
-                  </button>
                 </Modal>
 
                 {/* 돌아가기 버튼 */}

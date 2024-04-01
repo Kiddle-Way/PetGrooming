@@ -7,15 +7,11 @@ const IndexPage = () => {
 
   const handleClickList = useCallback(() => {
     navigate({ pathname: "list" });
-  });
+  }, []);
 
   const handleClickAdd = useCallback(() => {
     navigate({ pathname: "add" });
-  });
-
-  const handleClickDelete = useCallback(() => {
-    navigate({ pathname: "delete" });
-  });
+  }, []);
 
   return (
     <BasicLayout>
@@ -34,12 +30,6 @@ const IndexPage = () => {
           디자이너 등록
         </div>
 
-        <div
-          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group cursor-pointer"
-          onClick={handleClickDelete}
-        >
-          디자이너 삭제
-        </div>
       </div>
     </BasicLayout>
   );

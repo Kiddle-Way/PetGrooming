@@ -11,8 +11,8 @@ import memberRouter from "../../member/router/member/memberRouter";
 import qnaRouter from "../../admin/router/Q&A/QnaRouter";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
-import memberRouter2 from "../../admin/router/member/MemberRouter";
-import memberqnaRouter from "../../member/router/Q&A/qnaRouter"
+import memberqnaRouter from "../../member/router/Q&A/qnaRouter";
+import noticeRouter2 from "../../member/router/notice/noticeRouter";
 
 const Loading = <div>Loading....</div>;
 const Main = lazy(() => import("../../member/pages/main/MainPage"));
@@ -36,22 +36,39 @@ const ReviewAnswerIndex = lazy(() =>
 const InquiryAnswerIndex = lazy(() =>
   import("../../admin/pages/inquiryAnswer/IndexPage")
 );
-const MemberIndex = lazy(() => import("../../admin/pages/member/IndexPage"));
+const MemberNoticeIndex = lazy(() =>
+  import("../../member/pages/notice/IndexPage")
+);
 
 const root = createBrowserRouter([
   {
     path: "",
-    element: <Suspense fallback={Loading}> <Main /></Suspense>,
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <Main />
+      </Suspense>
+    ),
   },
   {
     path: "about",
-    element: <Suspense fallback={Loading}> <AboutIndex /></Suspense>,
-    children : AboutRouter()
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <AboutIndex />
+      </Suspense>
+    ),
+    children: AboutRouter(),
   },
   {
     path: "designer",
-    element: <Suspense fallback={Loading}> <DesignerIndex /></Suspense>,
-    children: DesignerRouter()
+    element: (
+      <Suspense fallback={Loading}>
+        {" "}
+        <DesignerIndex />
+      </Suspense>
+    ),
+    children: DesignerRouter(),
   },
   {
     path: "product",
@@ -138,15 +155,6 @@ const root = createBrowserRouter([
     children: inquiryAnswerRouter(),
   },
   {
-    path: "memberList",
-    element: (
-      <Suspense fallback={Loading}>
-        <MemberIndex />
-      </Suspense>
-    ),
-    children: memberRouter2(),
-  },
-  {
     path: "memberqna",
     element: (
       <Suspense fallback={Loading}>
@@ -154,6 +162,15 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: memberqnaRouter(),
+  },
+  {
+    path: "memnotice",
+    element: (
+      <Suspense fallback={Loading}>
+        <MemberNoticeIndex />
+      </Suspense>
+    ),
+    children: noticeRouter2(),
   },
 ]);
 

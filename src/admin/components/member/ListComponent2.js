@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getList } from "../../../common/api/memberApi";
+import { getList2 } from "../../../common/api/memberApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/component/PageComponent";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ const ListComponent = () => {
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
+    getList2({ page, size }).then((data) => {
       setServerData(data);
     });
   }, [page, size]);
@@ -49,8 +49,8 @@ const ListComponent = () => {
               className="px-4 py-2 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
             />
           </div>
-          <button className="ml-4 px-4 py-2 rounded-md bg-red-500 text-white">
-            <Link to={"/member/retire"}>탈퇴회원보기</Link>
+          <button className="ml-4 px-4 py-2 rounded-md bg-blue-500 text-white">
+            <Link to={"/member/list"}>회원보기</Link>
           </button>
         </div>
         <div className="overflow-x-auto">

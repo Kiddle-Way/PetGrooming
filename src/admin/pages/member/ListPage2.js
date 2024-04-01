@@ -1,4 +1,4 @@
-import ListComponent from "../../components/member/ListComponent";
+import ListComponent from "../../components/member/ListComponent2";
 import BasicLayout from "../BasicLayout2";
 
 const ListPage = () => {

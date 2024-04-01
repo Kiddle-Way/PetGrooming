@@ -46,7 +46,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                <Link to={"/memberList/"}>회원관리</Link>
+                <Link to={"/member/list"}>회원관리</Link>
               </summary>
             </details>
 
