@@ -1,6 +1,6 @@
 import de01 from "../../../image/mini.jpg";
 
-const DesignerComponents = () => {
+const DesignerComponents = ({ children }) => {
   return (
     <div className="w-auto">
       <div className="flex justify-end my-9 mr-5">
@@ -37,7 +37,7 @@ const DesignerComponents = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

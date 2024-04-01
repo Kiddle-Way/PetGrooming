@@ -1,12 +1,13 @@
 import React from 'react';
 import JoinComponent from '../../components/member/JoinComponent';
-import Navbar from "../../../common/layouts/Navbar"; 
+import BasicLayout from "../../../common/layouts/BasicLayout"; 
 
 function JoinPage() {
   return (
     <div>
-      <Navbar />
+      <BasicLayout>
       <JoinComponent />
+      </BasicLayout>
     </div>
   );
 }

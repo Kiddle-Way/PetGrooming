@@ -1,10 +1,15 @@
 import BasicLayout from "../../../common/layouts/BasicLayout";
+import useCustomLogin from "../../../common/hooks/useCustomLogin";
 import { Outlet } from "react-router-dom";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
 
 const IndexPage = () => {
+  const { isLogin, moveToLoginReturn } = useCustomLogin();
+  if (!isLogin) {
+    return moveToLoginReturn();
+  }
   const navigate = useNavigate();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const toggle = () => setDrawerOpen(!isDrawerOpen);

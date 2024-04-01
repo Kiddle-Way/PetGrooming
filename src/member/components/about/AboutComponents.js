@@ -1,6 +1,6 @@
 import greet from "../../../image/gre.png";
 
-const AboutComponents = () => {
+const AboutComponents = ({ children }) => {
   return (
     <div className=" w-auto">
       <div className="flex justify-end mt-1 mb-9 mr-5">

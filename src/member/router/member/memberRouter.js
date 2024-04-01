@@ -4,6 +4,7 @@ const LoginPage = lazy(() => import("../../pages/member/LoginPage"));
 const LogoutPage = lazy(() => import("../../pages/member/LogoutPage"));
 const JoinPage = lazy(() => import("../../pages/member/JoinPage"));
 const MyPage = lazy(() => import("../../pages/member/MyPage"));
+const MyReservationPage = lazy(() => import("../../pages/member/MyReservationPage"));
 
 const memberRouter = () => {
   return [
@@ -39,6 +40,14 @@ const memberRouter = () => {
         </Suspense>
       ),
     },
+    {
+      path: "myreservation",
+      element: (
+        <Suspense fallback={Loading}>
+          <MyReservationPage />
+        </Suspense>
+      )
+    }
   ];
 };
 

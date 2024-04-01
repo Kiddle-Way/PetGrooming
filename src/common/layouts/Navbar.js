@@ -7,7 +7,7 @@ const Navbar = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (withdrawalCompleted) {
       // 회원 탈퇴가 완료되면 로그인 상태를 false로 설정
@@ -15,11 +15,6 @@ const Navbar = () => {
       setWithdrawalCompleted(false); // withdrawalCompleted 상태 재설정
     }
   }, [withdrawalCompleted, dispatch]);
-
-  const handleLogout = () => {
-    // 로그아웃 버튼 클릭 시 실행되는 함수
-    setWithdrawalCompleted(true); // withdrawalCompleted 상태 변경
-  };
 
   const [isOpen, setIsOpen] = useState(false); // 메뉴 상태 관리
 
@@ -38,6 +33,7 @@ const Navbar = () => {
       }
     });
   });
+  
   return (
     <div className="container mx-auto mt-2 sm:px-2 lg:px-1">
       <nav className="rounded-2xl mx-auto flex flex-wrap justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
@@ -84,7 +80,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-black hover:text-blue-600">
-                <Link to={"/"}>공지사항</Link>
+                <Link to={"/memnotice"}>공지사항</Link>
               </summary>
             </details>
 
@@ -112,7 +108,7 @@ const Navbar = () => {
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>
-                  <Link to={"/"}>자주묻는질문</Link>
+                  <Link to={"/memberqna"}>자주묻는질문</Link>
                 </li>
                 <li>
                   <Link to={"/inquiry"}>문의게시판</Link>

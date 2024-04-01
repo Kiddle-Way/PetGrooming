@@ -63,7 +63,7 @@ const ListComponent = () => {
       <div className="flex flex-wrap mx-auto justify-center p-6">
         <div className="w-full p-2 m-2 rounded shadow-md">
           <div className="flex">
-            <div className="font-extrabold text-left m-1 text-1xl p-2 w-1/12">
+            <div className="font-extrabold text-left m-1 text-1xl p-2 w-2/12">
               게시물 번호
             </div>
             <div className="font-extrabold text-1xl m-1 p-2 w-8/12">제목</div>
@@ -77,7 +77,7 @@ const ListComponent = () => {
             onClick={() => moveToRead(notice.n_num)}
           >
             <div className="flex">
-              <div className="font-extrabold text-2xl p-2 w-1/12">
+              <div className="font-extrabold text-2xl p-2 w-2/12">
                 {notice.n_num}
               </div>
               <div className="text-1xl m-1 p-2 w-8/12 font-extrabold">
