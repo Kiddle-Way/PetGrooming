@@ -18,7 +18,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@SequenceGenerator(name = "NOTICE_SEQ_GEN", sequenceName = "NOTICE_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "notice_tbl")
 @Getter
 @ToString(exclude = "imageList")
@@ -29,7 +28,7 @@ public class Notice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
 	private Long n_num;
-	
+
 	@Column(nullable = false, length = 100)
 	private String n_head;
 
@@ -56,7 +55,7 @@ public class Notice {
 	public void changeHead(String n_head) {
 		this.n_head = n_head;
 	}
-	
+
 	public void changeTitle(String n_title) {
 		this.n_title = n_title;
 	}
