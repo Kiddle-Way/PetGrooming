@@ -150,6 +150,15 @@ public class DesignerServiceImpl implements DesignerService {
 					.d_birth(designer.getD_birth()).d_gender(designer.isD_gender()).d_phone(designer.getD_phone())
 					.d_email(designer.getD_email()).d_h_date(designer.getD_h_date()).d_state(designer.isD_state())
 					.d_intro(designer.getD_intro()).build();
+			
+			List<DesignerImage> imageList = designer.getImageList();
+
+			if (imageList == null || imageList.size() == 0) {
+				return designerDTO;
+			}
+			List<String> fileNameList = imageList.stream().map(noticeImage -> noticeImage.getFileName()).toList();
+			designerDTO.setD_uploadFileNames(fileNameList);
+			
 			return designerDTO;
 		}).collect(Collectors.toList());
 
