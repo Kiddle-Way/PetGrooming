@@ -22,6 +22,11 @@ const AddComponent = () => {
   };
 
   const handleClickAdd = () => {
+    if (!notice.n_title || !notice.n_content.trim()) {
+      alert("제목과 내용을 입력해주세요.");
+      return;
+    }
+
     const files = uploadRef.current.files;
 
     const formData = new FormData();
@@ -75,7 +80,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">제목</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-me"
             name="n_title"
             type={"text"}
             value={notice.n_title}
@@ -87,7 +92,7 @@ const AddComponent = () => {
         <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">내용</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-me"
             name="n_content"
             type={"text"}
             value={notice.n_content}
@@ -99,7 +104,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
           <label
-            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-yellow-300"
+            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-orange-300"
             for="input-file"
           >
             파일선택
