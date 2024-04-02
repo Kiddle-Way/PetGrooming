@@ -142,6 +142,7 @@ public class DesignerServiceImpl implements DesignerService {
 	@Override
 	public void updateState(Long d_num, boolean d_state) {
 		designerRepository.updateToState(d_num, d_state);
+		designerRepository.updateToState(d_num, d_state);
 	}
 
 	// 리스트불러오기
