@@ -74,36 +74,37 @@ const SearchTestComponen = () => {
     setState(e.target.value);
   };
 
-  // 상태 변경 함수
-  const handleResignButtonClick = async (designer, event) => {
-    if (window.confirm("처리하시겠습니까?")) {
+   // 상태 변경 함수
+   const handleResignButtonClick = async (designer, event) => {
+    if (window.confirm("퇴직 처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.d_num, 1);
+        await updateDesignerState(designer.d_num, true);
         console.log("Designer has been fired successfully.");
         // 퇴직 처리 후 필요한 작업 수행
         // 새로고침 실행
+        fetchData(); // 데이터 다시 불러오기
       } catch (error) {
         console.error("Failed to fire designer:", error);
         // 에러 처리
       }
-      moveToList({ page: 1 });
     }
   };
 
   const handleRehireButtonClick = async (designer, event) => {
-    if (window.confirm("처리하시겠습니까?")) {
+    if (window.confirm("복직 처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.d_num, 0);
+        console.log(designer.d_num);
+        await updateDesignerState(designer.d_num, false);
         console.log("Designer has been rehired successfully.");
         // 복직 처리 후 필요한 작업 수행
         // 새로고침 실행
+        fetchData(); // 데이터 다시 불러오기
       } catch (error) {
         console.error("Failed to rehire designer:", error);
         // 에러 처리
       }
-      moveToList({ page: 1 });
     }
   };
 
@@ -172,7 +173,7 @@ const SearchTestComponen = () => {
         {serverData.dtoList && serverData.dtoList.length > 0 ? (
           serverData.dtoList.map((designer) => (
             <div
-              key={designer.dno}
+              key={designer.d_num}
               className="w-full p-2 rounded shadow-md cursor-pointer"
             >
               <div className="flex">
@@ -222,7 +223,7 @@ const SearchTestComponen = () => {
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
                   onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.d_state === 0 ? "근무" : "퇴사"}
+                  { designer.d_state ? "퇴사" : "근무"}
                 </div>
 
                 <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
@@ -237,9 +238,6 @@ const SearchTestComponen = () => {
                       value="퇴사"
                     />
                   ) : (
-                    //   근무중일땐 퇴사버튼 활성화
-
-                    //   퇴사일땐 복직버튼 활성화
                     <input
                       type="button"
                       className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white"
