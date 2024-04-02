@@ -166,13 +166,13 @@ const AddComponent = () => {
       <div className="flex justify-center">
         <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">소개</div>
-          <input
+          <textarea
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="d_intro"
-            type={"text"}
             value={designer.d_intro}
             onChange={handleChangeDesigner}
-          ></input>
+            rows={8} // 여러 줄을 입력할 수 있도록 rows 속성 추가
+          ></textarea>
         </div>
       </div>
       <div className="flex justify-center">
