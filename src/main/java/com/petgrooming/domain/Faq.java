@@ -4,17 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@SequenceGenerator(name = "QNA_SEQ_GEN", sequenceName = "QNA_SEQ", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "FAQ_SEQ_GEN", sequenceName = "FAQ_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "FAQ_TBL")
 @Getter
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Qna {
+public class Faq {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QNA_SEQ_GEN")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAQ_SEQ_GEN")
 	private Long f_num;
 
 	@Column(nullable = false, length = 100)

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.petgrooming.dto.PageRequestDTO;
 import com.petgrooming.dto.PageResponseDTO;
-import com.petgrooming.dto.QnaDTO;
-import com.petgrooming.service.QnaService;
+import com.petgrooming.dto.FaqDTO;
+import com.petgrooming.service.FaqService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,54 +23,54 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/qna")
-public class QnaController {
-	private final QnaService qnaService;
+@RequestMapping("/api/faq")
+public class FaqController {
+	private final FaqService faqService;
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{f_num}")
-	public QnaDTO get(@PathVariable(name = "f_num") Long f_num) {
-		return qnaService.get(f_num);
+	public FaqDTO get(@PathVariable(name = "f_num") Long f_num) {
+		return faqService.get(f_num);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
-	public PageResponseDTO<QnaDTO> list(PageRequestDTO pageRequestDTO) {
+	public PageResponseDTO<FaqDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
-		return qnaService.list(pageRequestDTO);
+		return faqService.list(pageRequestDTO);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
-	public PageResponseDTO<QnaDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
+	public PageResponseDTO<FaqDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
 			@PathVariable("searchTitle") String searchTitle) {
 		log.info("list............." + pageRequestDTO);
-		return qnaService.getSearchTitleList(pageRequestDTO, searchTitle);
+		return faqService.getSearchTitleList(pageRequestDTO, searchTitle);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
-	public PageResponseDTO<QnaDTO> searchContentlist(PageRequestDTO pageRequestDTO,
+	public PageResponseDTO<FaqDTO> searchContentlist(PageRequestDTO pageRequestDTO,
 			@PathVariable("searchContent") String searchContent) {
 		log.info("list............." + pageRequestDTO);
-		return qnaService.getSearchContentList(pageRequestDTO, searchContent);
+		return faqService.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
-	public Map<String, Long> register(@RequestBody QnaDTO qnaDTO) {
-		log.info("QnaDTO: " + qnaDTO);
-		Long f_num = qnaService.register(qnaDTO);
+	public Map<String, Long> register(@RequestBody FaqDTO faqDTO) {
+		log.info("FaqDTO: " + faqDTO);
+		Long f_num = faqService.register(faqDTO);
 
 		return Map.of("F_NUM", f_num);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{f_num}")
-	public Map<String, String> modify(@PathVariable(name = "f_num") Long f_num, @RequestBody QnaDTO qnaDTO) {
-		qnaDTO.setF_num(f_num);
-		log.info("Modify: " + qnaDTO);
-		qnaService.modify(qnaDTO);
+	public Map<String, String> modify(@PathVariable(name = "f_num") Long f_num, @RequestBody FaqDTO faqDTO) {
+		faqDTO.setF_num(f_num);
+		log.info("Modify: " + faqDTO);
+		faqService.modify(faqDTO);
 
 		return Map.of("RESULT", "SUCCESS");
 	}
@@ -79,7 +79,7 @@ public class QnaController {
 	@DeleteMapping("/{f_num}")
 	public Map<String, String> remove(@PathVariable(name = "f_num") Long f_num) {
 		log.info("Remove: " + f_num);
-		qnaService.remove(f_num);
+		faqService.remove(f_num);
 
 		return Map.of("RESULT", "SUSSESS");
 	}
