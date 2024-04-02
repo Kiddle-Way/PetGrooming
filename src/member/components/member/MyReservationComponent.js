@@ -109,7 +109,7 @@ const MyReservationComponent = () => {
                   <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 py-2">
                     <p className="font-medium">
                       <span className="font-medium">디자이너 이름:</span>{" "}
-                      {reservation.d_num.dname}
+                      {reservation.d_num.d_name}
                     </p>
                   </div>
                   <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 py-2">

@@ -47,15 +47,19 @@ const ListComponent = () => {
       );
       setServerData(result);
     } catch (error) {
-      console.error(error);
+      console.error("비회원 접근입니다:", error);
     }
   };
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
-      console.log(data);
-      setServerData(data);
-    });
+    getList({ page, size })
+      .then((data) => {
+        console.log(data);
+        setServerData(data);
+      })
+      .catch((error) => {
+        console.error("비회원 접근입니다:", error);
+      });
   }, [page, size, refresh, searchTerm]);
 
   const toggleAccordion = (id) => {
