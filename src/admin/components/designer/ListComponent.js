@@ -74,36 +74,37 @@ const SearchTestComponen = () => {
     setState(e.target.value);
   };
 
-  // 상태 변경 함수
-  const handleResignButtonClick = async (designer, event) => {
-    if (window.confirm("처리하시겠습니까나리?")) {
+   // 상태 변경 함수
+   const handleResignButtonClick = async (designer, event) => {
+    if (window.confirm("퇴직 처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.d_num, 1);
+        await updateDesignerState(designer.d_num, true);
         console.log("Designer has been fired successfully.");
         // 퇴직 처리 후 필요한 작업 수행
         // 새로고침 실행
+        fetchData(); // 데이터 다시 불러오기
       } catch (error) {
         console.error("Failed to fire designer:", error);
         // 에러 처리
       }
-      moveToList({ page: 1 });
     }
   };
 
   const handleRehireButtonClick = async (designer, event) => {
-    if (window.confirm("처리하시겠습니까?")) {
+    if (window.confirm("복직 처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.d_num, 0);
+        console.log(designer.d_num);
+        await updateDesignerState(designer.d_num, false);
         console.log("Designer has been rehired successfully.");
         // 복직 처리 후 필요한 작업 수행
         // 새로고침 실행
+        fetchData(); // 데이터 다시 불러오기
       } catch (error) {
         console.error("Failed to rehire designer:", error);
         // 에러 처리
       }
-      moveToList({ page: 1 });
     }
   };
 
@@ -133,66 +134,123 @@ const SearchTestComponen = () => {
         검색
       </button>
 
-      <div className="my-5 overflow-x-auto">
-        <table className="table text-center">
-          <thead>
-            <tr className="bg-green-100">
-              <th>번호</th>
-              <th>이름</th>
-              <th>생년월일</th>
-              <th>성별</th>
-              <th>전화번호</th>
-              <th>이메일</th>
-              <th>입사일</th>
-              <th>퇴사상태</th>
-              <th>복직/퇴사</th>
-            </tr>
-          </thead>
-          <tbody>
-            {serverData.dtoList && serverData.dtoList.length > 0 ? (
-              serverData.dtoList.map((designer) => (
-                <tr key={designer.dno}
-                className="cursor-pointer"
-                onClick={() => moveToRead(designer.d_num)}>
-                  <td>{designer.d_num}</td>
-                  <td>{designer.d_name}</td>
-                  <td>{designer.d_birth}</td>
-                  <td>{designer.d_gender ? "여자" : "남자"}</td>
-                  <td>{designer.d_phone}</td>
-                  <td>{designer.d_email}</td>
-                  <td>{designer.d_h_date}</td>
-                  <td>{designer.d_state === 0 ? "근무" : "퇴사"}</td>
-                  <td>
-                    {!designer.d_state ? (
-                      <input
-                        type="button"
-                        className="p-1 rounded border border-solid border-neutral-300 bg-blue-500 text-white cursor-pointer"
-                        onClick={(event) =>
-                          handleResignButtonClick(designer, event)
-                        }
-                        disabled={false}
-                        value="퇴사"
-                      />
-                    ) : (
-                      <input
-                        type="button"
-                        className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white cursor-pointer"
-                        onClick={(event) =>
-                          handleRehireButtonClick(designer, event)
-                        }
-                        value="복직"
-                      />
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="9">검색 결과가 없습니다.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      {/* 상품 목록 */}
+      <div className="flex flex-wrap mx-auto justify-center p-6">
+        <div className="w-full min-w-[400px] p-2 m-2 rounded shadow-md text-gray-800 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">
+          <div className="flex">
+            <div className="text-sm m-1 p-2 w-2/12 font-extrabold text-center">
+              번호
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              이름
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              생년월일
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              성별
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              전화번호
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              이메일
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              입사일
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              퇴사상태
+            </div>
+            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
+              복직/퇴사
+            </div>
+          </div>
+        </div>
+        {serverData.dtoList && serverData.dtoList.length > 0 ? (
+          serverData.dtoList.map((designer) => (
+            <div
+              key={designer.d_num}
+              className="w-full p-2 rounded shadow-md cursor-pointer"
+            >
+              <div className="flex">
+                <div
+                  className="text-sm w-2/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_num}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_name}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_birth}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_gender ? "여자" : "남자"}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_phone}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_email}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  {designer.d_h_date}
+                </div>
+                <div
+                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
+                  onClick={() => moveToRead(designer.d_num)}
+                >
+                  { designer.d_state ? "퇴사" : "근무"}
+                </div>
+
+                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
+                  {!designer.d_state ? (
+                    <input
+                      type="button"
+                      className="p-1 rounded border border-solid border-neutral-300 bg-blue-500 text-white"
+                      onClick={(event) =>
+                        handleResignButtonClick(designer, event)
+                      }
+                      disabled={false}
+                      value="퇴사"
+                    />
+                  ) : (
+                    <input
+                      type="button"
+                      className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white"
+                      onClick={(event) =>
+                        handleRehireButtonClick(designer, event)
+                      }
+                      value="복직"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center mt-4">검색 결과가 없습니다.</div>
+        )}
       </div>
       <PageComponent
         serverData={serverData}

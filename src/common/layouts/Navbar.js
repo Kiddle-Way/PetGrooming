@@ -125,18 +125,24 @@ const Navbar = () => {
             </div>
           )}
           {loginState.m_email && (
-            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
-              <Link to={"/member/logout"}>로그아웃</Link>
-            </div>
+            <>
+              <div className="text-black text-sm m-1 rounded">
+                <Link to={"/member/logout"}>로그아웃</Link>
+              </div>
+              <div className="text-blcak text-sm m-1 rounded">
+                <Link to={"/member/mypage"}>마이페이지</Link>
+              </div>
+              {/* 관리자인 경우에만 표시 */}
+              {loginState.isAdmin && (
+                <div className="text-black text-sm m-1 rounded">
+                  <Link to={"/statistics/sales"}>관리자</Link>
+                </div>
+              )}
+            </>
           )}
           {!loginState.m_email && (
             <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
               <Link to={"/member/join"}>회원가입</Link>
-            </div>
-          )}
-          {loginState.m_email && (
-            <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
-              <Link to={"/member/mypage"}>마이페이지</Link>
             </div>
           )}
         </div>
