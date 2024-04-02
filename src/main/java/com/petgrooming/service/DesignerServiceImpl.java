@@ -29,6 +29,8 @@ public class DesignerServiceImpl implements DesignerService {
 
 	private final DesignerRepository designerRepository;
 
+	
+	//검색
 	@Override
 	public PageResponseDTO<DesignerDTO> search(String keyword, Boolean state, Boolean gender,
 			PageRequestDTO pageRequestDTO) {
@@ -105,6 +107,8 @@ public class DesignerServiceImpl implements DesignerService {
 		return designerDTO;
 	}
 
+	
+	//수정
 	@Override
 	public void modify(DesignerDTO designerDTO) {
 		Optional<Designer> result = designerRepository.findById(designerDTO.getD_num());
@@ -132,11 +136,13 @@ public class DesignerServiceImpl implements DesignerService {
 		designerRepository.save(designer);
 	}
 
+	//퇴사,복직
 	@Override
 	public void updateState(Long d_num, boolean d_state) {
-		designerRepository.updateToState(d_num, true);
+		designerRepository.updateToState(d_num, d_state);
 	}
 
+	//조회
 	@Override
 	public PageResponseDTO<DesignerDTO> getlist(PageRequestDTO pageRequestDTO) {
 
