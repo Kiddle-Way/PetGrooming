@@ -10,6 +10,7 @@ const initState = {
   v_title: "",
   v_pw: "",
   v_content: "",
+  v_rating: 5,
   v_files: [],
   m_num: "1",
 };
@@ -52,6 +53,12 @@ const AddComponent = () => {
 
   const handleClickAdd = (e) => {
     const files = uploadRef.current.files;
+
+    if (!review.v_title || !review.v_pw || !review.v_content) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append("v_files", files[i]);
@@ -146,17 +153,14 @@ const AddComponent = () => {
           </textarea>
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
-          <div className="w-1/7 p-6 text-right font-bold">리뷰 사진</div>
-          <input
-            ref={uploadRef}
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300
-  shadow-md"
-            type={"file"}
-            multiple={true}
-          ></input>
-        </div>
+      <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
+        <input
+          ref={uploadRef}
+          className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 ml-28
+    shadow-md"
+          type={"file"}
+          multiple={true}
+        ></input>
       </div>
       <div className="flex justify-end">
         <div className="relative mb-4 flex p-4 flex-wrap items-stretch">

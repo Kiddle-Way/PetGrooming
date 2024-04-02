@@ -1,4 +1,5 @@
-import ListComponent from "../../components/Q&A/ListComponent";
+import ListComponent from "../../components/FAQ/ListComponent";
+
 const ListPage = () => {
   return (
     <div className="p-4 w-full bg-white">
@@ -6,4 +7,5 @@ const ListPage = () => {
     </div>
   );
 };
+
 export default ListPage;

@@ -56,7 +56,7 @@ const ReadComponent = ({ d_num }) => {
 
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">상태</div>
+          <div className="w-1/5 p-6 text-right font-bold">근무상태</div>
           <div className="w-4/5 p-6 rounded-r border border-solid shadow-md">
             {designer.d_state ? "퇴사" : "근무"}
           </div>

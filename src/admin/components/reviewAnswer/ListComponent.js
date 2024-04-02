@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getList, search } from "../../../common/api/reviewApi"; // getList 및 search 함수 import
 import useCustomMove from "../../../common/hooks/useCustomMove";
-import FetchingModal from "../../../common/components/FetchingModal";
 import PageComponent from "../../../common/components/PageComponent";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
 
@@ -21,7 +20,6 @@ const initState = {
 const ListComponent = () => {
   const { page, size, refresh, moveToList, moveToRead } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
-  const [fetching, setFetching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("제목");
   const [sortByRatingAsc, setSortByRatingAsc] = useState(true); // 별점 오름차순으로 정렬
@@ -38,7 +36,6 @@ const ListComponent = () => {
   const handleSearchButtonClick = async () => {
     const pageParam = { page: 1, size: 10 };
     try {
-      setFetching(true); // 검색 시작 시 로딩 표시
       const result = await search(
         searchType === "제목" ? "title" : "content",
         searchTerm,
@@ -47,8 +44,6 @@ const ListComponent = () => {
       setServerData(result); // 검색 결과로 서버 데이터 업데이트
     } catch (error) {
       console.error(error);
-    } finally {
-      setFetching(false); // 검색 완료 시 로딩 표시 제거
     }
   };
 
@@ -57,7 +52,6 @@ const ListComponent = () => {
       // 검색어가 비어있을 때 전체 목록을 불러옴
       getList({ page, size }).then((data) => {
         setServerData(data);
-        setFetching(false);
       });
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
@@ -75,57 +69,58 @@ const ListComponent = () => {
   };
 
   return (
-    <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-      {fetching ? <FetchingModal /> : null}
-      <div className="flex flex-wrap mx-auto p-6">
-        {serverData.dtoList.map((review) => (
-          <div
-            key={review.v_num}
-            className="w-1/2 p-1 rounded shadow-md border-2 flex"
-            onClick={() => moveToRead(review.v_num)}
-          >
-            <div className="flex flex-col h-full w-full">
-              <div className="font-extrabold text-lg p-2 w-full flex justify-between">
-                <span className="text-xl">{review.v_num}</span>
-                {review.v_c_content === "답변 미작성" ? (
-                  <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
-                    답변대기
+    <div className="overflow-x-auto">
+      <div className="table text-center">
+        <table className="table w-full">
+          <thead>
+            <tr className="flex bg-green-100">
+              <th className="w-2/12">게시물 번호</th>
+              <th className="w-5/12">제목</th>
+              <th className="w-2/12">별점</th>
+              <th className="w-3/12">작성자</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serverData.dtoList.map((review) => (
+              <tr
+                key={review.v_num}
+                className="flex cursor-pointer"
+                onClick={() => moveToRead(review.v_num)}
+              >
+                <td className="font-extrabold flex text-left m-1 text-1xl p-2 w-2/12">
+                  {review.v_num}
+                </td>
+                <td className="font-extrabold flex text-left m-1 text-1xl p-2 w-5/12">
+                  {review.v_title}
+                  <span
+                    className={`rounded-md px-2 text-sm ${
+                      review.v_c_content === "답변 미작성"
+                        ? "text-red-500 bg-red-100"
+                        : "text-green-500 bg-green-100"
+                    }`}
+                  >
+                    {review.v_c_content === "답변 미작성"
+                      ? "답변대기"
+                      : "답변완료"}
                   </span>
-                ) : (
-                  <span className="text-green-500 bg-green-100 rounded-md px-2 text-sm">
-                    답변완료
-                  </span>
-                )}
-              </div>
-              <div className="text-1xl m-1 p-2 w-full flex flex-col">
-                <div className="bottom-0 font-extrabold bg-yellow-300">
-                  <div className="text-center p-1">
-                    리뷰제목: {review.v_title}
-                  </div>
-                </div>
-              </div>
-              <div className="text-1xl m-1 p-2 w-full flex flex-col">
-                <div className="bottom-0 font-extrabold bg-yellow-200">
-                  <div className="text-center p-1">
-                    작성자: {review.m_num.m_email}
-                  </div>
-                </div>
-              </div>
-              <div className="text-1xl m-1 p-2 w-full flex flex-col">
-                <div className="flex justify-center bottom-0 font-extrabold bg-yellow-200 text-center p-1 items-center">
-                  <div className="mr-2">별점 :</div>
-                  {[...Array(review.v_rating)].map((a, i) => (
+                </td>
+                <td className="flex text-left m-1 text-1xl p-2 w-2/12">
+                  {[...Array(review.v_rating)].map((_, i) => (
                     <PiStarFill className="star-lg" key={i} />
                   ))}
-                  {[...Array(5 - review.v_rating)].map((a, i) => (
+                  {[...Array(5 - review.v_rating)].map((_, i) => (
                     <PiStarLight className="star-lg" key={i} />
                   ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+                </td>
+                <td className="flex text-left m-1 text-1xl p-2 w-3/12">
+                  {review.m_num.m_email}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
       <div>
         <PageComponent
           serverData={serverData}

@@ -8,10 +8,10 @@ import reserveRouter from "../../member/router/reserve/reserveRouters";
 import reviewRouter from "../../member/router/review/reviewRouter";
 import inquiryRouter from "../../member/router/inquiry/inquiryRouter";
 import memberRouter from "../../member/router/member/memberRouter";
-import qnaRouter from "../../admin/router/Q&A/QnaRouter";
+import faqRouter from "../../admin/router/FAQ/FaqRouter";
 import ReviewAnswerRouter from "../../admin/router/reviewAnswer/ReviewAnswerRouter";
 import inquiryAnswerRouter from "../../admin/router/inquiryAnswer/inquiryAnswerRouter";
-import memberqnaRouter from "../../member/router/Q&A/qnaRouter";
+import memberfaqRouter from "../../member/router/FAQ/faqRouter";
 import noticeRouter2 from "../../member/router/notice/noticeRouter";
 import statisticsRouter from "../../admin/router/statistics/StatisticsRoter";
 import adminReserveRouter from "../../admin/router/reserve/reserveRouter";
@@ -24,10 +24,10 @@ const DesignerIndex = lazy(() =>
 );
 const ProductsIndex = lazy(() => import("../../admin/pages/product/IndexPage"));
 const NoticeIndex = lazy(() => import("../../admin/pages/notice/IndexPage"));
-const QnaIndex = lazy(() => import("../../admin/pages/Q&A/IndexPage"));
+const FaqIndex = lazy(() => import("../../admin/pages/FAQ/IndexPage"));
 const Guide = lazy(() => import("../../member/pages/guide/GuidePage"));
 // const DesignerList = lazy(() => import("../../admin/pages/designer/ListPage"));
-const MemberQnaIndex = lazy(() => import("../../member/pages/Q&A/IndexPage"));
+const MemberFaqIndex = lazy(() => import("../../member/pages/FAQ/IndexPage"));
 const ReserveIndex = lazy(() => import("../../member/pages/reserve/IndexPage"));
 const ReviewIndex = lazy(() => import("../../member/pages/review/IndexPage"));
 const InquiryIndex = lazy(() => import("../../member/pages/inquiry/IndexPage"));
@@ -142,13 +142,13 @@ const root = createBrowserRouter([
     children: noticeRouter(),
   },
   {
-    path: "qna",
+    path: "faq",
     element: (
       <Suspense fallback={Loading}>
-        <QnaIndex />
+        <FaqIndex />
       </Suspense>
     ),
-    children: qnaRouter(),
+    children: faqRouter(),
   },
   {
     path: "reviewAnswer",
@@ -169,13 +169,13 @@ const root = createBrowserRouter([
     children: inquiryAnswerRouter(),
   },
   {
-    path: "memberqna",
+    path: "memberfaq",
     element: (
       <Suspense fallback={Loading}>
-        <MemberQnaIndex />
+        <MemberFaqIndex />
       </Suspense>
     ),
-    children: memberqnaRouter(),
+    children: memberfaqRouter(),
   },
   {
     path: "memnotice",

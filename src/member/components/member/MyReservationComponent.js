@@ -12,8 +12,8 @@ const MyReservationComponent = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const navigate = useNavigate();
 
-   // 함수를 사용하여 시간 열거형 값을 형식화하는 함수
-   const formatTimeEnum = (enumValue) => {
+  // 함수를 사용하여 시간 열거형 값을 형식화하는 함수
+  const formatTimeEnum = (enumValue) => {
     switch (enumValue) {
       case "TIME_1":
         return "09:00~11:00";
@@ -22,7 +22,7 @@ const MyReservationComponent = () => {
       case "TIME_3":
         return "14:00~16:00";
       case "TIME_4":
-        return "16:00~18:00";  
+        return "16:00~18:00";
       default:
         return "";
     }
@@ -55,7 +55,7 @@ const MyReservationComponent = () => {
       setCurrentTime(new Date());
       console.log(reservations);
     }, 1000);
-  
+
     return () => clearInterval(interval);
   }, []);
 
@@ -109,7 +109,7 @@ const MyReservationComponent = () => {
                   <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 py-2">
                     <p className="font-medium">
                       <span className="font-medium">디자이너 이름:</span>{" "}
-                      {reservation.d_num.dname}
+                      {reservation.d_num.d_name}
                     </p>
                   </div>
                   <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 py-2">
@@ -177,7 +177,15 @@ const MyReservationComponent = () => {
           )}
         </div>
       )}
-      <div className="text-center">
+      {/* 화불규정 텍스트 */}
+      <div className="text-center mt-8">
+        <p className="text-gray-600 text-sm">
+          *당일 예약 취소는 불가능합니다.
+          자세한 환불 관련 내용은 미용안내 페이지를 참고해주십시오.
+        </p>
+      </div>
+      {/* 돌아가기 버튼 */}
+      <div className="text-center mt-4">
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
           onClick={goToLoginPage}

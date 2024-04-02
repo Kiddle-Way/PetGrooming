@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import ModifyComponent from "../../components/Q&A/ModifyComponent";
+import ModifyComponent from "../../components/FAQ/ModifyComponent";
 
 const ModifyPage = () => {
   const { f_num } = useParams();

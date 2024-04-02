@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getList, search } from "../../../common/api/QnaApi";
+import { getList, search } from "../../../common/api/FaqApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
-import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -18,7 +17,7 @@ const initState = {
 };
 
 const ListComponent = () => {
-  const { page, size, refresh, moveToList, moveToModify } = useCustomMove();
+  const { page, size, refresh, moveToList } = useCustomMove();
 
   const [serverData, setServerData] = useState(initState);
   const [expandedId, setExpandedId] = useState(null);
@@ -48,15 +47,19 @@ const ListComponent = () => {
       );
       setServerData(result);
     } catch (error) {
-      console.error(error);
+      console.error("비회원 접근입니다:", error);
     }
   };
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
-      console.log(data);
-      setServerData(data);
-    });
+    getList({ page, size })
+      .then((data) => {
+        console.log(data);
+        setServerData(data);
+      })
+      .catch((error) => {
+        console.error("비회원 접근입니다:", error);
+      });
   }, [page, size, refresh, searchTerm]);
 
   const toggleAccordion = (id) => {
@@ -66,27 +69,21 @@ const ListComponent = () => {
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">
-        {serverData.dtoList.map((qna) => (
+        {serverData.dtoList.map((faq) => (
           <div
-            key={qna.f_num}
+            key={faq.f_num}
             className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
           >
             <div
               className="flex cursor-pointer justify-between items-center"
-              onClick={() => toggleAccordion(qna.f_num)}
+              onClick={() => toggleAccordion(faq.f_num)}
             >
               <div className="text-1xl m-1 p-2 font-extrabold">
-                Q.{qna.f_title}
+                Q.{faq.f_title}
               </div>
-              <button
-                onClick={() => moveToModify(qna.f_num)}
-                className="text-white bg-orange-500 rounded-md px-4 py-2"
-              >
-                수정
-              </button>
             </div>
-            {expandedId === qna.f_num && (
-              <div className="p-2">A.{qna.f_content}</div>
+            {expandedId === faq.f_num && (
+              <div className="p-2">A.{faq.f_content}</div>
             )}
           </div>
         ))}
@@ -123,15 +120,6 @@ const ListComponent = () => {
             검색
           </button>
         </div>
-      </div>
-      <div className="flex justify-end p-4">
-        <Link
-          to={"/qna/add"}
-          type="button"
-          className="inline-block rounded p-2 m-2 text-center w-32 text-white bg-blue-500"
-        >
-          글쓰기
-        </Link>
       </div>
     </div>
   );

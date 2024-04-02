@@ -60,6 +60,12 @@ const ModifyComponent = ({ v_num }) => {
   };
 
   const handleClickModify = () => {
+
+     if (!review.v_title || !review.v_content || !review.v_pw || isNaN(review.v_pw)) {
+    alert("리뷰 제목, 내용, 비밀번호는 필수 입력 항목이며, 비밀번호는 숫자로 입력되어야 합니다.");
+    return;
+  }
+
     const files = uploadRef.current.files;
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
