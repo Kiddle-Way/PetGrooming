@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QnaDTO {
+	// 자주묻는질문 번호
 	private Long f_num;
+	// 자주묻는질문 제목
 	private String f_title;
+	// 자주묻는질문 내용
 	private String f_content;
 }

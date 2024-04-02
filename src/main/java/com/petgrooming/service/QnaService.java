@@ -15,8 +15,8 @@ public interface QnaService {
 	void remove(Long f_num);
 
 	PageResponseDTO<QnaDTO> list(PageRequestDTO pageRequestDTO);
-	
-	PageResponseDTO<QnaDTO> getSearchTitleList(PageRequestDTO pageRequestDTO,String searchTitle);
-	
+
+	PageResponseDTO<QnaDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle);
+
 	PageResponseDTO<QnaDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent);
 }

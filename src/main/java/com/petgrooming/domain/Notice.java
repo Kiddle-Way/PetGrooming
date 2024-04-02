@@ -26,23 +26,29 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notice {
+	// 공지사항 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
 	private Long n_num;
-	
+
+	// 공지사항유형
 	@Column(nullable = false, length = 100)
 	private String n_head;
 
+	// 공지사항제목
 	@Column(nullable = false, length = 100)
 	private String n_title;
 
+	// 공지사항 내용
 	@Column(nullable = false, length = 2000)
 	private String n_content;
 
+	// 등록 날짜
 	@CreationTimestamp
 	@Column(nullable = false)
 	private LocalDate n_reg;
 
+	// 삭제
 	private boolean delFlag;
 
 	public void changeDel(boolean delFlag) {
@@ -56,7 +62,7 @@ public class Notice {
 	public void changeHead(String n_head) {
 		this.n_head = n_head;
 	}
-	
+
 	public void changeTitle(String n_title) {
 		this.n_title = n_title;
 	}

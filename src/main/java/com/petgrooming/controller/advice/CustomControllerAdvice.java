@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.petgrooming.util.CustomJWTException;
 
+//컨트롤러에서 발생하는 예외를 처리하기 위한 컨트롤러 어드바이스 클래스입니다.
 @RestControllerAdvice
 public class CustomControllerAdvice {
 	@ExceptionHandler(NoSuchElementException.class)

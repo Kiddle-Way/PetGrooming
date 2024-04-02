@@ -9,30 +9,30 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 
 public interface ProductService {
-    // 등록 기능
-    Long register(ProductDTO productDTO);
+	// 등록 기능
+	Long register(ProductDTO productDTO);
 
-    // 조회 기능
-    ProductDTO get(Long p_num);
+	// 조회 기능
+	ProductDTO get(Long p_num);
 
-    // 수정 기능
-    void modify(ProductDTO productDTO);
+	// 수정 기능
+	void modify(ProductDTO productDTO);
 
-    // 삭제 기능
-    void remove(Long p_num);
+	// 삭제 기능
+	void remove(Long p_num);
 
-    // 목록 구현
-    PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO);
+	// 목록 구현
+	PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO);
 
-    //검색 기능
-    PageResponseDTO<ProductDTO> search(String keyword, PageRequestDTO pageRequestDTO);
+	// 검색 기능
+	PageResponseDTO<ProductDTO> search(String keyword, PageRequestDTO pageRequestDTO);
 
-    //필수상품 카테고리 조회
-    List<ProductDTO> findEssentialProductsCategory();
-    
-    // 필수상품 목록 조회
-    List<ProductDTO> findEssentialProducts(String p_name);
+	// 필수상품 카테고리 조회
+	List<ProductDTO> findEssentialProductsCategory();
 
-    // 추가상품 목록 조회
-    List<ProductDTO> listAdditionalProducts();
+	// 필수상품 목록 조회
+	List<ProductDTO> findEssentialProducts(String p_name);
+
+	// 추가상품 목록 조회
+	List<ProductDTO> listAdditionalProducts();
 }

@@ -15,20 +15,25 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Inquiry {
+	// 문의 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INQUIRY_SEQ_GEN")
-	// 사용할 전략을 시퀀스로 선택, 식별자 생성기를 설정해 놓은 INQUIRY_SEQ_GEN으로 설정
 	private Long i_num;
-	
-	@ManyToOne(optional = false)
-    @JoinColumn(name = "m_num", referencedColumnName = "m_num")
-    private Member m_num;
-	
-	private Long i_pw;
-	private String i_title;
-	private String i_content;
-	private boolean i_delFlag;
 
+	// 문의한 회원 번호
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "m_num", referencedColumnName = "m_num")
+	private Member m_num;
+
+	// 문의 비밀번호
+	private Long i_pw;
+	// 문의 제목
+	private String i_title;
+	// 문의 내용
+	private String i_content;
+	// 문의 삭제
+	private boolean i_delFlag;
+	// 문의 답글 내용
 	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
 	private String i_a_content;
 

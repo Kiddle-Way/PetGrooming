@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 
+//JWT 토큰을 검증하고 인증 정보를 설정하는 필터 클래스입니다.
 @Log4j2
 public class JWTCheckFilter extends OncePerRequestFilter {
 	@Override
@@ -28,26 +29,26 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 		log.info("---------------------- JWTCheckFilter --------------------");
 		String authHeaderStr = request.getHeader("Authorization");
 		if (authHeaderStr == null) {
-		    // authHeaderStr이 null인 경우에 대한 예외 처리
-		    // 로그를 출력하고 예외를 던집니다.
-		    log.error("Authentication header is null. Unable to process JWT token.");
-		    throw new IllegalStateException("Authentication header is null");
+			// authHeaderStr이 null인 경우에 대한 예외 처리
+			// 로그를 출력하고 예외를 던집니다.
+			log.error("Authentication header is null. Unable to process JWT token.");
+			throw new IllegalStateException("Authentication header is null");
 		} else {
-		    // authHeaderStr이 null이 아닌 경우에는 기존의 로직을 수행합니다.
-		    // JWT 토큰 확인 등의 작업을 이곳에 수행합니다.
-		    // 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
-		    // performJWTValidation(authHeaderStr);
+			// authHeaderStr이 null이 아닌 경우에는 기존의 로직을 수행합니다.
+			// JWT 토큰 확인 등의 작업을 이곳에 수행합니다.
+			// 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
+			// performJWTValidation(authHeaderStr);
 		}
 		if (authHeaderStr == null) {
-		    // authHeaderStr이 null인 경우에 대한 예외 처리
-		    // 로그를 출력하고 예외를 던집니다.
-		    log.error("Authentication header is null. Unable to process JWT token.");
-		    throw new IllegalStateException("Authentication header is null");
+			// authHeaderStr이 null인 경우에 대한 예외 처리
+			// 로그를 출력하고 예외를 던집니다.
+			log.error("Authentication header is null. Unable to process JWT token.");
+			throw new IllegalStateException("Authentication header is null");
 		} else {
-		    // authHeaderStr이 null이 아닌 경우에는 기존의 로직을 수행합니다.
-		    // JWT 토큰 확인 등의 작업을 이곳에 수행합니다.
-		    // 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
-		    // performJWTValidation(authHeaderStr);
+			// authHeaderStr이 null이 아닌 경우에는 기존의 로직을 수행합니다.
+			// JWT 토큰 확인 등의 작업을 이곳에 수행합니다.
+			// 예를 들어, 다음과 같이 작업을 수행할 수 있습니다:
+			// performJWTValidation(authHeaderStr);
 		}
 		try {
 			// Bearer accestoken...
@@ -56,26 +57,26 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 			log.info("JWT claims: " + claims);
 
 			// filterChain.doFilter(request, response); //이하 추가
-	         Integer m_num = (Integer) claims.get("m_num");
-	         String m_name = (String) claims.get("m_name");
-	         Long m_birthLong = (Long) claims.get("m_birth");
-	         Date m_birth = new Date(m_birthLong);
-	         int m_gender = (int) claims.get("m_gender");
-	         String m_pw = (String) claims.get("m_pw");
-	         String m_email = (String) claims.get("m_email");
-	         String m_phone = (String) claims.get("m_phone");
-	         String m_addr = (String) claims.get("m_addr");
-	         String dog_breed = (String) claims.get("dog_breed");
-	         String dog_name = (String) claims.get("dog_name");
-	         Long dog_birthLong = (Long) claims.get("dog_birth");
-	         Date dog_birth = (dog_birthLong != null) ? new Date(dog_birthLong) : null; // null 체크 추가
-	         String dog_notice = (String) claims.get("dog_notice");
-	         Boolean m_state = (Boolean) claims.get("m_state");
-	         Boolean m_agree = (Boolean) claims.get("m_agree");
-	         List<String> roleNames = (List<String>) claims.get("roleNames");
+			Integer m_num = (Integer) claims.get("m_num");
+			String m_name = (String) claims.get("m_name");
+			Long m_birthLong = (Long) claims.get("m_birth");
+			Date m_birth = new Date(m_birthLong);
+			int m_gender = (int) claims.get("m_gender");
+			String m_pw = (String) claims.get("m_pw");
+			String m_email = (String) claims.get("m_email");
+			String m_phone = (String) claims.get("m_phone");
+			String m_addr = (String) claims.get("m_addr");
+			String dog_breed = (String) claims.get("dog_breed");
+			String dog_name = (String) claims.get("dog_name");
+			Long dog_birthLong = (Long) claims.get("dog_birth");
+			Date dog_birth = (dog_birthLong != null) ? new Date(dog_birthLong) : null; // null 체크 추가
+			String dog_notice = (String) claims.get("dog_notice");
+			Boolean m_state = (Boolean) claims.get("m_state");
+			Boolean m_agree = (Boolean) claims.get("m_agree");
+			List<String> roleNames = (List<String>) claims.get("roleNames");
 
-	         MemberDTO memberDTO = new MemberDTO(m_num.longValue(), m_name, m_birth, m_gender, m_email, m_pw, m_phone, m_addr,
-	                 dog_breed, dog_name, dog_birth, dog_notice, m_state, m_agree, roleNames);
+			MemberDTO memberDTO = new MemberDTO(m_num.longValue(), m_name, m_birth, m_gender, m_email, m_pw, m_phone,
+					m_addr, dog_breed, dog_name, dog_birth, dog_notice, m_state, m_agree, roleNames);
 
 			log.info("-----------------------------------");
 			log.info(memberDTO);
@@ -110,27 +111,27 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 		if (path.startsWith("/api/member/")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/review/view")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/inquiry/view")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/designer/view")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/designer/view")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/notice/view")) {
 			return true;
 		}
-		
+
 		if (path.startsWith("/api/availabletime")) {
 			return true;
 		}

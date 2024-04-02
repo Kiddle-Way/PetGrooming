@@ -44,15 +44,14 @@ public class DesignerController {
 	private final DesignerService service; // DesignerService 주입
 	private final CustomFileUtil fileUtil;
 
-	
-	//read
+	// read
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{d_num}")
 	public DesignerDTO read(@PathVariable(name = "d_num") Long d_num) {
 		return service.get(d_num);
 	}
 
-	//getlist
+	// getlist
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<DesignerDTO> list(PageRequestDTO pageRequestDTO) {
@@ -61,7 +60,7 @@ public class DesignerController {
 		return service.getlist(pageRequestDTO);
 	}
 
-	//add
+	// add
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(DesignerDTO designerDTO) {
@@ -78,13 +77,13 @@ public class DesignerController {
 		return Map.of("RESULT", d_num);
 	}
 
-	//img read
+	// img read
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
 
-	//modify
+	// modify
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{d_num}")
 	public Map<String, String> modify(@PathVariable(name = "d_num") Long d_num, DesignerDTO designerDTO) {
@@ -114,14 +113,14 @@ public class DesignerController {
 
 		return Map.of("RESULT", "SUCCESS");
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	@PutMapping("/{d_num}/{state}")
 	public ResponseEntity<Void> updateDesignerState(@PathVariable Long d_num, @PathVariable boolean state) {
-	    service.updateState(d_num, state);
-	    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		service.updateState(d_num, state);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
-	
+
 	// 김선명추가 지우지마시오
 	private void addAvailableTimeslotsForDesigner(Long d_num) {
 		LocalDate currentDate = LocalDate.now();

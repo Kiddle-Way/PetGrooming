@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class DesignerImage {
 
-	private String fileName;  //파일이름
+	private String fileName; // 파일이름
 	private int ord; // 순서
 
 	public void setOrd(int ord) {

@@ -69,18 +69,7 @@ public class NoticeController {
 		return service.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
-	// 공지사항 머리말검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
-	@GetMapping("/list/searchcontent/{searchHead}")
-	public PageResponseDTO<NoticeDTO> searchHeadlist(PageRequestDTO pageRequestDTO,
-			@PathVariable("searchHead") String searchHead) {
-		log.info("list........" + pageRequestDTO);
-
-		return service.getSearchHeadList(pageRequestDTO, searchHead);
-	}
-
 	// 공지사항 등록
-
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(NoticeDTO noticeDTO) {

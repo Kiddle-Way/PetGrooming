@@ -18,20 +18,26 @@ public interface ReserveService {
 	// 지난 예약 내역 리스트
 	PageResponseDTO<ReserveDTO> pastList(PageRequestDTO pageRequestDTO);
 
-    PageResponseDTO<ReserveDTO> getList(PageRequestDTO pageRequestDTO);
+	// 예약 리스트 불러오기
+	PageResponseDTO<ReserveDTO> getList(PageRequestDTO pageRequestDTO);
 
-    PageResponseDTO<ReserveDTO> getRequestList(PageRequestDTO pageRequestDTO);
+	// 예약 취소요청 리스트 불러오기
+	PageResponseDTO<ReserveDTO> getRequestList(PageRequestDTO pageRequestDTO);
 
-    Long register(ReserveDTO reserveDTO);
+	// 예약 등록
+	Long register(ReserveDTO reserveDTO);
 
-    ReserveDTO get(Long tno);
+	// 예약 정보 불러오기
+	ReserveDTO get(Long tno);
 
-    void removeRequest(Long r_num);
+	// 예약 취소 요청
+	void removeRequest(Long r_num);
 
-    void remove(Long r_num);
+	// 예약 취소 승인
+	void remove(Long r_num);
 
-    // 내 예약 확인
-    PageResponseDTO<ReserveDTO> findReserveByMemberNumber(Long m_num, PageRequestDTO pageRequestDTO);
+	// 내 예약 확인
+	PageResponseDTO<ReserveDTO> findReserveByMemberNumber(Long m_num, PageRequestDTO pageRequestDTO);
 
 	// 전체 매출
 	Long getTotalPrice();

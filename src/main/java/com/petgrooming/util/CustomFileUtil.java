@@ -28,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+
+//파일 관련 유틸리티 클래스입니다.
 @Component
 @Log4j2
 @RequiredArgsConstructor

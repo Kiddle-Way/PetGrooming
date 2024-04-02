@@ -13,13 +13,16 @@ import lombok.*;
 @NoArgsConstructor
 public class Qna {
 
+	// 자주묻는질문 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QNA_SEQ_GEN")
 	private Long f_num;
 
+	// 자주묻는질문 제목
 	@Column(nullable = false, length = 100)
 	private String f_title;
 
+	// 자주묻는질문 내용
 	@Column(nullable = false, length = 2000)
 	private String f_content;
 

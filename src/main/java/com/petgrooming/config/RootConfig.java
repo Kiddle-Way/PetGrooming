@@ -5,6 +5,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//루트 설정 클래스입니다.
 @Configuration
 public class RootConfig {
 	@Bean
