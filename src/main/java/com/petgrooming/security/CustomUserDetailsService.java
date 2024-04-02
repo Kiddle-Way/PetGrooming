@@ -11,6 +11,7 @@ import com.petgrooming.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//사용자 인증을 위한 사용자 정보 조회 서비스 클래스입니다.
 @Service
 @Log4j2
 @RequiredArgsConstructor

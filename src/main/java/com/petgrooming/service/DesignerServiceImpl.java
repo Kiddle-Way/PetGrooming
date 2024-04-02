@@ -29,8 +29,7 @@ public class DesignerServiceImpl implements DesignerService {
 
 	private final DesignerRepository designerRepository;
 
-	
-	//검색
+	// 검색
 	@Override
 	public PageResponseDTO<DesignerDTO> search(String keyword, Boolean state, Boolean gender,
 			PageRequestDTO pageRequestDTO) {
@@ -56,6 +55,7 @@ public class DesignerServiceImpl implements DesignerService {
 		return pageResponseDTO;
 	}
 
+	// Designer 엔티티 객체를 DesignerDTO 데이터 전송 객체로 변환
 	private DesignerDTO entityToDTO(Designer designer) {
 		DesignerDTO designerDTO = DesignerDTO.builder().d_num(designer.getD_num()).d_name(designer.getD_name())
 				.d_birth(designer.getD_birth()).d_gender(designer.isD_gender()).d_phone(designer.getD_phone())
@@ -72,6 +72,7 @@ public class DesignerServiceImpl implements DesignerService {
 		return designerDTO;
 	}
 
+	// DesignerDTO 데이터 전송 객체를 Designer 엔티티 객체로 변환
 	private Designer dtoToEntity(DesignerDTO designerDTO) {
 		Designer designer = Designer.builder().d_num(designerDTO.getD_num()).d_name(designerDTO.getD_name())
 				.d_birth(designerDTO.getD_birth()).d_gender(designerDTO.isD_gender()).d_phone(designerDTO.getD_phone())
@@ -88,6 +89,7 @@ public class DesignerServiceImpl implements DesignerService {
 		return designer;
 	}
 
+	// 등록
 	@Override
 	public Long register(DesignerDTO designerDTO) {
 		log.info("-----------");
@@ -98,6 +100,7 @@ public class DesignerServiceImpl implements DesignerService {
 		return result.getD_num();
 	}
 
+	// 정보 불러오기
 	@Override
 	public DesignerDTO get(Long d_num) {
 		java.util.Optional<Designer> result = designerRepository.selectOne(d_num);
@@ -107,8 +110,7 @@ public class DesignerServiceImpl implements DesignerService {
 		return designerDTO;
 	}
 
-	
-	//수정
+	// 수정
 	@Override
 	public void modify(DesignerDTO designerDTO) {
 		Optional<Designer> result = designerRepository.findById(designerDTO.getD_num());
@@ -136,13 +138,14 @@ public class DesignerServiceImpl implements DesignerService {
 		designerRepository.save(designer);
 	}
 
-	//퇴사,복직
+	// 상태전환
 	@Override
 	public void updateState(Long d_num, boolean d_state) {
 		designerRepository.updateToState(d_num, d_state);
+		designerRepository.updateToState(d_num, d_state);
 	}
 
-	//조회
+	// 리스트불러오기
 	@Override
 	public PageResponseDTO<DesignerDTO> getlist(PageRequestDTO pageRequestDTO) {
 
@@ -156,7 +159,7 @@ public class DesignerServiceImpl implements DesignerService {
 					.d_birth(designer.getD_birth()).d_gender(designer.isD_gender()).d_phone(designer.getD_phone())
 					.d_email(designer.getD_email()).d_h_date(designer.getD_h_date()).d_state(designer.isD_state())
 					.d_intro(designer.getD_intro()).build();
-			
+
 			List<DesignerImage> imageList = designer.getImageList();
 
 			if (imageList == null || imageList.size() == 0) {
@@ -164,7 +167,7 @@ public class DesignerServiceImpl implements DesignerService {
 			}
 			List<String> fileNameList = imageList.stream().map(noticeImage -> noticeImage.getFileName()).toList();
 			designerDTO.setD_uploadFileNames(fileNameList);
-			
+
 			return designerDTO;
 		}).collect(Collectors.toList());
 

@@ -19,19 +19,26 @@ import org.hibernate.annotations.DynamicInsert;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Review {
+	// 리뷰 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REVIEW_SEQ_GEN")
 	private Long v_num;
-	
+
+	// 회원 번호
 	@ManyToOne(optional = false)
-    @JoinColumn(name = "m_num", referencedColumnName = "m_num")
-    private Member m_num;
-	
+	@JoinColumn(name = "m_num", referencedColumnName = "m_num")
+	private Member m_num;
+
+	// 리뷰비밀번호
 	private Long v_pw;
+	// 리뷰 제목
 	private String v_title;
+	// 리뷰 내용
 	private String v_content;
+	// 리뷰 삭제
 	private boolean v_delFlag;
-	
+
+	// 별점
 	private Long v_rating;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
@@ -74,7 +81,7 @@ public class Review {
 	public void changeV_c_content(String v_c_content) {
 		this.v_c_content = v_c_content;
 	}
-	
+
 	public void addImage(ReviewImage image) {
 		image.setOrd(this.imageList.size());
 		imageList.add(image);

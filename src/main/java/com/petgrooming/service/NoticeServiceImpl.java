@@ -31,6 +31,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	private final NoticeRepository noticeRepository;
 
+	// 등록
 	@Override
 	public Long register(NoticeDTO noticeDTO) {
 		log.info("-----------");
@@ -41,6 +42,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return result.getN_num();
 	}
 
+	// DesignerDTO 데이터 전송 객체를 Designer 엔티티 객체로 변환
 	private Notice dtoToEntity(NoticeDTO noticeDTO) {
 		Notice notice = Notice.builder().n_num(noticeDTO.getN_num()).n_head(noticeDTO.getN_head())
 				.n_title(noticeDTO.getN_title()).n_content(noticeDTO.getN_content()).n_reg(noticeDTO.getN_reg())
@@ -56,6 +58,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return notice;
 	}
 
+	// 정보 불러오기
 	@Override
 	public NoticeDTO get(Long n_num) {
 		java.util.Optional<Notice> result = noticeRepository.selectOne(n_num);
@@ -65,6 +68,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDTO;
 	}
 
+	// Designer 엔티티 객체를 DesignerDTO 데이터 전송 객체로 변환
 	private NoticeDTO entityToDTO(Notice notice) {
 		NoticeDTO noticeDTO = NoticeDTO.builder().n_num(notice.getN_num()).n_head(notice.getN_head())
 				.n_title(notice.getN_title()).n_content(notice.getN_content()).n_reg(notice.getN_reg()).build();
@@ -79,6 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDTO;
 	}
 
+	// 수정
 	@Override
 	public void modify(NoticeDTO noticeDTO) {
 		Optional<Notice> result = noticeRepository.findById(noticeDTO.getN_num());
@@ -102,11 +107,13 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeRepository.save(notice);
 	}
 
+	// 상태 전환
 	@Override
 	public void remove(Long n_num) {
 		noticeRepository.updateToDelete(n_num, true);
 	}
 
+	// 리스트 불러오기
 	@Override
 	public PageResponseDTO<NoticeDTO> getlist(PageRequestDTO pageRequestDTO) {
 
@@ -128,6 +135,7 @@ public class NoticeServiceImpl implements NoticeService {
 				.pageRequestDTO(pageRequestDTO).build();
 	}
 
+	// 제목검색
 	@Override
 	public PageResponseDTO<NoticeDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
 
@@ -149,6 +157,7 @@ public class NoticeServiceImpl implements NoticeService {
 				.pageRequestDTO(pageRequestDTO).build();
 	}
 
+	// 내용 검색
 	@Override
 	public PageResponseDTO<NoticeDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent) {
 

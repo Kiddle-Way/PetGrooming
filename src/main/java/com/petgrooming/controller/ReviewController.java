@@ -33,7 +33,8 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	private final CustomFileUtil fileUtil;
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 등록
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(ReviewDTO reviewDTO) {
 		log.info("rgister: " + reviewDTO);
@@ -46,39 +47,47 @@ public class ReviewController {
 		return Map.of("result", v_num);
 	}
 
+	// 이미지 읽기
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 리스트 불러오기
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<ReviewDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getList(pageRequestDTO);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 제목 검색
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
-	public PageResponseDTO<ReviewDTO> searchTitlelist(PageRequestDTO pageRequestDTO, @PathVariable("searchTitle") String searchTitle) {
+	public PageResponseDTO<ReviewDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
+			@PathVariable("searchTitle") String searchTitle) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getSearchTitleList(pageRequestDTO, searchTitle);
 	}
-		
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+
+	// 내용 검색
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
-	public PageResponseDTO<ReviewDTO> searchContentlist(PageRequestDTO pageRequestDTO, @PathVariable("searchContent") String searchContent) {
+	public PageResponseDTO<ReviewDTO> searchContentlist(PageRequestDTO pageRequestDTO,
+			@PathVariable("searchContent") String searchContent) {
 		log.info("list............." + pageRequestDTO);
 		return reviewService.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 정보 불러오기
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{v_num}")
 	public ReviewDTO read(@PathVariable(name = "v_num") Long v_num) {
 		return reviewService.get(v_num);
 	}
- 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+
+	// 수정
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{v_num}")
 	public Map<String, String> modify(@PathVariable(name = "v_num") Long v_num, ReviewDTO reviewDTO) {
 		reviewDTO.setV_num(v_num);
@@ -107,7 +116,8 @@ public class ReviewController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 상태 전환
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@DeleteMapping("/{v_num}")
 	public Map<String, String> remove(@PathVariable("v_num") Long v_num) {
 

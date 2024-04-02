@@ -13,16 +13,16 @@ import lombok.*;
 @NoArgsConstructor
 public class Faq {
 
-	// faq 글번호
+	// 자주묻는질문 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAQ_SEQ_GEN")
 	private Long f_num;
 
-	// faq 제목
+	// 자주묻는질문 제목
 	@Column(nullable = false, length = 100)
 	private String f_title;
 
-	// faq 내용
+	// 자주묻는질문 내용
 	@Column(nullable = false, length = 2000)
 	private String f_content;
 

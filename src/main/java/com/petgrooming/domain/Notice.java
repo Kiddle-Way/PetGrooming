@@ -30,12 +30,12 @@ public class Notice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
 	private Long n_num;
-	
-	// 공지사항 말머리
+
+	// 공지사항유형
 	@Column(nullable = false, length = 100)
 	private String n_head;
 
-	// 공지사항 제목
+	// 공지사항제목
 	@Column(nullable = false, length = 100)
 	private String n_title;
 
@@ -43,12 +43,12 @@ public class Notice {
 	@Column(nullable = false, length = 2000)
 	private String n_content;
 
-	// 공지사항 작성시간
+	// 등록 날짜
 	@CreationTimestamp
 	@Column(nullable = false)
 	private LocalDate n_reg;
 
-	// 삭제처리
+	// 삭제
 	private boolean delFlag;
 
 	// 삭제시 값변경
@@ -65,8 +65,7 @@ public class Notice {
 	public void changeHead(String n_head) {
 		this.n_head = n_head;
 	}
-	
-	// 제목 수정 메서드
+
 	public void changeTitle(String n_title) {
 		this.n_title = n_title;
 	}

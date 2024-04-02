@@ -30,6 +30,7 @@ public class FaqServiceImpl implements FaqService {
 	private final ModelMapper modelMapper;
 	private final FaqRepository faqRepository;
 
+	// 등록
 	@Override
 	public Long register(FaqDTO faqDTO) {
 		log.info("-----------");
@@ -40,6 +41,7 @@ public class FaqServiceImpl implements FaqService {
 		return savedFaq.getF_num();
 	}
 
+	// 정보불러오기
 	@Override
 	public FaqDTO read(Long f_num) {
 		java.util.Optional<Faq> result = faqRepository.findById(f_num);
@@ -50,6 +52,7 @@ public class FaqServiceImpl implements FaqService {
 		return dto;
 	}
 
+	// 수정
 	@Override
 	public void modify(FaqDTO faqDTO) {
 		Optional<Faq> result = faqRepository.findById(faqDTO.getF_num());
@@ -62,11 +65,13 @@ public class FaqServiceImpl implements FaqService {
 		faqRepository.save(faq);
 	}
 
+	// 삭제
 	@Override
 	public void remove(Long f_num) {
 		faqRepository.deleteById(f_num);
 	}
 
+	// 리스트 불러오기
 	@Override
 	public PageResponseDTO<FaqDTO> list(PageRequestDTO pageRequestDTO) {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
@@ -83,6 +88,7 @@ public class FaqServiceImpl implements FaqService {
 		return responseDTO;
 	}
 
+	// 제목 검색
 	@Override
 	public PageResponseDTO<FaqDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle) {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
@@ -100,6 +106,7 @@ public class FaqServiceImpl implements FaqService {
 		return responseDTO;
 	}
 
+	// 내용 검색
 	@Override
 	public PageResponseDTO<FaqDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent) {
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());

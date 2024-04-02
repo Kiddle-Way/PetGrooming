@@ -23,6 +23,7 @@ public class AvailableTimeslotServiceImpl implements AvailableTimeslotService {
 	private final ModelMapper modelMapper;
 	private final AvailableTimeslotRepository availableTimeslotRepository;
 
+	// 이용가능시간 리스트 불러오기
 	@Override
 	public List<AvailableTimeslotDTO> listAvailableTime(LocalDate date, Designer d_num) {
 		List<AvailableTimeslot> availableTimeslots = availableTimeslotRepository.findAvailableTimeslotsByDate(date,
@@ -30,6 +31,7 @@ public class AvailableTimeslotServiceImpl implements AvailableTimeslotService {
 		return availableTimeslots.stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
 
+	// 이용시간 사용가능 하게 만듬
 	@Override
 	public void makeAvailable(Long a_t_num) {
 		AvailableTimeslot timeslot = availableTimeslotRepository.findById(a_t_num)
@@ -38,6 +40,7 @@ public class AvailableTimeslotServiceImpl implements AvailableTimeslotService {
 		availableTimeslotRepository.save(timeslot);
 	}
 
+	// 이용시간 사용불가능 하게 만듬
 	@Override
 	public void makeUnavailable(Long a_t_num) {
 		AvailableTimeslot timeslot = availableTimeslotRepository.findById(a_t_num)

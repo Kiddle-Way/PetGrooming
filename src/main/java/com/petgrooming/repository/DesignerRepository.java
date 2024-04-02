@@ -29,6 +29,7 @@ public interface DesignerRepository extends JpaRepository<Designer, Long> {
 	@Query("update Designer d set d.d_state = :d_state where d.d_num = :d_num")
 	void updateToState(@Param("d_num") Long d_num, @Param("d_state") Boolean d_state);
 
+	// 디자이너 리스트 불러오기
 	@EntityGraph(attributePaths = "imageList")
 	@Query("SELECT d FROM Designer d")
 	Page<Designer> selectList(Pageable pageable);

@@ -23,22 +23,22 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_SEQ_GEN")
-    private Long p_num; // 상품 번호
-    private String p_type; // 상품 유형
-    private String p_name; // 상품 이름
-    private int p_price; // 상품 가격
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_SEQ_GEN")
+	private Long p_num; // 상품 번호
+	private String p_type; // 상품 유형
+	private String p_name; // 상품 이름
+	private int p_price; // 상품 가격
 
-    public void changeP_type(String p_type) {
-        this.p_type = p_type;
-    }
+	public void changeP_type(String p_type) {
+		this.p_type = p_type;
+	}
 
-    public void changeP_name(String p_name) {
-        this.p_name = p_name;
-    }
+	public void changeP_name(String p_name) {
+		this.p_name = p_name;
+	}
 
-    public void changeP_price(int p_price) {
-        this.p_price = p_price;
-    }
+	public void changeP_price(int p_price) {
+		this.p_price = p_price;
+	}
 }

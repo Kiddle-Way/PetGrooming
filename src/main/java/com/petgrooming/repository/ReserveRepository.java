@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
-	//  예약 내역 전체리스트
+	// 예약 내역 전체리스트
 	@Query("select r from Reserve r")
 	Page<Reserve> allList(Pageable pageable);
 
@@ -73,27 +73,16 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 	Long getTotalCountByMonth(@Param("year") int year, @Param("month") int month);
 
 	// 상품별 예약 건수
-	@Query("SELECT " +
-			"CASE " +
-			"   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' " +
-			"   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' " +
-			"   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " +
-			"   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' " +
-			"   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " +
-			"   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " +
-			"END AS product_category, " +
-			"COUNT(r) AS reservation_count " +
-			"FROM Reserve r " +
-			"GROUP BY " +
-			"CASE " +
-			"   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' " +
-			"   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' " +
-			"   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " +
-			"   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' " +
-			"   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " +
-			"   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " +
-			"END " +
-			"ORDER BY reservation_count DESC")
+	@Query("SELECT " + "CASE " + "   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' "
+			+ "   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' "
+			+ "   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
+			+ "   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " + "   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' "
+			+ "END AS product_category, " + "COUNT(r) AS reservation_count " + "FROM Reserve r " + "GROUP BY " + "CASE "
+			+ "   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' "
+			+ "   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' "
+			+ "   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
+			+ "   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " + "   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " + "END "
+			+ "ORDER BY reservation_count DESC")
 	List<Object[]> countReserveByProduct();
 
 	// 견종별 예약 건수

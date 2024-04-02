@@ -27,14 +27,14 @@ import lombok.extern.log4j.Log4j2;
 public class FaqController {
 	private final FaqService faqService;
 
-	// 자주묻는질문 읽기
+	// 정보 불러오기
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{f_num}")
 	public FaqDTO get(@PathVariable(name = "f_num") Long f_num) {
 		return faqService.read(f_num);
 	}
 
-	// 자주묻는질문 목록
+	// 리스트 불러오기
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<FaqDTO> list(PageRequestDTO pageRequestDTO) {
@@ -42,7 +42,7 @@ public class FaqController {
 		return faqService.list(pageRequestDTO);
 	}
 
-	// 자주묻는질문 제목 검색
+	// 제목검색
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
 	public PageResponseDTO<FaqDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
@@ -51,7 +51,7 @@ public class FaqController {
 		return faqService.getSearchTitleList(pageRequestDTO, searchTitle);
 	}
 
-	// 자주묻는질문 내용 검색
+	// 내용 검색
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
 	public PageResponseDTO<FaqDTO> searchContentlist(PageRequestDTO pageRequestDTO,
@@ -60,7 +60,7 @@ public class FaqController {
 		return faqService.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
-	// 자주묻는질문 등록
+	// 등록
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(@RequestBody FaqDTO faqDTO) {
@@ -70,7 +70,7 @@ public class FaqController {
 		return Map.of("F_NUM", f_num);
 	}
 
-	// 자주묻는질문 수정
+	// 수정
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{f_num}")
 	public Map<String, String> modify(@PathVariable(name = "f_num") Long f_num, @RequestBody FaqDTO faqDTO) {
@@ -81,7 +81,7 @@ public class FaqController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	// 자주묻는질문 삭제
+	// 삭제
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@DeleteMapping("/{f_num}")
 	public Map<String, String> remove(@PathVariable(name = "f_num") Long f_num) {

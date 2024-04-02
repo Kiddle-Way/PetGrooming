@@ -52,7 +52,7 @@ public class DesignerController {
 		return service.get(d_num);
 	}
 
-	//getlist
+	// getlist
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<DesignerDTO> list(PageRequestDTO pageRequestDTO) {
@@ -119,8 +119,8 @@ public class DesignerController {
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	@PutMapping("/{d_num}/{state}")
 	public ResponseEntity<Void> updateDesignerState(@PathVariable Long d_num, @PathVariable boolean state) {
-	    service.updateState(d_num, state);
-	    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		service.updateState(d_num, state);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	// 디자이너 사용가능한 시간대
