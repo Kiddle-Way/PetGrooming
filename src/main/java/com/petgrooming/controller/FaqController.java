@@ -31,7 +31,7 @@ public class FaqController {
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{f_num}")
 	public FaqDTO get(@PathVariable(name = "f_num") Long f_num) {
-		return faqService.read(f_num);
+		return faqService.get(f_num);
 	}
 
 	// 리스트 불러오기
