@@ -13,16 +13,10 @@ const ProductComponent = () => {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        const res = await getReserveProduct();
-        setProductData(res);
-      } catch (error) {
-        console.error("Error fetching product data:", error);
-      }
-    };
-
-    fetchProductData();
+    getReserveProduct().then((res) => {
+      console.log(res);
+      setProductData(res);
+    });
   }, []);
 
   // 각 섹션에 대한 색상 생성

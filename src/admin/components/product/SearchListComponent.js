@@ -19,16 +19,16 @@ const initState = {
 
 const SearchListComponent = () => {
   const { page, size, moveToList, refresh, moveToRead } = useCustomMove();
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
   const [serverData, setServerData] = useState(initState);
-  const [isSearched, setIsSearched] = useState(false); 
+  const [isSearched, setIsSearched] = useState(false);
 
   const handleSearchClick = async () => {
     const pageParam = { page: 1, size: 10 };
     const data = await getSearch(searchTerm, pageParam);
     setServerData(data);
-    setIsSearched(true); 
-    moveToList(1, size); 
+    setIsSearched(true);
+    moveToList(1, size);
   };
 
   const handleChange = (e) => {
@@ -55,7 +55,7 @@ const SearchListComponent = () => {
         value={searchTerm}
         onChange={handleChange}
         placeholder="검색어를 입력하세요"
-        className="mt-3 ml-8 input input-bordered w-full max-w-xs"
+        className="px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs"
       />
       <button
         className="ml-2 p-2 bg-blue-500 text-white rounded-md"
@@ -67,7 +67,7 @@ const SearchListComponent = () => {
       <div className="my-5 overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="bg-green-100">
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
               <th>상품번호</th>
               <th>상품유형</th>
               <th>상품명</th>
@@ -75,7 +75,7 @@ const SearchListComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {serverData.dtoList.map((product) => (
+            {serverData.dtoList.map((product, index) => (
               <tr
                 key={product.p_num}
                 className="cursor-pointer"

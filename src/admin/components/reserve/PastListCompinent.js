@@ -19,7 +19,7 @@ const initState = {
 };
 
 const PastListComponent = () => {
-  const { page, size, moveToList, refresh} = useCustomMove();
+  const { page, size, moveToList, refresh } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const PastListComponent = () => {
     <div className="overflow-x-auto">
       <table className="table text-center">
         <thead>
-          <tr className="bg-green-100">
+          <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
             <th>번호</th>
             <th>이메일</th>
             <th>이름</th>

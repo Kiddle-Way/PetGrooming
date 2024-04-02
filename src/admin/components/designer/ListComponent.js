@@ -74,8 +74,8 @@ const SearchTestComponen = () => {
     setState(e.target.value);
   };
 
-   // 상태 변경 함수
-   const handleResignButtonClick = async (designer, event) => {
+  // 상태 변경 함수
+  const handleResignButtonClick = async (designer, event) => {
     if (window.confirm("퇴직 처리하시겠습니까?")) {
       event.preventDefault();
       try {
@@ -110,18 +110,27 @@ const SearchTestComponen = () => {
 
   return (
     <div className="mt-1 mr-2 ml-2">
-      <select className="mr-3" value={gender} onChange={handleGenderChange}>
+      <select
+        className="border mr-3 px-4 py-2"
+        value={gender}
+        onChange={handleGenderChange}
+      >
         <option value="">성별</option>
         <option value={0}>남자</option>
         <option value={1}>여자</option>
       </select>
-      <select className="mr-3" value={state} onChange={handleStateChange}>
+      <select
+        className="border mr-3 px-4 py-2"
+        value={state}
+        onChange={handleStateChange}
+      >
         <option value="">근무상태</option>
         <option value={0}>근무</option>
         <option value={1}>퇴사</option>
       </select>
 
       <input
+        className="px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs"
         type="text"
         value={keyword}
         onChange={handleChange}
@@ -135,122 +144,70 @@ const SearchTestComponen = () => {
       </button>
 
       {/* 상품 목록 */}
-      <div className="flex flex-wrap mx-auto justify-center p-6">
-        <div className="w-full min-w-[400px] p-2 m-2 rounded shadow-md text-gray-800 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">
-          <div className="flex">
-            <div className="text-sm m-1 p-2 w-2/12 font-extrabold text-center">
-              번호
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              이름
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              생년월일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              성별
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              전화번호
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              이메일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              입사일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              퇴사상태
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              복직/퇴사
-            </div>
-          </div>
-        </div>
-        {serverData.dtoList && serverData.dtoList.length > 0 ? (
-          serverData.dtoList.map((designer) => (
-            <div
-              key={designer.d_num}
-              className="w-full p-2 rounded shadow-md cursor-pointer"
-            >
-              <div className="flex">
-                <div
-                  className="text-sm w-2/12 p-2 m-1 font-medium text-center"
+      <div className="my-5 overflow-x-auto">
+        <table className="table text-center">
+          <thead>
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+              <th>번호</th>
+              <th>이름</th>
+              <th>생년월일</th>
+              <th>성별</th>
+              <th>전화번호</th>
+              <th>이메일</th>
+              <th>입사일</th>
+              <th>퇴사상태</th>
+              <th>복직/퇴사</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serverData.dtoList && serverData.dtoList.length > 0 ? (
+              serverData.dtoList.map((designer) => (
+                <tr
+                  key={designer.d_num}
+                  className="border-b cursor-pointer"
                   onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.d_num}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_name}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_birth}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_gender ? "여자" : "남자"}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_phone}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_email}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  {designer.d_h_date}
-                </div>
-                <div
-                  className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  { designer.d_state ? "퇴사" : "근무"}
-                </div>
-
-                <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
-                  {!designer.d_state ? (
-                    <input
-                      type="button"
-                      className="p-1 rounded border border-solid border-neutral-300 bg-blue-500 text-white"
-                      onClick={(event) =>
-                        handleResignButtonClick(designer, event)
-                      }
-                      disabled={false}
-                      value="퇴사"
-                    />
-                  ) : (
-                    <input
-                      type="button"
-                      className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white"
-                      onClick={(event) =>
-                        handleRehireButtonClick(designer, event)
-                      }
-                      value="복직"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="text-center mt-4">검색 결과가 없습니다.</div>
-        )}
+                  <td>{designer.d_num}</td>
+                  <td>{designer.d_name}</td>
+                  <td>{designer.d_birth}</td>
+                  <td>{designer.d_gender ? "여자" : "남자"}</td>
+                  <td>{designer.d_phone}</td>
+                  <td>{designer.d_email}</td>
+                  <td>{designer.d_h_date}</td>
+                  <td>{designer.d_state ? "퇴사" : "근무"}</td>
+                  <td>
+                    {!designer.d_state ? (
+                      <input
+                        type="button"
+                        className="p-1 rounded border border-solid border-neutral-300 bg-blue-500 text-white cursor-pointer"
+                        onClick={(event) =>
+                          handleResignButtonClick(designer, event)
+                        }
+                        disabled={false}
+                        value="퇴사"
+                      />
+                    ) : (
+                      <input
+                        type="button"
+                        className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white cursor-pointer"
+                        onClick={(event) =>
+                          handleRehireButtonClick(designer, event)
+                        }
+                        value="복직"
+                      />
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="9" className="text-center py-4">
+                  검색 결과가 없습니다.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
       <PageComponent
         serverData={serverData}

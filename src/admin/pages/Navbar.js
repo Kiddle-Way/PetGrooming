@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../../image/logo12.jpg";
+import Logo from "../../image/logo12.png";
 
 const Navbar = () => {
   // 드롭다운 메뉴 이벤트 리스너

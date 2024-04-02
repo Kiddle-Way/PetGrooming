@@ -47,7 +47,7 @@ const ReserveComponent2 = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  
+
   // 모달 열기 함수
   const openModal = () => {
     setModalIsOpen(true);
@@ -62,7 +62,6 @@ const ReserveComponent2 = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        
         const categories = await getEssentialProductsCategory();
         setEssentialProductCategories(categories);
 
@@ -232,7 +231,7 @@ const ReserveComponent2 = () => {
   const handleCategoryChange = async (e) => {
     const { value } = e.target;
     setSelectedCategory(value);
-  
+
     try {
       const essentialProducts = await getEssentialProducts(value); // 선택한 카테고리 값을 사용하여 필수 상품 목록 가져오기
       setEssentialProducts(essentialProducts);
@@ -242,101 +241,152 @@ const ReserveComponent2 = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full my-16 ">
+      <div className="flex justify-end mt-1 mb-4 mr-5">
+        홈 ＞ <b>예약하기</b>
+      </div>
+      <h1 className="mb-14 font-bold text-5xl text-center">예약하기</h1>
+
       <form onSubmit={handleSubmit}>
-        <div className="w-full flex justify-center">
-          <div className="w-2/3">
-            <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">이메일</div>
-              <input
-                className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
-                name="email"
-                type="email"
-                value={memberCookieValue.m_email}
-                readOnly
-              />
+        <div className="w-full mx-auto  flex justify-center">
+          <div>
+            <div className="w-full space-x-28">
+              {/* 사용자정보 */}
+              <div className="inline-flex relative mb-4 flex-col items-start justify-center">
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">
+                      이메일
+                    </span>
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={memberCookieValue.m_email}
+                    readOnly
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  />
+                </div>
+
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">이름</span>
+                  </label>
+                  <input
+                    name="name"
+                    type="text"
+                    value={memberCookieValue.m_name}
+                    readOnly
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  />
+                </div>
+
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">
+                      전화번호
+                    </span>
+                  </label>
+                  <input
+                    name="number"
+                    type="text"
+                    value={memberCookieValue.m_phone}
+                    readOnly
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  />
+                </div>
+
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">견종</span>
+                  </label>
+                  <select
+                    value={reserve.r_breed}
+                    onChange={handleBreedChange}
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  >
+                    <option value="견종 선택">견종 선택 🔽</option>
+                    <option value="시베리아허스키">시베리아허스키</option>
+                    <option value="푸들">푸들</option>
+                    <option value="저먼 셰퍼드">저먼 셰퍼드</option>
+                    <option value="알래스칸 맬러뮤트">알래스칸 맬러뮤트</option>
+                    <option value="도베르만 핀셔">도베르만 핀셔</option>
+                    <option value="골든 리트리버">골든 리트리버</option>
+                    <option value="래브라도 레트리버">래브라도 레트리버</option>
+                    <option value="베들링턴 테리어">베들링턴 테리어 </option>
+                    <option value="이탈리안 그레이 하운드">
+                      이탈리안 그레이 하운드
+                    </option>
+                    <option value="웰시코기">웰시코기</option>
+                    <option value="사모예드">사모예드</option>
+                    <option value="시바 이누">시바 이누</option>
+                    <option value="재페니스 스피츠">재페니스 스피츠</option>
+                    <option value="미니어처 슈나우저">미니어처 슈나우저</option>
+                    <option value="비숑프리제">비숑프리제</option>
+                    <option value="시추">시추</option>
+                    <option value="잭 러셀 테리어">잭 러셀 테리어</option>
+                    <option value="포메라니안">포메라니안</option>
+                    <option value="미니어처 핀셔">미니어처 핀셔</option>
+                    <option value="파피용">파피용</option>
+                    <option value="요크셔 테리어">요크셔 테리어</option>
+                    <option value="말티즈">말티즈</option>
+                    <option value="닥스훈트">닥스훈트</option>
+                    <option value="치와와">치와와</option>
+                    <option value="퍼그">퍼그</option>
+                    <option value="프렌치불독">프렌치불독</option>
+                    <option value="그 외">그 외</option>
+                  </select>
+                </div>
+
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">
+                      반려견 이름
+                    </span>
+                  </label>
+                  <input
+                    name="r_dog_name"
+                    type={"text"}
+                    value={reserve.r_dog_name}
+                    onChange={handleChange}
+                    readOnly
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  />
+                </div>
+
+                <div className="w-72">
+                  <label class="label">
+                    <span class="text-base font-semibold label-text">
+                      특이사항
+                    </span>
+                  </label>
+                  <textarea
+                    name="r_dog_notice"
+                    value={reserve.r_dog_notice}
+                    onChange={handleChange}
+                    className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
+                  />
+                </div>
+              </div>
+
+              {/* 요금 안내 */}
+              <div className="inline-flex relative mb-4 items-center flex-col">
+                <div className="text-base font-semibold mb-4">요금 안내</div>
+                <div className="border">
+                  <MenuTable />
+                </div>
+              </div>
             </div>
-            <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">이름</div>
-              <input
-                className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
-                name="name"
-                type="text"
-                value={memberCookieValue.m_name}
-                readOnly
-              ></input>
-            </div>
-            <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">전화번호</div>
-              <input
-                className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
-                name="number"
-                type="text"
-                value={memberCookieValue.m_phone}
-                readOnly
-              ></input>
-            </div>
-            <div className="relative mb-4 flex items-center">
-              <label className="w-40 p-6 text-right font-bold">견종</label>
-              <select
-                className="w-full h-8 rounded-r border border-solid shadow-md"
-                value={reserve.r_breed}
-                onChange={handleBreedChange}
-              >
-                <option value="견종 선택">견종 선택</option>
-                <option value="시베리아허스키">시베리아허스키</option>
-                <option value="푸들">푸들</option>
-                <option value="저먼 셰퍼드">저먼 셰퍼드</option>
-                <option value="알래스칸 맬러뮤트">알래스칸 맬러뮤트</option>
-                <option value="도베르만 핀셔">도베르만 핀셔</option>
-                <option value="골든 리트리버">골든 리트리버</option>
-                <option value="래브라도 레트리버">래브라도 레트리버</option>
-                <option value="베들링턴 테리어">베들링턴 테리어 </option>
-                <option value="이탈리안 그레이 하운드">
-                  이탈리안 그레이 하운드
-                </option>
-                <option value="웰시코기">웰시코기</option>
-                <option value="사모예드">사모예드</option>
-                <option value="시바 이누">시바 이누</option>
-                <option value="재페니스 스피츠">재페니스 스피츠</option>
-                <option value="미니어처 슈나우저">미니어처 슈나우저</option>
-                <option value="비숑프리제">비숑프리제</option>
-                <option value="시추">시추</option>
-                <option value="잭 러셀 테리어">잭 러셀 테리어</option>
-                <option value="포메라니안">포메라니안</option>
-                <option value="미니어처 핀셔">미니어처 핀셔</option>
-                <option value="파피용">파피용</option>
-                <option value="요크셔 테리어">요크셔 테리어</option>
-                <option value="말티즈">말티즈</option>
-                <option value="닥스훈트">닥스훈트</option>
-                <option value="치와와">치와와</option>
-                <option value="퍼그">퍼그</option>
-                <option value="프렌치불독">프렌치불독</option>
-                <option value="그 외">그 외</option>
-              </select>
-            </div>
-            <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">견이름</div>
-              <input
-                className="w-full h-8 p-6 rounded-r border border-solid shadow-md"
-                name="r_dog_name"
-                type={"text"}
-                value={reserve.r_dog_name}
-                onChange={handleChange}
-              ></input>
-            </div>
-            <div className="relative mb-4 flex items-center">
-              <div className="w-40 p-6 text-right font-bold">특이사항</div>
-              <textarea
-                className="w-full h-80 p-6 rounded-r border border-solid shadow-md"
-                name="r_dog_notice"
-                value={reserve.r_dog_notice}
-                onChange={handleChange}
-              ></textarea>
-            </div>
-            <div className="ml-48">
-              <div>
-                <h2 style={{ fontSize: 24 }}>예약</h2>
+
+            {/* 구분선 */}
+            <div className="divider divider-warning"></div>
+
+            {/* 캘린더 */}
+            <div className="flex flex-col mt-10">
+              <div className="flex flex-col items-center justify-center">
+                <h2 className="text-xl font-semibold mb-5">
+                  날짜를 선택해주세요
+                </h2>
                 <Calendar
                   local="ko"
                   value={reserve.r_date ? new Date(reserve.r_date) : new Date()} // 선택된 날짜 표시
@@ -344,92 +394,118 @@ const ReserveComponent2 = () => {
                   minDate={new Date()}
                   maxDate={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)}
                   showOneMonthOnly
+                  className="mb-5"
                 />
-                <select value={reserve.r_time} onChange={handleTimeChange}>
-                  <option value="">시간 선택</option>
-                  {availableTimes.map((timeSlot) => (
-                    <option key={timeSlot.a_t_num} value={timeSlot.a_t_num}>
-                      {mapTimeRange(timeSlot.time)} ({timeSlot.a_t_date})
+
+                {/* 시간선택 */}
+                <div className="w-1/3">
+                  <h2 className="text-xl font-semibold mb-2">
+                    시간을 선택해주세요
+                  </h2>
+                  <select
+                    className="select select-warning w-full max-w-xs mb-5"
+                    value={reserve.r_time}
+                    onChange={handleTimeChange}
+                  >
+                    <option disabled selected>
+                      시간 선택
                     </option>
-                  ))}
-                </select>
-                <select
-                  value={selectedCategory}
-                  onChange={handleCategoryChange}
-                >
-                  <option value="">카테고리 선택</option>
-                  {essentialProductCategories.map((category) => (
-                    <option
-                      key={category.p_name}
-                      value={category.p_name.split(' ')[1]}
-                    >
-                      {category.p_name.split(' ')[1]}
+                    {availableTimes.map((timeSlot) => (
+                      <option key={timeSlot.a_t_num} value={timeSlot.a_t_num}>
+                        {mapTimeRange(timeSlot.time)} ({timeSlot.a_t_date})
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* 상품선택 */}
+                  <h2 className="text-xl font-semibold mb-2">
+                    상품을 선택해주세요
+                  </h2>
+                  <select
+                    className="select select-warning w-full max-w-xs mb-5"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                  >
+                    <option disabled selected>
+                      상품 선택
                     </option>
-                  ))}
-                </select>
-                <select value={reserve.product} onChange={handleProductChange}>
-                  <option value="">상품 선택</option>
-                  {/* 필수상품 목록 출력 */}
-                  {essentialProducts.map((product) => (
-                    <option
-                      key={product.p_num}
-                      value={`${product.p_price}:${product.p_name}`}
-                    >
-                      {product.p_name}
+                    {essentialProductCategories.map((category) => (
+                      <option
+                        key={category.p_name}
+                        value={category.p_name.split(" ")[1]}
+                      >
+                        {category.p_name.split(" ")[1]}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* 무게선택 */}
+                  <h2 className="text-xl font-semibold mb-2">
+                    무게를 선택해주세요
+                  </h2>
+                  <select
+                    className="select select-warning w-full max-w-xs mb-5"
+                    value={reserve.product}
+                    onChange={handleProductChange}
+                  >
+                    <option disabled selected>
+                      무게 선택
                     </option>
-                  ))}
-                </select>
-                <div className="additional-products">
-                  {additionalProducts.map((product) => (
-                    <div key={product.p_num}>
-                      <input
-                        type="checkbox"
-                        id={product.p_name}
-                        value={product.p_price}
-                        onChange={(e) =>
-                          handleAdditionalProductChange(e, product)
-                        }
-                      />
-                      <label htmlFor={product.name}>
-                        {product.p_name}+{product.p_price}
-                      </label>
-                      <br />
-                    </div>
-                  ))}
+                    {/* 필수상품 목록 출력 */}
+                    {essentialProducts.map((product) => (
+                      <option
+                        key={product.p_num}
+                        value={`${product.p_price}:${product.p_name}`}
+                      >
+                        {product.p_name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* 추가상품선택 */}
+                  <h2 className="text-xl font-semibold mb-2">
+                    추가상품을 선택해주세요
+                  </h2>
+                  <div className="additional-products">
+                    {additionalProducts.map((product) => (
+                      <div key={product.p_num}>
+                        <label
+                          className="flex items-start justify-start font-semibold cursor-pointer label"
+                          htmlFor={product.name}
+                        >
+                          <input
+                            type="checkbox"
+                            id={product.p_name}
+                            value={product.p_price}
+                            onChange={(e) =>
+                              handleAdditionalProductChange(e, product)
+                            }
+                            className="checkbox checkbox-warning mr-4"
+                          />
+                          {product.p_name} +{product.p_price.toLocaleString()}원
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="ml-5 w-full">
-            <div className="relative mb-4 flex items-center flex-col">
-              <div
-                className="w-90 p-6 text-right font-bold mb-4"
-                style={{ fontSize: 24 }}
-              >
-                이용 상품,요금
-              </div>
-              <MenuTable />
-              <div style={{ fontSize: 20 }}>
-                가위컷, 스포팅, 클리핑은 목욕+위생 포함된 가격입니다.
-                <br /> 특수견 (비숑프리제, 꼬똥드뚤레아, 베들링텅, 코카스파니엘,
-                웰시코기)은 예약시 상품가격+20,000원입니다.
-                <br /> 추가금사항 : 얼굴컷 15,000원, 스파20,000원, 털엉킴
-                20,000원, 장모종 20,000원 <br /> 미용불가사항 : 꽃도장중인 암컷
-                , 입질이 심한경우
-              </div>
-            </div>
+
+            {/* 구분선 */}
+            <div className="divider divider-warning"></div>
+
             <div className="relative mb-4 flex items-center flex-col">
               <Popup onAgree={handleAgreeChange} />
               <div className="action-box">
-                <p style={{ fontSize: 20 }}>
-                  총 가격: {reserve.r_total_price}원
+                <p className="font-semibold text-center text-xl my-10">
+                  결제하실 금액 : {reserve.r_total_price.toLocaleString()}원
                   {/* 총 가격 계산 로직을 여기에 작성합니다. */}
                 </p>
                 <button
                   type="submit"
                   className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
                 >
-                  결재 하기
+                  결제하기
                 </button>
 
                 {/* 모달 */}

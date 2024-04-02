@@ -62,7 +62,7 @@ const ListComponent = () => {
       <div className="overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="bg-green-100">
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
               <th>게시물 번호</th>
               <th>글유형</th>
               <th>제목</th>
@@ -78,7 +78,7 @@ const ListComponent = () => {
               >
                 <td>{notice.n_num}</td>
                 <td>{notice.n_head}</td>
-                <td>{notice.n_head}</td>
+                <td>{notice.n_title}</td>
                 <td>{notice.n_reg}</td>
               </tr>
             ))}

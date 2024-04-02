@@ -681,25 +681,51 @@ const Popup = ({ onAgree }) => {
   };
 
   return (
-    <div>
+    <div className="space-y-5 border p-4">
+      <div className="policy-box2">
+        <h3 className="inline-flex font-semibold text-start text-xl mb-5 mr-5">
+          1. 서비스 이용 약관
+        </h3>
+        <div
+          className="text-xs inline-flex ml-5 border cursor-pointer p-2"
+          onClick={handlePopup1}
+        >
+          자세히 보기
+        </div>
+        <div className="agree-box">
+          <label className="flex items-start justify-start font-semibold cursor-pointer label">
+            <input
+              type="checkbox"
+              checked={agree1}
+              onChange={handleAgree1}
+              className="checkbox checkbox-warning mr-2"
+            />
+            [필수] 서비스 이용약관에 동의합니다.
+          </label>
+        </div>
+      </div>
+
       <div className="policy-box">
-        <h3 style={{ fontSize: 24 }}>1. 서비스 이용 약관</h3>
-        <div onClick={handlePopup1}>자세히 보기</div>
-      </div>
-
-      <div className="agree-box">
-        <input type="checkbox" checked={agree1} onChange={handleAgree1} />
-        <label>서비스 이용약관 및 특별 약관에 동의합니다.</label>
-      </div>
-
-      <div className="policy-box">
-        <h3 style={{ fontSize: 24 }}>2. 개인정보 이용 약관</h3>
-        <div onClick={handlePopup2}>자세히 보기</div>
-      </div>
-
-      <div className="agree-box">
-        <input type="checkbox" checked={agree2} onChange={handleAgree2} />
-        <label>개인정보 이용약관 및 특별 약관에 동의합니다.</label>
+        <h3 className="inline-block font-semibold text-start text-xl mb-5 mr-5">
+          2. 개인정보 이용 약관
+        </h3>
+        <div
+          className="text-xs inline-block border cursor-pointer p-2"
+          onClick={handlePopup2}
+        >
+          자세히 보기
+        </div>
+        <div className="agree-box">
+          <label className="flex items-start justify-start font-semibold cursor-pointer label">
+            <input
+              type="checkbox"
+              checked={agree2}
+              onChange={handleAgree2}
+              className="checkbox checkbox-warning mr-2"
+            />
+            [필수] 개인정보 이용약관에 동의합니다.
+          </label>
+        </div>
       </div>
     </div>
   );

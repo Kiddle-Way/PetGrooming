@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Logo from "../../image/logo12.jpg";
+import Logo from "../../image/logo12.png";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const loginState = useSelector((state) => state.loginSlice);
   const [withdrawalCompleted, setWithdrawalCompleted] = useState(false);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (withdrawalCompleted) {
       // 회원 탈퇴가 완료되면 로그인 상태를 false로 설정
@@ -33,7 +33,7 @@ const Navbar = () => {
       }
     });
   });
-  
+
   return (
     <div className="container mx-auto mt-2 sm:px-2 lg:px-1">
       <nav className="rounded-2xl mx-auto flex flex-wrap justify-center navbar outline outline-4 outline-amber-400 dark:bg-gray-900 dark:border-gray-700">
@@ -117,7 +117,7 @@ const Navbar = () => {
             </details>
           </ul>
         </div>
-        <div className="flex items-center justify-center ml-6 outline outline-orange-400 rounded-3xl w-60 p-1 font-semibold ">
+        <div className="flex items-center justify-center ml-6 outline outline-orange-400 rounded-3xl w-52 p-1 font-semibold ">
           {/* 로그인 상태에 따라 Join 항목 렌더링 */}
           {!loginState.m_email && (
             <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
@@ -126,15 +126,15 @@ const Navbar = () => {
           )}
           {loginState.m_email && (
             <>
-              <div className="text-black text-sm m-1 rounded">
+              <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
                 <Link to={"/member/logout"}>로그아웃</Link>
               </div>
-              <div className="text-blcak text-sm m-1 rounded">
+              <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
                 <Link to={"/member/mypage"}>마이페이지</Link>
               </div>
               {/* 관리자인 경우에만 표시 */}
               {loginState.isAdmin && (
-                <div className="text-black text-sm m-1 rounded">
+                <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">
                   <Link to={"/statistics/sales"}>관리자</Link>
                 </div>
               )}

@@ -46,7 +46,7 @@ const GuideComponent = () => {
       </div>
       <p className="my-1">
         ✅ 로그인 → 예약하기 → 디자이너 선택 → 날짜 및 시간 선택 → 상품 선택 →
-        예약 완료
+        결제 → 예약 완료
       </p>
 
       <div className="p-4 w-full mt-12 bg-white">
@@ -114,7 +114,6 @@ const GuideComponent = () => {
               <td>120,000원</td>
             </tr>
             {/* row 6 */}
-
             <tr>
               <th className="bg-gray-100">가위컷</th>
               <td>80,000원</td>
@@ -124,6 +123,13 @@ const GuideComponent = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="my-4">
+        <h1 className="mt-8 my-2 text-lg font-bold">🔵 안내 사항</h1>
+        <h1 className="text-lg ">
+          가위컷, 스포팅, 클리핑은 목욕+위생이 포함된 가격입니다.
+        </h1>
       </div>
 
       <div className="my-4">

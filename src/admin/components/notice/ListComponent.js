@@ -60,7 +60,7 @@ const ListComponent = () => {
 
   return (
     <div className=" mt-10 mr-2 ml-2">
-      <div className="flex justify-center">
+      <div className="flex justify-start">
         <div className="flex items-center mb-4">
           <select
             className="px-4 py-2 mr-2 border rounded"
@@ -73,14 +73,14 @@ const ListComponent = () => {
             ))}
           </select>
           <input
-            className="px-4 py-2 mr-2 border rounded"
+            className="px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs"
             type="text"
             placeholder="검색"
             value={searchTerm}
             onChange={handleChange}
           />
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="ml-2 p-2 bg-blue-500 text-white rounded-md"
             onClick={handleSearchButtonClick}
           >
             검색
@@ -90,7 +90,7 @@ const ListComponent = () => {
       <div className="my-5 overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="bg-green-100">
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
               <th>게시물 번호</th>
               <th>글유형</th>
               <th>제목</th>

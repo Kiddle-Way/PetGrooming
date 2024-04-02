@@ -1,11 +1,12 @@
-import Hero from "../../../image/run.png";
+import 배너1 from "../../../image/배너2.jpg";
+import 배너2 from "../../../image/배너1.jpg";
+import 배너3 from "../../../image/배너3.jpg";
 import icon01 from "../../../image/66S.jpg";
 import icon02 from "../../../image/88Y.jpg";
 import bcon01 from "../../../image/Bshop1.jpg";
 import bcon02 from "../../../image/Bshop3.jpg";
 import bcon03 from "../../../image/Bshop2.jpg";
 import bcon04 from "../../../image/Bshop5.jpg";
-import bcon05 from "../../../image/Bshop6.jpg";
 import BasicLayout from "../../../common/layouts/BasicLayout";
 import { useRef, useEffect } from "react";
 
@@ -37,11 +38,15 @@ const MainComponents = () => {
 
           <section>
             <div
-              className="carousel w-full my-16 rounded-3xl"
+              className="flex carousel mx-auto max-w-screen-xl my-16 rounded-3xl"
               ref={carouselElement}
             >
               <div className="carousel-item relative w-full ">
-                <img src={Hero} className="w-full " alt="" />
+                <img
+                  src={배너1}
+                  className="flex mx-auto aspect-w-16 aspect-h-9 object-cover"
+                  alt=""
+                />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                   <button
                     onClick={() => scrollCarousel(3)}
@@ -58,7 +63,11 @@ const MainComponents = () => {
                 </div>
               </div>
               <div className="carousel-item relative w-full">
-                <img src={Hero} className="w-full" alt="" />
+                <img
+                  src={배너2}
+                  className="flex mx-auto aspect-w-16 aspect-h-9 object-cover"
+                  alt=""
+                />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                   <button
                     onClick={() => scrollCarousel(1)}
@@ -75,7 +84,11 @@ const MainComponents = () => {
                 </div>
               </div>
               <div className="carousel-item relative w-full">
-                <img src={Hero} className="w-full" alt="" />
+                <img
+                  src={배너3}
+                  className="flex mx-auto aspect-w-16 aspect-h-9 object-cover"
+                  alt=""
+                />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                   <button
                     onClick={() => scrollCarousel(2)}
@@ -194,24 +207,21 @@ const MainComponents = () => {
           {/* 미용실 간단하게 설명 */}
           <section>
             <div className=" flex justify-center">
-              <table cellPadding="40%" width="80%">
+              <table className="text-xl" cellPadding="40%" width="80%">
                 <tr>
                   <td width="50%">
                     <img src={bcon01} alt="int" className="rounded-3xl" />
                   </td>
                   <td width="80%">
-                    <p>기분좋개 U・ᴥ・U</p>
-                    <p>운영시간 오전9부터 오후 6시까지</p>
-                    <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
-                    <p>편안하개</p>
+                    <p>마음을 녹이는 아로마 스파와 머드 마사지로</p>
+                    <p>반려견의 피로와 스트레스를 풀어드립니다.</p>
                   </td>
                 </tr>
-                <tr>
+                <tr className="text-end">
                   <td>
-                    <p>기분좋개 U・ᴥ・U</p>
-                    <p>운영시간 오전9부터 오후 6시까지</p>
-                    <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
-                    <p>편안하개</p>
+                    <p>전문적인 애견 미용사들의</p>
+                    <p>트렌디한 스타일링으로</p>
+                    <p>최고의 아름다움을 제시합니다.</p>
                   </td>
                   <td>
                     <img src={bcon02} alt="int" className="rounded-3xl" />
@@ -222,32 +232,19 @@ const MainComponents = () => {
                     <img src={bcon03} alt="int" className="rounded-3xl" />
                   </td>
                   <td width="80%">
-                    <p>기분좋개 U・ᴥ・U</p>
-                    <p>운영시간 오전9부터 오후 6시까지</p>
-                    <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
-                    <p>편안하개</p>
+                    <p>언제나 새로운 스타일을 연구하고</p>
+                    <p>체계적인 프리미엄 뷰티 서비스로</p>
+                    <p>고객 감동을 이어갑니다.</p>
                   </td>
                 </tr>
-                <tr>
+                <tr className="text-end">
                   <td>
-                    <p>기분좋개 U・ᴥ・U</p>
-                    <p>운영시간 오전9부터 오후 6시까지</p>
-                    <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
-                    <p>편안하개</p>
+                    <p>운영시간 오전9부터 오후 9시까지</p>
+                    <p>고객님들이 퇴근한 이후에도</p>
+                    <p>저희는 동일하게 열려있습니다 </p>
                   </td>
                   <td>
                     <img src={bcon04} alt="int" className="rounded-3xl" />
-                  </td>
-                </tr>
-                <tr>
-                  <td width="50%">
-                    <img src={bcon05} alt="int" className="rounded-3xl" />
-                  </td>
-                  <td width="80%">
-                    <p>기분좋개 U・ᴥ・U</p>
-                    <p>운영시간 오전9부터 오후 6시까지</p>
-                    <p>마음을 녹이는 아로마 스파와 머드 마사지</p>
-                    <p>편안하개</p>
                   </td>
                 </tr>
               </table>

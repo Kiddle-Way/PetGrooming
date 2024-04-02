@@ -56,7 +56,7 @@ const ListComponent = () => {
         <div className="my-5 overflow-x-auto">
           <table className="table text-center">
             <thead className="bg-orange-50">
-              <tr className="bg-green-100">
+              <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
                 <th>회원번호</th>
                 <th>회원이름</th>
                 <th>생년월일</th>

@@ -71,7 +71,7 @@ const ListComponent = () => {
       <div className="overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="bg-green-100">
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
               <th>번호</th>
               <th>이메일</th>
               <th>이름</th>
@@ -97,7 +97,7 @@ const ListComponent = () => {
                 <td>{reserve.r_breed}</td>
                 <td>{reserve.r_date}</td>
                 <td>{formatTimeEnum(reserve.a_t_num.time)}</td>
-                <td>{reserve.d_num.dname}</td>
+                <td>{reserve.d_num.d_name}</td>
                 <td>{reserve.allProduct}</td>
                 <td>{reserve.r_total_price.toLocaleString()}원</td>
                 <td>{reserve.r_dog_notice}</td>
