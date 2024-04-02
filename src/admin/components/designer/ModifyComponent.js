@@ -1,347 +1,251 @@
 import { useEffect, useRef, useState } from "react";
-import { getOne, putOne, deleteOne } from "../../../common/api/designerApi";
-import FetchingModal from "../../../common/components/FetchingModal";
-import ResultModal from "../../../common/components/ResultModal";
-import { API_SERVER_HOST } from "../../../common/api/productApi";
+import { getOne, putOne } from "../../../common/api/designerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
-  dno: 0,
-  dname: "",
-  dgender: 0,
-  demail: "",
-  dphone: "",
-  dstate: 0,
-  dintro: "",
-  dbirth: "",
-  dh_date: "",
-  dattach: [],
-  delFlag: false,
+  d_num: 0,
+  d_name: "",
+  d_gender: 0,
+  d_email: "",
+  d_phone: "",
+  d_state: 0,
+  d_intro: "",
+  d_birth: "",
+  d_h_date: "",
+  d_uploadFileNames: [],
 };
 
-const host = API_SERVER_HOST;
+const host = "http://localhost:8080";
 
-const ModifyComponent = ({ dno }) => {
+const ModifyComponent = ({ d_num }) => {
   const [designer, setDesigner] = useState(initState);
-  const [dattach, setDattach] = useState([]); // 파일 이름을 저장할 상태 추가
-  const uploadRef = useRef(null); // useRef로 uploadRef 정의
+  const uploadRef = useRef();
 
-  // 결과 모달
   const [result, setResult] = useState(null);
 
-  // 이동용 함수
-  const { moveToRead, moveToList } = useCustomMove();
-  const [fetching, setFetching] = useState(false);
+  const { moveToRead } = useCustomMove();
 
   useEffect(() => {
-    setFetching(true);
-
-    getOne(dno).then((data) => {
+    getOne(d_num).then((data) => {
       setDesigner(data);
-      setFetching(false);
     });
-  }, [dno]);
+  }, [d_num]);
 
-  // 입력값 변경 이벤트 처리
   const handleChangeDesigner = (e) => {
-    setDesigner({ ...designer, [e.target.name]: e.target.value });
+    designer[e.target.name] = e.target.value;
+    setDesigner({ ...designer });
   };
 
-  // radio버튼 사용하는 성별값을 문자열에서 정수로 변환
-  const handleChangeDesigner1 = (e) => {
-    const { name, value } = e.target;
-    setDesigner((prevDesigner) => ({
-      ...prevDesigner,
-      [name]: name === "dgender" ? parseInt(value, 10) : value,
-    }));
-  };
-
-  // radio버튼 사용하는 근무상태값을 문자열에서 정수로 변환
-  const handleChangeDesigner2 = (e) => {
-    const { name, value } = e.target;
-    setDesigner((prevDesigner) => ({
-      ...prevDesigner,
-      [name]: name === "dstate" ? parseInt(value, 10) : value,
-    }));
-  };
-
-  // 첨부된 파일명 설정
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    const fileNames = files.map((file) => file.name);
-    setDattach([...dattach, ...fileNames]); // 이전 파일명과 새로운 파일명 합쳐서 업데이트
-  };
-
-  // 삭제할 이미지 처리
   const deleteOldImages = (imageName) => {
-    const resultFileNames = designer.uploadFileNames.filter(
+    const resultFileNames = designer.d_uploadFileNames.filter(
       (fileName) => fileName !== imageName
     );
-    setDesigner((prevDesigner) => ({
-      ...prevDesigner,
-      uploadFileNames: resultFileNames,
-    }));
+    designer.d_uploadFileNames = resultFileNames;
+    setDesigner({ ...designer });
   };
 
-  // 수정 버튼 클릭 이벤트 처리
-  const handleClickModify = () => {
+  // 추가 버튼 클릭 이벤트 처리
+  const handleClickModify = (e) => {
     const files = uploadRef.current.files;
+
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
+      formData.append("d_files", files[i]);
     }
 
-    // other data
-    formData.append("dname", designer.dname);
-    formData.append("dbirth", designer.dbirth);
-    formData.append("dgender", designer.dgender);
-    formData.append("dphone", designer.dphone);
-    formData.append("demail", designer.demail);
-    formData.append("dh_date", designer.dh_date);
-    formData.append("dstate", designer.dstate);
-    formData.append("dintro", designer.dintro);
-    formData.append("dattach", designer.dattach);
-    formData.append("dattach", dattach.join(",")); // 수정된 부분
+    //other data
+    formData.append("d_name", designer.d_name);
+    formData.append("d_birth", designer.d_birth);
+    formData.append("d_gender", designer.d_gender);
+    formData.append("d_phone", designer.d_phone);
+    formData.append("d_email", designer.d_email);
+    formData.append("d_h_date", designer.d_h_date);
+    formData.append("d_state", designer.d_state);
+    formData.append("d_intro", designer.d_intro);
+    console.log(formData);
 
-    // dattach 업로드
-    //for (let i = 0; i < dattach.length; i++) {
-    //formData.append("dattach", dattach[i]);
-    //}
-
-    // uploading 처리
-    setFetching(true);
-
-    putOne(dno, formData).then((data) => {
-      // 수정 처리
-      setResult("Modified");
-      setFetching(false);
-    });
-  };
-
-  //삭제
-  const handleClickDelete = () => {
-    setFetching(true);
-    deleteOne(dno).then((data) => {
-      setResult("Deleted");
-      setFetching(false);
-    });
-  };
-  //모달 닫기
-  const closeModal = () => {
-    if (result === "Modified") {
-      moveToRead(dno); // 조회    화면으로    이동
-    } else if (result === "Deleted") {
-      moveToList({ page: 1 });
+    if (window.confirm("등록 하시겠습니까??")) {
+      alert("등록되었습니다.");
+      putOne(d_num, formData).then((data) => {
+        setResult(data.RESULT);
+        moveToRead(d_num);
+      });
     }
-    setResult(null);
+  };
+
+  const handleClickCancel = () => {
+    if (window.confirm("취소 하시겠습니까??")) {
+      alert("취소되었습니다.");
+      moveToRead(d_num);
+    }
+  };
+
+  const handleGenderChange = (e) => {
+    const { value } = e.target;
+    setDesigner((prevState) => ({
+      ...prevState,
+      d_gender: value === "male" ? 0 : 1,
+    }));
   };
 
   return (
-    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-      {fetching ? <FetchingModal /> : <></>}
-      {result ? (
-        <ResultModal
-          title={`${result}`}
-          content={"정상적으로 처리되었습니다."} // 결과 모달창
-          callbackFn={closeModal}
-        />
-      ) : (
-        <></>
-      )}
-      {/* 수정 및 취소 버튼 */}
-      <div className="flex justify-end p-4">
-        <button
-          type="button"
-          className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          onClick={moveToList}
-        >
-          리스트
-        </button>
-
-        <button
-          type="button"
-          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          onClick={handleClickModify}
-        >
-          수정
-        </button>
-
-        <button
-          type="button"
-          className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          onClick={handleClickDelete}
-        >
-          삭제
-        </button>
-      </div>
-      {/* 입력 폼들 */}
+    <div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">이름</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="dname"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_name"
             type={"text"}
-            value={designer.dname}
+            value={designer.d_name}
             onChange={handleChangeDesigner}
           ></input>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">생년월일</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="dbirth"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_birth"
             type={"date"}
-            value={designer.dbirth}
+            value={designer.d_birth}
             onChange={handleChangeDesigner}
           ></input>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">성별</div>
-          <div className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md">
-            <label>
+          <div className="flex items-center">
+            <label className="mr-2">
+              남자
               <input
                 type="radio"
-                name="dgender"
-                value={0}
-                checked={designer.dgender === 0}
-                onChange={handleChangeDesigner1}
+                name="d_gender"
+                value="male"
+                checked={designer.d_gender === 0}
+                onChange={handleGenderChange}
               />
-              남자
             </label>
             <label>
+              여자
               <input
                 type="radio"
-                name="dgender"
-                value={1}
-                checked={designer.dgender === 1}
-                onChange={handleChangeDesigner1}
+                name="d_gender"
+                value="female"
+                checked={designer.d_gender === 1}
+                onChange={handleGenderChange}
               />
-              여자
             </label>
           </div>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">연락처</div>
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
+          <div className="w-1/5 p-6 text-right font-bold">전화번호</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="dphone"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_phone"
             type={"text"}
-            value={designer.dphone}
+            value={designer.d_phone}
             onChange={handleChangeDesigner}
           ></input>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">이메일</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="demail"
-            type={"email"}
-            value={designer.demail}
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_email"
+            type={"text"}
+            value={designer.d_email}
             onChange={handleChangeDesigner}
           ></input>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">입사일</div>
           <input
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            name="dh_date"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_h_date"
             type={"date"}
-            value={designer.dh_date}
+            value={designer.d_h_date}
             onChange={handleChangeDesigner}
           ></input>
         </div>
       </div>
-
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">상태</div>
-          <div className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md">
-            <label>
-              <input
-                type="radio"
-                name="dstate"
-                value={0}
-                checked={designer.dstate === 0}
-                onChange={handleChangeDesigner2}
-              />
-              근무
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="dstate"
-                value={1}
-                checked={designer.dstate === 1}
-                onChange={handleChangeDesigner2}
-              />
-              퇴사
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+        <div className="realative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">소개</div>
-          <textarea
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-
-300 shadow-md resize-y"
-            name="dintro"
-            rows="4"
+          <input
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
+            name="d_intro"
+            type={"text"}
+            value={designer.d_intro}
             onChange={handleChangeDesigner}
-            defaultValue={designer.dintro}
-          ></textarea>
+          ></input>
         </div>
       </div>
-      {/* 파일 업로드 입력 폼 */}
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">Files</div>
+          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
+          <label
+            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-yellow-300"
+            for="input-file"
+          >
+            파일선택
+          </label>
           <input
+            id="input-file"
+            style={{ display: "none" }}
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             type={"file"}
-            multiple={false}
-            onChange={handleFileChange}
+            multiple={true}
           ></input>
         </div>
       </div>
-
-      {/* 업로드된 이미지 표시 */}
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">Images</div>
+          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
           <div className="w-4/5 justify-center flex flex-wrap items-start">
-            {dattach.map((imgFile, i) => (
+            {designer.d_uploadFileNames.map((imgFile, i) => (
               <div className="flex justify-center flex-col w-1/3" key={i}>
                 <button
-                  className="bg-blue-500 text-3xl text-white"
+                  className="bg-orange-300 text-3xl text-white"
                   onClick={() => deleteOldImages(imgFile)}
                 >
-                  DELETE
+                  삭제하기
                 </button>
-
                 <img alt="img" src={`${host}/api/designer/view/s_${imgFile}`} />
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="flex justify-end">
+        <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
+          <button
+            type="button"
+            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-blue-400"
+            onClick={handleClickModify}
+          >
+            수정완료
+          </button>
+        </div>
+        <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
+          <button
+            type="button"
+            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-400"
+            onClick={handleClickCancel}
+          >
+            취소
+          </button>
         </div>
       </div>
     </div>

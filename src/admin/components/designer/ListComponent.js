@@ -21,7 +21,7 @@ const initState = {
   current: 0,
 };
 
-const SearchTestComponen = () => {
+const ListComponent = () => {
   const { page, size, moveToList, refresh, moveToRead } = useCustomMove();
   const [keyword, setKeyword] = useState(""); // 검색어 상태
   const [serverData, setServerData] = useState(initState); // 서버에서 받아온 데이터 상태
@@ -80,7 +80,7 @@ const SearchTestComponen = () => {
     if (window.confirm("처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.dno, 1);
+        await updateDesignerState(designer.d_num, 1);
         console.log("Designer has been fired successfully.");
         // 퇴직 처리 후 필요한 작업 수행
         // 새로고침 실행
@@ -96,7 +96,7 @@ const SearchTestComponen = () => {
     if (window.confirm("처리하시겠습니까?")) {
       event.preventDefault();
       try {
-        await updateDesignerState(designer.dno, 0);
+        await updateDesignerState(designer.d_num, 0);
         console.log("Designer has been rehired successfully.");
         // 복직 처리 후 필요한 작업 수행
         // 새로고침 실행
@@ -137,7 +137,7 @@ const SearchTestComponen = () => {
         검색
       </button>
 
-      <div className="flex justify-end p-4">
+      <div className="flex justify-end">
         <Link
           to={"/designer/add"}
           type="button"
@@ -147,7 +147,7 @@ const SearchTestComponen = () => {
         </Link>
       </div>
 
-      {/* 상품 목록 */}
+      {/* 디자이너 목록 */}
       <div className="flex flex-wrap mx-auto justify-center p-6">
         <div className="w-full min-w-[400px] p-2 m-2 rounded shadow-md text-gray-800 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">
           <div className="flex">
@@ -183,64 +183,64 @@ const SearchTestComponen = () => {
         {serverData.dtoList && serverData.dtoList.length > 0 ? (
           serverData.dtoList.map((designer) => (
             <div
-              key={designer.dno}
+              key={designer.d_num}
               className="w-full p-2 rounded shadow-md cursor-pointer"
             >
               <div className="flex">
                 <div
                   className="text-sm w-2/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dno}
+                  {designer.d_num}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dname}
+                  {designer.d_name}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dbirth}
+                  {designer.d_birth}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dgender === 1 ? "여자" : "남자"}
+                  {designer.d_gender ? "여자" : "남자"}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dphone}
+                  {designer.d_phone}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.demail}
+                  {designer.d_email}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dh_date}
+                  {designer.d_h_date}
                 </div>
                 <div
                   className="text-sm w-4/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.dno)}
+                  onClick={() => moveToRead(designer.d_num)}
                 >
-                  {designer.dstate === 0 ? "근무" : "퇴사"}
+                  {designer.d_state === 0 ? "근무" : "퇴사"}
                 </div>
 
                 <div className="text-sm w-4/12 p-2 m-1 font-medium text-center">
-                  {designer.dstate === 0 ? (
+                  {!designer.d_state ? (
                     <input
                       type="button"
-                      className="p-1 rounded border border-solid bg-gradient-to-br from-yellow-200 to-orange-500 text-white"
+                      className="p-1 rounded border border-solid border-neutral-300 bg-blue-500 text-white"
                       onClick={(event) =>
                         handleResignButtonClick(designer, event)
                       }
@@ -253,7 +253,7 @@ const SearchTestComponen = () => {
                     //   퇴사일땐 복직버튼 활성화
                     <input
                       type="button"
-                      className="p-1 rounded border border-solid bg-gradient-to-br from-orange-200 to-yellow-500 text-white"
+                      className="p-1 rounded border border-solid border-neutral-300 bg-green-500 text-white"
                       onClick={(event) =>
                         handleRehireButtonClick(designer, event)
                       }
@@ -268,6 +268,7 @@ const SearchTestComponen = () => {
           <div className="text-center mt-4">검색 결과가 없습니다.</div>
         )}
       </div>
+
       {/* 페이지 네비게이션 */}
       <PageComponent
         serverData={serverData}
@@ -278,4 +279,4 @@ const SearchTestComponen = () => {
     </div>
   );
 };
-export default SearchTestComponen;
+export default ListComponent;
