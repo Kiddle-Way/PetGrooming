@@ -63,8 +63,8 @@ public class MemberServiceImpl implements MemberService {
 				.orElseThrow(() -> new RuntimeException("Member not found with id: " + m_num));
 
 		// 비밀번호 암호화
-		String encodedPassword = passwordEncoder.encode(member.getM_pw());
-		existingMember.setM_pw(encodedPassword);
+		// String encodedPassword = passwordEncoder.encode(member.getM_pw());
+		existingMember.setM_pw(member.getM_pw());
 
 		// 기타 필요한 정보 업데이트
 		existingMember.setM_name(member.getM_name());
@@ -131,12 +131,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public PageResponseDTO<Member2DTO> getList(PageRequestDTO pageRequestDTO) {
+	public PageResponseDTO<Member2DTO> workList(PageRequestDTO pageRequestDTO) {
 		log.info("getList..............");
 
 		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
 
-		Page<Member> result = memberRepository.findAll(pageable);
+		Page<Member> result = memberRepository.workList(pageable);
 
 		List<Member2DTO> dtoList = result.getContent().stream().map(member -> {
 			Member2DTO member2DTO = Member2DTO.builder().m_num(member.getM_num()).m_name(member.getM_name())
@@ -149,7 +149,29 @@ public class MemberServiceImpl implements MemberService {
 		}).collect(Collectors.toList());
 
 		long totalCount = result.getTotalElements();
-		log.info(dtoList);
+		return PageResponseDTO.<Member2DTO>withAll().dtoList(dtoList).totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO).build();
+	}
+
+	@Override
+	public PageResponseDTO<Member2DTO> retireList(PageRequestDTO pageRequestDTO) {
+		log.info("getList..............");
+
+		Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize());
+
+		Page<Member> result = memberRepository.retireList(pageable);
+
+		List<Member2DTO> dtoList = result.getContent().stream().map(member -> {
+			Member2DTO member2DTO = Member2DTO.builder().m_num(member.getM_num()).m_name(member.getM_name())
+					.m_birth(member.getM_birth()).m_gender(member.getM_gender()).m_email(member.getM_email())
+					.m_pw(member.getM_pw()).m_phone(member.getM_phone()).m_addr(member.getM_addr())
+					.dog_breed(member.getDog_breed()).dog_name(member.getDog_name()).dog_birth(member.getDog_birth())
+					.dog_notice(member.getDog_notice()).m_state(member.isM_state()).m_agree(member.isM_agree()).build();
+
+			return member2DTO;
+		}).collect(Collectors.toList());
+
+		long totalCount = result.getTotalElements();
 		return PageResponseDTO.<Member2DTO>withAll().dtoList(dtoList).totalCount(totalCount)
 				.pageRequestDTO(pageRequestDTO).build();
 	}

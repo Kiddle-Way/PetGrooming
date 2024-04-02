@@ -19,4 +19,7 @@ public interface ReserveService {
 	void removeRequest(Long r_num);
 
 	void remove(Long r_num);
+	
+	// 내 예약 확인
+	 PageResponseDTO<ReserveDTO> findReserveByMemberNumber(Long m_num, PageRequestDTO pageRequestDTO);
 }

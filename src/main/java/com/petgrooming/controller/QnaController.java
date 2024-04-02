@@ -45,7 +45,7 @@ public class QnaController {
 	public PageResponseDTO<QnaDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
 			@PathVariable("searchTitle") String searchTitle) {
 		log.info("list............." + pageRequestDTO);
-		return qnaService.getSerchTitleList(pageRequestDTO, searchTitle);
+		return qnaService.getSearchTitleList(pageRequestDTO, searchTitle);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능

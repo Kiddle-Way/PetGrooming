@@ -32,4 +32,6 @@ public class ReserveDTO {
 	private String r_breed;
 	private String r_dog_name;
 	private String r_dog_notice;
+	private boolean r_delete_request;// 취소 요청
+	private boolean r_delFlag;
 }

@@ -9,10 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.petgrooming.domain.AvailableTimeslot;
+import com.petgrooming.domain.Designer;
 
 public interface AvailableTimeslotRepository extends JpaRepository<AvailableTimeslot, Long> {
-	@Query("SELECT a FROM AvailableTimeslot a WHERE a.a_t_date = :date AND a.isAvailable = true ORDER BY a.a_t_num ASC")
-	List<AvailableTimeslot> findAvailableTimeslotsByDate(@Param("date") LocalDate date);
+	@Query("SELECT a FROM AvailableTimeslot a WHERE a.a_t_date = :date AND a.isAvailable = true AND a.d_num = :d_num ORDER BY a.a_t_num ASC")
+	List<AvailableTimeslot> findAvailableTimeslotsByDate(@Param("date") LocalDate date, @Param("d_num") Designer d_num);
 
 	@Modifying
 	@Query("UPDATE AvailableTimeslot a SET a.isAvailable = true WHERE a.a_t_num = :a_t_num")

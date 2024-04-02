@@ -1,5 +1,7 @@
 package com.petgrooming.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -25,6 +27,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	
 	@Query("SELECT m FROM Member m WHERE m.m_num = :m_num")
 	<Optional>Member getMemberById(@Param("m_num") Long m_num);
+	
+	@Query("SELECT m FROM Member m WHERE m.m_state = false")
+	Page<Member> workList(Pageable pageable);
+	
+	@Query("SELECT m FROM Member m WHERE m.m_state = true")
+	Page<Member> retireList(Pageable pageable);
+	
+	
 
 	@Transactional
     default Member registerMember(MemberDTO memberDTO) {

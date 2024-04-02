@@ -19,6 +19,7 @@ import lombok.extern.log4j.Log4j2;
 public class DesignerRepositoryTests {
 
 	@Autowired
+
 	private DesignerService designerService;
 	@Autowired
 	private DesignerRepository designerRepository;
@@ -38,18 +39,17 @@ public class DesignerRepositoryTests {
 
 	// 디자이너 등록테스트
 	@Test
-	public void testInsert() {
-		for (int i = 0; i < 30; i++) {
-			Designer designer = Designer.builder().dname("구르밍" + i).dbirth(LocalDate.of(1996, 1, 26)).dgender(1L)
-					.dphone("010-2546-451"+i).demail("de" + i + "@gab.nam").dh_date(LocalDate.of(2024, 1, 26)).dstate(0L)
-					.dintro("구르밍" + i + "년근무").dattach("구르밍" + i + ".jpg").build();
-			
-			// 2 개의 이미지 파일 추가
-			designer.addImageString(UUID.randomUUID().toString() + "-" + "mini.jpg");
-			designer.addImageString(UUID.randomUUID().toString() + "-" + "bob_3.jpg");
-			designerRepository.save(designer);
-			log.info("-------------------");
+	public void testRegister() {
+		for (int i = 1; i < 50; i++) {
+			DesignerDTO designerDTO = DesignerDTO.builder().d_name("디자이" + i).d_gender(false)
+					.d_birth(LocalDate.of(1996, 1, 26)).d_phone("010-2546-451" + i).d_email("de@gab.nam")
+					.d_h_date(LocalDate.of(2024, 1, 26)).d_state(false).d_intro("디자이 잘해").build();
+
+			designerDTO.setD_uploadFileNames(null);
+
+			designerService.register(designerDTO);
 		}
+		log.info("저장되었습니다.");
 	}
 
 }

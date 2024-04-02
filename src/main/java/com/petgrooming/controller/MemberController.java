@@ -1,6 +1,5 @@
 package com.petgrooming.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,10 +59,17 @@ public class MemberController {
 		return new ResponseEntity<>(updatedMember, HttpStatus.OK);
 	}
 
+	// 회원 리스트
 	@GetMapping("/list")
-	public PageResponseDTO<Member2DTO> getList(PageRequestDTO pageRequestDTO) {
+	public PageResponseDTO<Member2DTO> workList(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
-		return memberService.getList(pageRequestDTO);
+		return memberService.workList(pageRequestDTO);
 	}
 
+	// 퇴직 리스트
+	@GetMapping("/retire")
+	public PageResponseDTO<Member2DTO> getRetire(PageRequestDTO pageRequestDTO) {
+		log.info(pageRequestDTO);
+		return memberService.retireList(pageRequestDTO);
+	}
 }

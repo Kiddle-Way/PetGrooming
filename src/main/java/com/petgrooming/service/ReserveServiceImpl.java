@@ -100,4 +100,28 @@ public class ReserveServiceImpl implements ReserveService {
 	public void remove(Long r_num) {
 		reserveRepository.updateToDelete(r_num, true);
 	}
+	
+	// 내 예약 확인
+	@Override
+	public PageResponseDTO<ReserveDTO> findReserveByMemberNumber(Long m_num, PageRequestDTO pageRequestDTO) {
+	    log.info("Finding reservations for member: {}", m_num);
+
+	    Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize(),
+	            Sort.by("r_num").descending());
+
+	    Page<Reserve> result = reserveRepository.selectReserveByMemberNumber(m_num, pageable);
+
+	    List<ReserveDTO> dtoList = result.getContent().stream()
+	            .map(reserve -> modelMapper.map(reserve, ReserveDTO.class))
+	            .collect(Collectors.toList());
+
+	    long totalCount = result.getTotalElements();
+
+	    return PageResponseDTO.<ReserveDTO>withAll()
+	            .dtoList(dtoList)
+	            .pageRequestDTO(pageRequestDTO)
+	            .totalCount(totalCount)
+	            .build();
+	}
+
 }

@@ -15,32 +15,29 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DesignerDTO {
-	
-	private Long dno; // PK
 
-	private String dname; // 이름
+	private Long d_num; // PK
 
-	private Long  dgender; // 성별 남자 = 0, 여자 = 1
-	private String demail; // 이메일
-	private String dphone; // 연락처
+	private String d_name; // 이름
 
-	private Long dstate; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
-	private String dintro; // 소개
-	private String dattach;  // 첨부파일명
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dbirth; // 생년월일  //사용할때 : 예)LocalDate.of(1996,1,26)
+	private LocalDate d_birth; // 생년월일
 	
-	
+	private boolean d_gender; // 성별 남자 = 0, 여자 = 1
+	private String d_email; // 이메일
+	private String d_phone; // 연락처
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate dh_date; // 입사일
+	private LocalDate d_h_date; // 입사일
+
+	private boolean d_state; // 퇴사상태 퇴사 = 1, 근무 = 0 / 기본값 0
+	private String d_intro; // 소개
 	
-	
-	//여러개 첨부파일을 의미하는 리스트
+	// 여러개 첨부파일을 의미하는 리스트
 	@Builder.Default
-	private List<MultipartFile> files = new ArrayList<>(); 
-	
+	private List<MultipartFile> d_files = new ArrayList<>();
+
 	@Builder.Default
-	private List<String> uploadFileNames = new ArrayList<>();
+	private List<String> d_uploadFileNames = new ArrayList<>();
 
 }
