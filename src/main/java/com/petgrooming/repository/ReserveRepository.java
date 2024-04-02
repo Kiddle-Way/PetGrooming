@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.petgrooming.domain.Reserve;
-
-import java.util.Date;
 import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
@@ -77,7 +74,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 			"CASE " +
 			"   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' " +
 			"   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' " +
-			"   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " +
+			"   WHEN r.allProduct LIKE '%목욕➕위생%' THEN '목욕➕위생' " +
 			"   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' " +
 			"   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " +
 			"   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " +
@@ -88,7 +85,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 			"CASE " +
 			"   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' " +
 			"   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' " +
-			"   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " +
+			"   WHEN r.allProduct LIKE '%목욕➕위생%' THEN '목욕➕위생' " +
 			"   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' " +
 			"   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " +
 			"   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " +
