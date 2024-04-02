@@ -2,9 +2,9 @@ import { Suspense, lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 const Loading = <div>Loading....</div>;
-const ListPage = lazy(() => import("../../../member/pages/Q&A/ListPage"));
+const ListPage = lazy(() => import("../../pages/FAQ/ListPage"));
 
-const qnaRouter = () => {
+const faqRouter = () => {
   return [
     {
       path: "list",
@@ -16,9 +16,9 @@ const qnaRouter = () => {
     },
     {
       path: "",
-      element: <Navigate replace to="/memberqna/list" />,
+      element: <Navigate replace to="/memberfaq/list" />,
     },
   ];
 };
 
-export default qnaRouter;
+export default faqRouter;

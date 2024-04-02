@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getList, search } from "../../../common/api/noticeApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/component/PageComponent";
@@ -34,7 +34,8 @@ const ListComponent = () => {
 
   const handleSearchButtonClick = async () => {
     if (!searchTerm.trim()) {
-      alert("검색어를 입력해주세요.");
+      console.log("검색어를 입력해주세요.");
+      return; // 검색어가 비어있을 경우 검색하지 않고 함수 종료
     }
 
     const pageParam = { page: 1, size: 10 };
@@ -46,17 +47,20 @@ const ListComponent = () => {
       );
       setServerData(result);
     } catch (error) {
-      console.error(error);
+      console.error("비회원 접근입니다:", error);
     }
   };
 
   useEffect(() => {
-    getList({ page, size }).then((data) => {
-      console.log(data);
-      setServerData(data);
-    });
+    getList({ page, size })
+      .then((data) => {
+        console.log(data);
+        setServerData(data);
+      })
+      .catch((error) => {
+        console.error("비회원 접근입니다:", error);
+      });
   }, [page, size, refresh, searchTerm]);
-
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">

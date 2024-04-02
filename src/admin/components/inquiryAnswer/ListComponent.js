@@ -40,7 +40,7 @@ const ListComponent = () => {
             <div className="flex flex-col h-full">
               <div className="font-extrabold text-2xl p-2 w-full flex justify-between">
                 <span className="text-xl">{inquiry.i_num}</span>
-                {inquiry.v_content === "답변 미작성" ? (
+                {inquiry.i_a_content === "답변 미작성" ? (
                   <span className="text-red-500 bg-red-100 rounded-md px-2 text-sm">
                     답변대기
                   </span>
