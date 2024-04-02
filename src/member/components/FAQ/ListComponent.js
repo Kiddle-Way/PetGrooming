@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getList, search } from "../../../common/api/QnaApi";
+import { getList, search } from "../../../common/api/FaqApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
 
@@ -69,21 +69,21 @@ const ListComponent = () => {
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">
-        {serverData.dtoList.map((qna) => (
+        {serverData.dtoList.map((faq) => (
           <div
-            key={qna.f_num}
+            key={faq.f_num}
             className="w-full min-w-[400px] p-2 m-2 rounded shadow-md"
           >
             <div
               className="flex cursor-pointer justify-between items-center"
-              onClick={() => toggleAccordion(qna.f_num)}
+              onClick={() => toggleAccordion(faq.f_num)}
             >
               <div className="text-1xl m-1 p-2 font-extrabold">
-                Q.{qna.f_title}
+                Q.{faq.f_title}
               </div>
             </div>
-            {expandedId === qna.f_num && (
-              <div className="p-2">A.{qna.f_content}</div>
+            {expandedId === faq.f_num && (
+              <div className="p-2">A.{faq.f_content}</div>
             )}
           </div>
         ))}

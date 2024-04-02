@@ -198,7 +198,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
           <button
             type="button"
-            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-blue-400"
+            className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             onClick={handleClickAdd}
           >
             등록
@@ -207,7 +207,7 @@ const AddComponent = () => {
         <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
           <button
             type="button"
-            className="inline-block rounded p-2 m-2 text-xl w-32 text-white bg-red-400"
+            className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             onClick={handleClickCancel}
           >
             취소

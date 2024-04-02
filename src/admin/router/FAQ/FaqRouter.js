@@ -2,17 +2,17 @@ import { Suspense, lazy } from "react";
 import { Navigate } from "react-router";
 
 const Loading = <div>Loading....</div>;
-const QnaList = lazy(() => import("../../pages/Q&A/ListPage"));
-const QnaAdd = lazy(() => import("../../pages/Q&A/AddPage"));
-const QnaModify = lazy(() => import("../../pages/Q&A/ModifyPage"));
+const FaqList = lazy(() => import("../../pages/FAQ/ListPage"));
+const FaqAdd = lazy(() => import("../../pages/FAQ/AddPage"));
+const FaqModify = lazy(() => import("../../pages/FAQ/ModifyPage"));
 
-const QnaRouter = () => {
+const FaqRouter = () => {
   return [
     {
       path: "list",
       element: (
         <Suspense fallback={Loading}>
-          <QnaList />
+          <FaqList />
         </Suspense>
       ),
     },
@@ -24,7 +24,7 @@ const QnaRouter = () => {
       path: "add",
       element: (
         <Suspense fallback={Loading}>
-          <QnaAdd />
+          <FaqAdd />
         </Suspense>
       ),
     },
@@ -32,11 +32,11 @@ const QnaRouter = () => {
       path: "modify/:f_num",
       element: (
         <Suspense fallback={Loading}>
-          <QnaModify />
+          <FaqModify />
         </Suspense>
       ),
     },
   ];
 };
 
-export default QnaRouter;
+export default FaqRouter;

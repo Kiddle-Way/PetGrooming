@@ -6,6 +6,7 @@ import {
 } from "../../../common/api/designerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
+import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -20,7 +21,7 @@ const initState = {
   current: 0,
 };
 
-const SearchTestComponen = () => {
+const ListComponent = () => {
   const { page, size, moveToList, refresh, moveToRead } = useCustomMove();
   const [keyword, setKeyword] = useState(""); // 검색어 상태
   const [serverData, setServerData] = useState(initState); // 서버에서 받아온 데이터 상태
@@ -131,13 +132,23 @@ const SearchTestComponen = () => {
         placeholder="검색어를 입력하세요"
       />
       <button
-        className="ml-2 p-2 bg-blue-500 text-white rounded-md"
+        className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         onClick={handleSearchClick}
       >
         검색
       </button>
 
-      {/* 상품 목록 */}
+      <div className="flex justify-end">
+        <Link
+          to={"/designer/add"}
+          type="button"
+          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          등록
+        </Link>
+      </div>
+
+      {/* 디자이너 목록 */}
       <div className="flex flex-wrap mx-auto justify-center p-6">
         <div className="w-full min-w-[400px] p-2 m-2 rounded shadow-md text-gray-800 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">
           <div className="flex">
@@ -255,6 +266,7 @@ const SearchTestComponen = () => {
           <div className="text-center mt-4">검색 결과가 없습니다.</div>
         )}
       </div>
+
       {/* 페이지 네비게이션 */}
       <PageComponent
         serverData={serverData}
@@ -265,4 +277,4 @@ const SearchTestComponen = () => {
     </div>
   );
 };
-export default SearchTestComponen;
+export default ListComponent;

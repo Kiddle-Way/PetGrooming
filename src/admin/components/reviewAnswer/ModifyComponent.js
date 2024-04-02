@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getOne, putOne } from "../../../common/api/reviewApi";
 import { API_SERVER_HOST } from "../../../common/api/noticeApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import FetchingModal from "../../../common/components/FetchingModal";
 import ResultModal from "../../../common/components/ResultModal";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
 
 const initState = {
   v_num: 0,
@@ -11,6 +12,7 @@ const initState = {
   v_title: "",
   v_content: "",
   v_c_content: "",
+  v_rating: 0,
   v_uploadFileNames: [],
   m_num: 0,
   v_delFlag: false,
@@ -21,6 +23,7 @@ const host = API_SERVER_HOST;
 const ModifyComponent = ({ v_num }) => {
   const [review, setReview] = useState(initState);
   const [fetching, setFetching] = useState(false);
+  const [rating, setRating] = useState(0);
   //결과 모달
   const [result, setResult] = useState(null);
   //이동용 함수
@@ -30,9 +33,18 @@ const ModifyComponent = ({ v_num }) => {
     setFetching(true);
     getOne(v_num).then((data) => {
       setReview(data);
+      setRating(data.v_rating);
       setFetching(false);
     });
   }, [v_num]);
+
+  const handleChangeRating = (newRating) => {
+    setRating(newRating);
+    setReview((prevState) => ({
+      ...prevState,
+      v_rating: newRating,
+    }));
+  };
 
   const handleChangeReview = (e) => {
     review[e.target.name] = e.target.value;
@@ -46,6 +58,7 @@ const ModifyComponent = ({ v_num }) => {
     formData.append("v_pw", review.v_pw);
     formData.append("v_content", review.v_content);
     formData.append("v_c_content", review.v_c_content);
+    formData.append("v_rating", review.v_rating);
     for (let i = 0; i < review.v_uploadFileNames.length; i++) {
       formData.append("v_uploadFileNames", review.v_uploadFileNames[i]);
     }
@@ -100,6 +113,17 @@ const ModifyComponent = ({ v_num }) => {
           <div className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y">
             {review.v_content}
           </div>
+        </div>
+      </div>
+      <div>
+        <div className="flex justify-start items-center">
+          <div className="w-1/5 p-6 text-right font-bold">별점</div>
+          {[...Array(rating)].map((a, i) => (
+            <PiStarFill className="star-lg" key={i} />
+          ))}
+          {[...Array(5 - rating)].map((a, i) => (
+            <PiStarLight className="star-lg" key={i} />
+          ))}
         </div>
       </div>
       <div className="flex justify-center">
