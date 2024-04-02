@@ -21,6 +21,7 @@ public class ReserveDTO {
 	private Long r_num;
 	private Designer d_num;
 	private Member m_num;
+
 	private String allProduct;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

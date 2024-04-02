@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QnaDTO {
+public class FaqDTO {
 	private Long f_num;
 	private String f_title;
 	private String f_content;
