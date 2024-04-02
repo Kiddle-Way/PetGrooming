@@ -1,4 +1,4 @@
-import AddComponent from "../../components/Q&A/AddComponent";
+import AddComponent from "../../components/FAQ/AddComponent";
 
 const AddPage = () => {
   return (

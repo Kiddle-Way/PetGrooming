@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOne, deleteOne, putOne } from "../../../common/api/QnaApi";
+import { getOne, deleteOne, putOne } from "../../../common/api/FaqApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
@@ -9,23 +9,23 @@ const initState = {
 };
 
 const ModifyComponent = ({ f_num, moveList, moveRead }) => {
-  const [qna, setQna] = useState({ ...initState });
+  const [faq, setFaq] = useState({ ...initState });
 
   const { moveToList } = useCustomMove();
 
   useEffect(() => {
-    getOne(f_num).then((data) => setQna(data));
+    getOne(f_num).then((data) => setFaq(data));
   }, [f_num]);
 
-  const handleChangeQna = (e) => {
-    qna[e.target.name] = e.target.value;
-    setQna({ ...qna });
+  const handleChangeFaq = (e) => {
+    faq[e.target.name] = e.target.value;
+    setFaq({ ...faq });
   };
 
   const handleClickModify = () => {
     if (window.confirm("수정 하시겠습니까??")) {
       alert("수정되었습니다.");
-      putOne(qna).then((data) => {
+      putOne(faq).then((data) => {
         console.log("modify result: " + data);
         moveToList({ page: 1 });
       });
@@ -51,8 +51,8 @@ const ModifyComponent = ({ f_num, moveList, moveRead }) => {
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="f_title"
             type={"text"}
-            value={qna.f_title}
-            onChange={handleChangeQna}
+            value={faq.f_title}
+            onChange={handleChangeFaq}
           ></input>
         </div>
       </div>
@@ -63,8 +63,8 @@ const ModifyComponent = ({ f_num, moveList, moveRead }) => {
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="f_content"
             type={"text"}
-            value={qna.f_content}
-            onChange={handleChangeQna}
+            value={faq.f_content}
+            onChange={handleChangeFaq}
           ></input>
         </div>
       </div>

@@ -66,8 +66,10 @@ const ListComponent = () => {
             <div className="font-extrabold text-left m-1 text-1xl p-2 w-2/12">
               게시물 번호
             </div>
-            <div className="font-extrabold text-1xl m-1 p-2 w-8/12">제목</div>
-            <div className="text-1xl m-1 p-2 w-2/10 font-medium">등록일</div>
+            <div className="font-extrabold text-1xl m-1 p-2 w-8/12">
+              리뷰제목
+            </div>
+            <div className="text-1xl m-1 p-2 w-2/10 font-medium">작성자</div>
           </div>
         </div>
         {serverData.dtoList.map((notice) => (

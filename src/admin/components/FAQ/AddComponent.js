@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postAdd } from "../../../common/api/QnaApi";
+import { postAdd } from "../../../common/api/FaqApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {
@@ -8,26 +8,26 @@ const initState = {
 };
 
 const AddComponent = () => {
-  const [qna, setQna] = useState({ ...initState });
+  const [faq, setFaq] = useState({ ...initState });
 
   const { moveToList } = useCustomMove();
 
-  const handleChangeQna = (e) => {
-    qna[e.target.name] = e.target.value;
-    setQna({ ...qna });
+  const handleChangeFaq = (e) => {
+    faq[e.target.name] = e.target.value;
+    setFaq({ ...faq });
   };
   const handleClickAdd = () => {
-    if (!qna.f_title || !qna.f_content) {
+    if (!faq.f_title || !faq.f_content) {
       alert("제목과 내용을 입력해주세요.");
       return;
     }
 
     if (window.confirm("등록 하시겠습니까?")) {
       alert("등록되었습니다.");
-      postAdd(qna)
+      postAdd(faq)
         .then((result) => {
           console.log(result);
-          setQna({ ...initState });
+          setFaq({ ...initState });
           moveToList({ page: 1 });
         })
         .catch((e) => {
@@ -50,8 +50,8 @@ const AddComponent = () => {
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="f_title"
             type={"text"}
-            value={qna.f_title}
-            onChange={handleChangeQna}
+            value={faq.f_title}
+            onChange={handleChangeFaq}
           ></input>
         </div>
       </div>
@@ -62,8 +62,8 @@ const AddComponent = () => {
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="f_content"
             type={"text"}
-            value={qna.f_content}
-            onChange={handleChangeQna}
+            value={faq.f_content}
+            onChange={handleChangeFaq}
           ></input>
         </div>
       </div>
