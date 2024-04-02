@@ -11,6 +11,7 @@ const initState = {
   v_title: "",
   v_content: "",
   v_c_content: "",
+  v_rating: "",
   v_uploadFileNames: [],
   m_num: 0,
   v_delFlag: false,
@@ -49,6 +50,7 @@ const ModifyComponent = ({ v_num }) => {
     for (let i = 0; i < review.v_uploadFileNames.length; i++) {
       formData.append("v_uploadFileNames", review.v_uploadFileNames[i]);
     }
+    formData.append("v_rating", review.v_rating);
     //fetching
     setFetching(true);
     putOne(v_num, formData).then((data) => {

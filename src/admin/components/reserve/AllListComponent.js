@@ -97,7 +97,7 @@ const ListComponent = () => {
                 <td>{reserve.r_breed}</td>
                 <td>{reserve.r_date}</td>
                 <td>{formatTimeEnum(reserve.a_t_num.time)}</td>
-                <td>{reserve.d_num.dname}</td>
+                <td>{reserve.d_num.d_name}</td>
                 <td>{reserve.allProduct}</td>
                 <td>{reserve.r_total_price.toLocaleString()}원</td>
                 <td>{reserve.r_dog_notice}</td>

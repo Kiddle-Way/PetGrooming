@@ -60,6 +60,16 @@ const ListComponent = () => {
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
+  const handleReadButtonClick = (review) => {
+    // 비밀번호 확인
+    const password = prompt("비밀번호를 입력하세요:");
+    if (password === review.v_pw.toString()) {
+      moveToRead(review.v_num);
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
+  };
+
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       {fetching ? <FetchingModal /> : null}
@@ -68,7 +78,7 @@ const ListComponent = () => {
           <div
             key={review.v_num}
             className="w-1/2 p-1 rounded shadow-md border-2"
-            onClick={() => moveToRead(review.v_num)}
+            onClick={() => handleReadButtonClick(review)}
           >
             <div className="flex flex-col h-full">
               <div className="font-extrabold text-2xl p-2 w-full">

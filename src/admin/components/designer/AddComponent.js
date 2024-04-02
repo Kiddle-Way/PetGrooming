@@ -31,6 +31,19 @@ const AddComponent = () => {
 
   // 추가 버튼 클릭 이벤트 처리
   const handleClickAdd = (e) => {
+    if (
+      designer.d_name === "" ||
+      designer.d_birth === "" ||
+      designer.d_gender === "" ||
+      designer.d_phone === "" ||
+      designer.d_email === "" ||
+      designer.d_h_date === "" ||
+      designer.d_intro === ""
+    ) {
+      alert("모든 입력란을 입력해주세요.");
+      return;
+    }
+
     const files = uploadRef.current.files;
 
     const formData = new FormData();
@@ -176,19 +189,11 @@ const AddComponent = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
-          <label
-            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-yellow-300"
-            for="input-file"
-          >
-            파일선택
-          </label>
+        <div className="relative mb-4 flex w-full flex-wrap items-stretch justify-center">
           <input
-            id="input-file"
-            style={{ display: "none" }}
             ref={uploadRef}
-            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
+            className="w-4/5 p-6 rounded-r border border-solid border-neutral-300  ml-60
+  shadow-md"
             type={"file"}
             multiple={true}
           ></input>

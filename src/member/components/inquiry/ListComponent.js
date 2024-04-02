@@ -60,6 +60,17 @@ const ListComponent = () => {
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
+  const handleReadButtonClick = (inquiry) => {
+    // 비밀번호 확인
+    const password = prompt("비밀번호를 입력하세요:");
+    if (password === inquiry.i_pw.toString()) {
+      moveToRead(inquiry.i_num);
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
+  };
+
+
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       {fetching ? <FetchingModal /> : null}
@@ -68,7 +79,7 @@ const ListComponent = () => {
           <div
             key={inquiry.i_num}
             className="w-1/2 p-1 rounded shadow-md border-2"
-            onClick={() => moveToRead(inquiry.i_num)}
+            onClick={() => handleReadButtonClick(inquiry)}
           >
             <div className="flex flex-col h-full">
               <div className="font-extrabold text-2xl p-2 w-full">
@@ -77,7 +88,7 @@ const ListComponent = () => {
               <div className="text-1xl m-1 p-2 w-full flex flex-col">
                 <div className="bottom-0 font-extrabold bg-yellow-300">
                   <div className="text-center p-1">
-                    리뷰제목: {inquiry.i_title}
+                    문의글제목: {inquiry.i_title}
                   </div>
                 </div>
               </div>

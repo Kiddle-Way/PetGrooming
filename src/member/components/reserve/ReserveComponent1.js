@@ -28,7 +28,8 @@ const ReserveComponent1 = () => {
     setFetching(true); // 데이터 가져오는 중임을 표시
     getList({ page, size })
       .then((data) => {
-        setServerData(data);
+        const filteredData = data.dtoList.filter(designer => designer.d_state === false);
+        setServerData({ ...data, dtoList: filteredData });
         setFetching(false); // 데이터 가져오기 완료되면 표시 해제
       })
       .catch((error) => {
@@ -43,23 +44,26 @@ const ReserveComponent1 = () => {
       {fetching && <FetchingModal />}
 
       {/* 서버에서 받아온 designer 정보 출력 */}
-      <div className="flex flex-wrap justify-around">
+      <div className="flex flex-wrap justify-center items-center">
         {serverData.dtoList.map((designer) => (
           <Link
             key={designer.d_num}
             to={`/reserve/page/more?info=${designer.d_num}`}
             className="block cursor-pointer m-2"
+            style={{ width: "100%", display: "flex" }} // 각 디자이너 요소의 너비를 설정하고, 행으로 배치되도록 설정
           >
-            <div>
+            <div style={{ width: "30%" , marginLeft: "200px"}}> {/* 이미지를 왼쪽에 배치하기 위해 50% 너비 설정 */}
               <div className="w-full overflow-hidden">
                 <img
                   alt="designer"
-                  className="m-auto rounded-md w-60 flex"
+                  className="m-auto rounded-md w-100 h-auto object-cover" // 이미지 크기를 반으로 줄임
                   src={`${host}/api/designer/view/${designer.d_uploadFileNames[0]}`}
                 />
               </div>
-              <div>{designer.d_name}</div>
-              <div>{designer.d_intro}</div>
+            </div>
+            <div style={{ width: "50%", padding: "100px"}}> {/* 텍스트를 오른쪽에 배치하고 왼쪽 여백 추가 */}
+              <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{designer.d_name}</div>
+              <div style={{ fontSize: "1.25rem" }}>{designer.d_intro}</div>
             </div>
           </Link>
         ))}

@@ -46,6 +46,19 @@ const ModifyComponent = ({ d_num }) => {
 
   // 추가 버튼 클릭 이벤트 처리
   const handleClickModify = (e) => {
+    if (
+      designer.d_name === "" ||
+      designer.d_birth === "" ||
+      designer.d_gender === "" ||
+      designer.d_phone === "" ||
+      designer.d_email === "" ||
+      designer.d_h_date === "" ||
+      designer.d_intro === ""
+    ) {
+      alert("모든 입력란을 입력해주세요.");
+      return;
+    }
+
     const files = uploadRef.current.files;
 
     const formData = new FormData();
@@ -63,6 +76,9 @@ const ModifyComponent = ({ d_num }) => {
     formData.append("d_h_date", designer.d_h_date);
     formData.append("d_state", designer.d_state);
     formData.append("d_intro", designer.d_intro);
+    for (let i = 0; i < designer.d_uploadFileNames.length; i++) {
+      formData.append("d_uploadFileNames", designer.d_uploadFileNames[i]);
+    }
     console.log(formData);
 
     if (window.confirm("등록 하시겠습니까??")) {
@@ -192,16 +208,8 @@ const ModifyComponent = ({ d_num }) => {
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
-          <label
-            className="input-file-button inline-block rounded p-2 m-6 text-center center text-xl w-32 text-white bg-yellow-300"
-            for="input-file"
-          >
-            파일선택
-          </label>
+          <div className="w-1/5 p-6 text-right font-bold">첨부 사진</div>
           <input
-            id="input-file"
-            style={{ display: "none" }}
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             type={"file"}
@@ -209,19 +217,20 @@ const ModifyComponent = ({ d_num }) => {
           ></input>
         </div>
       </div>
+
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">첨부파일</div>
+          <div className="w-1/5 p-6 text-right font-bold">Images</div>
           <div className="w-4/5 justify-center flex flex-wrap items-start">
             {designer.d_uploadFileNames.map((imgFile, i) => (
               <div className="flex justify-center flex-col w-1/3" key={i}>
                 <button
-                  className="bg-orange-300 text-3xl text-white"
+                  className="bg-blue-500 text-3xl text-white"
                   onClick={() => deleteOldImages(imgFile)}
                 >
-                  삭제하기
+                  DELETE
                 </button>
-                <img alt="img" src={`${host}/api/designer/view/s_${imgFile}`} />
+                <img alt="img" src={`${host}/api/designer/view/${imgFile}`} />
               </div>
             ))}
           </div>
