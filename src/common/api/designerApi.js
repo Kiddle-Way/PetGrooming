@@ -33,6 +33,7 @@ export const putOne = async (d_num, designer) => {
   return res.data;
 };
 
+//복퇴직
 export const updateDesignerState = async (d_num, state) => {
   try {
     const response = await jwtAxios.put(`${host}/${d_num}/${state}`);
@@ -43,19 +44,22 @@ export const updateDesignerState = async (d_num, state) => {
   }
 };
 
-//화내지마세요
-export const search = async (searchGender, searchState, searchKeyword, pageParam) => {
+//검색
+export const search = async (
+  searchGender,
+  searchState,
+  searchKeyword,
+  pageParam
+) => {
   try {
     const { page, size } = pageParam;
     const url = `${host}/list/search/g${searchGender}/s${searchState}/k${searchKeyword}`;
     const res = await jwtAxios.get(url, {
       params: { page: page, size: size },
     });
-    return res.data; // PageResponseDTO<ReviewDTO> 반환
+    return res.data; // PageResponseDTO<DTO> 반환
   } catch (error) {
     console.error(error);
     throw error; // 에러 처리
   }
 };
-
-

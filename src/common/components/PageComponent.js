@@ -1,41 +1,56 @@
-const PageComponent = ({ serverData, movePage, moveToRead }) => {
+import React from "react";
+import nextbutton from "../../image/next_button.png"
+import backbutton from "../../image/back_button.png"
+import lastbutton from "../../image/last_button.png"
+import firstbutton from "../../image/first_button.png"
+
+const PageComponent = ({ serverData, movePage }) => {
   return (
     <div className="m-6 flex justify-center">
-      {/* 이전 페이지로 이동 버튼 */}
+      {serverData.goToFirstPage ? (
+        <div
+          className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
+          onClick={() => movePage({ page: serverData.goToFirstPage })}
+        >
+           <img className="mr-6" src={firstbutton} width="50%" height="50%" alt="Hero" />
+        </div>
+      ) : null}
       {serverData.prev ? (
         <div
-          className="m-2 p-2 w-16 text-center font-bold text-blue-400 "
+          className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
           onClick={() => movePage({ page: serverData.prevPage })}
         >
-          Prev
+           <img className="mr-6" src={backbutton} width="50%" height="50%" alt="Hero" />
         </div>
-      ) : (
-        <></>
-      )}
-      {/* 페이지 번호를 나타내는 버튼들 */}
+      ) : null}
       {serverData.pageNumList.map((pageNum) => (
         <div
           key={pageNum}
-          className={`m-2 p-2 w-12 text-center rounded shadow-md text-white ${
-            serverData.current === pageNum ? "bg-gray-500" : "bg-blue-400"
-          }`}
+          className={`m-2 p-2 w-12 text-center rounded shadow-md text-white 
+            ${serverData.current === pageNum ? "bg-gray-500" : "bg-blue-400"}`}
           onClick={() => movePage({ page: pageNum })}
         >
           {pageNum}
         </div>
       ))}
-      {/* 다음 페이지로 이동 버튼 */}
       {serverData.next ? (
         <div
-          className="m-2 p-2 w-16 text-center font-bold text-blue-400"
+          className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
           onClick={() => movePage({ page: serverData.nextPage })}
         >
-          Next
+          <img className="mr-6" src={nextbutton} width="50%" height="100%" alt="Hero" />
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
+      {serverData.goToLastPage ? (
+        <div
+          className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
+          onClick={() => movePage({ page: serverData.goToLastPage })}
+        >
+          <img className="mr-6" src={lastbutton} width="50%" height="100%" alt="Hero" />
+        </div>
+      ) : null}
     </div>
   );
 };
+
 export default PageComponent;

@@ -23,7 +23,7 @@ const ReserveComponent2 = () => {
   const memberCookieValue = getCookie("member");
 
   const [reserve, setReserve] = useState({
-    d_num: { dno: selectedInfo },
+    d_num: { d_num: selectedInfo },
     m_num: { m_num: memberCookieValue.m_num },
     allProduct: "",
     r_date: "",
@@ -46,8 +46,8 @@ const ReserveComponent2 = () => {
   const [additionalProducts, setAdditionalProducts] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [setPaymentSuccess] = useState(false);
-
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  
   // 모달 열기 함수
   const openModal = () => {
     setModalIsOpen(true);
@@ -88,7 +88,7 @@ const ReserveComponent2 = () => {
     try {
       const availableTimes = await getAvailableTime(
         formattedDate,
-        reserve.d_num.dno
+        reserve.d_num.d_num
       ); // 선택된 날짜에 해당하는 가능한 시간 가져오기
       setAvailableTimes(availableTimes);
     } catch (error) {
@@ -198,6 +198,7 @@ const ReserveComponent2 = () => {
   const handlePaymentSuccess = async () => {
     try {
       console.log(reserve);
+      setPaymentSuccess(true);
       await postAdd(reserve);
       const reservedTimeSlot = availableTimes.find(
         (timeSlot) => timeSlot.a_t_num === parseInt(reserve.a_t_num.a_t_num)
@@ -212,7 +213,6 @@ const ReserveComponent2 = () => {
       console.error("예약 추가 오류:", error);
       alert("예약 추가 중 오류가 발생했습니다.");
     }
-    setPaymentSuccess(true);
   };
 
   const mapTimeRange = (time) => {
