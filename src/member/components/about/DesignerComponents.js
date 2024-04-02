@@ -51,10 +51,10 @@ const DesignerComponents = ({ children }) => {
           {/* 이미지와 텍스트 그룹 반복 */}
           {serverData.dtoList.map((designer, item) => (
             <div key={item} className="flex flex-col items-center">
-              <div className="w-1/2 overflow-hidden">
+              <div className="w-1/3 overflow-hidden">
                 <img
                   alt="designer"
-                  className="m-auto rounded-md w-100 h-auto object-cover" // 이미지 크기를 반으로 줄임
+                  className="m-auto rounded-md w-100 h-100 object-cover" // 이미지 크기를 반으로 줄임
                   src={`${host}/api/designer/view/${designer.d_uploadFileNames[0]}`}
                 />
               </div>

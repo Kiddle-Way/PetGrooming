@@ -6,7 +6,6 @@ import {
 } from "../../../common/api/designerApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 import PageComponent from "../../../common/components/PageComponent";
-import { Link } from "react-router-dom";
 
 const initState = {
   dtoList: [],
@@ -110,9 +109,10 @@ const ListComponent = () => {
   };
 
   return (
-    <div className="mt-1 mr-2 ml-2">
+    <div className="mt-1 mr-2 ml-2 space-y-5">
+      {/* 성별 선택 셀렉트 박스 */}
       <select
-        className="border mr-3 px-4 py-2"
+        className="border p-2 mr-3"
         value={gender}
         onChange={handleGenderChange}
       >
@@ -121,92 +121,76 @@ const ListComponent = () => {
         <option value={1}>여자</option>
       </select>
       <select
-        className="border mr-3 px-4 py-2"
+        className="border p-2 mr-3"
         value={state}
         onChange={handleStateChange}
       >
+        {/* 근무 선택 셀렉트 박스 */}
         <option value="">근무상태</option>
         <option value={0}>근무</option>
         <option value={1}>퇴사</option>
       </select>
 
+      {/* 검색어 입력창 */}
       <input
-        className="px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs"
         type="text"
         value={keyword}
-        onChange={handleChange}
+        onChange={handleChange} // 검색어 변경 처리
         placeholder="검색어를 입력하세요"
+        className="px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs mr-2"
       />
       <button
-        className="text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        className="ml-2 p-2 bg-blue-500 text-white rounded-md"
         onClick={handleSearchClick}
       >
         검색
       </button>
 
-      <div className="flex justify-end">
-        <Link
-          to={"/designer/add"}
-          type="button"
-          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-        >
-          등록
-        </Link>
-      </div>
-
       {/* 디자이너 목록 */}
-      <div className="flex flex-wrap mx-auto justify-center p-6">
-        <div className="w-full min-w-[400px] p-2 m-2 rounded shadow-md text-gray-800 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2">
-          <div className="flex">
-            <div className="text-sm m-1 p-2 w-2/12 font-extrabold text-center">
-              번호
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              이름
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              생년월일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              성별
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              전화번호
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              이메일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              입사일
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              퇴사상태
-            </div>
-            <div className="text-1xl m-1 p-2 w-4/12 font-extrabold text-center">
-              복직/퇴사
-            </div>
-          </div>
-        </div>
-        {serverData.dtoList && serverData.dtoList.length > 0 ? (
-          serverData.dtoList.map((designer) => (
-            <div
-              key={designer.d_num}
-              className="w-full p-2 rounded shadow-md cursor-pointer"
-            >
-              <div className="flex">
-                <div
-                  className="text-sm w-2/12 p-2 m-1 font-medium text-center"
-                  onClick={() => moveToRead(designer.d_num)}
-                >
-                  <td>{designer.d_num}</td>
-                  <td>{designer.d_name}</td>
-                  <td>{designer.d_birth}</td>
-                  <td>{designer.d_gender ? "여자" : "남자"}</td>
-                  <td>{designer.d_phone}</td>
-                  <td>{designer.d_email}</td>
-                  <td>{designer.d_h_date}</td>
-                  <td>{designer.d_state ? "퇴사" : "근무"}</td>
-                  <td>
+      <div className="overflow-x-auto">
+        <table className="table text-center">
+          <thead>
+            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+              <th>번호</th>
+              <th>이름</th>
+              <th>생년월일</th>
+              <th>성별</th>
+              <th>전화번호</th>
+              <th>이메일</th>
+              <th>입사일</th>
+              <th>퇴사상태</th>
+              <th>복직/퇴사</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serverData.dtoList && serverData.dtoList.length > 0 ? (
+              serverData.dtoList.map((designer) => (
+                <tr key={designer.d_num} className="cursor-pointer">
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_num}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_name}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_birth}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_gender ? "여자" : "남자"}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_phone}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_email}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_h_date}
+                  </td>
+                  <td onClick={() => moveToRead(designer.d_num)}>
+                    {designer.d_state ? "퇴사" : "근무"}
+                  </td>
+                  <td className="px-2 py-1 font-medium text-center">
                     {!designer.d_state ? (
                       <input
                         type="button"
@@ -232,7 +216,7 @@ const ListComponent = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="9" className="text-center py-4">
+                <td colSpan="9" className="text-center">
                   검색 결과가 없습니다.
                 </td>
               </tr>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getList, search } from "../../../common/api/inquiryApi"; // getList 및 search 함수 import
 import useCustomMove from "../../../common/hooks/useCustomMove";
-import FetchingModal from "../../../common/components/FetchingModal";
 import PageComponent from "../../../common/components/PageComponent";
 
 const initState = {
@@ -20,7 +19,7 @@ const initState = {
 const ListComponent = () => {
   const { page, size, refresh, moveToList, moveToRead } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
-  const [fetching, setFetching] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("제목");
 
@@ -36,7 +35,6 @@ const ListComponent = () => {
   const handleSearchButtonClick = async () => {
     const pageParam = { page: 1, size: 10 };
     try {
-      setFetching(true); // 검색 시작 시 로딩 표시
       const result = await search(
         searchType === "제목" ? "title" : "content",
         searchTerm,
@@ -45,8 +43,6 @@ const ListComponent = () => {
       setServerData(result); // 검색 결과로 서버 데이터 업데이트
     } catch (error) {
       console.error(error);
-    } finally {
-      setFetching(false); // 검색 완료 시 로딩 표시 제거
     }
   };
 
@@ -55,46 +51,41 @@ const ListComponent = () => {
       // 검색어가 비어있을 때 전체 목록을 불러옴
       getList({ page, size }).then((data) => {
         setServerData(data);
-        setFetching(false);
       });
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
-  const handleReadButtonClick = (inquiry) => {
-    // 비밀번호 확인
-    const password = prompt("비밀번호를 입력하세요:");
-    if (password === inquiry.i_pw.toString()) {
-      moveToRead(inquiry.i_num);
-    } else {
-      alert("비밀번호가 일치하지 않습니다.");
-    }
-  };
-
-
   return (
-    <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-      {fetching ? <FetchingModal /> : null}
-      <div className="flex flex-wrap mx-auto p-6">
-        {serverData.dtoList.map((inquiry) => (
-          <div
-            key={inquiry.i_num}
-            className="w-1/2 p-1 rounded shadow-md border-2"
-            onClick={() => handleReadButtonClick(inquiry)}
-          >
-            <div className="flex flex-col h-full">
-              <div className="font-extrabold text-2xl p-2 w-full">
-                {inquiry.i_num}
-              </div>
-              <div className="text-1xl m-1 p-2 w-full flex flex-col">
-                <div className="bottom-0 font-extrabold bg-yellow-300">
-                  <div className="text-center p-1">
-                    문의글제목: {inquiry.i_title}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="overflow-x-auto">
+      <div className="table text-center">
+        <table className="table w-full">
+          <thead>
+            <tr className="flex bg-yellow-100">
+              <td className="w-2/12">게시물 번호</td>
+              <td className="w-5/12">제목</td>
+              <td className="w-3/12">작성자</td>
+              <td className="w-2/12">등록일</td>
+            </tr>
+          </thead>
+          <tbody>
+            {serverData.dtoList.map((inquiry) => (
+              <tr
+                key={inquiry.i_num}
+                className="flex m-1 p-2"
+                onClick={() => moveToRead(inquiry.i_num)}
+              >
+                <td className="w-2/12">{inquiry.i_num}</td>
+                <td className="w-5/12">{inquiry.i_title}</td>
+                <td className="w-3/12">{inquiry.m_num.m_name}</td>
+                <td className="w-2/12">
+                  {new Date(inquiry.i_reg)
+                    .toLocaleDateString()
+                    .replace(/\.$/, "")}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <div>
         <PageComponent
@@ -122,7 +113,7 @@ const ListComponent = () => {
             onChange={handleChange}
           />
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="px-4 py-2 bg-orange-300 text-white rounded"
             onClick={handleSearchButtonClick}
           >
             검색

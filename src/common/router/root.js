@@ -40,7 +40,6 @@ const InquiryAnswerIndex = lazy(() =>
 const MemberNoticeIndex = lazy(() =>
   import("../../member/pages/notice/IndexPage")
 );
-const AdminLogin = lazy(() => import("../../admin/pages/login/LoginPage"));
 const StatisticsIndex = lazy(() =>
   import("../../admin/pages/statistics/IndexPage")
 );

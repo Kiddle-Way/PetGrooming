@@ -77,7 +77,7 @@ const Navbar = () => {
               </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-gray-50 rounded-box w-52">
                 <li>
-                  <Link to={"/qna/list"}>자주묻는질문</Link>
+                  <Link to={"/faq/list"}>자주묻는질문</Link>
                 </li>
                 <li>
                   <Link to={"/inquiryAnswer/list"}>문의게시판</Link>
@@ -112,7 +112,7 @@ const Navbar = () => {
 
             <details className="dropdown">
               <summary className="m-1 text-xl btn btn-ghost text-gray-600">
-                로그아웃
+                <Link to={"/member/logout"}>로그아웃</Link>
               </summary>
             </details>
           </ul>

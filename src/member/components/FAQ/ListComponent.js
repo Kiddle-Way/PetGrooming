@@ -47,19 +47,15 @@ const ListComponent = () => {
       );
       setServerData(result);
     } catch (error) {
-      console.error("비회원 접근입니다:", error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    getList({ page, size })
-      .then((data) => {
-        console.log(data);
-        setServerData(data);
-      })
-      .catch((error) => {
-        console.error("비회원 접근입니다:", error);
-      });
+    getList({ page, size }).then((data) => {
+      console.log(data);
+      setServerData(data);
+    });
   }, [page, size, refresh, searchTerm]);
 
   const toggleAccordion = (id) => {
@@ -67,7 +63,7 @@ const ListComponent = () => {
   };
 
   return (
-    <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
+    <div className="border-2 border-yellow-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">
         {serverData.dtoList.map((faq) => (
           <div
@@ -114,7 +110,7 @@ const ListComponent = () => {
             onChange={handleChange}
           />
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="px-4 py-2 bg-orange-300 text-white rounded"
             onClick={handleSearchButtonClick}
           >
             검색

@@ -117,7 +117,7 @@ const Navbar = () => {
             </details>
           </ul>
         </div>
-        <div className="flex items-center justify-center ml-6 outline outline-orange-400 rounded-3xl w-52 p-1 font-semibold ">
+        <div className="flex items-center justify-center ml-6 outline outline-orange-400 rounded-3xl w-64 p-1 font-semibold ">
           {/* 로그인 상태에 따라 Join 항목 렌더링 */}
           {!loginState.m_email && (
             <div className="flex w-1/2 justify-center text-black text-sm m-1 text-center hover:text-blue-600">

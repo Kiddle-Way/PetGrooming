@@ -53,10 +53,10 @@ const ReserveComponent1 = () => {
             style={{ width: "100%", display: "flex" }} // 각 디자이너 요소의 너비를 설정하고, 행으로 배치되도록 설정
           >
             <div style={{ width: "30%" , marginLeft: "200px"}}> {/* 이미지를 왼쪽에 배치하기 위해 50% 너비 설정 */}
-              <div className="w-full overflow-hidden">
+              <div className="w-full h-96 overflow-hidden">
                 <img
                   alt="designer"
-                  className="m-auto rounded-md w-100 h-auto object-cover" // 이미지 크기를 반으로 줄임
+                  className="m-auto rounded-md w-full h-full object-cover" // 이미지 크기를 부모 요소에 맞게 조정
                   src={`${host}/api/designer/view/${designer.d_uploadFileNames[0]}`}
                 />
               </div>

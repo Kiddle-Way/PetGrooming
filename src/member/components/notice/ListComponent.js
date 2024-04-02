@@ -66,7 +66,7 @@ const ListComponent = () => {
       <div className="overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="bg-gradient-to-r from-green-200 via-green-100 to-yellow-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+            <tr className="bg-yellow-100">
               <th>게시물 번호</th>
               <th>글유형</th>
               <th>제목</th>
@@ -115,7 +115,7 @@ const ListComponent = () => {
             onChange={handleChange}
           />
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="px-4 py-2 bg-orange-300 text-white rounded"
             onClick={handleSearchButtonClick}
           >
             검색
