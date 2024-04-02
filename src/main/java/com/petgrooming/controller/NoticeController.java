@@ -35,7 +35,7 @@ public class NoticeController {
 
 	// 공지사항 읽기
 	@GetMapping("/{n_num}")
-	public NoticeDTO read(@PathVariable(name = "n_num") Long n_num) {
+	public NoticeDTO get(@PathVariable(name = "n_num") Long n_num) {
 		return service.get(n_num);
 	}
 
@@ -79,6 +79,12 @@ public class NoticeController {
 		Long n_num = service.register(noticeDTO);
 
 		return Map.of("RESULT", n_num);
+	}
+	
+	//이미지 읽기
+	@GetMapping("/view/{fileName}")
+	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
+		return fileUtil.getFile(fileName);
 	}
 
 	// 공지사항 수정
