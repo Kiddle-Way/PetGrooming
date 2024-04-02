@@ -30,6 +30,5 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 	@Query("SELECT p FROM Notice p WHERE p.delFlag = false AND p.n_content LIKE %:searchContent%")
 	Page<Notice> searchContentList(Pageable pageable, @Param("searchContent") String searchContent);
 
-	@Query("SELECT p FROM Notice p WHERE p.delFlag = false AND p.n_head LIKE %:searchHead")
-	Page<Notice> searchHeadList(Pageable pageable, @Param("searchHead") String searchHead);
+	
 }

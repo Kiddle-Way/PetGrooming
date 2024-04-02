@@ -8,7 +8,7 @@ import com.petgrooming.dto.ReviewDTO;
 public interface FaqService {
 	Long register(FaqDTO faqDTO);
 
-	FaqDTO get(Long f_num);
+	FaqDTO read(Long f_num);
 
 	void modify(FaqDTO faqDTO);
 

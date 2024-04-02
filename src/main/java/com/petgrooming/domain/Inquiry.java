@@ -29,6 +29,7 @@ public class Inquiry {
 	private String i_content;
 	private boolean i_delFlag;
 
+	// 질문게시판 답변 (관리자)
 	@Column(nullable = false, columnDefinition = "VARCHAR2(2000) default '답변 미작성'")
 	private String i_a_content;
 

@@ -41,7 +41,7 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public FaqDTO get(Long f_num) {
+	public FaqDTO read(Long f_num) {
 		java.util.Optional<Faq> result = faqRepository.findById(f_num);
 
 		Faq faq = result.orElseThrow();

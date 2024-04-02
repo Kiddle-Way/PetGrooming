@@ -22,6 +22,4 @@ public interface NoticeService {
 	PageResponseDTO<NoticeDTO> getSearchTitleList(PageRequestDTO pageRequestDTO, String searchTitle);
 
 	PageResponseDTO<NoticeDTO> getSearchContentList(PageRequestDTO pageRequestDTO, String searchContent);
-
-	PageResponseDTO<NoticeDTO> getSearchHeadList(PageRequestDTO pageRequestDTO, String searchHead);
 }
