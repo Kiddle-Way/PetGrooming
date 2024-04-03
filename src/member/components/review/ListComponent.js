@@ -58,6 +58,17 @@ const ListComponent = () => {
     }
   }, [page, size, refresh, searchTerm]); // 페이지, 사이즈, 리프레시, 검색어가 변경되었을 때만 useEffect 실행
 
+  const handleReadButtonClick = (review) => {
+    // 비밀번호 확인
+    const password = prompt("비밀번호를 입력하세요:");
+    if (password === review.v_pw.toString()) {
+      moveToRead(review.v_num);
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
+  };
+
+
   return (
     <div className="overflow-x-auto">
       <div className="table text-center">
@@ -76,7 +87,7 @@ const ListComponent = () => {
               <tr
                 key={review.v_num}
                 className="flex m-1 p-2"
-                onClick={() => moveToRead(review.v_num)}
+                onClick={() => handleReadButtonClick(review)}
               >
                 <td className="w-2/12">{review.v_num}</td>
                 <td className="w-4/12">{review.v_title}</td>

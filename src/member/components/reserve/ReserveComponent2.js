@@ -349,7 +349,6 @@ const ReserveComponent2 = () => {
                     type={"text"}
                     value={reserve.r_dog_name}
                     onChange={handleChange}
-                    readOnly
                     className="input input-bordered input-warning w-full max-w-lg flex items-center gap-10 mb-5"
                   />
                 </div>
