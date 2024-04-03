@@ -9,6 +9,7 @@ import com.petgrooming.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//토큰 관리 클래스
 @RestController
 @RequiredArgsConstructor
 @Log4j2

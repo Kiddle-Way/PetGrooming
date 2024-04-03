@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.petgrooming.dto.InquiryPageRequestDTO;
 import com.petgrooming.dto.InquiryPageResponseDTO;
 import com.petgrooming.dto.InquiryDTO;
@@ -35,7 +34,8 @@ public class InquiryController {
 	private final InquiryService inquiryService;
 	private final CustomFileUtil fileUtil;
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 등록
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(InquiryDTO inquiryDTO) {
 		log.info("rgister: " + inquiryDTO);
@@ -48,40 +48,47 @@ public class InquiryController {
 		return Map.of("result", i_num);
 	}
 
+	// 이미지 보기
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")  //회원만 접근 가능
+
+	// 리스트 불러오기
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public InquiryPageResponseDTO<InquiryDTO> list(InquiryPageRequestDTO inquiryPageRequestDTO) {
 		log.info("list............." + inquiryPageRequestDTO);
 		return inquiryService.getList(inquiryPageRequestDTO);
 	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+
+	// 제목 검색
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
-	public InquiryPageResponseDTO<InquiryDTO> searchTitlelist(InquiryPageRequestDTO inquiryPageRequestDTO, @PathVariable("searchTitle") String searchTitle) {
+	public InquiryPageResponseDTO<InquiryDTO> searchTitlelist(InquiryPageRequestDTO inquiryPageRequestDTO,
+			@PathVariable("searchTitle") String searchTitle) {
 		log.info("list............." + inquiryPageRequestDTO);
 		return inquiryService.getSearchTitleList(inquiryPageRequestDTO, searchTitle);
 	}
-		
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+
+	// 내용 검색
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
-	public InquiryPageResponseDTO<InquiryDTO> searchContentlist(InquiryPageRequestDTO inquiryPageRequestDTO, @PathVariable("searchContent") String searchContent) {
+	public InquiryPageResponseDTO<InquiryDTO> searchContentlist(InquiryPageRequestDTO inquiryPageRequestDTO,
+			@PathVariable("searchContent") String searchContent) {
 		log.info("list............." + inquiryPageRequestDTO);
 		return inquiryService.getSearchContentList(inquiryPageRequestDTO, searchContent);
 	}
 
-
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 정보 불러오기
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{i_num}")
 	public InquiryDTO read(@PathVariable(name = "i_num") Long i_num) {
 		return inquiryService.get(i_num);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 수정
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{i_num}")
 	public Map<String, String> modify(@PathVariable(name = "i_num") Long i_num, InquiryDTO inquiryDTO) {
 		inquiryDTO.setI_num(i_num);
@@ -110,7 +117,8 @@ public class InquiryController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
+	// 상태전환
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@DeleteMapping("/{i_num}")
 	public Map<String, String> remove(@PathVariable("i_num") Long i_num) {
 

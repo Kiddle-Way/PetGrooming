@@ -10,8 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-    private Long p_num;
-    private String p_type;
-    private String p_name;
-    private int p_price;
+	// 상품 번호
+	private Long p_num;
+	// 상품 타입
+	private String p_type;
+	// 상품 이름
+	private String p_name;
+	// 상품 가격
+	private int p_price;
 }

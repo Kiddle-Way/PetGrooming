@@ -19,15 +19,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("SELECT i FROM Product i WHERE i.p_name LIKE %:keyword% OR i.p_type LIKE %:keyword% OR CAST(i.p_price AS string) LIKE %:keyword%")
 	Page<Product> findByP_nameContaining(String keyword, Pageable pageable);
 
-	//필수상품 카테고리 조회
+	// 필수상품 카테고리 조회
 	@Query("SELECT p FROM Product p WHERE p.p_type = '필수상품' AND p.p_name LIKE '% ~4kg'")
 	List<Product> findEssentialProductsCategory();
-	
+
 	// 필수상품 목록 조회);
 	@Query("SELECT p FROM Product p WHERE SUBSTR(p.p_name, 4) LIKE CONCAT(:p_name, ' %')")
 	List<Product> findEssentialProducts(@Param("p_name") String p_name);
 
-    // 추가상품 목록 조회
-    @Query("SELECT i FROM Product i WHERE i.p_type = '추가상품'")
-    List<Product> findAdditionalProducts();
+	// 추가상품 목록 조회
+	@Query("SELECT i FROM Product i WHERE i.p_type = '추가상품'")
+	List<Product> findAdditionalProducts();
 }

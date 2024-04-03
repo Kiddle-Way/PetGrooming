@@ -26,55 +26,69 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notice {
+	// 공지사항 번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_SEQ_GEN")
 	private Long n_num;
-	
+
+	// 공지사항유형
 	@Column(nullable = false, length = 100)
 	private String n_head;
 
+	// 공지사항제목
 	@Column(nullable = false, length = 100)
 	private String n_title;
 
+	// 공지사항 내용
 	@Column(nullable = false, length = 2000)
 	private String n_content;
 
+	// 등록 날짜
 	@CreationTimestamp
 	@Column(nullable = false)
 	private LocalDate n_reg;
 
+	// 삭제
 	private boolean delFlag;
 
+	// 삭제시 값변경
 	public void changeDel(boolean delFlag) {
 		this.delFlag = delFlag;
 	}
 
+	// 이미지 목록
 	@ElementCollection
 	@Builder.Default
 	private List<NoticeImage> imageList = new ArrayList<>();
 
+	// 말머리 수정 메서드
 	public void changeHead(String n_head) {
 		this.n_head = n_head;
 	}
-	
+
 	public void changeTitle(String n_title) {
 		this.n_title = n_title;
 	}
 
+	// 내용 수정 메서드
 	public void changeContent(String n_content) {
 		this.n_content = n_content;
 	}
 
+	
 	public void addImage(NoticeImage image) {
-		image.setOrd(this.imageList.size());
-		imageList.add(image);
+	    // 이미지의 순서를 설정하여 이미지 객체에 할당
+	    image.setOrd(this.imageList.size());
+	    imageList.add(image);
 	}
 
+	// 파일 이름을 받아 새 이미지 객체를 생성하고 이미지 리스트에 추가하는 메서드
 	public void addImageString(String fileName) {
-		NoticeImage noticeImage = NoticeImage.builder().fileName(fileName).build();
-		addImage(noticeImage);
+	    NoticeImage noticeImage = NoticeImage.builder().fileName(fileName).build();
+	    addImage(noticeImage);
 	}
 
+	// 이미지 항목 지우는 메서드
 	public void clearList() {
 		this.imageList.clear();
 	}
