@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOne, deleteOne, putOne } from "../../../common/api/productApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
-import ResultModal from "../product/ResultModal";
+import ResultModal from "../../../common/components/ResultModal";
 
 const initState = {
   p_num: 0,

@@ -79,7 +79,7 @@ const ListComponent = () => {
               <th className="w-4/12">제목</th>
               <th className="w-2/12">별점</th>
               <th className="w-3/12">작성자</th>
-              <th className="w-1/12">등록일</th>
+              <th className="w-1/12">등록일</th>  
             </tr>
           </thead>
           <tbody>

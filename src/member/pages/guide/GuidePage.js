@@ -1,4 +1,4 @@
-import GuideComponent from "../../../admin/components/product/GuideComponent";
+import GuideComponent from "../../components/guide/GuideComponent";
 import BasicLayout from "../../../common/layouts/BasicLayout";
 
 const GuidePage = () => {

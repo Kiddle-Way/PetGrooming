@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { postAdd } from "../../../common/api/productApi";
-import ResultModal from "../../components/product/ResultModal";
+import ResultModal from "../../../common/components/ResultModal";
 import useCustomMove from "../../../common/hooks/useCustomMove";
 
 const initState = {

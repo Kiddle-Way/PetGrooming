@@ -3,11 +3,8 @@ import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { getCookie } from "../../../common/util/cookieUtil";
 
-// 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요.
-// 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "w45nqhBbc4qd16BKjixJm";
-// const paymentWidget = PaymentWidget(widgetClientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
 
 export default function Tosspayment({ reserve, onPaymentSuccess, closeModal }) {
   const [paymentWidget, setPaymentWidget] = useState(null);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getList2 } from "../../../common/api/memberApi";
 import useCustomMove from "../../../common/hooks/useCustomMove";
-import PageComponent from "../../../common/component/PageComponent";
+import PageComponent from "../../../common/components/PageComponent";
 import { Link } from "react-router-dom";
 
 const initState = {
