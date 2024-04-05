@@ -20,6 +20,8 @@ public class InquiryPageResponseDTO<E> {
 	private int nextPage;
 	private int totalPage;
 	private int current;
+	private int goToFirstPage;
+	private int goToLastPage;
 
 	@Builder(builderMethodName = "withAll")
 	public InquiryPageResponseDTO(List<E> dtoList, InquiryPageRequestDTO inquiryPageRequestDTO, long totalCount) {
@@ -46,5 +48,7 @@ public class InquiryPageResponseDTO<E> {
 		}
 		this.totalPage = this.pageNumList.size();
 		this.current = inquiryPageRequestDTO.getPage();
+		this.goToFirstPage = 1;
+		this.goToLastPage = last;
 	}
 }

@@ -66,7 +66,6 @@ public class NoticeController {
 	}
 
 	// 공지사항 등록
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(NoticeDTO noticeDTO) {
 		log.info("register: " + noticeDTO);
@@ -88,7 +87,6 @@ public class NoticeController {
 	}
 
 	// 공지사항 수정
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{n_num}")
 	public Map<String, String> modify(@PathVariable(name = "n_num") Long n_num, NoticeDTO noticeDTO) {
 		noticeDTO.setN_num(n_num);
@@ -119,7 +117,6 @@ public class NoticeController {
 	}
 
 	// 공지사항 삭제
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@DeleteMapping("/{n_num}")
 	public Map<String, String> remove(@PathVariable(name = "n_num") Long n_num) {
 		List<String> oldFileNames = service.get(n_num).getUploadFileNames();

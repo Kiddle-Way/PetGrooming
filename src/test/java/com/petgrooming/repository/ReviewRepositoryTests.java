@@ -23,16 +23,16 @@ public class ReviewRepositoryTests {
     public void testInsert() {
         for (int i = 0; i < 200; i++) {
             // 회원 조회
-            Member member = memberRepository.findById(1L)
+            Member member = memberRepository.findById(2L)
                     .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
 
             // 리뷰 생성
             Review review = Review.builder()
-                    .v_num((long) (i + 1)) // 각 리뷰마다 고유한 번호를 부여
                     .m_num(member)
-                    .v_title("리뷰 제목 " + i)
+                    .v_title("더미 데이터")
                     .v_pw(1234L) // 임의의 비밀번호 설정
-                    .v_content("리뷰 내용 " + i)
+                    .v_rating(4L)
+                    .v_content("더미 데이터")
                     .build();
 
             // 리뷰 저장
