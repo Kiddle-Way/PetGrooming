@@ -13,9 +13,11 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
 	// 예약 내역 전체리스트
 	@Query("select r from Reserve r where r.r_date >= current_date and r.r_delFlag = false")
+	@Query("select r from Reserve r where r.r_date >= current_date and r.r_delFlag = false")
 	Page<Reserve> allList(Pageable pageable);
 
 	// 지난 예약 내역 조회
+	@Query("SELECT r FROM Reserve r WHERE r.r_date < CURRENT_DATE or r.r_delFlag = true")
 	@Query("SELECT r FROM Reserve r WHERE r.r_date < CURRENT_DATE or r.r_delFlag = true")
 	Page<Reserve> pastList(Pageable pageable);
 
@@ -43,29 +45,36 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
 	// 전체 매출
 	@Query("select sum(r.r_total_price) from Reserve r where r.r_delFlag <> true")
+	@Query("select sum(r.r_total_price) from Reserve r where r.r_delFlag <> true")
 	Long getTotalPrice();
 
 	// 연도별 총매출
+	@Query("SELECT YEAR(r.r_date), SUM(r.r_total_price) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
 	@Query("SELECT YEAR(r.r_date), SUM(r.r_total_price) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
 	List<Object[]> getTotalPriceByAllYears();
 
 	// 연도별 월매출
 	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
+	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
 	Long getTotalPriceByMonth(@Param("year") int year, @Param("month") int month);
 
 	// 주간매출
+	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND WEEK(r.r_date) = :week AND r.r_delFlag <> true")
 	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND WEEK(r.r_date) = :week AND r.r_delFlag <> true")
 	Long getTotalPriceByWeek(@Param("year") int year, @Param("week") int week);
 
 	// 총 예약 건수
 	@Query("SELECT COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true")
+	@Query("SELECT COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true")
 	Long getTotalCount();
 
 	// 연도별 예약 건수
 	@Query("SELECT YEAR(r.r_date), COUNT(*) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
+	@Query("SELECT YEAR(r.r_date), COUNT(*) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
 	List<Object[]> getTotalCountByAllYears();
 
 	// 월별 예약 건수
+	@Query("SELECT COUNT(r) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
 	@Query("SELECT COUNT(r) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
 	Long getTotalCountByMonth(@Param("year") int year, @Param("month") int month);
 
@@ -84,6 +93,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 	List<Object[]> countReserveByProduct();
 
 	// 견종별 예약 건수
+	@Query("SELECT r.r_breed, COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY r.r_breed")
 	@Query("SELECT r.r_breed, COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY r.r_breed")
 	List<Object[]> countReserveByBreed();
 }
