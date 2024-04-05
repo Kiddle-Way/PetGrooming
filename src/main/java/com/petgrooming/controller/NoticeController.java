@@ -34,14 +34,12 @@ public class NoticeController {
 	private final CustomFileUtil fileUtil;
 
 	// 공지사항 읽기
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/{n_num}")
-	public NoticeDTO read(@PathVariable(name = "n_num") Long n_num) {
+	public NoticeDTO get(@PathVariable(name = "n_num") Long n_num) {
 		return service.get(n_num);
 	}
 
 	// 공지사항 리스트
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<NoticeDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list........" + pageRequestDTO);
@@ -50,7 +48,6 @@ public class NoticeController {
 	}
 
 	// 공지사항 제목검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchtitle/{searchTitle}")
 	public PageResponseDTO<NoticeDTO> searchTitlelist(PageRequestDTO pageRequestDTO,
 			@PathVariable("searchTitle") String searchTitle) {
@@ -60,7 +57,6 @@ public class NoticeController {
 	}
 
 	// 공지사항 내용검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list/searchcontent/{searchContent}")
 	public PageResponseDTO<NoticeDTO> searchContentlist(PageRequestDTO pageRequestDTO,
 			@PathVariable("searchContent") String searchContent) {
@@ -69,18 +65,7 @@ public class NoticeController {
 		return service.getSearchContentList(pageRequestDTO, searchContent);
 	}
 
-	// 공지사항 머리말검색
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
-	@GetMapping("/list/searchcontent/{searchHead}")
-	public PageResponseDTO<NoticeDTO> searchHeadlist(PageRequestDTO pageRequestDTO,
-			@PathVariable("searchHead") String searchHead) {
-		log.info("list........" + pageRequestDTO);
-
-		return service.getSearchHeadList(pageRequestDTO, searchHead);
-	}
-
 	// 공지사항 등록
-
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PostMapping("/")
 	public Map<String, Long> register(NoticeDTO noticeDTO) {
@@ -95,12 +80,14 @@ public class NoticeController {
 
 		return Map.of("RESULT", n_num);
 	}
-
+	
+	//이미지 읽기
 	@GetMapping("/view/{fileName}")
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
 
+	// 공지사항 수정
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@PutMapping("/{n_num}")
 	public Map<String, String> modify(@PathVariable(name = "n_num") Long n_num, NoticeDTO noticeDTO) {

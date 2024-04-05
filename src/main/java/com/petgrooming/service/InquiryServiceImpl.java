@@ -27,6 +27,7 @@ import lombok.extern.log4j.Log4j2;
 public class InquiryServiceImpl implements InquiryService {
 	private final InquiryRepository inquiryRepository;
 
+	// 리스트 불러오기
 	@Override
 	public InquiryPageResponseDTO<InquiryDTO> getList(InquiryPageRequestDTO inquiryPageRequestDTO) {
 		log.info("getList..............");
@@ -39,7 +40,7 @@ public class InquiryServiceImpl implements InquiryService {
 		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
 			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
 					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
-					.i_a_content(inquiry.getI_a_content()).build();
+					.i_a_content(inquiry.getI_a_content()).i_reg(inquiry.getI_reg()).build();
 
 			return inquiryDTO;
 		}).collect(Collectors.toList());
@@ -47,9 +48,11 @@ public class InquiryServiceImpl implements InquiryService {
 		return InquiryPageResponseDTO.<InquiryDTO>withAll().dtoList(dtoList).totalCount(totalCount)
 				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
 	}
-	
+
+	// 제목 검색
 	@Override
-	public InquiryPageResponseDTO<InquiryDTO> getSearchTitleList(InquiryPageRequestDTO inquiryPageRequestDTO, String searchTitle) {
+	public InquiryPageResponseDTO<InquiryDTO> getSearchTitleList(InquiryPageRequestDTO inquiryPageRequestDTO,
+			String searchTitle) {
 		log.info("getSearchTitleList..............");
 
 		Pageable pageable = PageRequest.of(inquiryPageRequestDTO.getPage() - 1, inquiryPageRequestDTO.getSize(),
@@ -60,7 +63,7 @@ public class InquiryServiceImpl implements InquiryService {
 		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
 			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
 					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
-					.i_a_content(inquiry.getI_a_content()).build();
+					.i_a_content(inquiry.getI_a_content()).i_reg(inquiry.getI_reg()).build();
 			return inquiryDTO;
 		}).collect(Collectors.toList());
 
@@ -69,8 +72,10 @@ public class InquiryServiceImpl implements InquiryService {
 				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
 	}
 
+	// 내용 검색
 	@Override
-	public InquiryPageResponseDTO<InquiryDTO> getSearchContentList(InquiryPageRequestDTO inquiryPageRequestDTO, String searchContent) {
+	public InquiryPageResponseDTO<InquiryDTO> getSearchContentList(InquiryPageRequestDTO inquiryPageRequestDTO,
+			String searchContent) {
 		log.info("getSearchContentList..............");
 
 		Pageable pageable = PageRequest.of(inquiryPageRequestDTO.getPage() - 1, inquiryPageRequestDTO.getSize(),
@@ -81,7 +86,7 @@ public class InquiryServiceImpl implements InquiryService {
 		List<InquiryDTO> dtoList = result.getContent().stream().map(inquiry -> {
 			InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
 					.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
-					.i_a_content(inquiry.getI_a_content()).build();
+					.i_a_content(inquiry.getI_a_content()).i_reg(inquiry.getI_reg()).build();
 			return inquiryDTO;
 		}).collect(Collectors.toList());
 
@@ -90,6 +95,7 @@ public class InquiryServiceImpl implements InquiryService {
 				.inquiryPageRequestDTO(inquiryPageRequestDTO).build();
 	}
 
+	// 등록
 	@Override
 	public Long register(InquiryDTO inquiryDTO) {
 		Inquiry inquiry = dtoToEntity(inquiryDTO);
@@ -97,10 +103,11 @@ public class InquiryServiceImpl implements InquiryService {
 		return result.getI_num();
 	}
 
+	// DesignerDTO 데이터 전송 객체를 Designer 엔티티 객체로 변환
 	private Inquiry dtoToEntity(InquiryDTO inquiryDTO) {
 		Inquiry inquiry = Inquiry.builder().i_num(inquiryDTO.getI_num()).m_num(inquiryDTO.getM_num())
 				.i_pw(inquiryDTO.getI_pw()).i_title(inquiryDTO.getI_title()).i_content(inquiryDTO.getI_content())
-				.i_a_content(inquiryDTO.getI_a_content()).build();
+				.i_a_content(inquiryDTO.getI_a_content()).i_reg(inquiryDTO.getI_reg()).build();
 
 		List<String> uploadFileNames = inquiryDTO.getI_uploadFileNames();
 		if (uploadFileNames == null) {
@@ -112,6 +119,7 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiry;
 	}
 
+	// 정보 불러오기
 	@Override
 	public InquiryDTO get(Long i_num) {
 		java.util.Optional<Inquiry> result = inquiryRepository.selectOne(i_num);
@@ -120,10 +128,11 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiryDTO;
 	}
 
+	// Designer 엔티티 객체를 DesignerDTO 데이터 전송 객체로 변환
 	private InquiryDTO entityToDTO(Inquiry inquiry) {
 		InquiryDTO inquiryDTO = InquiryDTO.builder().i_num(inquiry.getI_num()).m_num(inquiry.getM_num())
 				.i_pw(inquiry.getI_pw()).i_title(inquiry.getI_title()).i_content(inquiry.getI_content())
-				.i_a_content(inquiry.getI_a_content()).build();
+				.i_a_content(inquiry.getI_a_content()).i_reg(inquiry.getI_reg()).build();
 
 		List<InquiryImage> imageList = inquiry.getImageList();
 
@@ -135,6 +144,7 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiryDTO;
 	}
 
+	// 수정 하기
 	@Override
 	public void modify(InquiryDTO inquiryDTO) {
 
@@ -156,6 +166,7 @@ public class InquiryServiceImpl implements InquiryService {
 		inquiryRepository.save(inquiry);
 	}
 
+	// 상태 전환
 	@Override
 	public void remove(Long pno) {
 		inquiryRepository.updateToDelete(pno, true);

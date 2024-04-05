@@ -13,10 +13,15 @@ import lombok.*;
 @NoArgsConstructor
 public class AvailableTimeslotDTO {
 
-    private Long a_t_num;
-    private LocalDate a_t_date;
-    private ReserveTime time;
-    private boolean isAvailable;
-    private Designer d_num;
-    
+	// 예약시간 번호
+	private Long a_t_num;
+	// 예약시간 날짜
+	private LocalDate a_t_date;
+	// 예약 시간
+	private ReserveTime time;
+	// 예약 가능 확인
+	private boolean isAvailable;
+	// 디자이너 번호
+	private Designer d_num;
+
 }

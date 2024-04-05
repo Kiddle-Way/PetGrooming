@@ -20,86 +20,77 @@ import java.util.List;
 @RequestMapping("/api/statistics")
 public class StatisticsController {
 
-    private final ReserveService reserveService;
+	private final ReserveService reserveService;
 
-    // 전체 매출
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") //회원만 접근 가능
-    @GetMapping("/totalSales")
-    public ResponseEntity<Long> getTotalSales() {
-        Long totalSales = reserveService.getTotalPrice();
-        return ResponseEntity.ok(totalSales);
-    }
+	// 전체 매출
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
+	@GetMapping("/totalSales")
+	public ResponseEntity<Long> getTotalSales() {
+		Long totalSales = reserveService.getTotalPrice();
+		return ResponseEntity.ok(totalSales);
+	}
 
-    // 연도별 총매출
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/yearSales")
-    public ResponseEntity<List<Object[]>> getTotalPriceByAllYears() {
-        List<Object[]> totalPriceByAllYears = reserveService.getTotalPriceByAllYears();
-        return ResponseEntity.ok(totalPriceByAllYears);
-    }
+	// 연도별 총매출
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/yearSales")
+	public ResponseEntity<List<Object[]>> getTotalPriceByAllYears() {
+		List<Object[]> totalPriceByAllYears = reserveService.getTotalPriceByAllYears();
+		return ResponseEntity.ok(totalPriceByAllYears);
+	}
 
-    // 연도별 월매출
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/monthlySales")
-    public ResponseEntity<Long> getDailySales(
-            @RequestParam("year") int year,
-            @RequestParam("month") int month
-    ) {
-        // YearMonth 객체를 생성하여 해당 월의 매출을 가져옵니다.
-        YearMonth yearMonth = YearMonth.of(year, month);
-        Long dailySales = reserveService.getTotalPriceByMonth(year, month);
-        return ResponseEntity.ok(dailySales);
-    }
+	// 연도별 월매출
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/monthlySales")
+	public ResponseEntity<Long> getDailySales(@RequestParam("year") int year, @RequestParam("month") int month) {
+		// YearMonth 객체를 생성하여 해당 월의 매출을 가져옵니다.
+		YearMonth yearMonth = YearMonth.of(year, month);
+		Long dailySales = reserveService.getTotalPriceByMonth(year, month);
+		return ResponseEntity.ok(dailySales);
+	}
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    // 주간매출
-    @GetMapping("/weeklySales")
-    public ResponseEntity<Long> getWeeklySales(
-            @RequestParam("year") int year,
-            @RequestParam("week") int week
-    ) {
-        Long weeklySales = reserveService.getTotalPriceByWeek(year, week);
-        return ResponseEntity.ok(weeklySales);
-    }
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	// 주간매출
+	@GetMapping("/weeklySales")
+	public ResponseEntity<Long> getWeeklySales(@RequestParam("year") int year, @RequestParam("week") int week) {
+		Long weeklySales = reserveService.getTotalPriceByWeek(year, week);
+		return ResponseEntity.ok(weeklySales);
+	}
 
-    // 총 예약 건수
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/totalReserve")
-    public ResponseEntity<Long> getTotalReserve() {
-        Long totalReserve = reserveService.getTotalCount();
-        return ResponseEntity.ok(totalReserve);
-    }
+	// 총 예약 건수
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/totalReserve")
+	public ResponseEntity<Long> getTotalReserve() {
+		Long totalReserve = reserveService.getTotalCount();
+		return ResponseEntity.ok(totalReserve);
+	}
 
-    // 연도별 예약 건수
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/yearReserve")
-    public ResponseEntity<List<Object[]>> getTotalCountByAllYears() {
-        List<Object[]> totalCountByAllYears = reserveService.getTotalCountByAllYears();
-        return ResponseEntity.ok(totalCountByAllYears);
-    }
+	// 연도별 예약 건수
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/yearReserve")
+	public ResponseEntity<List<Object[]>> getTotalCountByAllYears() {
+		List<Object[]> totalCountByAllYears = reserveService.getTotalCountByAllYears();
+		return ResponseEntity.ok(totalCountByAllYears);
+	}
 
-    // 월별 예약 건수
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/monthlyReserve")
-    public ResponseEntity<Long> getMonthlyReserve(
-            @RequestParam("year") int year,
-            @RequestParam("month") int month
-    ) {
-        Long monthlyReserve = reserveService.getTotalCountByMonth(year, month);
-        return ResponseEntity.ok(monthlyReserve);
-    }
+	// 월별 예약 건수
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/monthlyReserve")
+	public ResponseEntity<Long> getMonthlyReserve(@RequestParam("year") int year, @RequestParam("month") int month) {
+		Long monthlyReserve = reserveService.getTotalCountByMonth(year, month);
+		return ResponseEntity.ok(monthlyReserve);
+	}
 
-    // 상품별 예약 건수
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/reserveProduct")
-    public List<Object[]> countReserveByProduct() {
-        return reserveService.countReserveByProduct();
-    }
+	// 상품별 예약 건수
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/reserveProduct")
+	public List<Object[]> countReserveByProduct() {
+		return reserveService.countReserveByProduct();
+	}
 
-    // 견종별 예약 건수
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("/reserveBreed")
-    public List<Object[]> countReserveByBreed() {
-        return reserveService.countReserveByBreed();
-    }
+	// 견종별 예약 건수
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping("/reserveBreed")
+	public List<Object[]> countReserveByBreed() {
+		return reserveService.countReserveByBreed();
+	}
 }

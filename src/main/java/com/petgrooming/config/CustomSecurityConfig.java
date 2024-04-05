@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//Spring Security 설정 클래스임을 나타냅니다.
 @Configuration
 @Log4j2
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class CustomSecurityConfig {
 			config.failureHandler(new APILoginFailHandler());
 		});
 
-		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); // JWT체크 추가
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		http.exceptionHandling(config -> {
 			config.accessDeniedHandler(new CustomAccessDeniedHandler());

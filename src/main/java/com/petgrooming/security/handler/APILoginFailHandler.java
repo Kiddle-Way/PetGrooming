@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 
+//API 로그인 실패 시 처리하는 핸들러 클래스입니다.
 @Log4j2
 public class APILoginFailHandler implements AuthenticationFailureHandler {
 	@Override

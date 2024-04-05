@@ -21,11 +21,13 @@ public class AvailableTimeslotController {
 
 	private final AvailableTimeslotService availableTimeslotService;
 
+	// 리스트를 불러옴
 	// ex)http://localhost:8080/api/availabletime/list?date=2024-03-19
 	@GetMapping("/list")
-	public List<AvailableTimeslotDTO> listAvailableTime(@RequestParam("date") String dateString, @RequestParam("d_num") Designer d_num) {
-	    LocalDate date = LocalDate.parse(dateString);
-	    return availableTimeslotService.listAvailableTime(date, d_num);
+	public List<AvailableTimeslotDTO> listAvailableTime(@RequestParam("date") String dateString,
+			@RequestParam("d_num") Designer d_num) {
+		LocalDate date = LocalDate.parse(dateString);
+		return availableTimeslotService.listAvailableTime(date, d_num);
 	}
 
 	// 타임슬롯을 예약 가능하게 만드는 엔드포인트
@@ -33,12 +35,11 @@ public class AvailableTimeslotController {
 	public void makeAvailable(@RequestParam("a_t_num") Long a_t_num) {
 		availableTimeslotService.makeAvailable(a_t_num);
 	}
-	
+
 	// 타임슬롯을 예약 불가능하게 만드는 엔드포인트
-	//ex)http://localhost:8080/api/availabletime/makeUnavailable?a_t_num=1080
+	// ex)http://localhost:8080/api/availabletime/makeUnavailable?a_t_num=1080
 	@GetMapping("/makeUnavailable")
 	public void makeUnavailable(@RequestParam("a_t_num") Long a_t_num) {
 		availableTimeslotService.makeUnavailable(a_t_num);
 	}
 }
-

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
-	//  예약 내역 전체리스트
+	// 예약 내역 전체리스트
 	@Query("select r from Reserve r")
 	Page<Reserve> allList(Pageable pageable);
 

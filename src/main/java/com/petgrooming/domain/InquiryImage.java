@@ -17,4 +17,3 @@ public class InquiryImage {
 		this.ord = ord;
 	}
 }
-

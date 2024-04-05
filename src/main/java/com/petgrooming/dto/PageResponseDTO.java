@@ -46,8 +46,8 @@ public class PageResponseDTO<E> {
 	}
 
 	// 빌더 패턴을 사용하여 객체를 생성하기 위한 builder 메서드 추가
-    public static <E> PageResponseDTOBuilder<E> builder() {
-        return new PageResponseDTOBuilder<>();
-    }
-	
+	public static <E> PageResponseDTOBuilder<E> builder() {
+		return new PageResponseDTOBuilder<>();
+	}
+
 }

@@ -12,8 +12,10 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
 
+//JWT 토큰을 생성하고 유효성을 검증하는 유틸리티 클래스입니다.
 @Log4j2
 public class JWTUtil {
+	// 임시로 사용하는 키 값입니다. 실제 프로젝트에서는 보안상 적절한 방식으로 키를 관리해야 합니다.
 	private static String key = "1234567890123456789012345678901234567890";
 
 	public static String generateToken(Map<String, Object> valueMap, int min) {
