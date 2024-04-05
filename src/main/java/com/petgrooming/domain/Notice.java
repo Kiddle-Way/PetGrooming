@@ -18,7 +18,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@SequenceGenerator(name = "NOTICE_SEQ_GEN", sequenceName = "NOTICE_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "notice_tbl")
 @Getter
 @ToString(exclude = "imageList")
