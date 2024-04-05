@@ -1,4 +1,6 @@
 import jwtAxios from "../util/jwtUtil";
+import axios from "axios"
+
 import { API_SERVER_HOST } from "./productApi";
 
 const host = `${API_SERVER_HOST}/api/designer`;
@@ -10,7 +12,7 @@ export const getOne = async (d_num) => {
 
 export const getList = async ({ page, size }) => {
   try {
-    const res = await jwtAxios.get(`${host}/list`, {
+    const res = await axios.get(`${host}/list`, {
       params: { page: page, size: size },
     });
     return res.data;

@@ -34,6 +34,7 @@ const ReadComponent = ({ i_num }) => {
     } else {
       // 답변이 작성되지 않은 경우에만 수정 가능
       moveToModify(i_num);
+      console.log(inquiry)
     }
   };
 

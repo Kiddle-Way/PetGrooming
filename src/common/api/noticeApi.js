@@ -1,17 +1,19 @@
 import jwtAxios from "../util/jwtUtil";
+import axios from "axios";
+
 export const API_SERVER_HOST = "http://localhost:8080";
 
 const prefix = `${API_SERVER_HOST}/api/notice`;
 
 export const getOne = async (n_num) => {
-  const res = await jwtAxios.get(`${prefix}/${n_num}`);
+  const res = await axios.get(`${prefix}/${n_num}`);
 
   return res.data;
 };
 
 export const getList = async (pageParam) => {
   const { page, size } = pageParam;
-  const res = await jwtAxios.get(`${prefix}/list`, {
+  const res = await axios.get(`${prefix}/list`, {
     params: { page: page, size: size },
   });
 
@@ -41,7 +43,7 @@ export const search = async (searchType, searchTerm, pageParam) => {
   try {
     const { page, size } = pageParam;
     const url = `${prefix}/list/search${searchType}/${searchTerm}`;
-    const res = await jwtAxios.get(url, {
+    const res = await axios.get(url, {
       params: { page: page, size: size },
     });
     return res.data;

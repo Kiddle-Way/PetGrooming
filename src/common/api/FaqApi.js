@@ -1,4 +1,5 @@
 import jwtAxios from "../util/jwtUtil";
+import axios from "axios";
 
 export const API_SERVER_HOST = "http://localhost:8080";
 
@@ -12,7 +13,7 @@ export const getOne = async (f_num) => {
 
 export const getList = async (pageParam) => {
   const { page, size } = pageParam;
-  const res = await jwtAxios.get(`${prefix}/list`, {
+  const res = await axios.get(`${prefix}/list`, {
     params: { page: page, size: size },
   });
 

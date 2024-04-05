@@ -18,6 +18,7 @@ const initState = {
 const host = API_SERVER_HOST;
 
 const ModifyComponent = ({ i_num }) => {
+  console.log(i_num);
   const [inquiry, setInquiry] = useState(initState);
   const [fetching, setFetching] = useState(false);
   const uploadRef = useRef();

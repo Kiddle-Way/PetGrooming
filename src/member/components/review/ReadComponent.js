@@ -34,6 +34,7 @@ const ReadComponent = ({ v_num }) => {
       // 답변이 작성된 경우에만 수정 가능
       alert("답변이 작성되어 수정할 수 없습니다.");
     } else {
+      console.log(review)
       // 답변이 작성되지 않은 경우에만 수정 가능
       moveToModify(v_num);
     }

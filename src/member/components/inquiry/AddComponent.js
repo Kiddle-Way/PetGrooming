@@ -66,7 +66,7 @@ const AddComponent = () => {
   };
 
   return (
-    <div className="border-2 bg-yellow-200 mt-10 m-2 p-4">
+    <div className="border-2  mt-10 m-2 p-4">
       {fetching ? <FetchingModal /> : <></>}
       {result ? (
         <ResultModal

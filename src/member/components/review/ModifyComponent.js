@@ -212,21 +212,21 @@ const ModifyComponent = ({ v_num }) => {
           className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
           onClick={handleClickDelete}
         >
-          Delete
+          삭제
         </button>
         <button
           type="button"
           className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-orange-500"
           onClick={handleClickModify}
         >
-          Modify
+          수정
         </button>
         <button
           type="button"
           className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
           onClick={moveToList}
         >
-          List
+          목록
         </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+
 import nextbutton from "../../image/next_button.png"
 import backbutton from "../../image/back_button.png"
 import lastbutton from "../../image/last_button.png"
@@ -12,7 +12,7 @@ const PageComponent = ({ serverData, movePage }) => {
           className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
           onClick={() => movePage({ page: serverData.goToFirstPage })}
         >
-           <img className="mr-6" src={firstbutton} width="50%" height="50%" alt="Hero" />
+           <img className="mr-6" src={firstbutton} width="50%" height="100%" alt="Hero" />
         </div>
       ) : null}
       {serverData.prev ? (
@@ -20,7 +20,7 @@ const PageComponent = ({ serverData, movePage }) => {
           className="m-2 p-2 w-8 flex text-center font-bold text-blue-400"
           onClick={() => movePage({ page: serverData.prevPage })}
         >
-           <img className="mr-6" src={backbutton} width="50%" height="50%" alt="Hero" />
+           <img className="mr-6" src={backbutton} width="50%" height="100%" alt="Hero" />
         </div>
       ) : null}
       {serverData.pageNumList.map((pageNum) => (
