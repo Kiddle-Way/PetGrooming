@@ -107,7 +107,7 @@ public class InquiryServiceImpl implements InquiryService {
 	private Inquiry dtoToEntity(InquiryDTO inquiryDTO) {
 		Inquiry inquiry = Inquiry.builder().i_num(inquiryDTO.getI_num()).m_num(inquiryDTO.getM_num())
 				.i_pw(inquiryDTO.getI_pw()).i_title(inquiryDTO.getI_title()).i_content(inquiryDTO.getI_content())
-				.i_a_content(inquiryDTO.getI_a_content()).i_reg(inquiryDTO.getI_reg()).build();
+				.i_a_content(inquiryDTO.getI_a_content()).build();
 
 		List<String> uploadFileNames = inquiryDTO.getI_uploadFileNames();
 		if (uploadFileNames == null) {

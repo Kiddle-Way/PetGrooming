@@ -135,6 +135,23 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 		if (path.startsWith("/api/availabletime")) {
 			return true;
 		}
+		
+		if (path.startsWith("/api/notice/list")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/faq/list")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/designer/list")) {
+			return true;
+		}
+		
+		if (path.startsWith("/api/notice/")) {
+			return true;
+		}
+		
 		return false;
 	}
 }

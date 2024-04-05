@@ -6,20 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.petgrooming.domain.Reserve;
-
-import java.util.Date;
 import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
 	// 예약 내역 전체리스트
-	@Query("select r from Reserve r")
+	@Query("select r from Reserve r where r.r_date >= current_date and r.r_delFlag = false")
 	Page<Reserve> allList(Pageable pageable);
 
 	// 지난 예약 내역 조회
-	@Query("SELECT r FROM Reserve r WHERE r.r_date < CURRENT_DATE")
+	@Query("SELECT r FROM Reserve r WHERE r.r_date < CURRENT_DATE or r.r_delFlag = true")
 	Page<Reserve> pastList(Pageable pageable);
 
 	// 취소요청 안한리스트
@@ -45,47 +42,48 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 	Page<Reserve> selectReserveByMemberNumber(@Param("m_num") Long m_num, Pageable pageable);
 
 	// 전체 매출
-	@Query("select sum(r.r_total_price) from Reserve r ")
+	@Query("select sum(r.r_total_price) from Reserve r where r.r_delFlag <> true")
 	Long getTotalPrice();
 
 	// 연도별 총매출
-	@Query("SELECT YEAR(r.r_date), SUM(r.r_total_price) FROM Reserve r GROUP BY YEAR(r.r_date)")
+	@Query("SELECT YEAR(r.r_date), SUM(r.r_total_price) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
 	List<Object[]> getTotalPriceByAllYears();
 
 	// 연도별 월매출
-	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month")
+	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
 	Long getTotalPriceByMonth(@Param("year") int year, @Param("month") int month);
 
 	// 주간매출
-	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND WEEK(r.r_date) = :week")
+	@Query("SELECT SUM(r.r_total_price) FROM Reserve r WHERE YEAR(r.r_date) = :year AND WEEK(r.r_date) = :week AND r.r_delFlag <> true")
 	Long getTotalPriceByWeek(@Param("year") int year, @Param("week") int week);
 
 	// 총 예약 건수
-	@Query("SELECT COUNT(r) FROM Reserve r ")
+	@Query("SELECT COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true")
 	Long getTotalCount();
 
 	// 연도별 예약 건수
-	@Query("SELECT YEAR(r.r_date), COUNT(*) FROM Reserve r GROUP BY YEAR(r.r_date)")
+	@Query("SELECT YEAR(r.r_date), COUNT(*) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY YEAR(r.r_date)")
 	List<Object[]> getTotalCountByAllYears();
 
 	// 월별 예약 건수
-	@Query("SELECT COUNT(r) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month")
+	@Query("SELECT COUNT(r) FROM Reserve r WHERE YEAR(r.r_date) = :year AND MONTH(r.r_date) = :month AND r.r_delFlag <> true")
 	Long getTotalCountByMonth(@Param("year") int year, @Param("month") int month);
 
 	// 상품별 예약 건수
 	@Query("SELECT " + "CASE " + "   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' "
 			+ "   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' "
-			+ "   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
+			+ "   WHEN r.allProduct LIKE '%목욕➕위생%' THEN '목욕➕위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
 			+ "   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " + "   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' "
-			+ "END AS product_category, " + "COUNT(r) AS reservation_count " + "FROM Reserve r " + "GROUP BY " + "CASE "
+			+ "END AS product_category, " + "COUNT(r) AS reservation_count " + "FROM Reserve r "
+			+ "WHERE r.r_delFlag <> true " + "GROUP BY " + "CASE "
 			+ "   WHEN r.allProduct LIKE '%목욕%' AND r.allProduct NOT LIKE '%위생%' THEN '목욕' "
 			+ "   WHEN r.allProduct LIKE '%위생%' AND r.allProduct NOT LIKE '%목욕%' THEN '위생' "
-			+ "   WHEN r.allProduct LIKE '%목욕+위생%' THEN '목욕+위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
+			+ "   WHEN r.allProduct LIKE '%목욕➕위생%' THEN '목욕➕위생' " + "   WHEN r.allProduct LIKE '%클리핑%' THEN '클리핑' "
 			+ "   WHEN r.allProduct LIKE '%스포팅%' THEN '스포팅' " + "   WHEN r.allProduct LIKE '%가위컷%' THEN '가위컷' " + "END "
 			+ "ORDER BY reservation_count DESC")
 	List<Object[]> countReserveByProduct();
 
 	// 견종별 예약 건수
-	@Query("SELECT r.r_breed, COUNT(r) FROM Reserve r GROUP BY r.r_breed")
+	@Query("SELECT r.r_breed, COUNT(r) FROM Reserve r WHERE r.r_delFlag <> true GROUP BY r.r_breed")
 	List<Object[]> countReserveByBreed();
 }

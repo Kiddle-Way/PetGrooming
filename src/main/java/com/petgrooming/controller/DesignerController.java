@@ -53,7 +53,6 @@ public class DesignerController {
 	}
 
 	// getlist
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<DesignerDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list........" + pageRequestDTO);

@@ -35,7 +35,6 @@ public class FaqController {
 	}
 
 	// 리스트 불러오기
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 회원만 접근 가능
 	@GetMapping("/list")
 	public PageResponseDTO<FaqDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info(pageRequestDTO);
