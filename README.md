@@ -43,8 +43,7 @@
 
 ## 💡주요 기능
 ### [사용자] 예약 및 결제
-![예약 및 결제](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/8dbb1b50-4b6c-43f5-93fa-ee2774578156)
-
+![예약하기](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/d95824b8-416e-4d4a-8b67-ef0133187a0b)
 * 디자이너 선택 -> 예약 정보 입력 -> 날짜 및 시간, 상품과 무게 선택 -> 결제 -> 예약 완료
 * 토스페이먼츠 API를 사용한 결제 기능
 <br>
