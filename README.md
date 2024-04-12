@@ -44,15 +44,24 @@
 ## 💡주요 기능
 ### [사용자] 예약 및 결제
 ![예약 및 결제](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/8dbb1b50-4b6c-43f5-93fa-ee2774578156)
->* 디자이너 선택 -> 예약 정보 입력 -> 날짜 및 시간, 상품과 무게 선택 -> 결제 -> 예약 완료
->* 토스페이먼츠 API를 사용한 결제 기능
+
+* 디자이너 선택 -> 예약 정보 입력 -> 날짜 및 시간, 상품과 무게 선택 -> 결제 -> 예약 완료
+* 토스페이먼츠 API를 사용한 결제 기능
+<br>
 
 ### [사용자] 리뷰 작성 및 조회
 ![리뷰](https://github.com/Kiddle-Way/PetGrooming-Frontend/assets/153166162/ed0e61c8-70b0-42b2-b8e9-29ce19f64854)
->* 리뷰 작성 시 별점 및 사진 첨부, 비밀번호 설정 가능
->* 리뷰 수정 삭제 가능
+
+* 리뷰 작성 시 별점 및 사진 첨부, 비밀번호 설정 가능
+* 리뷰 수정 삭제 가능
+<br>
 
 ### [사용자] 마이페이지
 ![내 정보 수정](https://github.com/Kiddle-Way/PetGrooming-Frontend/assets/153166162/ea31afe3-3075-470a-852c-9599c45844ab)
->* 정보 수정 가능
->* 예약 내역 조회 및 예약 취소 가능
+![예약취소](https://github.com/Kiddle-Way/PetGrooming-Frontend/assets/153166162/2ee2a65a-11f5-4236-80c2-eda746bb63c6)
+
+* 정보 수정 가능
+* 예약 내역 조회 및 예약 취소 가능
+<br>
+
+  
