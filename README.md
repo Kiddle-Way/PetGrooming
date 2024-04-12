@@ -2,6 +2,7 @@
 <div align=center>
   <img src="PetGrooming-Frontend/src/image/logo12.jpg" />
 </div>
+
 ---
 <br>
 
@@ -16,5 +17,23 @@
 >* 일관적이며 직관적인 UI를 통해 사용자와 관리자에게 쉡고 빠른 서비스를 제공
 
  ### Develope
->* 👉[Front-end](https://github.com/Kiddle-Way/PetGrooming/tree/main/PetGrooming-Frontend)<br>
->* 👉[Back-end](https://github.com/Kiddle-Way/PetGrooming/tree/main/PetGrooming-Backend)
+> 👉 [Front-end](https://github.com/Kiddle-Way/PetGrooming/tree/main/PetGrooming-Frontend)<br>
+> 👉 [Back-end](https://github.com/Kiddle-Way/PetGrooming/tree/main/PetGrooming-Backend)
+> 
+> 📆 개발 기간<br>
+> 2024-02-20 ~ 2024-04-10
+<br>
+
+## 팀원
+> 팀장 : 김호중<br>
+> 팀원 : 김선명, 김성진, 이경원, 황지은
+<br>
+
+## ERD
+![그림1](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/b3b7398f-8831-42c4-b266-ea87dc5f5da2)
+
+## 💡주요 기능
+### 예약 및 결제
+![예약 및 결제](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/8dbb1b50-4b6c-43f5-93fa-ee2774578156)
+>* 디자이너 선택 -> 예약 정보 입력 -> 날짜 및 시간, 상품과 무게 선택 -> 결제 -> 예약 완료
+>* 토스페이먼츠 API를 사용한 결제 기능
