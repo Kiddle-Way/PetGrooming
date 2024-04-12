@@ -98,3 +98,46 @@
 ![통꼐](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/8ce7e35a-3ef8-4a0e-9255-a3cae9fd94c9)
 * 매출, 예약 건수, 상품별 예약 비율, 견종별 예약 비율 조회 가능
 <br>
+
+### 📂형상 관리
+<table>
+  <tr>
+    <th>
+    <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+    </th>
+  </tr>
+  <tr>
+    <td align="center">
+    프로젝트 일정관리, 문서관리, 미팅 로그, 등 프로젝트에 필요한 전반적인 사항 기록  
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div align="center">
+    <img src="https://github.com/Kiddle-Way/PetGrooming/assets/153166162/e0a58eb7-0b99-4fa9-8650-aca76905bfb4" />
+    <img src="https://github.com/Kiddle-Way/PetGrooming/assets/153166162/f2c3da8e-452d-45b1-8cf2-f1e0ffdb8c23" />
+    </td>
+      </div>
+  </tr>
+</table>
+
+<table>
+  <tr>
+     <th>
+    <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+    </th>
+  </tr>
+  <tr>
+    <td align="center">
+    백엔드와 프론트엔드 레파지토리를 개별적으로 만들고 기능 구현 시 병합하여 관리
+    </td>
+  </tr>
+  <tr>
+     <td>
+       <div align="center">
+    <img  src="https://github.com/Kiddle-Way/PetGrooming/assets/153166162/0573a47a-4d63-4498-a321-070c82c5f41c" />
+    <img  src="https://github.com/Kiddle-Way/PetGrooming/assets/153166162/63ede82a-b049-42a7-8129-90d821437f6a" />
+       </div>
+    </td>
+  </tr>
+</table>
