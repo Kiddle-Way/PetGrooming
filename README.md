@@ -33,13 +33,15 @@
 ![그림1](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/b3b7398f-8831-42c4-b266-ea87dc5f5da2)
 <br>
 
-## 💡주요 기능
+## ⚙기술 스택
 ### Backend
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/JPA-83B81A?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white">
 
+### Frontend
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/tailwind css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/daisy ui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white">
+<br>
 
-
-
+## 💡주요 기능
 ### 예약 및 결제
 ![예약 및 결제](https://github.com/Kiddle-Way/PetGrooming/assets/153166162/8dbb1b50-4b6c-43f5-93fa-ee2774578156)
 >* 디자이너 선택 -> 예약 정보 입력 -> 날짜 및 시간, 상품과 무게 선택 -> 결제 -> 예약 완료
