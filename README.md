@@ -26,7 +26,7 @@
 
 ## 👨‍👨‍👦‍👦팀원
 > 팀장 : <a href="">김호중</a><br>
-> 팀원 : <a href="https://github.com/ssunmyung97">김선명</a>, <a href="https://github.com/stars8781">김성진</a>, <a href="https://github.com/sunshine149">이경원</a>, 황지은
+> 팀원 : <a href="https://github.com/ssunmyung97">김선명</a>, <a href="https://github.com/stars8781">김성진</a>, <a href="https://github.com/sunshine149">이경원</a>, <a href="https://github.com/xodzh234">황지은</a>
 <br>
 
 ## 📝ERD
